@@ -1,0 +1,22 @@
+{
+    "name": "@adventure-game/root",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": "20"
+    },
+    "workspaces": [
+        "src/*"
+    ],
+    "scripts": {
+        "typedoc": "npx typedoc"
+    },
+    "dependencies": {
+        "@hboictcloud/eslint-plugin": "^2.x",
+        "@hboictcloud/eslint-plugin-adventure-game": "^1.x",
+        "@types/node": "^20.x",
+        "eslint": "9.19.0",
+        "typescript": "5.7.3",
+        "typedoc": "0.27.6"
+    }
+}

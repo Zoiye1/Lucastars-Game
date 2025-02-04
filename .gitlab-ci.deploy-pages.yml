@@ -1,0 +1,18 @@
+# NOTE: This job has to be called "pages" to be able to deploy to Gitlab Pages!
+pages:
+    stage: deploy
+    when: always
+    tags:
+        - hva
+    # Make sure older jobs are finished/canceled first
+    resource_group: deploy-pages
+    script:
+        - mv ./dist/docs/ public
+    artifacts:
+        paths:
+            - public
+    rules:
+        # Auto-deploy GitLab Pages if the default branch is used
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $DEPLOY_PAGES == "true"
+        # Otherwise allow manual deployment
+        - when: manual
