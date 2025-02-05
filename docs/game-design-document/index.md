@@ -1,9 +1,9 @@
 ---
 title: Game Design Document
 children:
-    - elevator-pitch.md
-    - storyline.md
-    - gameplay.md
+    - elevator-pitch.md ✅
+    - storyline.md ✅
+    - gameplay.md ✅
     - game-objects/index.md
     - game-flow.md
     - ui.md

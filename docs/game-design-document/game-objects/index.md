@@ -7,3 +7,4 @@ children:
 ---
 # Game objects
 **TODO:** Beschrijf in de pagina's onder deze sectie welke *game objects* er allemaal in het spel voorkomen.
+ 
