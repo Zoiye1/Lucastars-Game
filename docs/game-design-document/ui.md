@@ -4,6 +4,8 @@ title: UI
 # UI
 **TODO:** Beschrijf hier welke toon het spel moet zetten qua visuele style, of er eventueel geluidseffecten nodig zijn of dat er specifieke UI elementen ontwikkeld moeten worden. Toon deze onderdelen duidelijk in éém of meerdere wireframes, bijvoorbeeld in [Figma](https://www.figma.com/).
 
+![ui](/docs/game-design-document/game-objects/img/Uiexample.png)
+
 ## gameplay screen
 Op het scherm worden afbeeldingen in pixelstijl weergegeven.
 Hier kan de speler een afbeelding van de wereld zien, items bekijken, menu's gebruiken en het personage zien.
