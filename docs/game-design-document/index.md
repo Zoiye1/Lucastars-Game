@@ -5,7 +5,7 @@ children:
     - storyline.md ✅
     - gameplay.md ✅
     - game-objects/index.md ✅
-    - game-flow.md
+    - game-flow.md 
     - ui.md
 ---
 # Game Design Document
