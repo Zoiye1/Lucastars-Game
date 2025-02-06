@@ -4,7 +4,7 @@ children:
     - elevator-pitch.md ✅
     - storyline.md ✅
     - gameplay.md ✅
-    - game-objects/index.md
+    - game-objects/index.md ✅
     - game-flow.md
     - ui.md
 ---
