@@ -12,6 +12,6 @@ title: Characters
 
 4. Lab: Doctor > no object
 
-5. Courtyard: Dealer > steroids > to give to the Gymfreak
+5. Toilet: Dealer > steroids > to give to the Gymfreak
 
-6. Stranger room: Patient > key > open the closet to get extra pair of clothes
+6. Stranger room: Patient > key > open the closet to get extra pair of clothes and sheets.
