@@ -4,12 +4,16 @@ title: UI
 # UI
 **TODO:** Beschrijf hier welke toon het spel moet zetten qua visuele style, of er eventueel geluidseffecten nodig zijn of dat er specifieke UI elementen ontwikkeld moeten worden. Toon deze onderdelen duidelijk in éém of meerdere wireframes, bijvoorbeeld in [Figma](https://www.figma.com/).
 
+Hier is een schets van hoe de game er uit kan zien:
 ![ui](/docs/game-design-document/game-objects/img/Uiexample.png)
 
 ## gameplay screen
 Op het scherm worden afbeeldingen in pixelstijl weergegeven.
 Hier kan de speler een afbeelding van de wereld zien, items bekijken, menu's gebruiken en het personage zien.
 Ook worden er iconen weergegeven, zoals het inventory-icoon, het map-icoon en de navigatiepijlen.
+
+Hier is een voorbeeld van hoe het inventory ui er uit kan zien
+![uiInv](/docs/game-design-document/game-objects/img/inventoryuiExample.png)
 
 ## navigeren 
 Op het scherm, waar de speler een afbeelding van de wereld kan zien, staan rode pijlen. Als de speler hier overheen hovert, verschijnt de naam van de locatie waar de pijl naartoe wijst. Als de speler op een rode pijl klikt, wordt hij naar een andere kamer gebracht.
