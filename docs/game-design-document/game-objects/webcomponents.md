@@ -1,5 +1,5 @@
 ### Webcompnents 
-- inventory
+- inventory 
 - map
 - save systeem 
 - settings
