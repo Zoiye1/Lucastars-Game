@@ -16,6 +16,15 @@ title: Game flow
 ## Gym
 ![gymflow](/docs/game-design-document/game-objects/img/Gymflow.png)
 
+## Stranger Room
+
+![strangerroomflow](/docs/game-design-document/game-objects/img/Strange-room.png)
+
+## Toilet
+
+![toiletflow](/docs/game-design-document/game-objects/img/Toilet.png)
+
+
 
 \* Aangeraden omdat het goed overweg kan met (zeer) grote diagrammen. Plaats zowel de code als de geëxporteerde SVG's op deze pagina.
 ```mermaid

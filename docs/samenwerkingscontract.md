@@ -85,6 +85,13 @@ Uiterlijk bij de eerste expert review schrijf en optimaliseer ik foutloze code d
 
 Uiterlijk bij de eerste voortgangsgesprek ontwikkel ik mijn soft skills door proactief documentatie bij te houden en grote features vooraf te laten testen met een demo. Hierdoor verbeter ik mijn communicatie met wat mijn users.
 
+
+Batuhan
+
+Ik wil meer focus leggen op wat de issue zelf wilt ipv extra dingen toevoegen die niet nodig zijn. Ik wil ook meer gaan focussen op de code zelf en niet te veel tijd verspillen aan het zoeken naar de juiste code. 
+
+
+
 ## Handtekeningen
 
 | Naam    | Handtekening |
