@@ -6,6 +6,7 @@ title: Game flow
 
 ![kitchenflow](/docs/game-design-document/game-objects/img/Kitchenflow.png)
 ![storageflow](/docs/game-design-document/game-objects/img/Storageflow.png)
+![roomflow](image.png)
 
 \* Aangeraden omdat het goed overweg kan met (zeer) grote diagrammen. Plaats zowel de code als de geëxporteerde SVG's op deze pagina.
 ```mermaid
