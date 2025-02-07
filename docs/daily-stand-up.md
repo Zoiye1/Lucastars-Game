@@ -7,7 +7,7 @@
      - Gewerkt aan de UI verbindingen met de kamers.
      
   - #### Wat ga je vandaag doen?
-    - De game-flow. Werken aan de powerpoint voor presentatie van aankomende week. Daarnaast zit ik aan de moodboard voor de game aan het werken. Pixel art werken.
+    - De game-flow. Werken aan de powerpoint voor presentatie van aankomende week. Daarnaast zit ik aan de moodboard voor de game aan het werken. Pixel art werken. Update aan de samenwerkingscontract.
 
   - #### Zijn er problemen waar tegen aanloopt?
     - Moeilijk overzicht aan wat er af moet zijn voor aankomende dinsdag.
@@ -49,10 +49,11 @@
 - Zoiye
 
     - #### Wat heb je gisteren gedaan?
-        
+        Samenwerkingscontract
     
     - #### Wat ga je vandaag doen?
-        
+        ik zal verhaallijn en alles dat de oude versie nog heeft nog aanpassen,
+        zo is beter en makkelijker
     
     - #### Zijn er problemen waar tegen aanloopt?
-        - 
+        - Nee
