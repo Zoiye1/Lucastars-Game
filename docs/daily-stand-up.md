@@ -49,11 +49,13 @@
 - Zoiye
 
     - #### Wat heb je gisteren gedaan?
-        Samenwerkingscontract
+       -  samenwerkingscontract opgesteld
+        meegewerkt aan de storyline compleet maken en items bedenken
     
     - #### Wat ga je vandaag doen?
-        ik zal verhaallijn en alles dat de oude versie nog heeft nog aanpassen,
-        zo is beter en makkelijker
+       - alle rooms references maken zodat deze later in pixelart worden gezet
+        alles compleet maken en nachecken
+        voorbereiden op de pitch
     
     - #### Zijn er problemen waar tegen aanloopt?
-        - Nee
+        - nee tot nu toe gaat alles goed
