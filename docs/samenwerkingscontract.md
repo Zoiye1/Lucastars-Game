@@ -69,17 +69,28 @@ Mogelijke conflicten en oplossingen:
 - **Communicatie en bereikbaarheid:**  
   - Verwachtingen over reactietijd vaststellen.  
   - Als iemand langere tijd niet bereikbaar is, moet dit vooraf worden aangegeven.
+  - Als iemand niet naar de les kan komen moeten ze dit aan het team laten weten.
 - **Waarschuwingen en gevolgen:**  
-  - 1e waarschuwing: gesprek met teamleden.  
-  - 2e waarschuwing: melding aan projectleider/docent.  
-  - 3e waarschuwing: verdere escalatie volgens onderwijsinstellingsbeleid.
+  - 1e waarschuwing: melding aan projectleider/docent.
+  - 2e waarschuwing: verdere escalatie volgens onderwijsinstellingsbeleid.
+- **Waneer krijg je een waarschuwing?**
+  - Als iemand hun obligaties niet nakomen.
+  - Dingen niet communiseren (zoals iets niet afmaken voor de inlever datum)
+  
+## leerdoelen
+
+Milan
+
+Uiterlijk bij de eerste expert review schrijf en optimaliseer ik foutloze code door systematisch errors te voorkomen en af te handelen. Ik test mijn code vooraf met diverse user inputs voordat ik deze commit, zodat mijn code robuust en betrouwbaar is en gebruik try catch om onverwachte inputs te behandelen.
+
+Uiterlijk bij de eerste voortgangsgesprek ontwikkel ik mijn soft skills door proactief documentatie bij te houden en grote features vooraf te laten testen met een demo. Hierdoor verbeter ik mijn communicatie met wat mijn users.
 
 ## Handtekeningen
 
 | Naam    | Handtekening |
 |---------|-------------|
 | Farmaan |             |
-| Milan   |             |
+| Milan   | milan |
 | Batuhan |             |
 | Mustafa |             |
 | Zoiye   |             |
