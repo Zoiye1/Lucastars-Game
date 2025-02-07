@@ -12,9 +12,6 @@ Op het scherm worden afbeeldingen in pixelstijl weergegeven.
 Hier kan de speler een afbeelding van de wereld zien, items bekijken, menu's gebruiken en het personage zien.
 Ook worden er iconen weergegeven, zoals het inventory-icoon, het map-icoon en de navigatiepijlen.
 
-Hier is een voorbeeld van hoe het inventory ui er uit kan zien
-![uiInv](/docs/game-design-document/game-objects/img/inventoryuiExample.png)
-
 ## navigeren 
 Op het scherm, waar de speler een afbeelding van de wereld kan zien, staan rode pijlen. Als de speler hier overheen hovert, verschijnt de naam van de locatie waar de pijl naartoe wijst. Als de speler op een rode pijl klikt, wordt hij naar een andere kamer gebracht.
 Ook is er linksboven een icoon met een afbeelding van een kaart. Wanneer de speler hierop klikt, opent de map van de game met alle kamers. Als de speler al in een kamer is geweest, kan hij via de kaart direct naar deze kamer navigeren.
@@ -35,6 +32,9 @@ Talk to:
 De speler kan met een NPC praten.
 
 Als een speler op een van de knoppen drukt, opent een menu waarin gerelateerde items worden weergegeven. Bijvoorbeeld, bij de Talk to-actie ziet de speler alle beschikbare NPC’s.
+
+Hier is een voorbeeld van hoe de user kan interacteren met items
+![uiUse](/docs/game-design-document/game-objects/img/inventoryuiExample.png)
 
 ## Text Box
 Onderaan het scherm bevindt zich de tekstbox. Hier wordt de wereld in tekst beschreven.
