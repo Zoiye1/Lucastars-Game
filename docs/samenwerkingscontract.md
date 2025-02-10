@@ -97,6 +97,11 @@ Ik kan user stories vooraf plannen door voor elke user story een concreet plan v
 
 Ik kan elke week consistent een gestructureerd log bijhouden door een vaste structuur te volgen met secties voor behaalde doelen, uitdagingen, verbeterpunten en reflecties. Ik vul dit log wekelijks vóór zondagavond in, zodat ik mijn voortgang overzichtelijk bijhoud en bewuster werk aan mijn ontwikkeling.
 
+Mustafa 
+
+Tegen de voortgangsevalutatie wil ik beter begrijpen wat mijn code doet door actief debugging en documentatie toe te passen, zodat ik deze duidelijk en correct kan uitleggen.
+
+
 ## Handtekeningen
 
 | Naam    | Handtekening |
