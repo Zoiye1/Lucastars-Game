@@ -28,8 +28,13 @@ title: Items
 
 12. Ladder > to escape via courtyard > 10 sticks + glue
 
+14. Mop > to help cleaner clean the cafeteria > enter kitchen
 
+15. Bleach > to help cleaner clean the cafeteria > enter kitchen
 
+16. Water Bucket > top help cleaner clean the cafeteria > enter kitchen
+
+17. Gym Pass > to enter Gym 
 
 
 
