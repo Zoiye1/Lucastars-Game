@@ -4,29 +4,8 @@ title: Game flow
 # Game flow
 **TODO:** Beschrijf hier hoe alle *game objects* uiteindelijk leiden tot het uitspelen van het spel, of naar meerdere eindes. Doe dit middels een of meerdere [*Puzzle Dependency Chart*](https://grumpygamer.com/puzzle_dependency_charts/). Hiervoor kan de tool [Puzzlon](https://adventuron.io/puzzlon/) gebruikt worden (aangeraden*), maar het kan ook met een [Mermaid flowchart diagram](https://mermaid.js.org/syntax/flowchart.html). Maak daarnaast middels een Mermaid flowchart diagram een duidelijke kaart van hoe de verschillende *rooms* met elkaar verbonden zijn.
 
-## Kitchen
-![kitchenflow](/docs/game-design-document/game-objects/img/Kitchenflow.png)
+## Overzichtskaart 
 
-## Storage
-![storageflow](/docs/game-design-document/game-objects/img/Storageflow.png)
-
-## Roof
-![roofflow](/docs/game-design-document/game-objects/img/Roofflow.png)
-
-## Gym
-![gymflow](/docs/game-design-document/game-objects/img/Gymflow.png)
-
-## Stranger Room
-
-![strangerroomflow](/docs/game-design-document/game-objects/img/Strange-room.png)
-
-## Toilet
-
-![toiletflow](/docs/game-design-document/game-objects/img/Toilet.png)
-
-
-
-\* Aangeraden omdat het goed overweg kan met (zeer) grote diagrammen. Plaats zowel de code als de geëxporteerde SVG's op deze pagina.
 ```mermaid
 flowchart TD
     StartRoom --> Ventilatie
@@ -44,6 +23,42 @@ flowchart TD
     Kitchen --> Storage
     Storage --> Lab
 ```
+## Rooms Flowcharts
+
+### Startroom
+
+![startroomflow](/docs/game-design-document/game-objects/img/flow/StartRoomFlow.png)
+
+### Roof
+![roofflow](/docs/game-design-document/game-objects/img/flow/RoofFlow.png)
+
+### Toilet
+
+![toiletflow](/docs/game-design-document/game-objects/img/flow/ToiletFlow.png)
+
+### Stranger Room
+
+![strangerroomflow](/docs/game-design-document/game-objects/img/flow/StrangerRoomFlow.png)
+
+### Cafeteria
+
+![cafeteriaflow](/docs/game-design-document/game-objects/img/flow/CafeteriaFlow.png)
+
+### Kitchen
+![kitchenflow](/docs/game-design-document/game-objects/img/flow/KitchenFlow.png)
+
+### Gym
+![gymflow](/docs/game-design-document/game-objects/img/flow/GymFlow.png)
+
+### Storage
+![storageflow](/docs/game-design-document/game-objects/img/flow/StorageFlow.png)
+
+### Courtyard
+
+![courtyardflow](/docs/game-design-document/game-objects/img/flow/CourtyardFlow.png)
+
+\* Aangeraden omdat het goed overweg kan met (zeer) grote diagrammen. Plaats zowel de code als de geëxporteerde SVG's op deze pagina.
+
 1. In de start kamer heb je 2 objecten die je kan vinden: Vork en paiting.
 Painting > maak je de raam kapot en kom je bij de (2 Hallway).
 Vork > Hiermee maak je ventalie open en kruip je er doorheen (3 Ventalatie)
@@ -59,7 +74,7 @@ Rechts hier kom je bij de ( 4 Roof).
 
 5. Stranger room > hier tref je een patient aan. De patient heeft een sleutel waarmee je de kast kan openen waar extra pair of clothes and sheets in zitten. > hiermee kan je dus de parachute maken om te escape bij de ( 4. Roof)
 
-6. Cafeteria > hier kom je als je de trap op gaat > hier tref je een NPC aan de cleaner > ....
+6. Cafeteria > hier kom je als je de trap op gaat > hier tref je een NPC aan de cleaner > Je kan hier de cleaner NPC helpen door schoon te maken met wat benodigde items (mop, bleach, water bucket), als dit is gelukt kun je naar de kitchen gaan. Je kan ook een gym pass krijgen van de cleaner om naar de gym te gaan of hem vragen om de courtyard te openen
 
 7. Toilet > In de toilet vind je een NPC de dealer > ook zit hier een storage card waarmee je de ( 8 storage) in kan gaan. De dealer heeft ook steiroads als je hem de poedersuiker geeft ( gevonden worden in de 9 KITCHEN).
 
