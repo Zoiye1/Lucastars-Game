@@ -91,6 +91,11 @@ Batuhan
 Ik wil meer focus leggen op wat de issue zelf wilt ipv extra dingen toevoegen die niet nodig zijn. Ik wil ook meer gaan focussen op de code zelf en niet te veel tijd verspillen aan het zoeken naar de juiste code. 
 
 
+Farmaan
+
+Ik kan user stories vooraf plannen door voor elke user story een concreet plan van aanpak te maken. Dit houdt in identificeren van de benodigde taken, het inschatten van de benodigde tijd en het inplannen van de uitvoering in mijn agenda. Elke week plan ik minimaal een user story op deze manier. Daarnaast reflecteer ik aan het einde van de week op mijn voortgang door mijn aanpak te evalueren en feedback te vragen aan mijn medestudenten. Hierdoor verbeter ik mijn planningsvaardigheden.
+
+Ik kan elke week consistent een gestructureerd log bijhouden door een vaste structuur te volgen met secties voor behaalde doelen, uitdagingen, verbeterpunten en reflecties. Ik vul dit log wekelijks vóór zondagavond in, zodat ik mijn voortgang overzichtelijk bijhoud en bewuster werk aan mijn ontwikkeling.
 
 ## Handtekeningen
 
