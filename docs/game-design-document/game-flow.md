@@ -57,6 +57,10 @@ flowchart TD
 
 ![courtyardflow](/docs/game-design-document/game-objects/img/flow/CourtyardFlow.png)
 
+### Flow for the endings
+
+![allendingsflow](/docs/game-design-document/game-objects/img/flow/flowAllEndings.png)
+
 \* Aangeraden omdat het goed overweg kan met (zeer) grote diagrammen. Plaats zowel de code als de geëxporteerde SVG's op deze pagina.
 
 ## **1. Start Room**
