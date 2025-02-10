@@ -59,31 +59,150 @@ flowchart TD
 
 \* Aangeraden omdat het goed overweg kan met (zeer) grote diagrammen. Plaats zowel de code als de geëxporteerde SVG's op deze pagina.
 
-1. In de start kamer heb je 2 objecten die je kan vinden: Vork en paiting.
-Painting > maak je de raam kapot en kom je bij de (2 Hallway).
-Vork > Hiermee maak je ventalie open en kruip je er doorheen (3 Ventalatie)
+## **1. Start Room**
+### Objects:
+- **Fork** → Opens the **ventilation**, leading to **(3. Ventilation)**.
+- **Painting** → Breaks the **window**, leading to **(2. Hallway)**.
 
-2. Hallway > Hier kan je naar 3 verschillende kamers gaan: (5 Stranger room) (6 Cafeteria) (7 Toilet)
+---
 
-3. Ventaltie > Hier heb je de keuze om naar links of rechts te gaan
-Links > je bent dood ( einde spel).
-Rechts hier kom je bij de ( 4 Roof).
+## **2. Hallway**
+- Leads to three different rooms:
+  - **(5. Stranger Room)**
+  - **(6. Cafeteria)**
+  - **(7. Toilet)**
 
-4. Roof > hier tref je een parachute aan die je moet maken van de sheets en rope. > Hiermee ontsnap je ( einde spel).
-        > hier tref je ook 10 takken die je later kan gebruiken om te snappen via (10  Courtyard)
+---
 
-5. Stranger room > hier tref je een patient aan. De patient heeft een sleutel waarmee je de kast kan openen waar extra pair of clothes and sheets in zitten. > hiermee kan je dus de parachute maken om te escape bij de ( 4. Roof)
+## **3. Ventilation**
+- **Left** → Leads to **death** (Game Over).
+- **Right** → Leads to **(4. Roof)**.
 
-6. Cafeteria > hier kom je als je de trap op gaat > hier tref je een NPC aan de cleaner > Je kan hier de cleaner NPC helpen door schoon te maken met wat benodigde items (mop, bleach, water bucket), als dit is gelukt kun je naar de kitchen gaan. Je kan ook een gym pass krijgen van de cleaner om naar de gym te gaan of hem vragen om de courtyard te openen
+---
 
-7. Toilet > In de toilet vind je een NPC de dealer > ook zit hier een storage card waarmee je de ( 8 storage) in kan gaan. De dealer heeft ook steiroads als je hem de poedersuiker geeft ( gevonden worden in de 9 KITCHEN).
+## **4. Roof**
+### Escape Methods:
+1. **Parachute Escape**
+   - **Requires:**
+     - **Sheets** (from **5. Stranger Room**)
+     - **Rope** (from **10. Courtyard**)
+   - **Use parachute** to escape → **Game Completed**.
 
-8. Storage > hier vind je superglue om de ladder te kunne maken om te ontstnsppen bij de ( 10 courtyard ) 
+### **Item:**
+- **hammer** (used for crafting a ladder).
+- **4 sticks** (used for crafting a ladder).
 
-9. Kitchen > Hier tref je de NPC aan de chef > ook kan je een kitchen knife vinden en deze kan gebruik worden als een wapen. > ook kan je poedersuiker vinden om deze om te ruilen voor steirods bij ( 7 Toilet).
+---
 
-10. Courtyard > hier vind je de ropes waarmee parachute kan maken om te ontsappen bij de ( 4 roof).
-              > Als je de 10 takken van de ( 4 Roof) en de superglue van ( 8 Storage) kan je een ladder maken en hier ontstappen (einde spel )
-11. Gym > Hier kan je een NPC vinden de GymFreak > hem kan je steiroids geven en hij zal een muur voor je kapot slaan om naar de storage te gaan.
+## **5. Stranger Room**
+### Items:
+- **Key** (inside a drawer) → Used to open a **cabinet**.
+- **Cabinet contains:**
+  - **Clothes** (needed to enter certain areas).
+  - **Sheets** (needed for parachute crafting).
 
-12. Lab > Hier tref je de dokter aan > ...
+---
+
+## **6. Cafeteria**
+### **NPC: Cleaner**
+- **Needs:** A **bucket filled with water** (found in **7. Toilet**).
+- **Reward:**
+  - Moves aside, allowing access to **(9. Kitchen)**.
+  - Gives a **10-euro bill** (used for trade in **7. Toilet**).
+
+### **Item:**
+- **Focus Drink** (used for crafting in **Room 12: Lab**).
+
+---
+
+## **7. Toilet**
+### **NPC: Dealer**
+- **Trade Options:**
+  - **Give him Powdered Sugar** (from **9. Kitchen**) → **Get Steroids**.
+  - **Give him 10-euro bill** (from **6. Cafeteria**) → **Get Cigarettes**.
+
+### **Items:**
+- **Air Freshener** (used for crafting a bomb).
+
+### **Bomb Escape:**
+- **Crafting:**
+  - **Air Freshener + Lighter** (from **10. Courtyard**) = **Bomb**.
+  - **Use Bomb to destroy the wall and escape.**
+
+---
+
+## **8. Storage**
+### **Items:**
+- **Lab Clothes** → Inside a **locked cabinet** (requires **Kitchen Knife** from **9. Kitchen** to open).
+- **Wire Cutter** → Inside a **sealed box** (requires **Kitchen Knife** to open).
+
+---
+
+## **9. Kitchen**
+### **NPC: Chef**
+- **How to get the Storage Key:**
+  - **Option 1:** Give him a **Fork** (from **Start Room**).
+  - **Option 2:** **Threaten him with the Kitchen Knife**.
+- **Outcome:** Either way, you get the **Storage Key** to access **8. Storage**.
+
+### **Items:**
+- **Kitchen Knife** (used for multiple tasks in **Storage**).
+- **Baking Soda** (found on the **kitchen table**, needed for **Acid crafting in Lab**).
+
+---
+
+## **10. Courtyard**
+### **Items:**
+- **6 Sticks** (used for ladder crafting).
+- **Ropes** (used for parachute crafting).
+
+### **NPC: Smoker**
+- **Trade:** Give him **Cigarettes** (from **7. Toilet**) → **Get Lighter**.
+
+### **Ladder Escape:**
+- **Requirements:**
+  - **10 Sticks (4 from 4. Roof + 6 from Courtyard)**.
+  - **Superglue (from 8. Storage)**.
+  - **Hammer (from 4. Roof)**.
+- **Build ladder and escape** → **Game Completed**.
+
+---
+
+## **11. Gym**
+### **NPC: Gym Freak**
+- **Trade:** Give him **Steroids** (from **7. Toilet**).
+- **Result:** He smashes a **wall**, allowing **escape**.
+
+---
+
+## **12. Lab**
+### **NPC: Lab Professor**
+- **Teaches you how to craft Acid** if you bring him the required ingredients.
+
+### **Items:**
+- **Sulfuric Powder** → Found inside the **Lab**.
+- **Glass Beaker** → Used to mix chemicals.
+
+### **Crafting Acid:**
+- **Ingredients:**
+  - **Focus Drink (from 6. Cafeteria)**.
+  - **Baking Soda (from 9. Kitchen)**.
+  - **Sulfuric Powder (found in 12. Lab)**.
+  - **Use the Glass Beaker to mix.**
+- **Result:** Creates **Corrosive Acid**.
+
+### **Escape Method:**
+1. **Wear Lab Clothes** (from **8. Storage**) to enter.
+2. **Disable Security Camera with Wire Cutter** (from **8. Storage**).
+   - If you **don’t disable the camera**, you **die**.
+3. **Craft Acid and pour it on the metal door to escape.**
+4. **Escape through the Lab Exit.**
+
+---
+
+### **Multiple Escape Routes:**
+1. **Parachute Escape** (Roof)
+2. **Ladder Escape** (Courtyard)
+3. **Bomb Escape** (Toilet)
+4. **Wall Smash Escape** (Gym)
+5. **Acid Escape** (Lab)
