@@ -59,3 +59,77 @@
     
     - #### Zijn er problemen waar tegen aanloopt?
         - nee tot nu toe gaat alles goed
+
+
+### Daily standup dinsdag 11-02-2025
+
+
+
+- Milan
+  - #### Wat heb je gisteren gedaan? 
+    - Gewerkt aan de presetantie, logo gemaakt & pixel art
+     
+  - #### Wat ga je vandaag doen?
+    - presenteren, feedback verwerken, onderzoeken video's van Lennard en misschien een kamer maken in pixel art.
+
+
+  - #### Zijn er problemen waar tegen aanloopt?
+    - Nee
+ 
+
+- Mustafa
+
+    - #### Wat heb je gisteren gedaan?
+        - Smartleerdoelen gemaakt.
+        
+    
+    - #### Wat ga je vandaag doen?
+         - presenteren, feedback verwerken, onderzoeken video's van Lennard.
+        
+    
+    - #### Zijn er problemen waar tegen aanloopt?
+        - Nee
+
+
+- Farmaan
+
+    - #### Wat heb je gisteren gedaan?
+        - Geholpen met de gameflow samenwerkingscontract ingevuld.
+        
+    
+    - #### Wat ga je vandaag doen?
+        - presenteren, feedback verwerken, onderzoeken video's van Lennard.
+        
+    
+    - #### Zijn er problemen waar tegen aanloopt?
+        - Nee
+
+
+- Batuhan
+
+    - #### Wat heb je gisteren gedaan?
+        - Geholpen met het bedenken van items. En geholpen met denken van bepaalde eindes
+        
+    
+    - #### Wat ga je vandaag doen?
+
+        -  presenteren, feedback verwerken, onderzoeken video's van Lennard.
+        
+    
+    - #### Zijn er problemen waar tegen aanloopt?  
+        - Nee 
+
+
+- Zoiye
+
+    - #### Wat heb je gisteren gedaan?
+        - Hele gameflow opnieuw gemaakt storyline aangepast. Aan presentatie gezeten.
+        
+    
+    - #### Wat ga je vandaag doen?
+        - presenteren, feedback verwerken, onderzoeken video's van Lennard en misschien een kamer maken in pixel art.
+
+        
+    
+    - #### Zijn er problemen waar tegen aanloopt?
+         - Nee
