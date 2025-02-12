@@ -25,4 +25,28 @@
 
 ## Implementatieplan
 
+- Backend configureren
 
+    - Server opzetten: Gebruik Node.js en Express om een server op te zetten. Installeer benodigde pakketen zoals 'express', 'cors', 'dotenv'.
+
+    - Database opzetten: Gebruik MySQL en phpAdmin om een database op te zetten. Maak tabellen aan voor User, SaveGame, Item, Room, NPC, Dialog, en Endings.
+
+    - API opzetten: Maak API endpoints voor het ophalen en opslaan van gegevens in de database.
+
+- Frontend configureren
+
+    - Er wordt gebruik gemaakt van plane TypeScript, HTML en CSS (MVC) structuur.
+
+- Beveiliging implementeren
+
+    - Gebruik van uuid voor het identificeren van gebruikers.
+
+    - Gebruik CORS om cross-origin requests te beheren.
+
+- Controle en afronding
+
+    - Testen: Test de API endpoints en de databaseverbinding.
+
+    - Documentatie: Documenteer de API endpoints en de databasestructuur.
+
+    - Merge request aanmaken: Zodat even van de teamgenoten de code kan controleren en feedback d'r op kan geven
