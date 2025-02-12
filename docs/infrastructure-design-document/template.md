@@ -139,33 +139,20 @@ Vul hieronder de specifieke gegevens in die voor jouw team van toepassing zijn:
 
 **Stap 5: Beschrijf de communicatie tussen de systemen**
 
-Maak een sequence diagram voor een van fetch verzoeken van frontend naar backend en terug, waarin de communicatie tussen frontend, backend, en database wordt uitgelegd. Zorg ervoor dat je per communicatielijn duidelijk beschrijft:
-
--   De agents: gebruiker, frontend, backend en database.
-
--   Welke protocollen worden gebruikt (bijv. HTTP, SQL).
-
--   Wat de inhoud van de berichten is:
-
-    -   HTTP-requests: Methode, headers, adres, eventuele body-inhoud.
-
-    -   SQL-queries: Globaal beschrijven welke data wordt opgevraagd of opgeslagen.
-
-Opdracht: Onderzoek de datastroom in jouw applicatie en gebruik deze inzichten om het diagram aan te vullen met gedetailleerde informatie.
+![alt text](image.png)
 
 ## Beveiliging van de infrastructuur
 
 **Stap 6: Omschrijf hoe de systemen veilig ingericht kunnen worden**
 
-De Express.js-server biedt mogelijkheden om de infrastructuur veiliger te maken. Onderzoek en beschrijf welke beveiligingen je kunt implementeren, zoals:
-
--   HTTPS: Je hoeft HTTPS niet zelf te configureren, omdat dit al standaard is geregeld binnen de HBO-ICT.Cloud. Alle communicatie via de cloudomgeving verloopt automatisch versleuteld.Inputvalidatie: Bescherm tegen injectie-aanvallen door gebruikersinput te valideren.
-
--   Rate limiting: Beperk het aantal requests per gebruiker om misbruik te voorkomen.
-
--   CORS: Stel specifieke regels in voor welke domeinen toegang hebben tot de API.
-
--   Environment variables: Gebruik .env-bestanden om gevoelige gegevens zoals wachtwoorden en API-keys veilig te beheren.
+HTTPS (standaard in HBO-ICT.Cloud):	Verzekert versleutelde communicatie
+Inputvalidatie & parameterized queries:	Voorkomt SQL-injectie en XSS-aanvallen
+Rate Limiting (express-rate-limit):	Beschermt tegen DDoS-aanvallen
+CORS-configuratie:	Voorkomt ongewenste toegang vanaf andere domeinen
+Environment variables (.env):	Voorkomt blootstelling van gevoelige gegevens
+JWT Authenticatie:	Beveiligde toegang tot API-endpoints
+Database rechten beperken:	Voorkomt onnodige toegang tot databasegegevens
+Versleuteling (bcrypt):	Wachtwoorden veilig opslaan
 
 # Realiseren
 
@@ -175,37 +162,32 @@ In dit hoofdstuk beschrijf je hoe het project live wordt gezet op de HBO-ICT.Clo
 
 **Stap 7: Omschrijf hoe je het project uitrolt op de HBO-ICT.Cloud en welke methode je gebruikt:**
 
-1.  CI/CD-pipeline\
-    Als je een CI/CD-pipeline gebruikt:
+In het project wordt gebruik gemaakt van handmatige deployment. Hierbij wordt er gebruik gemaakt van FTP (File Transfer Protocol). Dit is eenvoudiger dan een CI/CD systeem omdat er geen geautomatiseerde pipelines hoeven te worden opgezet.
 
-    -   Beschrijf hoe de pipeline is opgezet:
+De uitrol gebeurt als volgt:
 
-        -   Automatisch bouwen van frontend en backend.
+*   Frontend:
+    1. Gebruik `npm run build` in de frontend-map.
+    2. Maak verbinding met de HBO-ICT.Cloud via een FTP programma. 
+    3. Upload de bestanden naar de aangewezen map op de cloud.
+*   Backend:
+    1. Zorg ervoor dat alle dependencies in het project zijn geïnstalleerd: `npm install`
+    2. Upload de backend-code naar de cloud via de FTP netwerk protocol.
+    3. In het .env bestand moeten de juiste environment variables (database-wachtwoorden, API-keys, etc..) staan om te connecten met de database
 
-        -   Deployen naar de HBO-ICT.Cloud.
-
-    -   Vermeld configuraties, zoals een .gitlab-ci.yml-bestand of andere pipelines.
-
-2.  Handmatige deployment (FTP)\
-    Als je handmatig deployt:
-
-    -   Frontend: Bouw de frontend (bijvoorbeeld met npm run build) en upload de bestanden naar de cloud.
-
-    -   Backend: Upload de backend-code naar de HBO-ICT.Cloud en configureer deze met de benodigde .env-variabelen.
-
-    -   Controleer de verbindingen: Zorg ervoor dat de frontend, backend, en database correct samenwerken.
+Nadat de frontend en de backend zijn geupload naar de cloud, worden er tests uitgevoerd op basis van de volgende checks:
+    1. De frontend wordt correct geladen in de browser.
+    2. De backend reageert correct op API-requests.
+    3. Er is een correcte verbinding met de database (Geen foutmeldingen, CRUD-operaties werken, correcte configuratie van env-variabelen).
 
 ## Beveiligingsmaatregelen
 
 **Stap 8: Omschrijf welke maatregelen je implementeert**
 
-Hoewel HTTPS standaard is geactiveerd op de HBO-ICT.Cloud, zijn aanvullende beveiligingen nodig voor de backend en database, zoals:
-
--   CORS: Beperk toegang tot de API vanuit specifieke domeinen om ongeautoriseerde toegang te voorkomen.
-
--   Rate limiting: Voeg beperkingen toe aan het aantal verzoeken per tijdseenheid om misbruik te voorkomen.
-
--   Environment variables: Gebruik een .env-bestand om gevoelige gegevens zoals databasewachtwoorden en API-sleutels te beheren.
+Op de HBO-ICT.Cloud is HTTPS standaard actief, maar we nemen extra maatregelen om de backend en database te beveiligen. Het is de bedoeling om de volgende maatregelen te implementeren:
+    1. CORS (Cross-Origin Resource Sharing). Door gebruik te maken van CORS beperken we de toegang tot de API zodat alleen specifieke domeinen er gebruik van kunnnen maken. Configureer met behulp van ExpressJS om alleen verzoeken toe te staan van een lijst met betrouwbare domeinen.
+    2. Environment Variabelen: Door gebruik te maken van environment variabelen kunnen gevoelige gegevens zoals databasewachtwoorden of API-keys veilig worden opgeslagen. Het is belangrijk om de .env-bestand **niet** up te loaden naar de remote repository. Er wordt ook ervoor gezorgd dat de cloud dit bestand correct inlaadt en dat deze variabelen ook daadwerkelijk voorkomen in de code.
+    3. Monitoring: Het is belangrijk om de status van de applicatie bij te houden om enige verdachte activiteiten zo snel mogelijk te detecteren. Het bijhouden hiervan zal versimpeld worden door belangrijke gebeurtenissen te loggen (nieuwe sessies, game starts ...) en gebruik te maken van try-catch blocks om mogelijke corruptie te identificeren. 
 
 ## Database-inrichting
 
