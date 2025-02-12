@@ -101,6 +101,10 @@ Mustafa
 
 Tegen de voortgangsevalutatie wil ik beter begrijpen wat mijn code doet door actief debugging en documentatie toe te passen, zodat ik deze duidelijk en correct kan uitleggen.
 
+Zoiye
+
+Ik wil werken aan mijn communicatie met mijn teamgenoten, door meer te contact op te nemen en duidelijk rollen te verdelen. Ook wil ik graag netter werken door eerst alles te lezen en mezelf informeren voordat ik begin met werken, Dit voorkomt fouten.
+
 
 ## Handtekeningen
 
