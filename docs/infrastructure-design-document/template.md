@@ -139,33 +139,20 @@ Vul hieronder de specifieke gegevens in die voor jouw team van toepassing zijn:
 
 **Stap 5: Beschrijf de communicatie tussen de systemen**
 
-Maak een sequence diagram voor een van fetch verzoeken van frontend naar backend en terug, waarin de communicatie tussen frontend, backend, en database wordt uitgelegd. Zorg ervoor dat je per communicatielijn duidelijk beschrijft:
-
--   De agents: gebruiker, frontend, backend en database.
-
--   Welke protocollen worden gebruikt (bijv. HTTP, SQL).
-
--   Wat de inhoud van de berichten is:
-
-    -   HTTP-requests: Methode, headers, adres, eventuele body-inhoud.
-
-    -   SQL-queries: Globaal beschrijven welke data wordt opgevraagd of opgeslagen.
-
-Opdracht: Onderzoek de datastroom in jouw applicatie en gebruik deze inzichten om het diagram aan te vullen met gedetailleerde informatie.
+![alt text](image.png)
 
 ## Beveiliging van de infrastructuur
 
 **Stap 6: Omschrijf hoe de systemen veilig ingericht kunnen worden**
 
-De Express.js-server biedt mogelijkheden om de infrastructuur veiliger te maken. Onderzoek en beschrijf welke beveiligingen je kunt implementeren, zoals:
-
--   HTTPS: Je hoeft HTTPS niet zelf te configureren, omdat dit al standaard is geregeld binnen de HBO-ICT.Cloud. Alle communicatie via de cloudomgeving verloopt automatisch versleuteld.Inputvalidatie: Bescherm tegen injectie-aanvallen door gebruikersinput te valideren.
-
--   Rate limiting: Beperk het aantal requests per gebruiker om misbruik te voorkomen.
-
--   CORS: Stel specifieke regels in voor welke domeinen toegang hebben tot de API.
-
--   Environment variables: Gebruik .env-bestanden om gevoelige gegevens zoals wachtwoorden en API-keys veilig te beheren.
+HTTPS (standaard in HBO-ICT.Cloud):	Verzekert versleutelde communicatie
+Inputvalidatie & parameterized queries:	Voorkomt SQL-injectie en XSS-aanvallen
+Rate Limiting (express-rate-limit):	Beschermt tegen DDoS-aanvallen
+CORS-configuratie:	Voorkomt ongewenste toegang vanaf andere domeinen
+Environment variables (.env):	Voorkomt blootstelling van gevoelige gegevens
+JWT Authenticatie:	Beveiligde toegang tot API-endpoints
+Database rechten beperken:	Voorkomt onnodige toegang tot databasegegevens
+Versleuteling (bcrypt):	Wachtwoorden veilig opslaan
 
 # Realiseren
 
