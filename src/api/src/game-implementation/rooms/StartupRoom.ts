@@ -4,6 +4,7 @@ import { Action } from "../../game-base/actions/Action";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
+import { Toilet } from "./Toilet";
 
 /**
  * Implemention of the startup room
@@ -55,7 +56,7 @@ export class StartupRoom extends Room implements Simple {
     public simple(alias: string): ActionResult | undefined {
         if (alias === "start-game") {
             // TODO: Change this to the actual first room of the game
-            const room: Room = new StartupRoom();
+            const room: Room = new Toilet();
 
             // Set the current room to the startup room
             gameService.getPlayerSession().currentRoom = room.alias;
