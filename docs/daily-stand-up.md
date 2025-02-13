@@ -133,3 +133,135 @@
     
     - #### Zijn er problemen waar tegen aanloopt?
          - Nee
+
+
+### Daily standup woensdag 12-02-2025
+
+- Milan
+
+    - #### Wat heb je gisteren gedaan?
+        - Gepresenteerd en feedback verwerkt, van het spel.
+        
+    - #### Wat ga je vandaag doen?
+        - Infrastructuur invullen en mijn stappen maken.
+        
+    - #### Zijn er problemen waar tegen aanloopt?
+        - Nee
+
+
+- Farmaan
+
+    - #### Wat heb je gisteren gedaan?
+        - Gepresenteerd en feedback verwerkt, van het spel.
+        
+    - #### Wat ga je vandaag doen?
+        - Infrastructuur invullen en mijn stappen maken.
+        
+    - #### Zijn er problemen waar tegen aanloopt?
+        - Nee
+
+
+- Mustafa
+
+    - #### Wat heb je gisteren gedaan?
+        - Gepresenteerd en feedback verwerkt, van het spel.
+        
+    - #### Wat ga je vandaag doen?
+        - Infrastructuur invullen en mijn stappen maken..
+        
+    - #### Zijn er problemen waar tegen aanloopt?
+        - Nee
+
+
+- Batuhan
+
+    - #### Wat heb je gisteren gedaan?
+        - Gepresenteerd en feedback verwerkt, van het spel.
+        
+    - #### Wat ga je vandaag doen?
+        - Infrastructuur invullen en mijn stappen maken.
+        
+    - #### Zijn er problemen waar tegen aanloopt?
+        - Nee
+
+
+- Zoiye
+
+    - #### Wat heb je gisteren gedaan?
+        - Gepresenteerd en feedback verwerkt, van het spel.
+        
+    - #### Wat ga je vandaag doen?
+        - Infrastructuur invullen en mijn stappen maken..
+        
+    - #### Zijn er problemen waar tegen aanloopt?
+        - Nee
+
+
+### Daily standup dinsdag 13-02-2025
+
+
+-   Milan
+
+    - #### Wat heb je gisteren gedaan?
+        - Gewerkt aan het infrastructuur bestand. Stap 3 & 4
+        
+    
+    - #### Wat ga je vandaag doen?
+        - Kamer kitchen & storage programmeren, pixel art voor de kamers maken. Onderzoek naar point & click systeem
+        
+    
+    - #### Zijn er problemen waar tegen aanloopt?
+         - Nee
+
+- Farmaan 
+
+    -   #### Wat heb je gisteren gedaan?
+        - Gewerkt aan het infrastructuur bestand. Stap 7 & 8. 
+
+    -   #### Wat ga je vandaag doen?
+
+        - Knonwledge base doornemen  vervolgens kijken hoe pixel art werkt.
+
+
+    -   #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Mustafa
+
+    -   #### Wat heb je gisteren gedaan?
+        - Gewerkt aan het infrastructuur bestand. Stap 1 & 2
+
+    -   #### Wat ga je vandaag doen?
+
+        - Video's van Lennard bekijken en beginnen aan rooms met pixel art.
+
+    -   #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Batuhan
+
+    -   #### Wat heb je gisteren gedaan?
+        - Gewerkt aan het infrastructuur bestand. Stap 9 & 10
+
+    -   #### Wat ga je vandaag doen?
+
+        - Beginnen met programmen met van mijn kamers die ik heb en Items d'r in & onderzoek hoe ik dat moet maken video's van Lennard bekijken.
+    
+    -   #### Zijn er problemen waar tegen aanloopt?
+    
+        - Nee
+
+- Zoiye
+
+    -   #### Wat heb je gisteren gedaan?
+        - Gewerkt aan het infrastructuur bestand. Stap 5 & 6
+
+    -   #### Wat ga je vandaag doen?
+
+        - Beginnen met programmen met van mijn kamers die ik heb en Items d'r in & onderzoek hoe ik dat moet maken video's van Lennard bekijken.
+    
+    -   #### Zijn er problemen waar tegen aanloopt?
+    
+        - Nee
