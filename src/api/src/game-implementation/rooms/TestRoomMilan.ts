@@ -19,7 +19,7 @@ export class TestRoomMilan extends Room {
     }
 
     public images(): string[] {
-        return ["titlescreen", "chef"];
+        return ["Kitchen", "Cook"];
     }
 
     public objects(): GameObject[] {
