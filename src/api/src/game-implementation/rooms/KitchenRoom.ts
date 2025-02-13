@@ -6,16 +6,15 @@ import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { cookCharacter } from "../characters/cookCharacter";
-import { TitleItem } from "../items/TitleItem";
 
-export class TestRoomMilan extends Room {
-    public static readonly Alias: string = "TestRoom";
+export class KitchenRoom extends Room {
+    public static readonly Alias: string = "KitchenRoom";
     public constructor() {
-        super(TestRoomMilan.Alias);
+        super(KitchenRoom.Alias);
     }
 
     public name(): string {
-        return "testRoom";
+        return "Kitchen";
     }
 
     public images(): string[] {
@@ -24,7 +23,6 @@ export class TestRoomMilan extends Room {
 
     public objects(): GameObject[] {
         return [
-            new TitleItem(),
             new cookCharacter(),
         ];
     }
@@ -38,10 +36,9 @@ export class TestRoomMilan extends Room {
 
     public examine(): ActionResult | undefined {
         return new TextActionResult([
-            "HEY!",
-            "THIS IS THE TITLESCREEN!",
-            ":D",
-            "There seems to be a cook here.",
+            "You walk into the kitchen",
+            "As you walk in you see a cook busy working on some food",
+            "In de back there is a metal door.",
         ]);
     }
 }
