@@ -18,7 +18,7 @@ export class KitchenRoom extends Room {
     }
 
     public images(): string[] {
-        return ["Kitchen", "Cook"];
+        return ["Kitchen", "Cook", "ArrowToCafKitchen4", "KnifeKitchen", "BagOfSugar"];
     }
 
     public objects(): GameObject[] {
@@ -37,8 +37,9 @@ export class KitchenRoom extends Room {
     public examine(): ActionResult | undefined {
         return new TextActionResult([
             "You walk into the kitchen",
-            "As you walk in you see a cook busy working on some food",
-            "In de back there is a metal door.",
+            "A cook is busy at the counter, focused on preparing food.",
+            "At the back of the room, there’s a metal door.",
+            "On top of the fridge, a bag of sugar rests, and a knife hangs from the wall.",
         ]);
     }
 }
