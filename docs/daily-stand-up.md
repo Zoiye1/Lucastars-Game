@@ -265,3 +265,74 @@
     -   #### Zijn er problemen waar tegen aanloopt?
     
         - Nee
+
+### Daily standup vrijdag 14-02-2025
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+        - Pixel art voor de room courtyard afgemaakt.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Vandaag programmeren voor de cafeteria en de room.
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+        - Alle items toegevoegd in de kamer keuken npc toegevoegd daarin en boolean checks.
+
+
+    - #### Wat ga je vandaag doen?
+
+        - Programmeren van het inventroy systeem in de keuken.
+
+    - #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Batuhan 
+
+
+    -  #### Wat heb je gisteren gedaan?
+        - Ik was bezig met het programmeren van de kamer toilet.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Pixel art van de toilet maken.
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+        - Pixel art van de gym gemaakt.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Pixel art van de slaapkamer maken.
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+
+- Zoiye
+
+    -  #### Wat heb je gisteren gedaan?
+        - Pixel art van de woonkamer gemaakt.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Pixel art van de badkamer maken.
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
