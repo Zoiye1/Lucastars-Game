@@ -49,7 +49,16 @@ export class cookCharacter extends Character implements Examine {
             );
         }
         if (choiceId === 3) {
+            if (gameService.getPlayerSession().GaveTheForkToCook) {
+                return new TextActionResult(
+
+                    [
+                        "Cook: \"Yeah sure, here take this key. It opens the door\"", "The Cook hands you a key",
+                    ]
+                );
+            }
             return new TextActionResult(
+
                 [
                     "Cook: \"Honestly I'm a little busy.\"", "The Cook turns back to his work",
                 ]
