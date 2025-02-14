@@ -12,6 +12,10 @@ export class Toilet extends Room {
         return "Toilet";
     }
 
+    public images(): string[] {
+        return ["toilet"];
+    }
+
     public examine(): ActionResult | undefined {
         return undefined;
     }
