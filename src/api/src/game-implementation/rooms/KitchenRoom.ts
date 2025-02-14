@@ -6,6 +6,7 @@ import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { cookCharacter } from "../characters/cookCharacter";
+import { KnifeItem } from "../items/KnifeItem";
 
 export class KitchenRoom extends Room {
     public static readonly Alias: string = "KitchenRoom";
@@ -24,6 +25,7 @@ export class KitchenRoom extends Room {
     public objects(): GameObject[] {
         return [
             new cookCharacter(),
+            new KnifeItem(),
         ];
     }
 

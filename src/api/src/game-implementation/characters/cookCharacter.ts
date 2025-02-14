@@ -6,6 +6,7 @@ import { Character } from "../../game-base/gameObjects/Character";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { gameService } from "../../global";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { KnifeItem } from "../items/KnifeItem";
 
 export class cookCharacter extends Character implements Examine {
     public static readonly Alias: string = "cook";
@@ -77,7 +78,7 @@ export class cookCharacter extends Character implements Examine {
         if (choiceId === 5) {
             const inventory: GameObject[] = gameService.getGameObjectsFromInventory();
 
-            const result: GameObject | undefined = inventory.find(e => e.alias === ForkItem.Alias);
+            const result: GameObject | undefined = inventory.find(e => e.alias === KnifeItem.Alias);
             const dialogue: string[] = [
                 "Cook: \"Well if you really want to help me, im trying to prepare a diner but I'm missing a Fork\"",
                 "Cook: \"If you could find it for me that would be a massive help!\"",
@@ -106,8 +107,7 @@ export class cookCharacter extends Character implements Examine {
             gameService.getPlayerSession().ThreatenedCook = true;
             return new TextActionResult(
                 [
-                    "You hand the Cook the Fork",
-                    "Cook: \"Oh thank you! You're a life saver!\"", "If theres anything I can do for you just ask me!",
+                    "Cook: \"Fine just dont stab me!\"", "The Cook hands you the Key",
                 ]
             );
         }
