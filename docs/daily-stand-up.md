@@ -313,11 +313,11 @@
 - Mustafa
 
     -  #### Wat heb je gisteren gedaan?
-        - Pixel art van de gym gemaakt.
+        - Pixel art van de gym gemaakt. Pixel art van het dak & video's van Lennard bekeken.
 
     -  #### Wat ga je vandaag doen?
 
-        - Pixel art van de slaapkamer maken.
+        - Beginnen met het programmeren van het dak. Pixel art van het dak afmaken.
 
     -  #### Zijn er problemen waar tegen aanloopt?
 
@@ -327,11 +327,11 @@
 - Zoiye
 
     -  #### Wat heb je gisteren gedaan?
-        - Pixel art van de woonkamer gemaakt.
+        - Pixel art van de starter room gemaakt. Begonnen aan de lab met pixel art daarnaast paar video's van Lennar bekeken.
 
     -  #### Wat ga je vandaag doen?
 
-        - Pixel art van de badkamer maken.
+        - Verder werken aan pixel art van de lab. Lennard zijn video's afkijken.
 
     -  #### Zijn er problemen waar tegen aanloopt?
 
