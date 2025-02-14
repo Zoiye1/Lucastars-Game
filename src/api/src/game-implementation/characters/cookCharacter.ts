@@ -5,6 +5,7 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { Character } from "../../game-base/gameObjects/Character";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { gameService } from "../../global";
+import { GameObject } from "../../game-base/gameObjects/GameObject";
 
 export class cookCharacter extends Character implements Examine {
     public static readonly Alias: string = "cook";
@@ -25,16 +26,17 @@ export class cookCharacter extends Character implements Examine {
 
     public talk(choiceId?: number): ActionResult | undefined {
         if (choiceId === 1) {
-            return new TalkActionResult(
-                this,
-                [
-                    "Cook: \"Huh?\" \"Thats the door to the storage.\"",
-                ],
-                [
-                    new TalkChoice (3, "\"Can you open it for me?\""),
-                    new TalkChoice (4, "\"What's in there?\""),
-                ]
-            );
+            const inventory: GameObject[] = gameService.getGameObjectsFromInventory();
+            const result: GameObject | undefined = inventory.find(e => e.alias === KnifeItem.Alias);
+            const dialogue: string[] = ["Cook: \"Huh?\" \"Thats the door to the storage.\""];
+            const choices: TalkChoice[] =
+            [new TalkChoice (3, "\"Can you open it for me?\""),
+                new TalkChoice (4, "\"What's in there?\"")];
+
+            if (result !== undefined) {
+                choices.push(new TalkChoice (9, "\"Open the door or I'll Stab you!\""));
+            };
+            return new TalkActionResult(this, dialogue, choices);
         }
         if (choiceId === 2) {
             return new TalkActionResult(
@@ -73,22 +75,38 @@ export class cookCharacter extends Character implements Examine {
             );
         }
         if (choiceId === 5) {
-            return new TalkActionResult(
-                this,
-                [
-                    "Cook: \"Well if you really want to help me, im trying to prepare a diner but I'm missing a Fork\"",
-                    "Cook: \"If you could find it for me that would be a massive help!\"",
-                ],
-                [
-                    new TalkChoice (7, "\"I'll see what I can do I guess.\""),
-                    new TalkChoice (8, "\"Actually I already have a fork.\""),
-                ]
-            );
+            const inventory: GameObject[] = gameService.getGameObjectsFromInventory();
+
+            const result: GameObject | undefined = inventory.find(e => e.alias === ForkItem.Alias);
+            const dialogue: string[] = [
+                "Cook: \"Well if you really want to help me, im trying to prepare a diner but I'm missing a Fork\"",
+                "Cook: \"If you could find it for me that would be a massive help!\"",
+
+            ];
+            const choices: TalkChoice[] = [
+                new TalkChoice (7, "\"I'll see what I can do I guess.\""),
+            ];
+
+            if (result !== undefined) {
+                choices.push(new TalkChoice (8, "\"Actually I already have a fork.\""));
+            };
+
+            return new TalkActionResult(this, dialogue, choices);
         }
         if (choiceId === 8) {
             gameService.getPlayerSession().GaveTheForkToCook = true;
             return new TextActionResult(
                 [
+                    "You hand the Cook the Fork",
+                    "Cook: \"Oh thank you! You're a life saver!\"", "If theres anything I can do for you just ask me!",
+                ]
+            );
+        }
+        if (choiceId === 9) {
+            gameService.getPlayerSession().ThreatenedCook = true;
+            return new TextActionResult(
+                [
+                    "You hand the Cook the Fork",
                     "Cook: \"Oh thank you! You're a life saver!\"", "If theres anything I can do for you just ask me!",
                 ]
             );

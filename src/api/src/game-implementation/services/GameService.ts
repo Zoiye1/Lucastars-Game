@@ -34,6 +34,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         return {
             currentRoom: StartupRoom.Alias,
             inventory: [],
+            GaveTheForkToCook: false,
+            ThreatenedCook: false,
         };
     }
 
