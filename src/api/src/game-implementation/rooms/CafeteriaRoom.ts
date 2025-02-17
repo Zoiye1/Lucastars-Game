@@ -3,9 +3,11 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
+import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
+import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CourtyardRoom } from "./CourtyardRoom";
 
@@ -29,11 +31,18 @@ export class CafeteriaRoom extends Room implements Simple {
     }
 
     public objects(): GameObject[] {
-        return [new FocusDrinkItem()];
+        return [
+            new CleanerCharacter(),
+            new FocusDrinkItem(),
+        ];
     }
 
     public actions(): Action[] {
-        return [new ExamineAction(), new SimpleAction("enter-courtyard", "Enter Courtyard")];
+        return [
+            new ExamineAction(),
+            new TalkAction(),
+            new SimpleAction("enter-courtyard", "Enter Courtyard"),
+        ];
     }
 
     public simple(alias: string): ActionResult | undefined {
