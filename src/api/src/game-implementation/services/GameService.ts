@@ -4,6 +4,7 @@ import { StartupRoom } from "../rooms/StartupRoom";
 import { PlayerSession } from "../types";
 import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
+import { FocusDrinkItem } from "../items/FocusDrinkItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -19,6 +20,9 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(StartupRoom);
         this.registerGameObject(CafeteriaRoom);
         this.registerGameObject(CourtyardRoom);
+
+        // Items
+        this.registerGameObject(FocusDrinkItem);
     }
 
     /**
