@@ -2,6 +2,8 @@ import { BaseGameService } from "../../game-base/services/BaseGameService";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { StartupRoom } from "../rooms/StartupRoom";
 import { PlayerSession } from "../types";
+import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
+import { CourtyardRoom } from "../rooms/CourtyardRoom";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -15,6 +17,8 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Rooms
         this.registerGameObject(StartupRoom);
+        this.registerGameObject(CafeteriaRoom);
+        this.registerGameObject(CourtyardRoom);
     }
 
     /**
