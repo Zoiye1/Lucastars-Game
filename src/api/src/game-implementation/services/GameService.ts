@@ -8,6 +8,10 @@ import { cookCharacter } from "../characters/cookCharacter";
 import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
 import { StorageRoom } from "../rooms/StorageRoom";
+import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
+import { CourtyardRoom } from "../rooms/CourtyardRoom";
+import { FocusDrinkItem } from "../items/FocusDrinkItem";
+import { CleanerCharacter } from "../characters/CleanerCharacter";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -31,6 +35,14 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Characters
         this.registerGameObject(cookCharacter);
+        this.registerGameObject(CafeteriaRoom);
+        this.registerGameObject(CourtyardRoom);
+
+        // Items
+        this.registerGameObject(FocusDrinkItem);
+
+        // Characters
+        this.registerGameObject(CleanerCharacter);
     }
 
     /**
