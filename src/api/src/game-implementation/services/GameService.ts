@@ -2,6 +2,12 @@ import { BaseGameService } from "../../game-base/services/BaseGameService";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { StartupRoom } from "../rooms/StartupRoom";
 import { PlayerSession } from "../types";
+import { KitchenRoom } from "../rooms/KitchenRoom";
+import { TitleItem } from "../items/TitleItem";
+import { cookCharacter } from "../characters/cookCharacter";
+import { KnifeItem } from "../items/KnifeItem";
+import { SugarItem } from "../items/SugarItem";
+import { StorageRoom } from "../rooms/StorageRoom";
 import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
@@ -19,6 +25,16 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Rooms
         this.registerGameObject(StartupRoom);
+        this.registerGameObject(KitchenRoom);
+        this.registerGameObject(StorageRoom);
+
+        // Items
+        this.registerGameObject(TitleItem);
+        this.registerGameObject(KnifeItem);
+        this.registerGameObject(SugarItem);
+
+        // Characters
+        this.registerGameObject(cookCharacter);
         this.registerGameObject(CafeteriaRoom);
         this.registerGameObject(CourtyardRoom);
 
@@ -36,6 +52,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         return {
             currentRoom: StartupRoom.Alias,
             inventory: [],
+            GaveTheForkToCook: false,
+            ThreatenedCook: false,
         };
     }
 

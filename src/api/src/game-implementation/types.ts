@@ -8,4 +8,6 @@ export type PlayerSession = {
     currentRoom: string;
     /** List of game object aliases the player owns */
     inventory: string[];
+    GaveTheForkToCook: boolean;
+    ThreatenedCook: boolean;
 };
