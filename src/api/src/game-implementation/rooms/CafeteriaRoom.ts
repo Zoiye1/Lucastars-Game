@@ -43,10 +43,13 @@ export class CafeteriaRoom extends Room implements Simple {
     }
 
     public objects(): GameObject[] {
-        return [
-            new CleanerCharacter(),
-            new FocusDrinkItem(),
-        ];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: GameObject[] = [new CleanerCharacter()];
+
+        if (!playerSession.pickedUpFocusDrink) {
+            result.push(new FocusDrinkItem());
+        }
+        return result;
     }
 
     public actions(): Action[] {
