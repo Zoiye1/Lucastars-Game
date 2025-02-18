@@ -10,6 +10,7 @@ import { gameService } from "../../global";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CourtyardRoom } from "./CourtyardRoom";
+import { KitchenRoom } from "./KitchenRoom";
 
 export class CafeteriaRoom extends Room implements Simple {
     public static readonly Alias: string = "cafeteria";
@@ -42,12 +43,21 @@ export class CafeteriaRoom extends Room implements Simple {
             new ExamineAction(),
             new TalkAction(),
             new SimpleAction("enter-courtyard", "Enter Courtyard"),
+            new SimpleAction("enter-kitchen", "Enter Kitchen"),
         ];
     }
 
     public simple(alias: string): ActionResult | undefined {
         if (alias === "enter-courtyard") {
             const room: Room = new CourtyardRoom();
+
+            // Set the current room to the startup room
+            gameService.getPlayerSession().currentRoom = room.alias;
+
+            return room.examine();
+        }
+        if (alias === "enter-kitchen") {
+            const room: Room = new KitchenRoom();
 
             // Set the current room to the startup room
             gameService.getPlayerSession().currentRoom = room.alias;

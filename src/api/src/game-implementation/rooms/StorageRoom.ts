@@ -18,7 +18,7 @@ export class StorageRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["titlescreen"];
+        return ["storage/Storage"];
     }
 
     public actions(): Action[] {

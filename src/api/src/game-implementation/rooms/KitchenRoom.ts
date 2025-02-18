@@ -10,6 +10,7 @@ import { gameService } from "../../global";
 import { cookCharacter } from "../characters/cookCharacter";
 import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
+import { CafeteriaRoom } from "./CafeteriaRoom";
 import { StorageRoom } from "./StorageRoom";
 
 export class KitchenRoom extends Room implements Simple {
@@ -23,7 +24,7 @@ export class KitchenRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["Kitchen", "Cook", "ArrowToCafKitchen4", "KnifeKitchen", "BagOfSugar"];
+        return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
     }
 
     public objects(): GameObject[] {
@@ -38,6 +39,7 @@ export class KitchenRoom extends Room implements Simple {
             new ExamineAction(),
             new TalkAction(),
             new SimpleAction("storage-door", "Use storage door"),
+            new SimpleAction("caf-door", "Go to cafeteria"),
         ];
     }
 
@@ -58,7 +60,13 @@ export class KitchenRoom extends Room implements Simple {
 
             return room.examine();
         }
+        if (alias === "caf-door") {
+            const room: Room = new CafeteriaRoom();
 
+            gameService.getPlayerSession().currentRoom = room.alias;
+
+            return room.examine();
+        }
         return undefined;
     }
 }
