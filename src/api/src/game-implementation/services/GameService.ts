@@ -13,6 +13,7 @@ import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
+import { BucketItem } from "../items/BucketItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -42,6 +43,7 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Items
         this.registerGameObject(FocusDrinkItem);
+        this.registerGameObject(BucketItem);
 
         // Characters
         this.registerGameObject(CleanerCharacter);

@@ -1,5 +1,9 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
+import { ExamineAction } from "../../game-base/actions/ExamineAction";
+import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
+import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
+import { BucketItem } from "../items/BucketItem";
 
 export class Toilet extends Room {
     public static readonly Alias: string = "toilet";
@@ -13,10 +17,22 @@ export class Toilet extends Room {
     }
 
     public images(): string[] {
-        return ["toilet"];
+        return ["toilet", "toilet/Bucket"];
+    }
+
+    public objects(): GameObject [] {
+        return [
+            new BucketItem(),
+        ];
+    }
+
+    public actions(): Action[] {
+        return [
+            new ExamineAction(),
+        ];
     }
 
     public examine(): ActionResult | undefined {
-        return undefined;
+        return new TextActionResult(["It's a toilet."]);
     }
 }
