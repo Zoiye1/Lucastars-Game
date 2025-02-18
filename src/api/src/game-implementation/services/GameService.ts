@@ -14,6 +14,7 @@ import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { BucketItem } from "../items/BucketItem";
+import { UseAction } from "../actions/UseAction";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -47,6 +48,9 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Characters
         this.registerGameObject(CleanerCharacter);
+
+        // Actions
+        this.registerGameObject(UseAction);
     }
 
     /**
