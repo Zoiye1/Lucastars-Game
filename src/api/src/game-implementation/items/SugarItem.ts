@@ -3,21 +3,20 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { Examine } from "../../game-base/actions/ExamineAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 
-export class KnifeItem extends Item implements Examine {
-    public static readonly Alias: string = "KnifeItem";
+export class SugarItem extends Item implements Examine {
+    public static readonly Alias: string = "SugarItem";
 
     public constructor() {
-        super(KnifeItem.Alias);
+        super(SugarItem.Alias);
     }
 
     public name(): string {
-        return "Knife";
+        return "Sugar";
     }
 
     public examine(): ActionResult | undefined {
         return new TextActionResult([
-            "There is a knife hanging from the wall",
-            "It looks very Sharp!",
+            "This seems to be a large bag of sugar",
         ]);
     }
 }
