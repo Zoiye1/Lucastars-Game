@@ -14,7 +14,7 @@ export class FocusDrinkItem extends Item implements Examine, PickUp {
     }
 
     public name(): string {
-        return "FocusDrink";
+        return "Focus Drink";
     }
 
     public examine(): ActionResult | undefined {
