@@ -3,6 +3,16 @@ import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { StartupRoom } from "../rooms/StartupRoom";
 import { PlayerSession } from "../types";
 import { Toilet } from "../rooms/Toilet";
+import { KitchenRoom } from "../rooms/KitchenRoom";
+import { TitleItem } from "../items/TitleItem";
+import { cookCharacter } from "../characters/cookCharacter";
+import { KnifeItem } from "../items/KnifeItem";
+import { SugarItem } from "../items/SugarItem";
+import { StorageRoom } from "../rooms/StorageRoom";
+import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
+import { CourtyardRoom } from "../rooms/CourtyardRoom";
+import { FocusDrinkItem } from "../items/FocusDrinkItem";
+import { CleanerCharacter } from "../characters/CleanerCharacter";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -17,6 +27,24 @@ export class GameService extends BaseGameService<PlayerSession> {
         // Rooms
         this.registerGameObject(StartupRoom);
         this.registerGameObject(Toilet);
+        this.registerGameObject(KitchenRoom);
+        this.registerGameObject(StorageRoom);
+
+        // Items
+        this.registerGameObject(TitleItem);
+        this.registerGameObject(KnifeItem);
+        this.registerGameObject(SugarItem);
+
+        // Characters
+        this.registerGameObject(cookCharacter);
+        this.registerGameObject(CafeteriaRoom);
+        this.registerGameObject(CourtyardRoom);
+
+        // Items
+        this.registerGameObject(FocusDrinkItem);
+
+        // Characters
+        this.registerGameObject(CleanerCharacter);
     }
 
     /**
@@ -26,6 +54,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         return {
             currentRoom: StartupRoom.Alias,
             inventory: [],
+            GaveTheForkToCook: false,
+            ThreatenedCook: false,
         };
     }
 
