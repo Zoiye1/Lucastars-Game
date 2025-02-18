@@ -7,6 +7,7 @@ import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
+import { PickUpAction } from "../actions/PickUpAction";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CourtyardRoom } from "./CourtyardRoom";
@@ -41,6 +42,7 @@ export class CafeteriaRoom extends Room implements Simple {
         return [
             new ExamineAction(),
             new TalkAction(),
+            new PickUpAction(),
             new SimpleAction("enter-courtyard", "Enter Courtyard"),
         ];
     }
