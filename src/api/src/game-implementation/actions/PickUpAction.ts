@@ -18,7 +18,13 @@ export class PickUpAction extends Action {
         return "Pick up";
     }
 
-    public execute(_alias: string, _gameObjects: GameObject[]): ActionResult | undefined {
+    public execute(_alias: string, gameObjects: GameObject[]): ActionResult | undefined {
+        const gameObject: GameObject = gameObjects[0];
+
+        if (gameObject.instanceOf(PickUp)) {
+            return gameObject.pickUp();
+        }
+
         return undefined;
     }
 }

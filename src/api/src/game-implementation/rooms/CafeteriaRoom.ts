@@ -10,6 +10,7 @@ import { gameService } from "../../global";
 import { PickUpAction } from "../actions/PickUpAction";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
+import { PlayerSession } from "../types";
 import { CourtyardRoom } from "./CourtyardRoom";
 
 export class CafeteriaRoom extends Room implements Simple {
@@ -24,7 +25,17 @@ export class CafeteriaRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["cafeteria/CafeteriaBackground", "cafeteria/CleanerInTheWay", "cafeteria/FocusDrink"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ["cafeteria/CafeteriaBackground"];
+
+        if (!playerSession.helpedCleaner) {
+            result.push("cafeteria/CleanerInTheWay");
+        }
+        if (!playerSession.pickedUpFocusDrink) {
+            result.push("cafeteria/FocusDrink");
+        }
+
+        return result;
     }
 
     public examine(): ActionResult | undefined {
