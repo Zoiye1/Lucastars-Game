@@ -336,3 +336,71 @@
     -  #### Zijn er problemen waar tegen aanloopt?
 
         - Nee
+
+
+### Daily standup maandag 18-02-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+        - Programeerd items kan je mee intracteren kan je met de NPC praten verschillende dialogen werkt met de items.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Storage room afmaken connect maken met de kitchen pick items onderzoeken 
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+        - Gameobject toegevoegd aan de room en interactive gemaakt.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Vandaag verder werken met de code.
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+        - Rooms begonnen en video's van Lennard bekeken.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Kleine details van roof afmaken en begin van
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+        - Allebei de rooms afgemaakt lab en starter room. En begonnen met het kijken van de video's van Lennard.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Room toevoegen kijken hoe ver ik kom.
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan?
+        - Pixel art van de toilet gemaakt.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Programmeren van mijn kamers
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
