@@ -8,6 +8,8 @@ import { Action } from "../../game-base/actions/Action";
 import { PickUpAction } from "../actions/PickUpAction";
 import { gameService } from "../../global";
 import { PlayerSession } from "../types";
+import { SimpleAction } from "../../game-base/actions/SimpleAction";
+import { CourtyardRoom } from "./CourtyardRoom";
 // import { UseAction } from "../../game-implementation/actions/UseAction";
 
 export class Toilet extends Room {
@@ -23,7 +25,7 @@ export class Toilet extends Room {
 
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: string[] = ["toilet/ToiletBackground"];
+        const result: string[] = ["toilet/ToiletBackground", "toilet/ArrowToHallway"];
         if (!playerSession.pickedUpBucket) {
             result.push("toilet/Bucket");
         }
@@ -43,8 +45,21 @@ export class Toilet extends Room {
         return [
             new ExamineAction(),
             new PickUpAction(),
+            new SimpleAction("enter-hallway", "Enter the Hallway"),
 
         ];
+    }
+
+    public simpel(alias: string): ActionResult | undefined {
+        if (alias === "enter-hallway") {
+            const room: Room = new CourtyardRoom();
+
+            gameService.getPlayerSession().currentRoom = room.alias;
+
+            return room.examine();
+        }
+
+        return undefined;
     }
 
     public examine(): ActionResult | undefined {
