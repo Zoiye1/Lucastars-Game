@@ -9,7 +9,7 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { gameService } from "../../global";
 import { PlayerSession } from "../types";
 import { SimpleAction } from "../../game-base/actions/SimpleAction";
-import { CourtyardRoom } from "./CourtyardRoom";
+import { TalkAction } from "../../game-base/actions/TalkAction";
 // import { UseAction } from "../../game-implementation/actions/UseAction";
 
 export class Toilet extends Room {
@@ -46,20 +46,21 @@ export class Toilet extends Room {
             new ExamineAction(),
             new PickUpAction(),
             new SimpleAction("enter-hallway", "Enter the Hallway"),
+            new TalkAction(),
 
         ];
     }
 
     public simpel(alias: string): ActionResult | undefined {
         if (alias === "enter-hallway") {
-            const room: Room = new CourtyardRoom();
+            const room: Room = new Hallway();
 
             gameService.getPlayerSession().currentRoom = room.alias;
 
             return room.examine();
         }
 
-        return undefined;
+        return new TextActionResult(["You can't go there."]);
     }
 
     public examine(): ActionResult | undefined {

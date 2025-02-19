@@ -64,7 +64,6 @@ export class SimpleAction extends Action {
         if (gameObject.instanceOf(Simple)) {
             return gameObject.simple(alias);
         }
-
         return undefined;
     }
 }
