@@ -64,6 +64,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             ThreatenedCook: false,
             helpedCleaner: false,
             pickedUpFocusDrink: false,
+            pickedUpBucket: false,
         };
     }
 

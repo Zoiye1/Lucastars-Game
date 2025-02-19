@@ -6,6 +6,8 @@ import { Room } from "../../game-base/gameObjects/Room";
 import { BucketItem } from "../items/BucketItem";
 import { Action } from "../../game-base/actions/Action";
 import { PickUpAction } from "../actions/PickUpAction";
+import { gameService } from "../../global";
+import { PlayerSession } from "../types";
 // import { UseAction } from "../../game-implementation/actions/UseAction";
 
 export class Toilet extends Room {
@@ -20,13 +22,21 @@ export class Toilet extends Room {
     }
 
     public images(): string[] {
-        return ["toilet", "toilet/Bucket"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ["toilet/ToiletBackground"];
+        if (!playerSession.pickedUpBucket) {
+            result.push("toilet/Bucket");
+        }
+        return result;
     }
 
     public objects(): GameObject [] {
-        return [
-            new BucketItem(),
-        ];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: GameObject[] = [];
+        if (!playerSession.pickedUpBucket) {
+            result.push(new BucketItem());
+        }
+        return result;
     }
 
     public actions(): Action[] {
