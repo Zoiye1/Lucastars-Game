@@ -13,8 +13,7 @@ import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
-import { BucketItem } from "../items/BucketItem";
-import { UseAction } from "../actions/UseAction";
+import { PickUpAction } from "../actions/PickUpAction";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -50,7 +49,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CleanerCharacter);
 
         // Actions
-        this.registerGameObject(UseAction);
+        this.registerAction(PickUpAction);
     }
 
     /**
@@ -62,6 +61,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             inventory: [],
             GaveTheForkToCook: false,
             ThreatenedCook: false,
+            helpedCleaner: false,
+            pickedUpFocusDrink: false,
         };
     }
 
