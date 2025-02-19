@@ -5,7 +5,8 @@ import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { BucketItem } from "../items/BucketItem";
 import { Action } from "../../game-base/actions/Action";
-import { UseAction } from "../../game-implementation/actions/UseAction";
+import { PickUpAction } from "../actions/PickUpAction";
+// import { UseAction } from "../../game-implementation/actions/UseAction";
 
 export class Toilet extends Room {
     public static readonly Alias: string = "toilet";
@@ -31,7 +32,8 @@ export class Toilet extends Room {
     public actions(): Action[] {
         return [
             new ExamineAction(),
-            new UseAction(),
+            new PickUpAction(),
+
         ];
     }
 

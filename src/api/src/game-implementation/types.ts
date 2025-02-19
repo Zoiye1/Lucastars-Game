@@ -12,4 +12,5 @@ export type PlayerSession = {
     ThreatenedCook: boolean;
     helpedCleaner: boolean;
     pickedUpFocusDrink: boolean;
+    pickedUpBucket: boolean;
 };

@@ -14,6 +14,7 @@ import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { PickUpAction } from "../actions/PickUpAction";
+import { BucketItem } from "../items/BucketItem";
 
 /**
  * Implementation of the game service used to operate the game engine
