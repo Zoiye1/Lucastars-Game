@@ -16,6 +16,7 @@ import { RoofRoom } from "../rooms/RoofRoom";
 import { HammerItem } from "../items/HammerItem";
 import { SticksItem } from "../items/SticksItem";
 import { GymRoom } from "../rooms/GymRoom";
+import { PickUpAction } from "../actions/PickUpAction";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -51,6 +52,9 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Characters
         this.registerGameObject(CleanerCharacter);
+
+        // Actions
+        this.registerAction(PickUpAction);
     }
 
     /**
@@ -62,6 +66,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             inventory: [],
             GaveTheForkToCook: false,
             ThreatenedCook: false,
+            helpedCleaner: false,
+            pickedUpFocusDrink: false,
         };
     }
 
