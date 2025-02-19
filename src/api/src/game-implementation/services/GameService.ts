@@ -12,6 +12,10 @@ import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
+import { RoofRoom } from "../rooms/RoofRoom";
+import { HammerItem } from "../items/HammerItem";
+import { SticksItem } from "../items/SticksItem";
+import { GymRoom } from "../rooms/GymRoom";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -27,11 +31,15 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(StartupRoom);
         this.registerGameObject(KitchenRoom);
         this.registerGameObject(StorageRoom);
+        this.registerGameObject(RoofRoom);
+        this.registerGameObject(GymRoom);
 
         // Items
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
         this.registerGameObject(SugarItem);
+        this.registerGameObject(HammerItem);
+        this.registerGameObject(SticksItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
