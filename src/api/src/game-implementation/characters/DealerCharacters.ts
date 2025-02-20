@@ -26,13 +26,18 @@ export class DealerCharacter extends Character {
             );
         }
 
+        if (_choiceId === 3) {
+            return new TalkActionResult(
+                this,
+                ["You have to give me powdered sugar."], // Het antwoord op de vraag
+                []
+            );
+        }
+
         return new TalkActionResult(
             this,
             ["Hey, I have some stuff for sale. You want to buy something?"],
-            [
-                new TalkChoice(1, "What do you have for sale?"),
-                new TalkChoice(2, "No, I'm not interested."),
-            ]
+            [new TalkChoice(1, "What do you have for sale?"), new TalkChoice(2, "No, I'm not interested.")]
         );
     }
 }
