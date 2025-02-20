@@ -15,6 +15,7 @@ import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { PickUpAction } from "../actions/PickUpAction";
 import { BucketItem } from "../items/BucketItem";
+import { DealerCharacter } from "../characters/DealerCharacters";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -48,6 +49,7 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Characters
         this.registerGameObject(CleanerCharacter);
+        this.registerGameObject(DealerCharacter);
 
         // Actions
         this.registerAction(PickUpAction);

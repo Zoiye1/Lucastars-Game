@@ -10,6 +10,7 @@ import { gameService } from "../../global";
 import { PlayerSession } from "../types";
 import { SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
+import { DealerCharacter } from "../characters/DealerCharacters";
 // import { UseAction } from "../../game-implementation/actions/UseAction";
 
 export class Toilet extends Room {
@@ -29,6 +30,8 @@ export class Toilet extends Room {
         if (!playerSession.pickedUpBucket) {
             result.push("toilet/Bucket");
         }
+
+        result.push("characters/Dealer");
         return result;
     }
 
@@ -38,6 +41,8 @@ export class Toilet extends Room {
         if (!playerSession.pickedUpBucket) {
             result.push(new BucketItem());
         }
+
+        result.push(new DealerCharacter());
         return result;
     }
 
