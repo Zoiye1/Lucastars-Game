@@ -29,11 +29,26 @@ export class DealerCharacter extends Character {
         if (_choiceId === 3) {
             return new TalkActionResult(
                 this,
-                ["You have to give me powdered sugar."], // Het antwoord op de vraag
+                ["You have to give me powdered sugar."],
+                [new TalkChoice(5, "Give"), new TalkChoice(6, "I don't have it right now")]
+            );
+        }
+
+        if (_choiceId === 5) {
+            return new TalkActionResult(
+                this,
+                ["Thanks! Here is your steroids."], // Reactie als speler geeft
                 []
             );
         }
 
+        if (_choiceId === 6 || _choiceId === 2 || _choiceId === 4) {
+            return new TalkActionResult(
+                this,
+                ["Alright, let me know if you change your mind."], // Optionele reactie voordat dialoog herstart
+                []
+            );
+        }
         return new TalkActionResult(
             this,
             ["Hey, I have some stuff for sale. You want to buy something?"],
