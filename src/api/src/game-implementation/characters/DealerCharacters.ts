@@ -2,6 +2,10 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { Character } from "../../game-base/gameObjects/Character";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
+import { gameService } from "../../global";
+import { Toilet } from "../rooms/Toilet";
+// import { PlayerSession } from "../types";
+import { TalkChoice } from "../../game-base/actions/TalkAction";
 
 export class DealerCharacter extends Character {
     public static readonly Alias: string = "dealer";
@@ -43,12 +47,12 @@ export class DealerCharacter extends Character {
         }
 
         if (_choiceId === 6 || _choiceId === 2 || _choiceId === 4) {
-            return new TalkActionResult(
-                this,
-                ["Alright, let me know if you change your mind."], // Optionele reactie voordat dialoog herstart
-                []
-            );
+            gameService.getPlayerSession().currentRoom = Toilet.Alias; // Speler blijft in de toilet
+            const room = new Toilet(); // Nieuwe instantie van de kamer
+
+            return room.examine(); // Toont direct weer "It's a toilet."
         }
+
         return new TalkActionResult(
             this,
             ["Hey, I have some stuff for sale. You want to buy something?"],
