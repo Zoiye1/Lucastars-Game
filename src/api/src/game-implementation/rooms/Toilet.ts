@@ -11,7 +11,6 @@ import { PlayerSession } from "../types";
 import { SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { DealerCharacter } from "../characters/DealerCharacters";
-// import { UseAction } from "../../game-implementation/actions/UseAction";
 
 export class Toilet extends Room {
     public static readonly Alias: string = "toilet";
@@ -35,7 +34,7 @@ export class Toilet extends Room {
         return result;
     }
 
-    public objects(): GameObject [] {
+    public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: GameObject[] = [];
         if (!playerSession.pickedUpBucket) {
@@ -52,7 +51,6 @@ export class Toilet extends Room {
             new PickUpAction(),
             new SimpleAction("enter-hallway", "Enter the Hallway"),
             new TalkAction(),
-
         ];
     }
 
