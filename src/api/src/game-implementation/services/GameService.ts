@@ -14,6 +14,12 @@ import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
+import { OpenAction } from "../../game-base/actions/OpenAction";
+import { DoorKitchenItem } from "../items/DoorKitchenItem";
+import { ClosetStorageItem } from "../items/ClosetStorageItem";
+import { BoxStorageItem } from "../items/BoxStorageItem";
+import { ElevatorStorageItem } from "../items/ElevatorStorageItem";
+import { KeypadStorageItem } from "../items/KeypadStorageItem";
 import { PickUpAction } from "../actions/PickUpAction";
 import { ForkItem } from "../items/ForkItem";
 import { HallwayRoom } from "../rooms/HallwayRoom";
@@ -41,16 +47,17 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(HallwayRoom);
         this.registerGameObject(StrangerRoom);
 
-
-
-
         // Items
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
         this.registerGameObject(SugarItem);
+        this.registerGameObject(DoorKitchenItem);
+        this.registerGameObject(ClosetStorageItem);
+        this.registerGameObject(BoxStorageItem);
+        this.registerGameObject(ElevatorStorageItem);
+        this.registerGameObject(KeypadStorageItem);
         this.registerGameObject(ForkItem);
         this.registerGameObject(PaintingItem);
-
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -63,6 +70,9 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Characters
         this.registerGameObject(CleanerCharacter);
+
+        // Actions
+        this.registerAction(OpenAction);
         this.registerGameObject(DealerCharacter);
 
         // Actions

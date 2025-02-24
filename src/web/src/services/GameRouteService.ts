@@ -36,4 +36,19 @@ export class GameRouteService extends BaseRouteService {
             return undefined;
         }
     }
+
+    public async executeMoveAction(
+        actionAlias: string,
+        objectAliases?: string[]
+    ): Promise<GameState | undefined> {
+        try {
+            return await this.postJsonApi<GameState, ExecuteActionRequest>("game/action", {
+                action: actionAlias,
+                objects: objectAliases,
+            });
+        }
+        catch {
+            return undefined;
+        }
+    }
 }

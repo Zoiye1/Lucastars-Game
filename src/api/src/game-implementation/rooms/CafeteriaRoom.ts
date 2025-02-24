@@ -12,6 +12,7 @@ import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { PlayerSession } from "../types";
 import { CourtyardRoom } from "./CourtyardRoom";
+import { KitchenRoom } from "./KitchenRoom";
 
 /**
  * Class representeert de cafeteria in het spel.
@@ -90,6 +91,7 @@ export class CafeteriaRoom extends Room implements Simple {
             new TalkAction(),
             new PickUpAction(),
             new SimpleAction("enter-courtyard", "Enter Courtyard"),
+            new SimpleAction("enter-kitchen", "Enter Kitchen"),
         ];
     }
 
@@ -103,6 +105,14 @@ export class CafeteriaRoom extends Room implements Simple {
         if (alias === "enter-courtyard") {
             const room: Room = new CourtyardRoom();
 
+            gameService.getPlayerSession().currentRoom = room.alias;
+
+            return room.examine();
+        }
+        if (alias === "enter-kitchen") {
+            const room: Room = new KitchenRoom();
+
+            // Set the current room to the startup room
             gameService.getPlayerSession().currentRoom = room.alias;
 
             return room.examine();
