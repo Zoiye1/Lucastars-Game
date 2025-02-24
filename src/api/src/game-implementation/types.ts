@@ -10,6 +10,7 @@ export type PlayerSession = {
     inventory: string[];
     GaveTheForkToCook: boolean;
     ThreatenedCook: boolean;
+    wantsToHelpCleaner: boolean;
     helpedCleaner: boolean;
     pickedUpFocusDrink: boolean;
 };

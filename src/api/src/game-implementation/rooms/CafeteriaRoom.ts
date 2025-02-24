@@ -50,6 +50,9 @@ export class CafeteriaRoom extends Room implements Simple {
         if (!playerSession.helpedCleaner) {
             result.push("cafeteria/CleanerInTheWay");
         }
+        else {
+            result.push("cafeteria/CleanerOutOfWay");
+        }
         if (!playerSession.pickedUpFocusDrink) {
             result.push("cafeteria/FocusDrink");
         }
