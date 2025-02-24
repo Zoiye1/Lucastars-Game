@@ -4,20 +4,35 @@ import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult
 import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { gameService } from "../../global";
 import { Toilet } from "../rooms/Toilet";
-// import { PlayerSession } from "../types";
-import { TalkChoice } from "../../game-base/actions/TalkAction";
 
+/**
+ * Klasse die de dealer NPC representeert.
+ * De dealer kan met de speler praten en biedt items te koop aan.
+ */
 export class DealerCharacter extends Character {
+    /** Alias voor de dealer NPC. */
     public static readonly Alias: string = "dealer";
 
+    /**
+     * Constructor voor de DealerCharacter-klasse.
+     */
     public constructor() {
         super(DealerCharacter.Alias);
     }
 
+    /**
+     * Retourneert de naam van het personage.
+     */
     public name(): string {
         return "Dealer";
     }
 
+    /**
+     * Methode waarmee de dealer met de speler kan praten.
+     * Op basis van de keuze van de speler worden verschillende reacties gegeven.
+     * @param _choiceId - De keuze-ID van de speler.
+     * @returns Een actie resultaat met de dialoog.
+     */
     public talk(_choiceId?: number): ActionResult | undefined {
         if (_choiceId === 1) {
             return new TalkActionResult(
@@ -47,7 +62,8 @@ export class DealerCharacter extends Character {
         }
 
         if (_choiceId === 6 || _choiceId === 2 || _choiceId === 4) {
-            gameService.getPlayerSession().currentRoom = Toilet.Alias; // Speler blijft in de toilet
+            // Speler blijft in de toilet na het gesprek
+            gameService.getPlayerSession().currentRoom = Toilet.Alias;
             const room = new Toilet(); // Nieuwe instantie van de kamer
 
             return room.examine(); // Toont direct weer "It's a toilet."
