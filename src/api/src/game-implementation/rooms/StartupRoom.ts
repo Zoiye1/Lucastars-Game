@@ -6,6 +6,8 @@ import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 // import { KitchenRoom } from "./KitchenRoom";
 // import { CafeteriaRoom } from "./CafeteriaRoom";
+// import { RoofRoom } from "./RoofRoom";
+// import { GymRoom } from "./GymRoom";
 import { StarterRoom } from "./StarterRoom";
 
 /**
@@ -60,6 +62,9 @@ export class StartupRoom extends Room implements Simple {
             // TODO: Change this to the actual first room of the game
             // const room: Room = new StartupRoom();
             // const room: Room = new KitchenRoom();
+            // const room: Room = new CafeteriaRoom();
+            // const room: Room = new RoofRoom();
+            // const room: Room = new GymRoom();
             const room: Room = new StarterRoom();
             // const room: Room = new CafeteriaRoom();
 

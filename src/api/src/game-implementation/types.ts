@@ -14,6 +14,8 @@ export type PlayerSession = {
     wantsToHelpCleaner: boolean;
     helpedCleaner: boolean;
     pickedUpFocusDrink: boolean;
+    pickedUpHammer: boolean;
+    pickedupSticks: boolean;
     pickedUpFork: boolean;
     pickedUpPainting: boolean;
 

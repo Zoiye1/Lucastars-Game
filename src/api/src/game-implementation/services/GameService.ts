@@ -14,6 +14,10 @@ import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
+import { RoofRoom } from "../rooms/RoofRoom";
+import { HammerItem } from "../items/HammerItem";
+import { SticksItem } from "../items/SticksItem";
+import { GymRoom } from "../rooms/GymRoom";
 import { OpenAction } from "../../game-base/actions/OpenAction";
 import { DoorKitchenItem } from "../items/DoorKitchenItem";
 import { ClosetStorageItem } from "../items/ClosetStorageItem";
@@ -43,6 +47,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(Toilet);
         this.registerGameObject(KitchenRoom);
         this.registerGameObject(StorageRoom);
+        this.registerGameObject(RoofRoom);
+        this.registerGameObject(GymRoom);
         this.registerGameObject(StarterRoom);
         this.registerGameObject(HallwayRoom);
         this.registerGameObject(StrangerRoom);
@@ -51,6 +57,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
         this.registerGameObject(SugarItem);
+        this.registerGameObject(HammerItem);
+        this.registerGameObject(SticksItem);
         this.registerGameObject(DoorKitchenItem);
         this.registerGameObject(ClosetStorageItem);
         this.registerGameObject(BoxStorageItem);
@@ -91,6 +99,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             helpedCleaner: false,
             wantsToHelpCleaner: false,
             pickedUpFocusDrink: false,
+            pickedUpHammer: false,
+            pickedupSticks: false,
             pickedUpFork: false,
             pickedUpPainting: false,
             pickedUpBucket: false,
