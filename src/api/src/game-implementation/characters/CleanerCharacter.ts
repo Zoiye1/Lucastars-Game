@@ -25,6 +25,7 @@ export class CleanerCharacter extends Character {
                 return new TextActionResult(["Okay. I will be waiting here."]);
             }
             else if (choiceId === 6) {
+                playerSession.inventory.push("bucket");
                 if (playerSession.inventory.includes("bucket")) {
                     playerSession.helpedCleaner = true;
                     playerSession.inventory.push("ten-euro-bill");

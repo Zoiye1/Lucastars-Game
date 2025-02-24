@@ -90,15 +90,20 @@ export class CafeteriaRoom extends Room implements Simple {
      * @returns Een array van mogelijke actions
      */
     public actions(): Action[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
+        const result: Action[] = [
             new ExamineAction(),
             new TalkAction(),
             new PickUpAction(),
             new SimpleAction("enter-hallway", "Enter Hallway"),
             new SimpleAction("enter-courtyard", "Enter Courtyard"),
             new SimpleAction("enter-gym", "Enter Gym"),
-            new SimpleAction("enter-kitchen", "Enter Kitchen"),
         ];
+
+        if (playerSession.helpedCleaner) result.push(new SimpleAction("enter-kitchen", "Enter Kitchen"));
+
+        return result;
     }
 
     /**
