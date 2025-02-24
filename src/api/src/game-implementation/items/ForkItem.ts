@@ -23,7 +23,7 @@ export class ForkItem extends Item implements Examine, PickUp {
 
     public pickUp(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        playerSession.pickedUpFork = true
+        playerSession.pickedUpFork = true;
 
         return new TextActionResult(["You have picked up the fork!."]);
     }

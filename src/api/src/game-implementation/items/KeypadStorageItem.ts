@@ -4,7 +4,7 @@ import { Examine } from "../../game-base/actions/ExamineAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 
 export class KeypadStorageItem extends Item implements Examine {
-    public static readonly Alias: string = "KnifeItem";
+    public static readonly Alias: string = "KeypadItem";
 
     public constructor() {
         super(KeypadStorageItem.Alias);

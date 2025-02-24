@@ -5,6 +5,7 @@
  * @remarks Can only contain JSON data types
  */
 export type PlayerSession = {
+    pickedUpSugar: boolean;
     /** Alias of the room the player is in */
     currentRoom: string;
     /** List of game object aliases the player owns */
@@ -18,6 +19,7 @@ export type PlayerSession = {
     pickedupSticks: boolean;
     pickedUpFork: boolean;
     pickedUpPainting: boolean;
+    pickedUpKnife: boolean;
 
     pickedUpBucket: boolean;
 };

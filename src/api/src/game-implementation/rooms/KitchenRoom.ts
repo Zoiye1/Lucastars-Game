@@ -15,6 +15,8 @@ import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
 import { CafeteriaRoom } from "./CafeteriaRoom";
 import { StorageRoom } from "./StorageRoom";
+import { PickUpAction } from "../actions/PickUpAction";
+import { PlayerSession } from "../types";
 
 export class KitchenRoom extends Room implements Simple {
     public static readonly Alias: string = "KitchenRoom";
@@ -28,7 +30,12 @@ export class KitchenRoom extends Room implements Simple {
 
     public images(): string[] {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
-        return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
+        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook", "kitchen/BagOfSugar"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.pickedUpKnife) {
+            result.push("kitchen/KnifeKitchen");
+        }
+        return result;
     }
 
     public ArrowUrl(): ArrowRoom[] {
@@ -50,6 +57,7 @@ export class KitchenRoom extends Room implements Simple {
             new ExamineAction(),
             new TalkAction(),
             new OpenAction(),
+            new PickUpAction(),
             new SimpleAction("storage-door", "Use storage door"),
             new SimpleAction("caf-door", "Go to cafeteria"),
         ];

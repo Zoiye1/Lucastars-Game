@@ -2,8 +2,11 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { Item } from "../../game-base/gameObjects/Item";
 import { Examine } from "../../game-base/actions/ExamineAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
+import { PlayerSession } from "../types";
+import { gameService } from "../../global";
+import { PickUp } from "../actions/PickUpAction";
 
-export class KnifeItem extends Item implements Examine {
+export class KnifeItem extends Item implements Examine, PickUp {
     public static readonly Alias: string = "KnifeItem";
 
     public constructor() {
@@ -19,5 +22,12 @@ export class KnifeItem extends Item implements Examine {
             "There is a knife hanging from the wall",
             "It looks very Sharp!",
         ]);
+    }
+
+    public pickUp(): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        playerSession.pickedUpKnife = true;
+
+        return new TextActionResult(["You have picked up the Knife!."]);
     }
 }
