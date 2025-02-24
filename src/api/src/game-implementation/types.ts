@@ -16,4 +16,5 @@ export type PlayerSession = {
     pickedUpFork: boolean;
     pickedUpPainting: boolean;
 
+    pickedUpBucket: boolean;
 };

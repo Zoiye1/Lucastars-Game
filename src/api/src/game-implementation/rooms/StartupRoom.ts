@@ -61,6 +61,7 @@ export class StartupRoom extends Room implements Simple {
             // const room: Room = new StartupRoom();
             // const room: Room = new KitchenRoom();
             const room: Room = new StarterRoom();
+            // const room: Room = new CafeteriaRoom();
 
             // Set the current room to the startup room
             gameService.getPlayerSession().currentRoom = room.alias;
