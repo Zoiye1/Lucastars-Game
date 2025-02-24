@@ -13,6 +13,10 @@ import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { PlayerSession } from "../types";
 import { CourtyardRoom } from "./CourtyardRoom";
 import { KitchenRoom } from "./KitchenRoom";
+<<<<<<< HEAD
+import { StartupRoom } from "./StartupRoom";
+=======
+>>>>>>> main
 
 /**
  * Class representeert de cafeteria in het spel.
@@ -48,6 +52,9 @@ export class CafeteriaRoom extends Room implements Simple {
 
         if (!playerSession.helpedCleaner) {
             result.push("cafeteria/CleanerInTheWay");
+        }
+        else {
+            result.push("cafeteria/CleanerOutOfWay");
         }
         if (!playerSession.pickedUpFocusDrink) {
             result.push("cafeteria/FocusDrink");
@@ -86,13 +93,24 @@ export class CafeteriaRoom extends Room implements Simple {
      * @returns Een array van mogelijke actions
      */
     public actions(): Action[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
+        const result: Action[] = [
             new ExamineAction(),
             new TalkAction(),
             new PickUpAction(),
+            new SimpleAction("enter-hallway", "Enter Hallway"),
             new SimpleAction("enter-courtyard", "Enter Courtyard"),
+<<<<<<< HEAD
+            new SimpleAction("enter-gym", "Enter Gym"),
+=======
             new SimpleAction("enter-kitchen", "Enter Kitchen"),
+>>>>>>> main
         ];
+
+        if (playerSession.helpedCleaner) result.push(new SimpleAction("enter-kitchen", "Enter Kitchen"));
+
+        return result;
     }
 
     /**
@@ -102,13 +120,28 @@ export class CafeteriaRoom extends Room implements Simple {
      * @returns Het resultaat van de action of `undefined` als de action niet bestaat
      */
     public simple(alias: string): ActionResult | undefined {
-        if (alias === "enter-courtyard") {
-            const room: Room = new CourtyardRoom();
+        let room: Room | undefined;
 
+        switch (alias) {
+            case "enter-hallway":
+                room = new StartupRoom();
+                break;
+            case "enter-courtyard":
+                room = new CourtyardRoom();
+                break;
+            case "enter-gym":
+                room = new StartupRoom();
+                break;
+            case "enter-kitchen":
+                room = new KitchenRoom();
+                break;
+        }
+
+        if (room) {
             gameService.getPlayerSession().currentRoom = room.alias;
-
             return room.examine();
         }
+
         if (alias === "enter-kitchen") {
             const room: Room = new KitchenRoom();
 
