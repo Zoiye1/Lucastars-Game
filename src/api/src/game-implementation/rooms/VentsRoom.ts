@@ -32,7 +32,7 @@ export class VentsRoom extends Room implements Simple {
             new ExamineAction(),
             new SimpleAction("go-left", "Go Left"),
             new SimpleAction("go-right", "Go Right"),
-            new SimpleAction("go-back", "Go Right"),
+            new SimpleAction("go-back", "Go Back"),
 
         ];
     }

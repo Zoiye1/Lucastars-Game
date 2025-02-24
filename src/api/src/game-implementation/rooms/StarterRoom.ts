@@ -11,7 +11,7 @@ import { PaintingItem } from "../items/PaintingItem";
 import { HallwayRoom } from "./HallwayRoom";
 import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
-
+import { VentsRoom } from "./VentsRoom";
 
 export class StarterRoom extends Room implements Simple {
     public static readonly Alias: string = "starterroom";
@@ -43,37 +43,41 @@ export class StarterRoom extends Room implements Simple {
         return new TextActionResult(["Welcome your room."]);
     }
 
-
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: GameObject[] = [];
 
-
         if (!playerSession.pickedUpFork) {
             result.push(new ForkItem());
         }
-        
+
         if (!playerSession.pickedUpPainting) {
             result.push(new PaintingItem());
         }
         return result;
     }
-    
 
     public actions(): Action[] {
         return [
             new ExamineAction(),
             new SimpleAction("enter-hallway", "Enter Hallway"),
+            new SimpleAction("enter-vent", "Enter Vent"),
             new PickUpAction(),
         ];
     }
 
     public simple(alias: string): ActionResult | undefined {
-        if (alias === "enter-hallway") {
-            const room: Room = new HallwayRoom();
-
+        let room: Room | undefined;
+        switch (alias) {
+            case "enter-hallway":
+                room = new HallwayRoom();
+                break;
+            case "enter-vent":
+                room = new VentsRoom();
+                break;
+        }
+        if (room) {
             gameService.getPlayerSession().currentRoom = room.alias;
-
             return room.examine();
         }
         return undefined;

@@ -31,6 +31,7 @@ import { StrangerRoom } from "../rooms/StrangerRoom";
 import { PaintingItem } from "../items/PaintingItem";
 import { BucketItem } from "../items/BucketItem";
 import { DealerCharacter } from "../characters/DealerCharacters";
+import { VentsRoom } from "../rooms/VentsRoom";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -52,6 +53,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(StarterRoom);
         this.registerGameObject(HallwayRoom);
         this.registerGameObject(StrangerRoom);
+        this.registerGameObject(VentsRoom);
 
         // Items
         this.registerGameObject(TitleItem);
