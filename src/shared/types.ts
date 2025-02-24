@@ -17,6 +17,7 @@ export type DefaultGameState = {
     roomName: string;
     /** Images of the room the player is in */
     roomImages: string[];
+    roomArrows: ArrowRoom[];
     /** Lines of text to show to the player */
     text: string[];
     /** Actions that are available to the player */
@@ -24,7 +25,10 @@ export type DefaultGameState = {
     /** Game objects that can be interacted with by the player */
     objects: GameObjectReference[];
 };
-
+export type ArrowRoom = {
+    ImageLocation: string;
+    OnClickEvent: string;
+};
 /**
  * Represents an action for the client application
  */

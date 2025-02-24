@@ -1,4 +1,4 @@
-import { ActionReference, DefaultGameState, GameObjectReference, GameState } from "@shared/types";
+import { ActionReference, ArrowRoom, DefaultGameState, GameObjectReference, GameState } from "@shared/types";
 import { css, html, htmlArray } from "../helpers/webComponents";
 import { GameEventService } from "../services/GameEventService";
 import { GameRouteService } from "../services/GameRouteService";
@@ -103,6 +103,7 @@ export class CanvasComponent extends HTMLElement {
     private _currentGameState?: DefaultGameState;
     /** Current active action button */
     private _selectedActionButton?: ActionReference;
+    private _selectedArrowButton?: ArrowRoom;
     /** Current active game object buttons */
     private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
 
@@ -195,8 +196,23 @@ export class CanvasComponent extends HTMLElement {
      */
     private renderHeader(): string {
         const roomImages: string[] | undefined = this._currentGameState?.roomImages;
+        const roomArrows: ArrowRoom[] | undefined = this._currentGameState?.roomArrows;
 
-        if (roomImages && roomImages.length > 0) {
+        if (roomImages && roomImages.length > 0 && roomArrows && roomArrows.length > 0) {
+            console.log("RoomArrow working");
+            console.log("roomArrows:", roomArrows);
+            // ${roomArrows.map(arrow => `<img src="/assets/img/rooms/${arrow.ImageLocation}.png" onclick="(${arrow.OnClickEvent})()" />`).join("")}
+            return htmlArray`
+                <div class="header">
+                    ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
+                    ${roomArrows.map(button => this.renderArrowButton(button))}
+                </div>
+                
+            `;
+        }
+        else if (roomImages && roomImages.length > 0 && roomArrows === undefined) {
+            console.log("No room arrows");
+
             return `
                 <div class="header">
                     ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
@@ -301,6 +317,27 @@ export class CanvasComponent extends HTMLElement {
         }
 
         this.updateGameState(state);
+    }
+
+    private renderArrowButton(button: ArrowRoom): HTMLElement {
+        const element: HTMLElement = html`
+        <img src="/assets/img/rooms/${button.ImageLocation}.png" />
+    `;
+
+        element.addEventListener("click", () => this.handleMoveClickAction(button));
+
+        return element;
+    }
+
+    private async handleMoveClickAction(arrow: ArrowRoom): Promise<void> {
+        const response: GameState | undefined = await this._gameRouteService.executeAction(arrow.OnClickEvent);
+
+        if (response === undefined) {
+            console.error("No state returned after sending action to backend.");
+            return;
+        }
+
+        this.updateGameState(response);
     }
 
     /**

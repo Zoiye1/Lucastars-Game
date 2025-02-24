@@ -1,3 +1,4 @@
+import { ArrowRoom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -26,7 +27,14 @@ export class KitchenRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
+        // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
+        return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
+    }
+
+    public ArrowUrl(): ArrowRoom[] {
+        return [
+            { ImageLocation: "kitchen/ArrowToCafKitchen4", OnClickEvent: "StorageRoom" },
+        ];
     }
 
     public objects(): GameObject[] {
