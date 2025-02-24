@@ -22,7 +22,7 @@ export class CleanerCharacter extends Character {
     /**
      * Geeft de naam van de cleaner terug
      *
-     * @returns De naam van het personage
+     * @returns De naam van de karakter
      */
     public name(): string {
         return "Cleaner";
@@ -31,8 +31,8 @@ export class CleanerCharacter extends Character {
     /**
      * Voert een gesprek met de cleaner op basis van de keuze van de speler.
      *
-     * @param choiceId - De ID van de keuze die de speler heeft gemaakt (optioneel)
-     * @returns Een ActionResult gebaseerd op de keuze van de speler, of `undefined` als er geen relevante actie is
+     * @param choiceId - De id van de keuze die de speler heeft gemaakt (optioneel)
+     * @returns Een ActionResult gebaseerd op de keuze van de speler of undefined als er geen relevante actie is
      */
     public talk(choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
