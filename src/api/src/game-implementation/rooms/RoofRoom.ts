@@ -4,8 +4,11 @@ import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
+import { gameService } from "../../global";
+import { PickUpAction } from "../actions/PickUpAction";
 import { HammerItem } from "../items/HammerItem";
 import { SticksItem } from "../items/SticksItem";
+import { PlayerSession } from "../types";
 
 export class RoofRoom extends Room {
     public static readonly Alias: string = "roof";
@@ -19,19 +22,37 @@ export class RoofRoom extends Room {
     }
 
     public images(): string[] {
-        return ["Roof/RoofBackground", "Roof/Hammer", "Roof/Sticks"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ["Roof/RoofBackground"];
+
+        if (!playerSession.pickedUpHammer) {
+            result.push("Roof/Hammer");
+        }
+        if (!playerSession.pickedupSticks) {
+            result.push("Roof/Sticks");
+        }
+
+        return result;
     }
 
     public objects(): GameObject[] {
-        return [
-            new HammerItem(),
-            new SticksItem(),
-        ];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: GameObject[] = [];
+
+        if (!playerSession.pickedUpHammer) {
+            result.push(new HammerItem());
+        }
+
+        if (!playerSession.pickedupSticks) {
+            result.push(new SticksItem());
+        }
+        return result;
     }
 
     public actions(): Action[] {
         return [
             new ExamineAction(),
+            new PickUpAction(),
         ];
     }
 
