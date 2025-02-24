@@ -8,11 +8,16 @@ import { cookCharacter } from "../characters/cookCharacter";
 import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
 import { StorageRoom } from "../rooms/StorageRoom";
+import { StarterRoom } from "../rooms/StarterRoom";
 import { CafeteriaRoom } from "../rooms/CafeteriaRoom";
 import { CourtyardRoom } from "../rooms/CourtyardRoom";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { PickUpAction } from "../actions/PickUpAction";
+import { ForkItem } from "../items/ForkItem";
+import { HallwayRoom } from "../rooms/HallwayRoom";
+import { StrangerRoom } from "../rooms/Strangerroom";
+import { PaintingItem } from "../items/PaintingItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -28,11 +33,20 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(StartupRoom);
         this.registerGameObject(KitchenRoom);
         this.registerGameObject(StorageRoom);
+        this.registerGameObject(StarterRoom);
+        this.registerGameObject(HallwayRoom);
+        this.registerGameObject(StrangerRoom);
+
+
+
 
         // Items
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
         this.registerGameObject(SugarItem);
+        this.registerGameObject(ForkItem);
+        this.registerGameObject(PaintingItem);
+
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -60,6 +74,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             ThreatenedCook: false,
             helpedCleaner: false,
             pickedUpFocusDrink: false,
+            pickedUpFork: false,
+            pickedUpPainting: false,
         };
     }
 

@@ -1,3 +1,4 @@
+
 /**
  * Represents all data that should be stored for a player
  *
@@ -12,4 +13,7 @@ export type PlayerSession = {
     ThreatenedCook: boolean;
     helpedCleaner: boolean;
     pickedUpFocusDrink: boolean;
+    pickedUpFork: boolean;
+    pickedUpPainting: boolean;
+
 };
