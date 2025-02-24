@@ -8,6 +8,7 @@ import { gameService } from "../../global";
 import { CafeteriaRoom } from "./CafeteriaRoom";
 import { StarterRoom } from "./StarterRoom";
 import { StrangerRoom } from "./StrangerRoom";
+import { ToiletRoom } from "./ToiletRoom";
 
 export class HallwayRoom extends Room implements Simple {
     public static readonly Alias: string = "hallway";
@@ -33,7 +34,7 @@ export class HallwayRoom extends Room implements Simple {
             new ExamineAction(),
             new SimpleAction("enter-starterroom", "Enter Starterroom"),
             new SimpleAction("enter-strangerroom", "Enter Strangerroom"),
-            new SimpleAction("enter-cafeteria", "Enter Cafeteria")
+            new SimpleAction("enter-cafeteria", "Enter Cafeteria"),
         ];
     }
 
@@ -51,7 +52,7 @@ export class HallwayRoom extends Room implements Simple {
                 room = new CafeteriaRoom();
                 break;
             case "enter-toilet":
-                room = new Toilet();
+                room = new ToiletRoom();
         }
 
         if (room) {
