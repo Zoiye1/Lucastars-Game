@@ -53,10 +53,11 @@ export class DealerCharacter extends Character {
             );
         }
 
+        // Reactie als speler geeft
         if (_choiceId === 5) {
             return new TalkActionResult(
                 this,
-                ["Thanks! Here is your steroids."], // Reactie als speler geeft
+                ["Thanks! Here is your steroids."],
                 []
             );
         }
@@ -64,9 +65,12 @@ export class DealerCharacter extends Character {
         if (_choiceId === 6 || _choiceId === 2 || _choiceId === 4) {
             // Speler blijft in de toilet na het gesprek
             gameService.getPlayerSession().currentRoom = Toilet.Alias;
-            const room = new Toilet(); // Nieuwe instantie van de kamer
 
-            return room.examine(); // Toont direct weer "It's a toilet."
+            // Nieuwe instantie van de kamer
+            const room = new Toilet();
+
+            // Toont direct weer "It's a toilet."
+            return room.examine();
         }
 
         return new TalkActionResult(

@@ -72,10 +72,14 @@ export class Toilet extends Room {
      */
     public actions(): Action[] {
         return [
-            new ExamineAction(), // Speler kan de kamer onderzoeken
-            new PickUpAction(), // Speler kan objecten oppakken
-            new SimpleAction("enter-hallway", "Enter the Hallway"), // Actie om de hal binnen te gaan
-            new TalkAction(), // Speler kan praten met NPC's
+            // Speler kan de kamer onderzoeken
+            new ExamineAction(),
+            // Speler kan objecten oppakken
+            new PickUpAction(),
+            // Actie om de hal binnen te gaan
+            new SimpleAction("enter-hallway", "Enter the Hallway"),
+            // Speler kan praten met NPC's
+            new TalkAction(),
         ];
     }
 
