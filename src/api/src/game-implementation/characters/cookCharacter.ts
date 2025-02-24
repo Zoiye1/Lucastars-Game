@@ -100,7 +100,7 @@ export class cookCharacter extends Character implements Examine {
                     "Cook: \"Thanks I guess...\"",
                 ]
             );
-         }
+        }
         if (choiceId === 8) {
             gameService.getPlayerSession().GaveTheForkToCook = true;
             return new TextActionResult(

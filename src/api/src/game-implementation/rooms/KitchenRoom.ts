@@ -2,12 +2,14 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
+import { OpenAction } from "../../game-base/actions/OpenAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { cookCharacter } from "../characters/cookCharacter";
+import { DoorKitchenItem } from "../items/DoorKitchenItem";
 import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
 import { CafeteriaRoom } from "./CafeteriaRoom";
@@ -31,6 +33,7 @@ export class KitchenRoom extends Room implements Simple {
         return [new cookCharacter(),
             new KnifeItem(),
             new SugarItem(),
+            new DoorKitchenItem(),
         ];
     }
 
@@ -38,6 +41,7 @@ export class KitchenRoom extends Room implements Simple {
         return [
             new ExamineAction(),
             new TalkAction(),
+            new OpenAction(),
             new SimpleAction("storage-door", "Use storage door"),
             new SimpleAction("caf-door", "Go to cafeteria"),
         ];
@@ -53,18 +57,17 @@ export class KitchenRoom extends Room implements Simple {
     }
 
     public simple(alias: string): ActionResult | undefined {
-        if (alias === "storage-door") {
-            const room: Room = new StorageRoom();
-
-            gameService.getPlayerSession().currentRoom = room.alias;
-
-            return room.examine();
+        let room: Room | undefined;
+        switch (alias) {
+            case "storage-door":
+                room = new StorageRoom();
+                break;
+            case "caf-door":
+                room = new CafeteriaRoom();
+                break;
         }
-        if (alias === "caf-door") {
-            const room: Room = new CafeteriaRoom();
-
+        if (room) {
             gameService.getPlayerSession().currentRoom = room.alias;
-
             return room.examine();
         }
         return undefined;
