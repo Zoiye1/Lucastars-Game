@@ -32,47 +32,47 @@ export class CleanerCharacter extends Character {
                     return new TextActionResult(["Amazing! Thank you for helping me. Now I can finally make my boss happy! I promised you a reward and here you go, a €10 bill. Go ahead and treat yourself with a gift :)"]);
                 }
                 else {
-                    return new TextActionResult(["Liar! You do not have a bucket on you. Please keep looking..."]);
+                    return new TextActionResult(["Haha.. you think you are funny?! You do not have a bucket on you. Please keep looking..."]);
                 };
             }
 
             return new TalkActionResult(
                 this,
-                ["Did you bring my water bucket?"],
+                ["Did you manage to find my water bucket?"],
                 [
-                    new TalkChoice(5, "No I am still looking for it."),
-                    new TalkChoice(6, "Yes I have the bucket with me. Here you go. "),
+                    new TalkChoice(5, "Not yet, I am still looking."),
+                    new TalkChoice(6, "Yes, I found it! Here you go. "),
                 ]);
         }
 
         if (choiceId === 1) {
             return new TalkActionResult(
                 this,
-                ["First of all, I am doing my job! My boss will fire me if i fail to clean this cafeteria!. Maybe instead of yelling at me you can help me?"],
+                ["I really wish I could, but I have to finish cleaning. My boss is expecting me to get this done. If you’d like, I could use a little help."],
                 [
-                    new TalkChoice(3, "Relax... I am willing to help you."),
-                    new TalkChoice(4, "If you don't get out of the way right now I will make a mess!"),
+                    new TalkChoice(3, "Sure, I'd be happy to help."),
+                    new TalkChoice(4, "Come on, just move aside already."),
                 ]
             );
         }
         else if (choiceId === 2) {
-            return new TextActionResult(["HOW CAN YOU CALL THIS CLEAN?! IT'S A MESS BECAUSE OF YOU PEOPLE!! NOW IF YOU DON'T MIND I WILL FINISH MY JOB."]);
+            return new TextActionResult(["I appreciate that, but I still have so much to do... I'd be almost done by now, but I am missing something..."]);
         }
         else if (choiceId === 3) {
             playerSession.wantsToHelpCleaner = true;
 
-            return new TextActionResult(["I need to finish mopping the floor, but some idiot stole my water bucket from me. Help me find my bucket and I will get out of the way. You may receive a reward for your "]);
+            return new TextActionResult(["Thank you! I just need my water bucket, but someone took it. If you can help me find it, I would really appreciate it, and I might have something for you in return."]);
         }
         else if (choiceId === 4) {
-            return new TextActionResult(["Don't threaten me again or I will call security. Now go back to your room!"]);
+            return new TextActionResult(["Don't talk to me like that... I am already exhausted!"]);
         }
         else {
             return new TalkActionResult(
                 this,
-                ["Ugh... what do you want! I need to clean the floor...!"],
+                ["Oh, hi. Sorry, I am a little busy trying to clean up."],
                 [
-                    new TalkChoice(1, "Is it perhaps possible for you to get out of the way?"),
-                    new TalkChoice(2, "The Cafeteria looks clean enough to me..."),
+                    new TalkChoice(1, "Would you mind moving out of the way?"),
+                    new TalkChoice(2, "The cafeteria looks fine to me."),
                 ]
             );
         }
