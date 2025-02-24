@@ -1,3 +1,4 @@
+
 /**
  * Represents all data that should be stored for a player
  *
@@ -10,8 +11,13 @@ export type PlayerSession = {
     inventory: string[];
     GaveTheForkToCook: boolean;
     ThreatenedCook: boolean;
+    wantsToHelpCleaner: boolean;
     helpedCleaner: boolean;
     pickedUpFocusDrink: boolean;
     pickedUpHammer: boolean;
     pickedupSticks: boolean;
+    pickedUpFork: boolean;
+    pickedUpPainting: boolean;
+
+    pickedUpBucket: boolean;
 };

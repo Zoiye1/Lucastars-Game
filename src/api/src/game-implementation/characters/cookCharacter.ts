@@ -94,6 +94,13 @@ export class cookCharacter extends Character implements Examine {
 
             return new TalkActionResult(this, dialogue, choices);
         }
+        if (choiceId === 6 || choiceId === 7) {
+            return new TextActionResult(
+                [
+                    "Cook: \"Thanks I guess...\"",
+                ]
+            );
+        }
         if (choiceId === 8) {
             gameService.getPlayerSession().GaveTheForkToCook = true;
             return new TextActionResult(
