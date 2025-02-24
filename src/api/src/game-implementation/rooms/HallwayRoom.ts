@@ -7,8 +7,7 @@ import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { CafeteriaRoom } from "./CafeteriaRoom";
 import { StarterRoom } from "./StarterRoom";
-import { StrangerRoom } from "./Strangerroom";
-
+import { StrangerRoom } from "./StrangerRoom";
 
 export class HallwayRoom extends Room implements Simple {
     public static readonly Alias: string = "hallway";
@@ -51,6 +50,8 @@ export class HallwayRoom extends Room implements Simple {
             case "enter-cafeteria":
                 room = new CafeteriaRoom();
                 break;
+            case "enter-toilet":
+                room = new Toilet();
         }
 
         if (room) {

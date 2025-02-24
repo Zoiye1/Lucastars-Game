@@ -2,7 +2,7 @@ import { BaseGameService } from "../../game-base/services/BaseGameService";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { StartupRoom } from "../rooms/StartupRoom";
 import { PlayerSession } from "../types";
-import { Toilet } from "../rooms/Toilet";
+import { ToiletRoom } from "../rooms/ToiletRoom";
 import { KitchenRoom } from "../rooms/KitchenRoom";
 import { TitleItem } from "../items/TitleItem";
 import { cookCharacter } from "../characters/cookCharacter";
@@ -44,7 +44,7 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Rooms
         this.registerGameObject(StartupRoom);
-        this.registerGameObject(Toilet);
+        this.registerGameObject(ToiletRoom);
         this.registerGameObject(KitchenRoom);
         this.registerGameObject(StorageRoom);
         this.registerGameObject(RoofRoom);

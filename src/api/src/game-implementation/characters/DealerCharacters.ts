@@ -3,7 +3,7 @@ import { Character } from "../../game-base/gameObjects/Character";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { gameService } from "../../global";
-import { Toilet } from "../rooms/Toilet";
+import { Toilet } from "../rooms/ToiletRoom";
 
 /**
  * Klasse die de dealer NPC representeert.

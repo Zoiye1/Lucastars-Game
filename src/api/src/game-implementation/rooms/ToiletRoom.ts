@@ -15,7 +15,7 @@ import { DealerCharacter } from "../characters/DealerCharacters";
 /**
  * Klasse die de kamer "Toilet" vertegenwoordigt.
  */
-export class Toilet extends Room {
+export class ToiletRoom extends Room {
     /** Alias voor de kamer. */
     public static readonly Alias: string = "toilet";
 
@@ -23,7 +23,7 @@ export class Toilet extends Room {
      * Constructor voor de Toilet-klasse.
      */
     public constructor() {
-        super(Toilet.Alias);
+        super(ToiletRoom.Alias);
     }
 
     /**
