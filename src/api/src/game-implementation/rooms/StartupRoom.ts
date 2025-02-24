@@ -1,3 +1,4 @@
+import { ArrowRoom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -30,14 +31,20 @@ export class StartupRoom extends Room implements Simple {
      * @inheritdoc
      */
     public name(): string {
-        return "Example Game";
+        return "Escaping the Mental hospital";
     }
 
     /**
      * @inheritdoc
      */
     public images(): string[] {
-        return ["startup"];
+        return ["titlescreen"];
+    }
+
+    public ArrowUrl(): ArrowRoom[] {
+        return [
+            { ImageLocation: " ", OnClickEvent: "" },
+        ];
     }
 
     /**
@@ -51,7 +58,7 @@ export class StartupRoom extends Room implements Simple {
      * @inheritdoc
      */
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["This is an example."]);
+        return new TextActionResult([" "]);
     }
 
     /**

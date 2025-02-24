@@ -2,8 +2,7 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { Character } from "../../game-base/gameObjects/Character";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
-import { gameService } from "../../global";
-import { Toilet } from "../rooms/ToiletRoom";
+import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 
 /**
  * Klasse die de dealer NPC representeert.
@@ -62,15 +61,12 @@ export class DealerCharacter extends Character {
             );
         }
 
-        if (_choiceId === 6 || _choiceId === 2 || _choiceId === 4) {
-            // Speler blijft in de toilet na het gesprek
-            gameService.getPlayerSession().currentRoom = Toilet.Alias;
-
-            // Nieuwe instantie van de kamer
-            const room = new Toilet();
-
-            // Toont direct weer "It's a toilet."
-            return room.examine();
+        if (_choiceId === 2 || _choiceId === 4 || _choiceId === 6) {
+            return new TextActionResult(
+                [
+                    "no stress",
+                ]
+            );
         }
 
         return new TalkActionResult(

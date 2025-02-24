@@ -8,14 +8,15 @@ import { Action } from "../../game-base/actions/Action";
 import { PickUpAction } from "../actions/PickUpAction";
 import { gameService } from "../../global";
 import { PlayerSession } from "../types";
-import { SimpleAction } from "../../game-base/actions/SimpleAction";
+import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { DealerCharacter } from "../characters/DealerCharacters";
+import { HallwayRoom } from "./HallwayRoom";
 
 /**
  * Klasse die de kamer "Toilet" vertegenwoordigt.
  */
-export class ToiletRoom extends Room {
+export class ToiletRoom extends Room implements Simple {
     /** Alias voor de kamer. */
     public static readonly Alias: string = "toilet";
 
@@ -88,9 +89,9 @@ export class ToiletRoom extends Room {
      * @param alias - De alias van de actie.
      * @returns Het resultaat van de actie.
      */
-    public simpel(alias: string): ActionResult | undefined {
+    public simple(alias: string): ActionResult | undefined {
         if (alias === "enter-hallway") {
-            const room: Room = new Hallway();
+            const room: Room = new HallwayRoom();
 
             // Wijzigt de huidige kamer van de speler naar de hal
             gameService.getPlayerSession().currentRoom = room.alias;

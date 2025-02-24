@@ -35,6 +35,7 @@ export class HallwayRoom extends Room implements Simple {
             new SimpleAction("enter-starterroom", "Enter Starterroom"),
             new SimpleAction("enter-strangerroom", "Enter Strangerroom"),
             new SimpleAction("enter-cafeteria", "Enter Cafeteria"),
+            new SimpleAction("enter-toilet", "Enter Toilet"),
         ];
     }
 

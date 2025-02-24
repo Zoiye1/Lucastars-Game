@@ -27,7 +27,7 @@ import { KeypadStorageItem } from "../items/KeypadStorageItem";
 import { PickUpAction } from "../actions/PickUpAction";
 import { ForkItem } from "../items/ForkItem";
 import { HallwayRoom } from "../rooms/HallwayRoom";
-import { StrangerRoom } from "../rooms/Strangerroom";
+import { StrangerRoom } from "../rooms/StrangerRoom";
 import { PaintingItem } from "../items/PaintingItem";
 import { BucketItem } from "../items/BucketItem";
 import { DealerCharacter } from "../characters/DealerCharacters";
