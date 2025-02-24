@@ -13,7 +13,10 @@ import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { PlayerSession } from "../types";
 import { CourtyardRoom } from "./CourtyardRoom";
 import { KitchenRoom } from "./KitchenRoom";
+<<<<<<< HEAD
 import { StartupRoom } from "./StartupRoom";
+=======
+>>>>>>> main
 
 /**
  * Class representeert de cafeteria in het spel.
@@ -98,7 +101,11 @@ export class CafeteriaRoom extends Room implements Simple {
             new PickUpAction(),
             new SimpleAction("enter-hallway", "Enter Hallway"),
             new SimpleAction("enter-courtyard", "Enter Courtyard"),
+<<<<<<< HEAD
             new SimpleAction("enter-gym", "Enter Gym"),
+=======
+            new SimpleAction("enter-kitchen", "Enter Kitchen"),
+>>>>>>> main
         ];
 
         if (playerSession.helpedCleaner) result.push(new SimpleAction("enter-kitchen", "Enter Kitchen"));
@@ -135,6 +142,14 @@ export class CafeteriaRoom extends Room implements Simple {
             return room.examine();
         }
 
+        if (alias === "enter-kitchen") {
+            const room: Room = new KitchenRoom();
+
+            // Set the current room to the startup room
+            gameService.getPlayerSession().currentRoom = room.alias;
+
+            return room.examine();
+        }
         return undefined;
     }
 }
