@@ -40,7 +40,10 @@ export class StarterRoom extends Room implements Simple {
     }
 
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["Welcome your room."]);
+        return new TextActionResult(["You wake up with a pounding headache",
+            "You have no idea where you are. Your head throbs as you glance around the room.",
+            "The door is locked. You need to find a way out!",
+        ]);
     }
 
     public objects(): GameObject[] {

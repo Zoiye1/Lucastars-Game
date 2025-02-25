@@ -22,7 +22,8 @@ export class StrangerRoom extends Room implements Simple {
     }
 
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["Welcome to the Stranger Room."]);
+        return new TextActionResult(["You walk into a room with an open door, it looks like its a room from someone else...",
+            "You might be able to find something useful here"]);
     }
 
     public actions(): Action[] {

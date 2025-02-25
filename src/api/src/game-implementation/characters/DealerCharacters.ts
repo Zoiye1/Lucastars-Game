@@ -3,6 +3,8 @@ import { Character } from "../../game-base/gameObjects/Character";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
+import { PlayerSession } from "../types";
+import { gameService } from "../../global";
 
 /**
  * Klasse die de dealer NPC representeert.
@@ -33,6 +35,8 @@ export class DealerCharacter extends Character {
      * @returns Een actie resultaat met de dialoog.
      */
     public talk(_choiceId?: number): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
         if (_choiceId === 1) {
             return new TalkActionResult(
                 this,
@@ -48,23 +52,26 @@ export class DealerCharacter extends Character {
             return new TalkActionResult(
                 this,
                 ["You have to give me powdered sugar."],
-                [new TalkChoice(5, "Give"), new TalkChoice(6, "I don't have it right now")]
+                [new TalkChoice(5, "Give powdered sugar"), new TalkChoice(6, "I don't have it right now")]
             );
         }
 
         // Reactie als speler geeft
         if (_choiceId === 5) {
-            return new TalkActionResult(
-                this,
-                ["Thanks! Here is your steroids."],
-                []
-            );
+            if (playerSession.inventory.includes("SugarItem")) {
+                playerSession.pickedUpSugar = true;
+                playerSession.inventory.push("Steroids");
+                return new TextActionResult(["Amazing! Here you have Steroids."]);
+            }
+            else {
+                return new TextActionResult(["Haha... that's not funny. You don't have powdered sugar on you. Please keep looking..."]);
+            };
         }
 
         if (_choiceId === 2 || _choiceId === 4 || _choiceId === 6) {
             return new TextActionResult(
                 [
-                    "no stress",
+                    "No stress",
                 ]
             );
         }

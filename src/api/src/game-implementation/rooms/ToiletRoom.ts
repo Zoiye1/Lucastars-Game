@@ -106,6 +106,9 @@ export class ToiletRoom extends Room implements Simple {
      * Retourneert de beschrijving van de kamer wanneer de speler deze onderzoekt.
      */
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["It's a toilet."]);
+        return new TextActionResult(["You step into the bathroom, the stink of dampness hits you right away.",
+            "In the middle of the room stands a shady figure—it's clear they're here for business.",
+            "You wonder if this is someone who can help... or make things worse.",
+        ]);
     }
 }

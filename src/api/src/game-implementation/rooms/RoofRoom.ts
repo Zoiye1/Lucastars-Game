@@ -63,8 +63,7 @@ export class RoofRoom extends Room implements Simple {
         return new TextActionResult([
             "The cold air hits your face as you step onto the roof",
             "The city below seems so close, yet still out of reach",
-            "Scattered around you are 4 sticks and a hammer that might help you",
-            "escape this place once and for all.",
+            "Maybe there are things here that can help you escape…",
         ]);
     }
 

@@ -21,6 +21,6 @@ export type PlayerSession = {
     pickedUpFork: boolean;
     pickedUpPainting: boolean;
     pickedUpKnife: boolean;
-
+    helpedGymFreak: boolean;
     pickedUpBucket: boolean;
 };

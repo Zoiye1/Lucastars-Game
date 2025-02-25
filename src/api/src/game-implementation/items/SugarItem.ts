@@ -4,8 +4,9 @@ import { Examine } from "../../game-base/actions/ExamineAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
+import { PickUp } from "../actions/PickUpAction";
 
-export class SugarItem extends Item implements Examine {
+export class SugarItem extends Item implements Examine, PickUp {
     public static readonly Alias: string = "SugarItem";
 
     public constructor() {

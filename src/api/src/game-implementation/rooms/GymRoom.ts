@@ -8,6 +8,7 @@ import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { GymFreakCharacter } from "../characters/GymFreakCharacter";
+import { PlayerSession } from "../types";
 import { CafeteriaRoom } from "./CafeteriaRoom";
 
 export class GymRoom extends Room implements Simple {
@@ -22,7 +23,17 @@ export class GymRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["Gym/GymBackground", "Gym/GymFreakStart"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ["Gym/GymBackground"]; ;
+
+        if (!playerSession.helpedGymFreak) {
+            result.push("Gym/GymFreakStart");
+        }
+        else {
+            result.push("Gym/GymFreakEnd");
+        }
+
+        return result;
     }
 
     public objects(): GameObject[] {
