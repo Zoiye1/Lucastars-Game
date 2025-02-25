@@ -30,10 +30,13 @@ export class KitchenRoom extends Room implements Simple {
 
     public images(): string[] {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
-        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook", "kitchen/BagOfSugar"];
+        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook"];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.pickedUpKnife) {
             result.push("kitchen/KnifeKitchen");
+        }
+        if (!playerSession.pickedUpSugar) {
+            result.push("kitchen/BagOfSugar");
         }
         return result;
     }
@@ -51,11 +54,17 @@ export class KitchenRoom extends Room implements Simple {
     }
 
     public objects(): GameObject[] {
-        return [new cookCharacter(),
-            new KnifeItem(),
-            new SugarItem(),
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: GameObject[] = [new cookCharacter(),
             new DoorKitchenItem(),
         ];
+        if (!playerSession.pickedUpKnife) {
+            result.push(new KnifeItem());
+        }
+        if (!playerSession.pickedUpSugar) {
+            result.push(new SugarItem());
+        }
+        return result;
     }
 
     public actions(): Action[] {
@@ -74,12 +83,19 @@ export class KitchenRoom extends Room implements Simple {
     }
 
     public examine(): ActionResult | undefined {
-        return new TextActionResult([
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ([
             "You walk into the kitchen",
             "A cook is busy at the counter, focused on preparing food.",
             "At the back of the room, there’s a metal door.",
-            "On top of the fridge, a bag of sugar rests, and a knife hangs from the wall.",
         ]);
+        if (!playerSession.pickedUpSugar) {
+            result.push("On top of the fridge, a bag of sugar rests");
+        }
+        if (!playerSession.pickedUpKnife) {
+            result.push("and a knife hangs from the wall.");
+        }
+        return new TextActionResult(result);
     }
 
     public simple(alias: string): ActionResult | undefined {
