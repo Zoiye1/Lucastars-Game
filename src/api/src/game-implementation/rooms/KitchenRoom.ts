@@ -1,4 +1,3 @@
-import { ArrowRoom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -9,7 +8,7 @@ import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
-import { cookCharacter } from "../characters/CookCharacter";
+import { cookCharacter } from "../characters/cookCharacter";
 import { DoorKitchenItem } from "../items/DoorKitchenItem";
 import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
@@ -30,7 +29,7 @@ export class KitchenRoom extends Room implements Simple {
 
     public images(): string[] {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
-        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook"];
+        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4"];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.pickedUpKnife) {
             result.push("kitchen/KnifeKitchen");
@@ -38,17 +37,8 @@ export class KitchenRoom extends Room implements Simple {
         if (!playerSession.pickedUpSugar) {
             result.push("kitchen/BagOfSugar");
         }
-        return result;
-    }
-
-    public ArrowUrl(): ArrowRoom[] {
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: ArrowRoom[] =
-         [
-             { ImageLocation: "kitchen/ArrowToCafKitchen4", OnClickEvent: "CafeteriaRoom" },
-         ];
         if (playerSession.playerOpenedDoorToStorage) {
-            result.push({ ImageLocation: "kitchen/ArrowToStorageKitchen4", OnClickEvent: "StorageRoom" });
+            result.push("kitchen/ArrowToStorageKitchen4");
         }
         return result;
     }

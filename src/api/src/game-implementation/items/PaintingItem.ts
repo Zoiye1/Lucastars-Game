@@ -27,5 +27,4 @@ export class PaintingItem extends Item implements Examine, PickUp {
 
         return new TextActionResult(["You have picked up the painting!."]);
     }
-
 }
