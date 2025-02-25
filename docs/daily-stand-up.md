@@ -404,3 +404,73 @@
     -  #### Zijn er problemen waar tegen aanloopt?
 
         - Nee
+
+
+### Daily standup dinsdag 25-02-2025
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+        - Cafetaria afgemaakt. Connectie met kamers
+
+    -  #### Wat ga je vandaag doen?
+
+        - Werken aan retro
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+        - Kitchen afgemaakt en connecties met de kamers. 
+
+    -  #### Wat ga je vandaag doen?
+
+        - Werken aan de retrosepctive
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+        - Connecties met de kamers en starter room afgemaakt en de vens nieuwe pixel art.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Werken aan de retrosepctive
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+        - Room roof afgemaakt begonnen met interactie met gymfreak character.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Werken aan de retrosepctive
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan?
+        - Toilet afgemaakt en connecties met de kamers.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Werken aan de retrosepctive
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
