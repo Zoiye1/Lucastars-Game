@@ -5,7 +5,7 @@ import { PlayerSession } from "../types";
 import { ToiletRoom } from "../rooms/ToiletRoom";
 import { KitchenRoom } from "../rooms/KitchenRoom";
 import { TitleItem } from "../items/TitleItem";
-import { cookCharacter } from "../characters/CookCharacter";
+import { cookCharacter } from "../characters/cookCharacter";
 import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
 import { StorageRoom } from "../rooms/StorageRoom";
