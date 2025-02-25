@@ -1,11 +1,12 @@
-
 /**
  * Represents all data that should be stored for a player
  *
  * @remarks Can only contain JSON data types
  */
 export type PlayerSession = {
+    playerOpenedDoorToStorage: boolean;
     pickedUpSugar: boolean;
+    pickedUpKey: boolean;
     /** Alias of the room the player is in */
     currentRoom: string;
     /** List of game object aliases the player owns */

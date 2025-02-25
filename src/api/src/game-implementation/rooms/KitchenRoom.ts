@@ -53,14 +53,18 @@ export class KitchenRoom extends Room implements Simple {
     }
 
     public actions(): Action[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: Action[] = [
             new ExamineAction(),
             new TalkAction(),
             new OpenAction(),
             new PickUpAction(),
-            new SimpleAction("storage-door", "Use storage door"),
             new SimpleAction("caf-door", "Go to cafeteria"),
         ];
+        if (playerSession.playerOpenedDoorToStorage) {
+            result.push(new SimpleAction("storage-door", "Use storage door"));
+        }
+        return result;
     }
 
     public examine(): ActionResult | undefined {

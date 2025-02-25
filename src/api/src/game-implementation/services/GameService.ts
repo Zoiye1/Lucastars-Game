@@ -108,6 +108,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpBucket: false,
             pickedUpKnife: false,
             pickedUpSugar: false,
+            pickedUpKey: false,
+            playerOpenedDoorToStorage: false,
         };
     }
 
