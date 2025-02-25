@@ -39,9 +39,15 @@ export class KitchenRoom extends Room implements Simple {
     }
 
     public ArrowUrl(): ArrowRoom[] {
-        return [
-            { ImageLocation: "kitchen/ArrowToCafKitchen4", OnClickEvent: "StorageRoom" },
-        ];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: ArrowRoom[] =
+         [
+             { ImageLocation: "kitchen/ArrowToCafKitchen4", OnClickEvent: "CafeteriaRoom" },
+         ];
+        if (playerSession.playerOpenedDoorToStorage) {
+            result.push({ ImageLocation: "kitchen/ArrowToStorageKitchen4", OnClickEvent: "StorageRoom" });
+        }
+        return result;
     }
 
     public objects(): GameObject[] {
