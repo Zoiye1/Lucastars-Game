@@ -3,9 +3,11 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
+import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
+import { GymFreakCharacter } from "../characters/GymFreakCharacter";
 import { CafeteriaRoom } from "./CafeteriaRoom";
 
 export class GymRoom extends Room implements Simple {
@@ -23,13 +25,16 @@ export class GymRoom extends Room implements Simple {
         return ["Gym/GymBackground", "Gym/GymFreakStart"];
     }
 
-    public objects(): SyncOrAsync<GameObject[]> {
-        return [];
+    public objects(): GameObject[] {
+        return [
+            new GymFreakCharacter(),
+        ];
     }
 
     public actions(): SyncOrAsync<Action[]> {
         return [
             new ExamineAction(),
+            new TalkAction(),
             new SimpleAction("caf-door", "Go to cafeteria"),
         ];
     }

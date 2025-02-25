@@ -32,6 +32,7 @@ import { PaintingItem } from "../items/PaintingItem";
 import { BucketItem } from "../items/BucketItem";
 import { DealerCharacter } from "../characters/DealerCharacters";
 import { VentsRoom } from "../rooms/VentsRoom";
+import { GymFreakCharacter } from "../characters/GymFreakCharacter";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -73,6 +74,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(cookCharacter);
         this.registerGameObject(CafeteriaRoom);
         this.registerGameObject(CourtyardRoom);
+        this.registerGameObject(GymFreakCharacter);
 
         // Items
         this.registerGameObject(FocusDrinkItem);
