@@ -23,7 +23,7 @@ export class PaintingItem extends Item implements Examine, PickUp {
 
     public pickUp(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        playerSession.pickedUpPainting = true
+        playerSession.pickedUpPainting = true;
 
         return new TextActionResult(["You have picked up the painting!."]);
     }
