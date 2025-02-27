@@ -233,15 +233,18 @@ export class CanvasComponent extends HTMLElement {
 
         const selectedButton: ActionReference | undefined = this._selectedActionButton;
 
+        // object arrays gegroepeerd op actions (pick-up items, talk-to objects...)
         const pickUpItems: string[] = ["ForkItem", "PaintingItem", "Hammer", "Sticks", "bucket",
             "SulfuricAcidItem", "SugarItem", "KnifeItem", "KeyItem", "KeyPadItem", "GlasBeakerItem",
             "FocusDrinkItem"];
         const characters: string[] = ["cleaner", "smoker", "GymFreak", "Cook", "dealer"];
 
+        // filter gameObjects gebaseerd op action alias
         if (selectedButton && selectedButton.alias === "pick-up") {
             filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => pickUpItems.includes(gameObjectReference.alias));
         }
         else if (selectedButton && selectedButton.alias === "examine") {
+            // geen filter nodig
             filtratedObjects = gameObjectsReferences;
         }
         else if (selectedButton && selectedButton.alias === "talk") {
