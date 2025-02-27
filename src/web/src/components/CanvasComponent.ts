@@ -225,6 +225,29 @@ export class CanvasComponent extends HTMLElement {
      * @returns HTML element of the footer
      */
     private renderFooter(): HTMLElement {
+        console.log(this._currentGameState?.objects);
+        console.log(this._currentGameState?.actions);
+        console.log(this._selectedActionButton);
+        const gameObjectsReferences: GameObjectReference[] | undefined = this._currentGameState?.objects;
+        let filtratedObjects: GameObjectReference[] | undefined = [];
+
+        const selectedButton: ActionReference | undefined = this._selectedActionButton;
+
+        const pickUpItems: string[] = ["ForkItem", "PaintingItem", "Hammer", "Sticks", "bucket",
+            "SulfuricAcidItem", "SugarItem", "KnifeItem", "KeyItem", "KeyPadItem", "GlasBeakerItem",
+            "FocusDrinkItem"];
+        const characters: string[] = ["cleaner", "smoker", "GymFreak", "Cook", "dealer"];
+
+        if (selectedButton && selectedButton.alias === "pick-up") {
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => pickUpItems.includes(gameObjectReference.alias));
+        }
+        else if (selectedButton && selectedButton.alias === "examine") {
+            filtratedObjects = gameObjectsReferences;
+        }
+        else if (selectedButton && selectedButton.alias === "talk") {
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => characters.includes(gameObjectReference.alias));
+        }
+
         return html`
             <div class="footer">
                 <div class="buttons">
@@ -233,7 +256,7 @@ export class CanvasComponent extends HTMLElement {
                     </div>
                     <div>
                         ${this._selectedActionButton
-                            ? this._currentGameState?.objects.map(button => this.renderGameObjectButton(button)) || ""
+                            ? filtratedObjects?.map(button => this.renderGameObjectButton(button)) || ""
                             : ""
                         }
                     </div>
