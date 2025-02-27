@@ -32,7 +32,9 @@ export class StorageRoom extends Room implements Simple {
         return [
             new ExamineAction(),
             new OpenAction(),
-            new SimpleAction("Kitchen-enter", "Go to Kitchen")];
+            new SimpleAction("Kitchen-enter", "Go to Kitchen"),
+            new SimpleAction("Lab-enter", "Enter Elevator"),
+        ];
     }
 
     public examine(): ActionResult | undefined {
@@ -57,6 +59,8 @@ export class StorageRoom extends Room implements Simple {
             case "Kitchen-enter":
                 room = new KitchenRoom();
                 break;
+            case "Lab-enter":
+                room = new LabRoom();
         }
         if (room) {
             gameService.getPlayerSession().currentRoom = room.alias;

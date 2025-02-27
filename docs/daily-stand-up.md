@@ -474,3 +474,94 @@
     -  #### Zijn er problemen waar tegen aanloopt?
 
         - Nee
+  
+  Milan scrummaster
+
+### Daily standup maandag 27-02-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+        - sprintplanning 
+        - expert review
+        - productreview
+        - postman gebruiken
+
+    -  #### Wat ga je vandaag doen?
+
+        - Sprintplanning
+        - pokerplanning 
+        - storage afmaken 
+        - webcompenenten onderzoeken
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+        - sprintplanning 
+        - expert review
+        - productreview
+
+    -  #### Wat ga je vandaag doen?
+
+        - sprintplanning maken 
+        - planning poker
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+        - sprintplanning 
+        - expert review
+        - productreview.
+
+    -  #### Wat ga je vandaag doen?
+
+        - Kleine details van roof afmaken en begin van
+        - tmc maken
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+        - sprintplanning 
+        - expert review
+        - productreview
+
+    -  #### Wat ga je vandaag doen?
+
+        - Lab kamer afmaken
+        - onderzoek doen naar webcompenenten
+        - sprintplanning
+        - planningpoker
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan?
+        - sprintplanning 
+        - expert review
+        - productreview
+
+    -  #### Wat ga je vandaag doen?
+
+        - Sprintplanning
+        - planning poker
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+        - Nee
+
+
