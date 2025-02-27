@@ -1,4 +1,4 @@
-import { ArrowRoom } from "@shared/types";
+// import { ArrowRoom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -41,11 +41,11 @@ export class StartupRoom extends Room implements Simple {
         return ["titlescreen"];
     }
 
-    public ArrowUrl(): ArrowRoom[] {
-        return [
-            { ImageLocation: " ", OnClickEvent: "" },
-        ];
-    }
+    // public ArrowUrl(): ArrowRoom[] {
+    //     return [
+    //         { ImageLocation: " ", OnClickEvent: "" },
+    //     ];
+    // }
 
     /**
      * @inheritdoc

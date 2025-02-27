@@ -84,7 +84,20 @@
 
     - Ik wil beter worden in het gebruik maken van Git
 
-        - Ik beoor
+Specifiek: 
+- Ik wil mijn vaardigheden in Git verbeteren door tijdens schooldagen minstens één  commit,  pull, push en 1x per week een merge-request uit te voeren en me vertrouwd te maken met het werken met branches en merges in mijn project.
+
+Meetbaar: 
+- Ik voer tijdens elke schooldag ten minste één Git-actie (push, commit, pull, mergerequest) uit en hou bij hoeveel succesvolle merges ik per week doe.
+
+Haalbaar: 
+- Ik kan dit doen door tijdens schooldagen te werken met Git tijdens mijn gameontwikkeling en kleine verbeteringen aan mijn project aan te brengen.
+
+Relevant: 
+- Het verbeteren van mijn Git-vaardigheden is essentieel voor mijn projectontwikkeling en samenwerking met anderen.
+
+Tijdgebonden: 
+- Ik wil dit doel bereiken voor het begin van de volgende sprint.
 
 
 - Milan

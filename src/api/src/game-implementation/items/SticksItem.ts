@@ -13,6 +13,11 @@ export class SticksItem extends Item implements Examine, PickUp {
         super(SticksItem.Alias);
     }
 
+    /**
+     * Handles the pickup action for the sticks.
+     * Updates the player's session to indicate the sticks have been collected.
+     * @returns A message confirming the player picked up the sticks.
+     */
     public pickUp(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         playerSession.pickedupSticks = true;
@@ -24,6 +29,7 @@ export class SticksItem extends Item implements Examine, PickUp {
         return "Sticks";
     }
 
+    // Handles the examine action for the sticks.
     public examine(): ActionResult | undefined {
         return new TextActionResult(["These are 4 sticks"]);
     }
