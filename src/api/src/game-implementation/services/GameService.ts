@@ -33,6 +33,9 @@ import { BucketItem } from "../items/BucketItem";
 import { DealerCharacter } from "../characters/DealerCharacters";
 import { VentsRoom } from "../rooms/VentsRoom";
 import { GymFreakCharacter } from "../characters/GymFreakCharacter";
+import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
+import { GlassBeakerItem } from "../items/GlassBeakerItem";
+import { LabRoom } from "../rooms/LabRoom";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -55,6 +58,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(HallwayRoom);
         this.registerGameObject(StrangerRoom);
         this.registerGameObject(VentsRoom);
+        this.registerGameObject(LabRoom);
+
 
         // Items
         this.registerGameObject(TitleItem);
@@ -69,6 +74,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(KeypadStorageItem);
         this.registerGameObject(ForkItem);
         this.registerGameObject(PaintingItem);
+        this.registerGameObject(SulfuricAcidItem)
+        this.registerGameObject(GlassBeakerItem)
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -113,6 +120,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpKey: false,
             playerOpenedDoorToStorage: false,
             helpedGymFreak: false,
+            pickedUpGlassBeaker: false,
+            pickedUpSulfuricAcid: false,
         };
     }
 

@@ -12,6 +12,7 @@ import { ClosetStorageItem } from "../items/ClosetStorageItem";
 import { ElevatorStorageItem } from "../items/ElevatorStorageItem";
 import { KeypadStorageItem } from "../items/KeypadStorageItem";
 import { KitchenRoom } from "./KitchenRoom";
+import { LabRoom } from "./LabRoom";
 
 export class StorageRoom extends Room implements Simple {
     public static readonly Alias: string = "StorageRoom";
