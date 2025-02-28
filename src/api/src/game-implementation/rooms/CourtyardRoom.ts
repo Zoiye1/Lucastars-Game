@@ -12,6 +12,7 @@ import { SmokerCharacter } from "../characters/SmokerCharacter";
 import { JumpRopeItem } from "../items/JumpRopeItem";
 import { PlayerSession } from "../types";
 import { CafeteriaRoom } from "./CafeteriaRoom";
+import { CourtyardTheEndRoom } from "./CourtyardTheEndRoom";
 
 export class CourtyardRoom extends Room implements Simple {
     public static readonly Alias: string = "courtyard";
@@ -59,7 +60,7 @@ export class CourtyardRoom extends Room implements Simple {
     }
 
     public actions(): Action[] {
-        // const playerSession: PlayerSession = gameService.getPlayerSession();
+        const playerSession: PlayerSession = gameService.getPlayerSession();
 
         const result: Action[] = [
             new ExamineAction(),
@@ -68,18 +69,28 @@ export class CourtyardRoom extends Room implements Simple {
             new SimpleAction("enter-cafeteria", "Return to cafeteria"),
         ];
 
+        if (playerSession.placedEscapeLadder) result.push(new SimpleAction("enter-end", "Escape"));
+
         return result;
     }
 
     public simple(alias: string): ActionResult | undefined {
-        if (alias === "enter-cafeteria") {
-            const room: Room = new CafeteriaRoom();
+        let room: Room | undefined;
 
-            // Set the current room to the startup room
+        switch (alias) {
+            case "enter-cafeteria":
+                room = new CafeteriaRoom();
+                break;
+            case "enter-end":
+                room = new CourtyardTheEndRoom();
+                break;
+        }
+
+        if (room) {
             gameService.getPlayerSession().currentRoom = room.alias;
-
             return room.examine();
         }
+
         return undefined;
     }
 }

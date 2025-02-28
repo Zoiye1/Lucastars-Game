@@ -38,6 +38,7 @@ import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { LabRoom } from "../rooms/LabRoom";
 import { JumpRopeItem } from "../items/JumpRopeItem";
 import { SmokerCharacter } from "../characters/SmokerCharacter";
+import { CourtyardTheEndRoom } from "../rooms/CourtyardTheEndRoom";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -63,6 +64,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(LabRoom);
         this.registerGameObject(CafeteriaRoom);
         this.registerGameObject(CourtyardRoom);
+        this.registerGameObject(CourtyardTheEndRoom);
 
         // Items
         this.registerGameObject(TitleItem);

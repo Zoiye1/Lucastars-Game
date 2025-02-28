@@ -1,0 +1,48 @@
+import { ActionResult } from "../../game-base/actionResults/ActionResult";
+import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
+import { Action } from "../../game-base/actions/Action";
+import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
+import { Room } from "../../game-base/gameObjects/Room";
+import { StartupRoom } from "./StartupRoom";
+import { gameService } from "../../global";
+
+export class CourtyardTheEndRoom extends Room implements Simple {
+    public static readonly Alias: string = "courtyard-end";
+
+    public constructor() {
+        super(CourtyardTheEndRoom.Alias);
+    }
+
+    public name(): string {
+        return "The End";
+    }
+
+    public images(): string[] {
+        return ["courtyard/courtyardBackground"];
+    }
+
+    public examine(): ActionResult | undefined {
+        return new TextActionResult([
+            "Congratulations, you did it! 🎉",
+            "Hit 'Play Again' to embark on another adventure!",
+        ]);
+    }
+
+    public actions(): Action[] {
+        return [new SimpleAction("enter-startuproom", "Play Again")];
+    }
+
+    public simple(alias: string): ActionResult | undefined {
+        if (alias === "enter-startuproom") {
+            gameService.resetPlayerSession();
+
+            const room: Room = new StartupRoom();
+
+            gameService.getPlayerSession().currentRoom = room.alias;
+
+            return room.examine();
+        }
+
+        return undefined;
+    }
+}
