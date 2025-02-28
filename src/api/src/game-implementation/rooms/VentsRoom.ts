@@ -7,6 +7,7 @@ import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { StarterRoom } from "./StarterRoom";
 import { RoofRoom } from "./RoofRoom";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class VentsRoom extends Room implements Simple {
     public static readonly Alias: string = "Vents";
@@ -17,6 +18,15 @@ export class VentsRoom extends Room implements Simple {
 
     public name(): string {
         return "Vents";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "room";
     }
 
     public images(): string[] {

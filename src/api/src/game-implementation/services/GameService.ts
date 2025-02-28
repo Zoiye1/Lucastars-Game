@@ -60,7 +60,6 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(VentsRoom);
         this.registerGameObject(LabRoom);
 
-
         // Items
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);

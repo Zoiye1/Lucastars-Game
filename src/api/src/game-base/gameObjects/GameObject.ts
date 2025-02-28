@@ -1,5 +1,5 @@
 // union type voor specificering type
-export type GameObjectType = "actionableItem" | "nonActionableItem" | "npc";
+export type GameObjectType = "actionableItem" | "nonActionableItem" | "npc" | "room";
 
 /**
  * Base class used to represent a game object

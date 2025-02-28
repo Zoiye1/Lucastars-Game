@@ -4,7 +4,7 @@ import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
-import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { GymFreakCharacter } from "../characters/GymFreakCharacter";
@@ -22,6 +22,15 @@ export class GymRoom extends Room implements Simple {
     // Geeft de naam van de kamer terug
     public name(): string {
         return "Gym";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "room";
     }
 
     // Bepaalt welke afbeeldingen in deze kamer zichtbaar zijn
