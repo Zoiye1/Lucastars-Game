@@ -13,7 +13,7 @@ import { PlayerSession } from "../types";
  */
 export class JumpRopeItem extends Item implements Examine, PickUp {
     /** Alias die wordt gebruikt om dit item te identificeren */
-    public static readonly Alias: string = "FocusDrinkItem";
+    public static readonly Alias: string = "JumpRopeItem";
 
     public constructor() {
         super(JumpRopeItem.Alias);
@@ -44,7 +44,7 @@ export class JumpRopeItem extends Item implements Examine, PickUp {
      */
     public pickUp(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        playerSession.pickedUpFocusDrink = true;
+        playerSession.pickedUpJumpRope = true;
 
         return new TextActionResult(["You have picked up the jump rope."]);
     }
