@@ -5,6 +5,7 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
 import { PickUp } from "../actions/PickUpAction";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class SugarItem extends Item implements Examine, PickUp {
     public static readonly Alias: string = "SugarItem";
@@ -21,6 +22,15 @@ export class SugarItem extends Item implements Examine, PickUp {
         return new TextActionResult([
             "This seems to be a large bag of sugar",
         ]);
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "actionableItem";
     }
 
     public pickUp(): ActionResult | undefined {

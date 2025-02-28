@@ -225,30 +225,22 @@ export class CanvasComponent extends HTMLElement {
      * @returns HTML element of the footer
      */
     private renderFooter(): HTMLElement {
-        console.log(this._currentGameState?.objects);
-        console.log(this._currentGameState?.actions);
-        console.log(this._selectedActionButton);
         const gameObjectsReferences: GameObjectReference[] | undefined = this._currentGameState?.objects;
         let filtratedObjects: GameObjectReference[] | undefined = [];
 
         const selectedButton: ActionReference | undefined = this._selectedActionButton;
 
-        // object arrays gegroepeerd op actions (pick-up items, talk-to objects...)
-        const pickUpItems: string[] = ["ForkItem", "PaintingItem", "Hammer", "Sticks", "bucket",
-            "SulfuricAcidItem", "SugarItem", "KnifeItem", "KeyItem", "KeyPadItem", "GlasBeakerItem",
-            "FocusDrinkItem"];
-        const characters: string[] = ["cleaner", "smoker", "GymFreak", "Cook", "dealer"];
-
         // filter gameObjects gebaseerd op action alias
-        if (selectedButton && selectedButton.alias === "pick-up") {
-            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => pickUpItems.includes(gameObjectReference.alias));
-        }
-        else if (selectedButton && selectedButton.alias === "examine") {
+        if (selectedButton && selectedButton.alias === "examine") {
             // geen filter nodig
             filtratedObjects = gameObjectsReferences;
         }
         else if (selectedButton && selectedButton.alias === "talk") {
-            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => characters.includes(gameObjectReference.alias));
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type === "npc");
+        }
+        else {
+            // game objects waar een action op werkt anders dan talk of examine (alleen items als game objects)
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type === "actionableItem");
         }
 
         return html`

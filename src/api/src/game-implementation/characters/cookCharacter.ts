@@ -5,7 +5,7 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { Character } from "../../game-base/gameObjects/Character";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { gameService } from "../../global";
-import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { KnifeItem } from "../items/KnifeItem";
 import { ForkItem } from "../items/ForkItem";
 import { PlayerSession } from "../types";
@@ -25,6 +25,15 @@ export class cookCharacter extends Character implements Examine {
         return new TextActionResult([
             "This is a cook!",
         ]);
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "npc";
     }
 
     public talk(choiceId?: number): ActionResult | undefined {

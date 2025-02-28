@@ -5,6 +5,7 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { Open } from "../../game-base/actions/OpenAction";
 import { gameService } from "../../global";
 import { PlayerSession } from "../types";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class DoorKitchenItem extends Item implements Examine, Open {
     public static readonly Alias: string = "door";
@@ -15,6 +16,15 @@ export class DoorKitchenItem extends Item implements Examine, Open {
 
     public name(): SyncOrAsync<string> {
         return "Door";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "actionableItem";
     }
 
     public examine(): ActionResult | undefined {

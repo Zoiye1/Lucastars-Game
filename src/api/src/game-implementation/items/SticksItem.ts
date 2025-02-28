@@ -1,6 +1,7 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Examine } from "../../game-base/actions/ExamineAction";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Item } from "../../game-base/gameObjects/Item";
 import { gameService } from "../../global";
 import { PickUp } from "../actions/PickUpAction";
@@ -27,6 +28,15 @@ export class SticksItem extends Item implements Examine, PickUp {
 
     public name(): string {
         return "Sticks";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "actionableItem";
     }
 
     // Handles the examine action for the sticks.

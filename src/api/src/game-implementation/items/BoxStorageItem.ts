@@ -3,6 +3,7 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { Examine } from "../../game-base/actions/ExamineAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Open } from "../../game-base/actions/OpenAction";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class BoxStorageItem extends Item implements Examine, Open {
     public static readonly Alias: string = "steel box";
@@ -13,6 +14,15 @@ export class BoxStorageItem extends Item implements Examine, Open {
 
     public name(): SyncOrAsync<string> {
         return "Steel box";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "actionableItem";
     }
 
     public examine(): ActionResult | undefined {

@@ -5,6 +5,7 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
 import { PickUp } from "../actions/PickUpAction";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class KnifeItem extends Item implements Examine, PickUp {
     public static readonly Alias: string = "KnifeItem";
@@ -22,6 +23,15 @@ export class KnifeItem extends Item implements Examine, PickUp {
             "There is a knife hanging from the wall",
             "It looks very Sharp!",
         ]);
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType {
+        return "actionableItem";
     }
 
     public pickUp(): ActionResult | undefined {

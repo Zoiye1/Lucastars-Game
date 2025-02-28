@@ -1,3 +1,6 @@
+// union type voor specificering type
+export type GameObjectType = "actionableItem" | "nonActionableItem" | "npc";
+
 /**
  * Base class used to represent a game object
  */
@@ -25,4 +28,11 @@ export abstract class GameObject {
      * Get the name of this game object
      */
     public abstract name(): SyncOrAsync<string>;
+
+    /**
+     * Verkrijg de type van de game object
+     *
+     * @returns een string die de type weergeeft ("actionableItem", "npc", "nonActionableItem")
+     */
+    public abstract type(): SyncOrAsync<GameObjectType>;
 }

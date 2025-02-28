@@ -45,6 +45,8 @@ export type GameObjectReference = {
     alias: string;
     /** Name of the game object */
     name: string;
+    /** Type of the game object (e.g, npc, actionableItem) */
+    type: string;
 };
 
 /**
