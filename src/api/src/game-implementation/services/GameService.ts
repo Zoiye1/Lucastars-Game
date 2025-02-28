@@ -59,6 +59,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(StrangerRoom);
         this.registerGameObject(VentsRoom);
         this.registerGameObject(LabRoom);
+        this.registerGameObject(CafeteriaRoom);
+        this.registerGameObject(CourtyardRoom);
 
 
         // Items
@@ -79,8 +81,6 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Characters
         this.registerGameObject(cookCharacter);
-        this.registerGameObject(CafeteriaRoom);
-        this.registerGameObject(CourtyardRoom);
         this.registerGameObject(GymFreakCharacter);
 
         // Items

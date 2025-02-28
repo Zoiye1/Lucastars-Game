@@ -1,9 +1,16 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
+import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
+import { TalkAction } from "../../game-base/actions/TalkAction";
+import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
+import { PickUpAction } from "../actions/PickUpAction";
+import { SmokerCharacter } from "../characters/SmokerCharacter";
+import { JumpRopeItem } from "../items/JumpRopeItem";
+import { PlayerSession } from "../types";
 import { CafeteriaRoom } from "./CafeteriaRoom";
 
 export class CourtyardRoom extends Room implements Simple {
@@ -18,15 +25,50 @@ export class CourtyardRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["courtyard/courtyardInitial"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ["courtyard/courtyardBackground", "courtyard/Smoker"];
+
+        if (!playerSession.pickedUpJumpRope) {
+            result.push("courtyard/JumpRope");
+        }
+        if (playerSession.placedEscapeLadder) {
+            result.push("courtyard/EscapeLadder");
+        }
+
+        return result;
     }
 
     public examine(): ActionResult | undefined {
         return new TextActionResult(["Welcome to the courtyard."]);
     }
 
+    /**
+     * Geeft de objecten terug die zich in deze kamer bevinden
+     *
+     * @returns Een array van game objecten, zoals de smoker en de jump rope, als die aanwezig zijn
+     */
+    public objects(): GameObject[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: GameObject[] = [new SmokerCharacter()];
+
+        if (!playerSession.pickedUpJumpRope) {
+            result.push(new JumpRopeItem());
+        }
+
+        return result;
+    }
+
     public actions(): Action[] {
-        return [new SimpleAction("enter-cafeteria", "Enter Cafeteria")];
+        // const playerSession: PlayerSession = gameService.getPlayerSession();
+
+        const result: Action[] = [
+            new ExamineAction(),
+            new TalkAction(),
+            new PickUpAction(),
+            new SimpleAction("enter-cafeteria", "Return to cafeteria"),
+        ];
+
+        return result;
     }
 
     public simple(alias: string): ActionResult | undefined {
