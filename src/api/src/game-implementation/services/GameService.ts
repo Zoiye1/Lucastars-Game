@@ -37,6 +37,7 @@ import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
 import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { LabRoom } from "../rooms/LabRoom";
 import { JumpRopeItem } from "../items/JumpRopeItem";
+import { SmokerCharacter } from "../characters/SmokerCharacter";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -83,6 +84,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         // Characters
         this.registerGameObject(cookCharacter);
         this.registerGameObject(GymFreakCharacter);
+        this.registerGameObject(SmokerCharacter);
 
         // Items
         this.registerGameObject(FocusDrinkItem);

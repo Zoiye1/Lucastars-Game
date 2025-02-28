@@ -31,50 +31,55 @@ export class SmokerCharacter extends Character {
     public talk(choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        // If player hasn't traded yet
         if (!playerSession.tradedWithSmoker) {
-            if (choiceId !== 1 && choiceId !== 2 && choiceId === 3) {
+            if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4) {
                 return new TalkActionResult(
                     this,
-                    ["Hey, you got a light? Oh wait, never mind... I lost my lighter."],
+                    ["Ayo my G, I got a sweet deal for ya. Tryna make this happen?",
+                        "See here's the ting... I'm dry on cigs but holdin' lighters.",
+                        "You front me some smokes and a dime stack, I'll bless you with fire. Sounds good my g?"],
                     [
-                        new TalkChoice(1, "I don’t, but maybe I can help."),
-                        new TalkChoice(2, "Not my problem."),
+                        new TalkChoice(1, "We can work somethin out fo sho."),
+                        new TalkChoice(2, "Nah I'm straight, G."),
                     ]
                 );
             }
             else if (choiceId === 1) {
                 return new TalkActionResult(
                     this,
-                    ["Well, if you can get me a lighter, I’d appreciate it. But I’m also willing to trade if you have a 10-euro bill."],
+                    ["Fo sho? Look here... you bring me a pack of cigs AND a crisp 10-euro note,",
+                        "I'll trade you this premium lighter. That's the family discount right there."],
                     [
-                        new TalkChoice(3, "I have a 10-euro bill, let’s trade."),
-                        new TalkChoice(4, "I’ll see what I can do."),
+                        new TalkChoice(3, "Got both, let's make this paper."),
+                        new TalkChoice(4, "I'ma see what I can scrape up."),
                     ]
                 );
             }
             else if (choiceId === 2) {
-                return new TextActionResult(["Alright, whatever."]);
+                return new TextActionResult(["Aight, your loss playa. I'll be here puffin on hopes and dreams."]);
             }
             else if (choiceId === 3) {
-                if (playerSession.inventory.includes("ten-euro-bill")) {
-                // Remove the bill and give the lighter
+                if (playerSession.inventory.includes("ten-euro-bill") && playerSession.inventory.includes("cigarettes")) {
                     playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
+                    playerSession.inventory.splice(playerSession.inventory.indexOf("cigarettes"), 1);
+
                     playerSession.inventory.push("lighter");
                     playerSession.tradedWithSmoker = true;
 
-                    return new TextActionResult(["Pleasure doing business with you. Here's your lighter."]);
+                    return new TextActionResult(["*snaps fingers* Aight, aight... you holdin both!",
+                        "Here's that lighter fam... don't smoke it all in one place!"]);
                 }
                 else {
-                    return new TextActionResult(["Uh... you don’t even have a 10-euro bill. Come back when you do."]);
+                    return new TextActionResult(["You tryna finesse me?! Where my cigs at? Where my cheddar?",
+                        "Come correct with BOTH or keep it pushin"]);
                 }
             }
             else {
-                return new TextActionResult(["Alright, let me know if you find a lighter for me."]);
+                return new TextActionResult(["No doubt, no doubt. Clock's tickin though... don't leave me hangin."]);
             }
         }
         else {
-            return new TextActionResult(["We already traded. Enjoy your lighter."]);
+            return new TextActionResult(["We locked in already homie! That lighter better be treatin you right!"]);
         }
     }
 }
