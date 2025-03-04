@@ -5,7 +5,7 @@ import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { OpenAction } from "../../game-base/actions/OpenAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
-import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { cookCharacter } from "../characters/cookCharacter";
@@ -25,6 +25,15 @@ export class KitchenRoom extends Room implements Simple {
 
     public name(): string {
         return "Kitchen";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["room"];
     }
 
     public images(): string[] {

@@ -5,6 +5,7 @@ import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { PickUpAction } from "../actions/PickUpAction";
@@ -23,6 +24,15 @@ export class CourtyardRoom extends Room implements Simple {
 
     public name(): string {
         return "Courtyard";
+    }
+
+    /**
+     * Geeft de types van de GameObject terug
+     *
+     * @returns De types van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["room"];
     }
 
     public images(): string[] {

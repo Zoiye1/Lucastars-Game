@@ -97,3 +97,21 @@ Matisse
 6/10
 
 In 8:59 minuten uitgespeeld.
+
+Feedback Khalil
+
+7/10
+
+Opties hebben wanneer je met iemand specifiek praat.
+
+Minder knoppen. Dus wanneer je op een bepaalde knop klikt dat het dan verdwijnd
+
+Filter knoppen afhandelen van acties.3
+
+Leuke game!
+
+Game is dyanmische
+
+Liefst een leuke background music. 
+
+In 5:00 minuten uitgespeeld.
