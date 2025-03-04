@@ -19,6 +19,7 @@ import { VentsRoom } from "./VentsRoom";
 import { VentItem } from "../items/VentItem";
 import { WindowItem } from "../items/WindowItem";
 import { UseAction } from "../actions/UseAction";
+import { GameObject } from "../../game-base/gameObjects/GameObject";
 
 /**
  * Klasse die de startkamer in het spel vertegenwoordigt.

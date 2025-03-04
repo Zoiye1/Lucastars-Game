@@ -9,6 +9,7 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
 import { Usable } from "../actions/UseAction";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
  * Klasse die een ventilatie-item in het spel vertegenwoordigt.
@@ -31,6 +32,14 @@ export class VentItem extends Item implements Examine, Usable {
      */
     public name(): string {
         return "Vent";
+    }
+
+    /**
+
+    Geeft de type van de GameObject terug*
+    @returns De type van de GameObject (GameObjectType union) */
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     /**

@@ -37,8 +37,8 @@ import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
 import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { LabRoom } from "../rooms/LabRoom";
 import { VentItem } from "../items/VentItem";
-import { WindowItem } from "../items/WindowItem";
 import { UseAction } from "../actions/UseAction";
+import { WindowItem } from "../items/WindowItem";
 
 /**
  * Implementation of the game service used to operate the game engine
