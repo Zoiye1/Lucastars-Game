@@ -587,13 +587,15 @@ Milan scrummaster
 - Farmaan
 
     -  #### Wat heb je gisteren gedaan?
-
+       -  Gisteren heb ik game objects gefiltreerd zodat het specifieker is.
 
     -  #### Wat ga je vandaag doen?
+       -  Vandaag ga ik wat resterende user stories in gitlab maken en daarna courtyard afmaken
 
 
 
     -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
 
 
 
@@ -647,4 +649,85 @@ Milan scrummaster
     -  #### Zijn er problemen waar tegen aanloopt?
        -  nee
 
+
+### Daily standup maandag 04-03-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Onderzoek naar webcomponents
+    
+    -  #### Wat ga je vandaag doen?
+       -  Webcomponent inplannen en maken
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  Ja, ik heb moeite met webcomponents
+
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  courtyard gemaakt
+       -  userstories gemaakt
+       -  gekeken naar webcomponents
+
+    -  #### Wat ga je vandaag doen?
+       -  action maken
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Action gemaakt
+
+
+    -  #### Wat ga je vandaag doen?
+       -  webcompenent
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Nieuwe starter room pixel art
+       -  userstories voor komende sprint
+       -  webcomponents
+       -  use action
+
+
+
+    -  #### Wat ga je vandaag doen?
+       -  use action af maken
+
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan? 
+       -  user stories aan gemaakt
+
+    -  #### Wat ga je vandaag doen?
+       -  onderzoek naar webcomponents
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  ja webcomponent zijn onduidelijk
 

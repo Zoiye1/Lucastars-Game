@@ -154,7 +154,7 @@ export class GameController {
             roomAlias: room.alias,
             roomName: await room.name(),
             roomImages: await room.images(),
-            roomArrows: await room.ArrowUrl(),
+            roomArrowImages: room.ArrowUrl(),
             text: text,
             actions: actions,
             objects: objects,

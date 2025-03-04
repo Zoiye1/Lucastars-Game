@@ -1,4 +1,4 @@
-import { ArrowRoom } from "@shared/types";
+import { Arrowroom } from "@shared/types";
 import { ActionResult } from "../actionResults/ActionResult";
 import { Action } from "../actions/Action";
 import { Examine } from "../actions/ExamineAction";
@@ -28,9 +28,9 @@ export abstract class Room extends GameObject implements Examine {
         return [];
     }
 
-    public ArrowUrl(): ArrowRoom[] {
+    public ArrowUrl(): Arrowroom[] {
         return [
-            { ImageLocation: "", OnClickEvent: "" },
+            { name: "", image: "" },
         ];
     }
 

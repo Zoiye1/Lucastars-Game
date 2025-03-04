@@ -4,7 +4,9 @@
  * @remarks Can only contain JSON data types
  */
 export type PlayerSession = {
+    playerOpenedCloset: boolean;
     playerOpenedDoorToStorage: boolean;
+    playerOpenedSteelbox: boolean;
     pickedUpSugar: boolean;
     pickedUpKey: boolean;
     /** Alias of the room the player is in */

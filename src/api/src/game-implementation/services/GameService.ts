@@ -60,7 +60,6 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(VentsRoom);
         this.registerGameObject(LabRoom);
 
-
         // Items
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
@@ -74,8 +73,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(KeypadStorageItem);
         this.registerGameObject(ForkItem);
         this.registerGameObject(PaintingItem);
-        this.registerGameObject(SulfuricAcidItem)
-        this.registerGameObject(GlassBeakerItem)
+        this.registerGameObject(SulfuricAcidItem);
+        this.registerGameObject(GlassBeakerItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -122,6 +121,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             helpedGymFreak: false,
             pickedUpGlassBeaker: false,
             pickedUpSulfuricAcid: false,
+            playerOpenedSteelbox: false,
+            playerOpenedCloset: false,
         };
     }
 
