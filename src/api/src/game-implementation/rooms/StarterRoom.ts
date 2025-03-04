@@ -1,3 +1,7 @@
+/**
+ * Vertegenwoordigt een startkamer waarin de speler begint.
+ * De kamer bevat verschillende objecten en uitgangen die ontgrendeld kunnen worden.
+ */
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -16,40 +20,52 @@ import { VentItem } from "../items/VentItem";
 import { WindowItem } from "../items/WindowItem";
 import { UseAction } from "../actions/UseAction";
 
+/**
+ * Klasse die de startkamer in het spel vertegenwoordigt.
+ * De speler kan objecten onderzoeken, oppakken en gebruiken om een uitweg te vinden.
+ */
 export class StarterRoom extends Room implements Simple {
+    /** De alias voor de startkamer. */
     public static readonly Alias: string = "starterroom";
 
+    /**
+     * Maakt een nieuwe instantie van StarterRoom aan.
+     */
     public constructor() {
         super(StarterRoom.Alias);
     }
 
+    /**
+     * Haalt de naam van de kamer op.
+     * @returns {string} De naam van de startkamer.
+     */
     public name(): string {
         return "Starterroom";
     }
 
+    /**
+     * Haalt de beschikbare achtergrondafbeeldingen op, afhankelijk van de voortgang van de speler.
+     * @returns {string[]} Een lijst met padnamen van achtergrondafbeeldingen.
+     */
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: string[] = [];
 
-        // Choose background based on which access points are unlocked
+        // Kies de juiste achtergrond afhankelijk van de ontgrendelde uitgangen
         if (playerSession.windowBroken && playerSession.ventUnlocked) {
-            // Both unlocked
             result.push("starterroom/StarterRoomBackground4");
         }
         else if (playerSession.windowBroken) {
-            // Only hallway unlocked
             result.push("starterroom/StarterRoomBackground2");
         }
         else if (playerSession.ventUnlocked) {
-            // Only vents unlocked
             result.push("starterroom/StarterRoomBackground3");
         }
         else {
-            // Nothing unlocked
             result.push("starterroom/StarterRoomBackground");
         }
 
-        // Add pickable items if they haven't been picked up yet
+        // Voeg objecten toe die nog niet zijn opgepakt
         if (!playerSession.pickedUpFork) {
             result.push("starterroom/StarterRoomFork");
         }
@@ -61,13 +77,22 @@ export class StarterRoom extends Room implements Simple {
         return result;
     }
 
+    /**
+     * Onderzoekt de kamer en geeft een beschrijving.
+     * @returns {ActionResult | undefined} De beschrijving van de startkamer.
+     */
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["You wake up with a pounding headache",
+        return new TextActionResult([
+            "You wake up with a pounding headache",
             "You have no idea where you are. Your head throbs as you glance around the room.",
             "The door is locked. You need to find a way out!",
         ]);
     }
 
+    /**
+     * Haalt de objecten in de kamer op die de speler kan onderzoeken of gebruiken.
+     * @returns {GameObject[]} Een lijst van interactieve objecten in de kamer.
+     */
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: GameObject[] = [];
@@ -80,13 +105,17 @@ export class StarterRoom extends Room implements Simple {
             result.push(new PaintingItem());
         }
 
-        // Always add the vent and window as interaction objects
+        // Voeg altijd de ventilatie en het raam toe als interactieve objecten
         result.push(new VentItem());
         result.push(new WindowItem());
 
         return result;
     }
 
+    /**
+     * Haalt de beschikbare acties op die de speler kan uitvoeren in de startkamer.
+     * @returns {Action[]} Een lijst met beschikbare acties.
+     */
     public actions(): Action[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const actions: Action[] = [
@@ -95,7 +124,7 @@ export class StarterRoom extends Room implements Simple {
             new UseAction(),
         ];
 
-        // Only show these buttons if the corresponding objects are unlocked
+        // Voeg opties toe om de gang of ventilatie te betreden als deze ontgrendeld zijn
         if (playerSession.ventUnlocked) {
             actions.push(new SimpleAction("enter-vent", "Enter Vent"));
         }
@@ -107,15 +136,20 @@ export class StarterRoom extends Room implements Simple {
         return actions;
     }
 
+    /**
+     * Behandelt eenvoudige acties die de speler kan uitvoeren, zoals het betreden van een nieuwe kamer.
+     * @param {string} alias - De alias van de actie.
+     * @returns {ActionResult | undefined} Het resultaat van de actie.
+     */
     public simple(alias: string): ActionResult | undefined {
         switch (alias) {
             case "enter-hallway": {
-                const room = new HallwayRoom();
+                const room: HallwayRoom = new HallwayRoom();
                 gameService.getPlayerSession().currentRoom = room.alias;
                 return room.examine();
             }
             case "enter-vent": {
-                const room = new VentsRoom();
+                const room: VentsRoom = new VentsRoom();
                 gameService.getPlayerSession().currentRoom = room.alias;
                 return room.examine();
             }
