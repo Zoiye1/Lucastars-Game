@@ -36,6 +36,12 @@ import { GymFreakCharacter } from "../characters/GymFreakCharacter";
 import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
 import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { LabRoom } from "../rooms/LabRoom";
+import { JumpRopeItem } from "../items/JumpRopeItem";
+import { SmokerCharacter } from "../characters/SmokerCharacter";
+import { CourtyardTheEndRoom } from "../rooms/CourtyardTheEndRoom";
+import { VentItem } from "../items/VentItem";
+import { UseAction } from "../actions/UseAction";
+import { WindowItem } from "../items/WindowItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -59,6 +65,9 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(StrangerRoom);
         this.registerGameObject(VentsRoom);
         this.registerGameObject(LabRoom);
+        this.registerGameObject(CafeteriaRoom);
+        this.registerGameObject(CourtyardRoom);
+        this.registerGameObject(CourtyardTheEndRoom);
 
         // Items
         this.registerGameObject(TitleItem);
@@ -75,12 +84,16 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(PaintingItem);
         this.registerGameObject(SulfuricAcidItem);
         this.registerGameObject(GlassBeakerItem);
+        this.registerGameObject(JumpRopeItem);
+        this.registerGameObject(SulfuricAcidItem);
+        this.registerGameObject(GlassBeakerItem);
+        this.registerGameObject(VentItem);
+        this.registerGameObject(WindowItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
-        this.registerGameObject(CafeteriaRoom);
-        this.registerGameObject(CourtyardRoom);
         this.registerGameObject(GymFreakCharacter);
+        this.registerGameObject(SmokerCharacter);
         this.registerGameObject(CleanerCharacter);
 
         // Items
@@ -91,6 +104,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerAction(OpenAction);
         this.registerGameObject(DealerCharacter);
         this.registerAction(PickUpAction);
+        this.registerAction(UseAction);
     }
 
     /**
@@ -117,6 +131,11 @@ export class GameService extends BaseGameService<PlayerSession> {
             helpedGymFreak: false,
             pickedUpGlassBeaker: false,
             pickedUpSulfuricAcid: false,
+            pickedUpJumpRope: false,
+            placedEscapeLadder: false,
+            tradedWithSmoker: false,
+            ventUnlocked: false,
+            windowBroken: false,
         };
     }
 
