@@ -79,8 +79,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(KeypadStorageItem);
         this.registerGameObject(ForkItem);
         this.registerGameObject(PaintingItem);
-        this.registerGameObject(SulfuricAcidItem)
-        this.registerGameObject(GlassBeakerItem)
+        this.registerGameObject(SulfuricAcidItem);
+        this.registerGameObject(GlassBeakerItem);
         this.registerGameObject(JumpRopeItem);
         this.registerGameObject(SulfuricAcidItem);
         this.registerGameObject(GlassBeakerItem);
