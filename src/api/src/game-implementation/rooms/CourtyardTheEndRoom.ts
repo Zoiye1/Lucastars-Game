@@ -5,6 +5,7 @@ import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { Room } from "../../game-base/gameObjects/Room";
 import { StartupRoom } from "./StartupRoom";
 import { gameService } from "../../global";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class CourtyardTheEndRoom extends Room implements Simple {
     public static readonly Alias: string = "courtyard-end";
@@ -26,6 +27,15 @@ export class CourtyardTheEndRoom extends Room implements Simple {
             "Congratulations, you did it! 🎉",
             "Hit 'Play Again' to embark on another adventure!",
         ]);
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["room"];
     }
 
     public actions(): Action[] {
