@@ -236,11 +236,11 @@ export class CanvasComponent extends HTMLElement {
             filtratedObjects = gameObjectsReferences;
         }
         else if (selectedButton && selectedButton.alias === "talk") {
-            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type === "npc");
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type.includes("npc"));
         }
         else {
             // game objects waar een action op werkt anders dan talk of examine (alleen items als game objects)
-            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type === "actionableItem");
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type.includes("actionableItem"));
         }
 
         return html`
