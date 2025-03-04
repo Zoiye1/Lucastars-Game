@@ -37,6 +37,11 @@ const styles: string = css`
         margin-right: auto;
     }
 
+    .container {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
     dialog {
         position: relative;
         border: none;
@@ -44,6 +49,7 @@ const styles: string = css`
     }
 
     .container-dialog {
+        gap: 20px;
         padding: 20px 40px;
         background: white;
         border-radius: 8px;
@@ -70,7 +76,70 @@ const styles: string = css`
         font-size: 24px;
         font-weight: bold;
     }
+
+    .recipes-list {
+        max-height: 240px;
+        overflow-y: auto;
+        width: 200px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #fafafa;
+    }
+
+    .recipe-card {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .recipe-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .recipe-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 5px;
+    }
+
+    .recipe-item-icon {
+        width: auto;
+        height: 30px;
+        background-color: #e0e0e0;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #555;
+    }
 `;
+
+interface Recipe {
+    title: string;
+    ingredients: string[];
+}
+
+const recipes: Recipe[] = [
+    {
+        title: "Ladder",
+        ingredients: ["10 Sticks", "Super Glue", "Hammer"],
+    },
+    {
+        title: "Bomb",
+        ingredients: ["Air freshener", "Lighter"],
+    },
+    {
+        title: "Corrosive Acid",
+        ingredients: ["Focus Drink", "Baking Soda", "Sulfuric", "Glass Beaker"],
+    },
+];
 
 export class CraftingComponent extends HTMLElement {
     /**
@@ -81,29 +150,61 @@ export class CraftingComponent extends HTMLElement {
         this.render();
     }
 
+    private renderRecipes(): string {
+        let recipeCardsHTML: string = "";
+
+        for (const recipe of recipes) {
+            let itemsHTML: string = "";
+            for (const ingredient of recipe.ingredients) {
+                itemsHTML += `
+                <div class="recipe-item-icon">${ingredient}</div>
+                `;
+            }
+
+            recipeCardsHTML += `
+                <div class="recipe-card">
+                    <div class="recipe-title">${recipe.title}</div>
+                    <div class="recipe-items">
+                        ${itemsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        return recipeCardsHTML;
+    }
+
     private render(): void {
         if (!this.shadowRoot) {
             return;
         }
+
+        const recipeCardsHTML: string = this.renderRecipes();
+
         const elements: HTMLElement[] = htmlArray`
             <style>
                 ${styles}
             </style>
             <button class="container-crafting-button" id="craftingButton">Crafting</button>
             <dialog id="craftingDialog">
-                <div class="container-dialog">
-                    <button id="closeDialog">✕</button>
-                    <h2>Crafting Menu</h2>
-                    <div class="crafting-grid">
-                        <div class="slot"></div>
-                        <span class="symbol">+</span>
-                        <div class="slot"></div>
-                        <span class="symbol">+</span>
-                        <div class="slot"></div>
-                        <span class="symbol">=</span>
-                        <div class="result-slot"></div>
+                <div class="container">
+                    <div class="container-dialog">
+                        <button id="closeDialog">✕</button>
+                        <h2>Crafting Menu</h2>
+                        <div class="crafting-grid">
+                            <div class="slot"></div>
+                            <span class="symbol">+</span>
+                            <div class="slot"></div>
+                            <span class="symbol">+</span>
+                            <div class="slot"></div>
+                            <span class="symbol">=</span>
+                            <div class="result-slot"></div>
+                        </div>
+                        <button id="craftButton">Craft</button>
                     </div>
-                    <button id="craftButton">Craft</button>
+                    <div class="recipes-list">
+                        ${recipeCardsHTML}
+                    </div>
                 </div>
             </dialog>
         `;
