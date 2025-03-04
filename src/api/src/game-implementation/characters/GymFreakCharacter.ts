@@ -23,8 +23,8 @@ export class GymFreakCharacter extends Character {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "npc";
+    public type(): GameObjectType[] {
+        return ["npc"];
     }
 
     public talk(choiceId?: number): ActionResult | undefined {

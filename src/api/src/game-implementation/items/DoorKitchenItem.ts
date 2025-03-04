@@ -23,8 +23,8 @@ export class DoorKitchenItem extends Item implements Examine, Open {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "actionableItem";
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     public examine(): ActionResult | undefined {

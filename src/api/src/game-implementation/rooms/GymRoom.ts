@@ -29,8 +29,8 @@ export class GymRoom extends Room implements Simple {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "room";
+    public type(): GameObjectType[] {
+        return ["room"];
     }
 
     // Bepaalt welke afbeeldingen in deze kamer zichtbaar zijn

@@ -20,8 +20,8 @@ export class TitleItem extends Item implements Examine {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "actionableItem";
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     public examine(): ActionResult | undefined {

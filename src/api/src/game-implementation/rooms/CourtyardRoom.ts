@@ -19,12 +19,12 @@ export class CourtyardRoom extends Room implements Simple {
     }
 
     /**
-     * Geeft de type van de GameObject terug
+     * Geeft de types van de GameObject terug
      *
-     * @returns De type van de GameObject (GameObjectType union)
+     * @returns De types van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "room";
+    public type(): GameObjectType[] {
+        return ["room"];
     }
 
     public images(): string[] {

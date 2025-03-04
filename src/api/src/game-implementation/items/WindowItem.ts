@@ -25,8 +25,8 @@ export class WindowItem extends GameObject implements Examine {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "actionableItem";
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     /**

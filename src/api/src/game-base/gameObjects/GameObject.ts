@@ -1,5 +1,14 @@
 // union type voor specificering type
-export type GameObjectType = "actionableItem" | "nonActionableItem" | "npc" | "room";
+export type GameObjectType =
+  | "examine"
+  | "pick-up"
+  | "open"
+  | "escape"
+  | "use"
+  | "npc"
+  | "actionableItem"
+  | "nonActionableItem"
+  | "room";
 
 /**
  * Base class used to represent a game object
@@ -32,7 +41,7 @@ export abstract class GameObject {
     /**
      * Verkrijg de type van de game object
      *
-     * @returns een string die de type weergeeft ("actionableItem", "npc", "nonActionableItem")
+     * @returns een string die de type weergeeft ("actionableItem", "npc", "nonActionableItem"...)
      */
-    public abstract type(): SyncOrAsync<GameObjectType>;
+    public abstract type(): SyncOrAsync<GameObjectType[]>;
 }

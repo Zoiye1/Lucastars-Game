@@ -32,8 +32,8 @@ export class cookCharacter extends Character implements Examine {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "npc";
+    public type(): GameObjectType[] {
+        return ["npc"];
     }
 
     public talk(choiceId?: number): ActionResult | undefined {

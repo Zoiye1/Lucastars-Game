@@ -29,8 +29,8 @@ export class SugarItem extends Item implements Examine, PickUp {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "actionableItem";
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     public pickUp(): ActionResult | undefined {

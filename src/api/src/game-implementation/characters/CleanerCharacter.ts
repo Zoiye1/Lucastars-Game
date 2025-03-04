@@ -34,8 +34,8 @@ export class CleanerCharacter extends Character {
      *
      * @returns De type van de GameObject (GameObjectType union)
      */
-    public type(): GameObjectType {
-        return "npc";
+    public type(): GameObjectType[] {
+        return ["npc"];
     }
 
     /**

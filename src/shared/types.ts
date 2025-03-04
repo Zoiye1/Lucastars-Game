@@ -46,7 +46,7 @@ export type GameObjectReference = {
     /** Name of the game object */
     name: string;
     /** Type of the game object (e.g, npc, actionableItem) */
-    type: string;
+    type: string[];
 };
 
 /**
