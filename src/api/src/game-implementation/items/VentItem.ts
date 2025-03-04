@@ -6,30 +6,30 @@ import { PlayerSession } from "../types";
 import { gameService } from "../../global";
 import { Usable } from "../actions/UseAction";
 
-export class WindowItem extends Item implements Examine, Usable {
-    public static readonly Alias: string = "WindowItem";
+export class VentItem extends Item implements Examine, Usable {
+    public static readonly Alias: string = "VentItem";
 
     public constructor() {
-        super(WindowItem.Alias);
+        super(VentItem.Alias);
     }
 
     public name(): string {
-        return "Window";
+        return "Vent";
     }
 
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["A window leading to the hallway. It's locked."]);
+        return new TextActionResult(["A metal vent cover. It's screwed shut."]);
     }
 
     public use(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const hasPainting: boolean = playerSession.pickedUpPainting;
+        const hasFork: boolean = playerSession.pickedUpFork;
 
-        if (hasPainting) {
-            playerSession.windowBroken = true;
-            return new TextActionResult(["You throw the painting at the window, shattering it! You can now enter the hallway."]);
+        if (hasFork) {
+            playerSession.ventUnlocked = true;
+            return new TextActionResult(["You use the fork to unscrew the vent cover. You can now enter the vent."]);
         }
 
-        return new TextActionResult(["You need something heavy to break the window."]);
+        return new TextActionResult(["You need something to unscrew the vent cover."]);
     }
 }

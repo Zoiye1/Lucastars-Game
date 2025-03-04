@@ -36,6 +36,9 @@ import { GymFreakCharacter } from "../characters/GymFreakCharacter";
 import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
 import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { LabRoom } from "../rooms/LabRoom";
+import { VentItem } from "../items/VentItem";
+import { WindowItem } from "../items/WindowItem";
+import { UseAction } from "../actions/UseAction";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -60,7 +63,6 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(VentsRoom);
         this.registerGameObject(LabRoom);
 
-
         // Items
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
@@ -74,8 +76,10 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(KeypadStorageItem);
         this.registerGameObject(ForkItem);
         this.registerGameObject(PaintingItem);
-        this.registerGameObject(SulfuricAcidItem)
-        this.registerGameObject(GlassBeakerItem)
+        this.registerGameObject(SulfuricAcidItem);
+        this.registerGameObject(GlassBeakerItem);
+        this.registerGameObject(VentItem);
+        this.registerGameObject(WindowItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -96,6 +100,7 @@ export class GameService extends BaseGameService<PlayerSession> {
 
         // Actions
         this.registerAction(PickUpAction);
+        this.registerAction(UseAction);
     }
 
     /**
@@ -122,6 +127,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             helpedGymFreak: false,
             pickedUpGlassBeaker: false,
             pickedUpSulfuricAcid: false,
+            ventUnlocked: false,
+            windowBroken: false,
         };
     }
 

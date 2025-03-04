@@ -12,6 +12,9 @@ import { HallwayRoom } from "./HallwayRoom";
 import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
 import { VentsRoom } from "./VentsRoom";
+import { VentItem } from "../items/VentItem";
+import { WindowItem } from "../items/WindowItem";
+import { UseAction } from "../actions/UseAction";
 
 export class StarterRoom extends Room implements Simple {
     public static readonly Alias: string = "starterroom";
@@ -26,8 +29,27 @@ export class StarterRoom extends Room implements Simple {
 
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: string[] = ["starterroom/StarterRoomBackground"];
+        const result: string[] = [];
 
+        // Choose background based on which access points are unlocked
+        if (playerSession.windowBroken && playerSession.ventUnlocked) {
+            // Both unlocked
+            result.push("starterroom/StarterRoomBackground4");
+        }
+        else if (playerSession.windowBroken) {
+            // Only hallway unlocked
+            result.push("starterroom/StarterRoomBackground2");
+        }
+        else if (playerSession.ventUnlocked) {
+            // Only vents unlocked
+            result.push("starterroom/StarterRoomBackground3");
+        }
+        else {
+            // Nothing unlocked
+            result.push("starterroom/StarterRoomBackground");
+        }
+
+        // Add pickable items if they haven't been picked up yet
         if (!playerSession.pickedUpFork) {
             result.push("starterroom/StarterRoomFork");
         }
@@ -57,32 +79,48 @@ export class StarterRoom extends Room implements Simple {
         if (!playerSession.pickedUpPainting) {
             result.push(new PaintingItem());
         }
+
+        // Always add the vent and window as interaction objects
+        result.push(new VentItem());
+        result.push(new WindowItem());
+
         return result;
     }
 
     public actions(): Action[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const actions: Action[] = [
             new ExamineAction(),
-            new SimpleAction("enter-hallway", "Enter Hallway"),
-            new SimpleAction("enter-vent", "Enter Vent"),
             new PickUpAction(),
+            new UseAction(),
         ];
+
+        // Only show these buttons if the corresponding objects are unlocked
+        if (playerSession.ventUnlocked) {
+            actions.push(new SimpleAction("enter-vent", "Enter Vent"));
+        }
+
+        if (playerSession.windowBroken) {
+            actions.push(new SimpleAction("enter-hallway", "Enter Hallway"));
+        }
+
+        return actions;
     }
 
     public simple(alias: string): ActionResult | undefined {
-        let room: Room | undefined;
         switch (alias) {
-            case "enter-hallway":
-                room = new HallwayRoom();
-                break;
-            case "enter-vent":
-                room = new VentsRoom();
-                break;
+            case "enter-hallway": {
+                const room = new HallwayRoom();
+                gameService.getPlayerSession().currentRoom = room.alias;
+                return room.examine();
+            }
+            case "enter-vent": {
+                const room = new VentsRoom();
+                gameService.getPlayerSession().currentRoom = room.alias;
+                return room.examine();
+            }
         }
-        if (room) {
-            gameService.getPlayerSession().currentRoom = room.alias;
-            return room.examine();
-        }
+
         return undefined;
     }
 }
