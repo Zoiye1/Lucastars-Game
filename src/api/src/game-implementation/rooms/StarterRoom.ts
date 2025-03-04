@@ -3,7 +3,7 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
-import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { ForkItem } from "../items/ForkItem";
@@ -22,6 +22,15 @@ export class StarterRoom extends Room implements Simple {
 
     public name(): string {
         return "Starterroom";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["room"];
     }
 
     public images(): string[] {

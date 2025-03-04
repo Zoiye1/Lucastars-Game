@@ -203,6 +203,7 @@ export class GameController {
         return {
             alias: gameObject.alias,
             name: await gameObject.name(),
+            type: await gameObject.type(),
         };
     }
 };
