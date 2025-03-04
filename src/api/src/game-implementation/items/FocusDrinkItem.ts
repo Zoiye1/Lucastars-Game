@@ -5,6 +5,7 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { PickUp } from "../actions/PickUpAction";
 import { gameService } from "../../global";
 import { PlayerSession } from "../types";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
  * Class die het item "Focus Drink" representeert
@@ -26,6 +27,15 @@ export class FocusDrinkItem extends Item implements Examine, PickUp {
      */
     public name(): string {
         return "Focus Drink";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     /**

@@ -86,19 +86,15 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CafeteriaRoom);
         this.registerGameObject(CourtyardRoom);
         this.registerGameObject(GymFreakCharacter);
+        this.registerGameObject(CleanerCharacter);
 
         // Items
         this.registerGameObject(FocusDrinkItem);
         this.registerGameObject(BucketItem);
 
-        // Characters
-        this.registerGameObject(CleanerCharacter);
-
         // Actions
         this.registerAction(OpenAction);
         this.registerGameObject(DealerCharacter);
-
-        // Actions
         this.registerAction(PickUpAction);
         this.registerAction(UseAction);
     }

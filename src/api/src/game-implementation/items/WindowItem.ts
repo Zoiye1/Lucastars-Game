@@ -1,6 +1,6 @@
 /**
- * Vertegenwoordigt een raamobject dat onderzocht en gebruikt kan worden.
- * Het raam is aanvankelijk vergrendeld en vereist een zwaar object om het te breken.
+ * Represents a vent item that can be examined and used.
+ * The vent is initially screwed shut and requires a tool to open.
  */
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
@@ -9,56 +9,65 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
 import { Usable } from "../actions/UseAction";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
- * Klasse die een raamobject in het spel vertegenwoordigt.
- * De speler kan het onderzoeken of proberen te gebruiken.
+ * Class representing a vent item in the game.
+ * The player can examine it or attempt to use it.
  */
-export class WindowItem extends Item implements Examine, Usable {
-    /** De alias voor het raamobject. */
-    public static readonly Alias: string = "WindowItem";
+export class VentItem extends Item implements Examine, Usable {
+    /** The alias for the vent item. */
+    public static readonly Alias: string = "VentItem";
 
     /**
-     * Maakt een nieuwe instantie van WindowItem aan.
+     * Constructs a new VentItem instance.
      */
     public constructor() {
-        super(WindowItem.Alias);
+        super(VentItem.Alias);
     }
 
     /**
-     * Haalt de weergavenaam van het object op.
-     * @returns {string} De naam van het raamobject.
+     * Gets the display name of the item.
+     * @returns {string} The name of the vent item.
      */
     public name(): string {
-        return "Window";
+        return "Vent";
     }
 
     /**
-     * Onderzoekt het raamobject en geeft een beschrijving.
-     * @returns {ActionResult | undefined} Het resultaat van het onderzoeken van het raam.
+
+    Geeft de type van de GameObject terug*
+    @returns De type van de GameObject (GameObjectType union) */
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
+    }
+
+    /**
+     * Examines the vent item, providing a description.
+     * @returns {ActionResult | undefined} The result of examining the vent.
      */
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["A window leading to the hallway. It's locked."]);
+        return new TextActionResult(["A metal vent cover. It's screwed shut."]);
     }
 
     /**
-     * Probeert het raamobject te gebruiken.
-     * Als de speler een schilderij heeft, kan hij het raam breken.
-     * @returns {ActionResult | undefined} Het resultaat van het proberen te gebruiken van het raam.
+     * Attempts to use the vent item.
+     * If the player has a fork, they can unscrew the vent cover.
+     * @returns {ActionResult | undefined} The result of attempting to use the vent.
      */
     public use(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const hasPainting: boolean = playerSession.pickedUpPainting;
+        const hasFork: boolean = playerSession.pickedUpFork;
 
-        if (hasPainting) {
-            playerSession.windowBroken = true;
+        if (hasFork) {
+            playerSession.ventUnlocked = true;
             return new TextActionResult([
-                "You throw the painting at the window, shattering it! You can now enter the hallway.",
+                "You use the fork to unscrew the vent cover. You can now enter the vent.",
             ]);
         }
 
         return new TextActionResult([
-            "You need something heavy to break the window.",
+            "You need something to unscrew the vent cover.",
         ]);
     }
 }
