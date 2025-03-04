@@ -41,7 +41,12 @@ export type ActionReference = {
 
 export type Arrowroom = {
     name: string;
-    image: string;
+    alias: string;
+    imageRotation: number;
+    imageCoords: {
+        x: number;
+        y: number;
+    };
 };
 
 /**

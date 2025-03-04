@@ -29,9 +29,7 @@ export abstract class Room extends GameObject implements Examine {
     }
 
     public ArrowUrl(): Arrowroom[] {
-        return [
-            { name: "", image: "" },
-        ];
+        return [];
     }
 
     /**

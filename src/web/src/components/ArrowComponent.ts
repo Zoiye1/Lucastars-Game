@@ -6,12 +6,15 @@ import { htmlArray } from "../helpers/webComponents";
 import { Page } from "../enums/Page";
 
 const styles: string = css`
-
     .arrow {
         width: auto;
         height: 100%;
         image-rendering: pixelated;
         position: absolute;
+    }
+    
+    .arrow:hover {
+      filter: hue-rotate(90deg) brightness(1.5);
     }
 
 `;
@@ -87,7 +90,11 @@ export class ArrowComponent extends HTMLElement {
         console.log(roomArrowImages);
         if (roomArrowImages && roomArrowImages.length > 0) {
             return `
-                    ${roomArrowImages.map(url => `<img class="arrow" src="/assets/img/rooms/${url.image}.png" />`).join("")}
+                    ${roomArrowImages.map(arrow => `<img 
+                    class="arrow" 
+                    src="/assets/img/Arrows/Arrow.png" 
+                    style="transform: rotate(${arrow.imageRotation}deg); width: 7%; height: auto; left: ${arrow.imageCoords.x}%; top: ${arrow.imageCoords.y}%; " />`
+            ).join("")}
             `;
         }
 
