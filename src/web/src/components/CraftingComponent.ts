@@ -260,17 +260,17 @@ export class CraftingComponent extends HTMLElement {
                             <h2>Crafting Menu</h2>
                             <div class="crafting-grid">
                                 <div class="container-slot">
-                                    ${this.slots[0] ? "<button id=\"emptySlot\">✕</button>" : ""}
+                                    ${this.slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
                                     <div class="slot">${this.slots[0]}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
-                                    ${this.slots[1] ? "<button id=\"emptySlot\">✕</button>" : ""}
+                                    ${this.slots[1] ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
                                     <div class="slot">${this.slots[1]}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
-                                    ${this.slots[2] ? "<button id=\"emptySlot\">✕</button>" : ""}
+                                    ${this.slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
                                     <div class="slot">${this.slots[2]}</div>
                                 </div>
                                 <span class="symbol">=</span>
@@ -329,9 +329,10 @@ export class CraftingComponent extends HTMLElement {
     private addClearSlotsListeners(): void {
         const clearSlotButtons: NodeList | undefined = this.shadowRoot?.querySelectorAll("#emptySlot");
 
-        clearSlotButtons?.forEach((button, i) => {
-            button.addEventListener("click", () => {
-                this.slots[i] = "";
+        clearSlotButtons?.forEach(button => {
+            button.addEventListener("click", event => {
+                const slotIndex: number = parseInt((event.target as HTMLButtonElement).getAttribute("data-slot")!);
+                this.slots[slotIndex] = "";
                 this.updateDialog();
             });
         });
@@ -365,6 +366,8 @@ export class CraftingComponent extends HTMLElement {
         const dialogOpenState: boolean = craftingDialog.open;
 
         this.render();
+
+        console.log(this.slots);
 
         // zorg ervoor dat de dialoog niet sluit na klikken
         if (dialogOpenState) {
