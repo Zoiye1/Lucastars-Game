@@ -42,6 +42,11 @@ const styles: string = css`
         flex-direction: row-reverse;
     }
 
+    .container-crafting-recipes {
+        display: flex;
+        flex-direction: column;
+    }
+
     dialog {
         position: relative;
         border: none;
@@ -50,7 +55,7 @@ const styles: string = css`
 
     .container-dialog {
         gap: 20px;
-        padding: 20px 40px;
+        padding: 20px;
         background: white;
         border-radius: 8px;
     }
@@ -78,7 +83,7 @@ const styles: string = css`
     }
 
     .recipes-list {
-        max-height: 240px;
+        max-height: 500px;
         overflow-y: auto;
         width: 200px;
         border: 1px solid #ddd;
@@ -119,6 +124,42 @@ const styles: string = css`
         font-size: 12px;
         color: #555;
     }
+
+    .container-inventory {
+        padding: 20px;
+    }
+
+    .dashed-divider {
+        width: 100%;
+        border-top: 2px dashed gray;
+    }
+
+    .inventory-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .inventory-item {
+        padding: 10px;
+        background-color: #eef;
+        border: 1px solid #99c;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 14px;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.2s;
+    }
+
+    .inventory-item:hover {
+        background-color: #dde;
+    }
+
+    .inventory-title {
+        margin: 0;
+    }
 `;
 
 interface Recipe {
@@ -142,6 +183,9 @@ const recipes: Recipe[] = [
 ];
 
 export class CraftingComponent extends HTMLElement {
+    // private selectedItem: string;
+    // private selectedSlot: string;
+
     /**
      * The "constructor" of a Web Component
      */
@@ -188,23 +232,42 @@ export class CraftingComponent extends HTMLElement {
             <button class="container-crafting-button" id="craftingButton">Crafting</button>
             <dialog id="craftingDialog">
                 <div class="container">
-                    <div class="container-dialog">
-                        <button id="closeDialog">✕</button>
-                        <h2>Crafting Menu</h2>
-                        <div class="crafting-grid">
-                            <div class="slot"></div>
-                            <span class="symbol">+</span>
-                            <div class="slot"></div>
-                            <span class="symbol">+</span>
-                            <div class="slot"></div>
-                            <span class="symbol">=</span>
-                            <div class="result-slot"></div>
+                    <button id="closeDialog">✕</button>
+
+                    <div class="container-crafting-recipes">
+                        <div class="container-dialog">
+                            <h2>Crafting Menu</h2>
+                            <div class="crafting-grid">
+                                <div class="slot"></div>
+                                <span class="symbol">+</span>
+                                <div class="slot"></div>
+                                <span class="symbol">+</span>
+                                <div class="slot"></div>
+                                <span class="symbol">=</span>
+                                <div class="result-slot"></div>
+                            </div>
+                            <button id="craftButton">Craft</button>
                         </div>
-                        <button id="craftButton">Craft</button>
+                        <div class="container-inventory">
+                            <div class="dashed-divider"></div>
+                            <h2 class="inventory-title">Your Inventory</h2>
+                            <div class="inventory-grid">
+                                <div class="inventory-item">Stick (x15)</div>
+                                <div class="inventory-item">Super Glue (x3)</div>
+                                <div class="inventory-item">Hammer (x1)</div>
+                                <div class="inventory-item">Air freshener (x2)</div>
+                                <div class="inventory-item">Lighter (x1)</div>
+                                <div class="inventory-item">Focus Drink (x5)</div>
+                                <div class="inventory-item">Baking Soda (x7)</div>
+                                <div class="inventory-item">Sulfuric (x1)</div>
+                                <div class="inventory-item">Glass Beaker (x2)</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="recipes-list">
-                        ${recipeCardsHTML}
-                    </div>
+                            ${recipeCardsHTML}
+                    </div>    
+                    
                 </div>
             </dialog>
         `;
@@ -223,7 +286,7 @@ export class CraftingComponent extends HTMLElement {
 
         // sluit modaal als gebruiker buiten modaal klikt
         dialog.addEventListener("click", event => {
-            const dialogContent: HTMLDivElement = dialog.querySelector(".container-dialog")!;
+            const dialogContent: HTMLDivElement = dialog.querySelector(".container")!;
             if (!dialogContent.contains(event.target as Node)) {
                 dialog.close();
             }
