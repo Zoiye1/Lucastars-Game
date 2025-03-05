@@ -32,6 +32,7 @@ export class QuestController {
 
         res.json({ message: "Quest started!", quest: playerSession.activeQuest });
     }
+    // test
 
     /**
      * Voltooi een fetch quest als het item is gevonden.
