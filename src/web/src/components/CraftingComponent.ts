@@ -206,7 +206,7 @@ export class CraftingComponent extends HTMLElement {
     // private selectedSlot: string;
 
     private slots: string[] = ["", "", ""];
-
+    private resultSlot: string = "";
     /**
      * The "constructor" of a Web Component
      */
@@ -274,7 +274,7 @@ export class CraftingComponent extends HTMLElement {
                                     <div class="slot">${this.slots[2]}</div>
                                 </div>
                                 <span class="symbol">=</span>
-                                <div class="result-slot"></div>
+                                <div class="result-slot">${this.resultSlot}</div>
                             </div>
                             <button id="craftButton">Craft</button>
                         </div>
@@ -289,8 +289,8 @@ export class CraftingComponent extends HTMLElement {
                                 <div class="inventory-item">Lighter (x1)</div>
                                 <div class="inventory-item">Focus Drink (x5)</div>
                                 <div class="inventory-item">Baking Soda (x7)</div>
-                                <div class="inventory-item">Sulfuric (x1)</div>
-                                <div class="inventory-item">Glass Beaker (x2)</div>
+                                <div class="inventory-item">Rope</div>
+                                <div class="inventory-item">Sheets</div>
                             </div>
                         </div>
                     </div>
@@ -310,7 +310,7 @@ export class CraftingComponent extends HTMLElement {
         const button: HTMLButtonElement = this.shadowRoot.querySelector("#craftingButton") as HTMLButtonElement;
         const dialog: HTMLDialogElement = this.shadowRoot.querySelector("#craftingDialog") as HTMLDialogElement;
         const closeBtn: HTMLButtonElement = this.shadowRoot.querySelector("#closeDialog") as HTMLButtonElement;
-
+        const craftBtn: HTMLButtonElement = this.shadowRoot.querySelector("#craftButton") as HTMLButtonElement;
         button.addEventListener("click", () => dialog.showModal());
         closeBtn.addEventListener("click", () => dialog.close());
 
@@ -321,6 +321,8 @@ export class CraftingComponent extends HTMLElement {
                 dialog.close();
             }
         });
+
+        craftBtn.addEventListener("click", () => this.handleCraftItem(this.slots));
 
         this.addClearSlotsListeners();
         this.addInventoryItemListeners();
@@ -358,6 +360,30 @@ export class CraftingComponent extends HTMLElement {
         }
         else {
             alert("All slots are full!");
+        }
+    }
+
+    private handleCraftItem(slots: string[]): void {
+        const filledSlots: string[] = slots.filter(slot => slot !== "");
+        for (const recipe of recipes) {
+            const ingredients: string[] = recipe.ingredients;
+
+            const sortedSlots: string[] = [...filledSlots].sort();
+            const sortedIngredients: string[] = [...ingredients].sort();
+
+            let match: boolean = true;
+            for (let i: number = 0; i < sortedSlots.length; i++) {
+                if (sortedSlots[i] !== sortedIngredients[i]) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if (match) {
+                console.log("Recipe matched: ", recipe.title);
+                this.resultSlot = recipe.title;
+                this.updateDialog();
+            }
         }
     }
 
