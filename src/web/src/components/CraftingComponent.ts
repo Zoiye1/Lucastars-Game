@@ -53,12 +53,12 @@ const styles: string = css`
         position: relative;
         border: none;
         padding: 0;
+        background: #ffffffe4;
     }
 
     .container-dialog {
         gap: 20px;
         padding: 20px;
-        background: white;
         border-radius: 8px;
     }
 
@@ -88,10 +88,8 @@ const styles: string = css`
         max-height: 500px;
         overflow-y: auto;
         width: 200px;
-        border: 1px solid #ddd;
+        border-right: 2px dashed gray;
         padding: 10px;
-        border-radius: 8px;
-        background-color: #fafafa;
     }
 
     .recipe-card {
@@ -99,7 +97,7 @@ const styles: string = css`
         margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        background-color: #fff;
+        background-color: #ffffffa2;
     }
 
     .recipe-title {
