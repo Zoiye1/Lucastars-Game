@@ -24,6 +24,21 @@ const styles: string = css`
         color: #333;
     }
 
+    .container-slot {
+        position: relative;
+    }
+
+    #emptySlot {
+        position: absolute;
+        top: -50%;
+        right: 25%;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #333;
+    }
+
     #craftButton {
         margin-top: 20px;
         padding: 10px 20px;
@@ -173,6 +188,10 @@ const recipes: Recipe[] = [
         ingredients: ["10 Sticks", "Super Glue", "Hammer"],
     },
     {
+        title: "Parachute",
+        ingredients: ["Sheets", "Rope"],
+    },
+    {
         title: "Bomb",
         ingredients: ["Air freshener", "Lighter"],
     },
@@ -185,6 +204,8 @@ const recipes: Recipe[] = [
 export class CraftingComponent extends HTMLElement {
     // private selectedItem: string;
     // private selectedSlot: string;
+
+    private slots: string[] = ["", "", ""];
 
     /**
      * The "constructor" of a Web Component
@@ -238,11 +259,20 @@ export class CraftingComponent extends HTMLElement {
                         <div class="container-dialog">
                             <h2>Crafting Menu</h2>
                             <div class="crafting-grid">
-                                <div class="slot"></div>
+                                <div class="container-slot">
+                                    ${this.slots[0] ? "<button id=\"emptySlot\">✕</button>" : ""}
+                                    <div class="slot">${this.slots[0]}</div>
+                                </div>
                                 <span class="symbol">+</span>
-                                <div class="slot"></div>
+                                <div class="container-slot">
+                                    ${this.slots[1] ? "<button id=\"emptySlot\">✕</button>" : ""}
+                                    <div class="slot">${this.slots[1]}</div>
+                                </div>
                                 <span class="symbol">+</span>
-                                <div class="slot"></div>
+                                <div class="container-slot">
+                                    ${this.slots[2] ? "<button id=\"emptySlot\">✕</button>" : ""}
+                                    <div class="slot">${this.slots[2]}</div>
+                                </div>
                                 <span class="symbol">=</span>
                                 <div class="result-slot"></div>
                             </div>
@@ -291,5 +321,55 @@ export class CraftingComponent extends HTMLElement {
                 dialog.close();
             }
         });
+
+        this.addClearSlotsListeners();
+        this.addInventoryItemListeners();
+    }
+
+    private addClearSlotsListeners(): void {
+        const clearSlotButtons: NodeList | undefined = this.shadowRoot?.querySelectorAll("#emptySlot");
+
+        clearSlotButtons?.forEach((button, i) => {
+            button.addEventListener("click", () => {
+                this.slots[i] = "";
+                this.updateDialog();
+            });
+        });
+    }
+
+    private addInventoryItemListeners(): void {
+        const inventoryItems: NodeList | undefined = this.shadowRoot?.querySelectorAll(".inventory-item");
+
+        inventoryItems?.forEach(inventoryItem => {
+            inventoryItem.addEventListener("click", () => {
+                const item: string = inventoryItem.textContent!;
+                this.handleSelectItem(item);
+            });
+        });
+    }
+
+    private handleSelectItem(item: string): void {
+        const firstEmptySlot: number = this.slots.findIndex(slot => slot === "");
+
+        if (firstEmptySlot !== -1) {
+            this.slots[firstEmptySlot] = item;
+            this.updateDialog();
+        }
+        else {
+            alert("All slots are full!");
+        }
+    }
+
+    private updateDialog(): void {
+        const craftingDialog: HTMLDialogElement = this.shadowRoot?.querySelector("#craftingDialog") as HTMLDialogElement;
+        const dialogOpenState: boolean = craftingDialog.open;
+
+        this.render();
+
+        // zorg ervoor dat de dialoog niet sluit na klikken
+        if (dialogOpenState) {
+            const newCraftingDialog: HTMLDialogElement = this.shadowRoot?.querySelector("#craftingDialog") as HTMLDialogElement;
+            newCraftingDialog.showModal();
+        }
     }
 }
