@@ -1,8 +1,3 @@
-/**
- * Represents all data that should be stored for a player
- *
- * @remarks Can only contain JSON data types
- */
 export type PlayerSession = {
     playerOpenedDoorToStorage: boolean;
     pickedUpSugar: boolean;
@@ -26,4 +21,10 @@ export type PlayerSession = {
     pickedUpGlassBeaker: boolean;
     pickedUpSulfuricAcid: boolean;
 
+    // Voeg de nieuwe activeQuest eigenschap toe
+    activeQuest?: {
+        name: string;
+        item: string;
+        completed: boolean;
+    };
 };

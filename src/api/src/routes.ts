@@ -11,3 +11,5 @@ router.get("/", (_, res) => {
 
 // Forward endpoints to other routers
 router.use("/game", gameRouter);
+router.use("/game-quest", gameRouter);
+router.use("/quest", gameRouter);
