@@ -306,7 +306,7 @@ export class CanvasComponent extends HTMLElement {
         }
 
         // Otherwise, execute the action and update the game state.
-        const state: GameState | undefined = await this._gameRouteService.executeMoveAction(button.alias);
+        const state: GameState | undefined = await this._gameRouteService.executeAction(button.alias);
 
         if (state === undefined) {
             return;

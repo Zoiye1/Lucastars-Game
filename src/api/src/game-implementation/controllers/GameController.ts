@@ -34,6 +34,18 @@ export class GameController {
         }
     }
 
+    public async handleMoveRequest(_: Request, res: Response, _alias: string): Promise<void> {
+        // Execute the Examine action on the current room
+        const gameState: GameState | undefined = await this.executeMoveAction(_alias);
+
+        if (gameState) {
+            res.json(gameState);
+        }
+        else {
+            res.status(500).end();
+        }
+    }
+
     /**
      * Handle the request to execute an action for the current player
      *
@@ -86,6 +98,23 @@ export class GameController {
 
         // Convert the result of the action to the new game state
         return this.convertActionResultToGameState(actionResult);
+    }
+
+    private async executeMoveAction(_alias: string): Promise<GameState | undefined> {
+        const room: Room | undefined = gameService
+            .getGameObjectByAlias(gameService.getPlayerSession().currentRoom) as Room | undefined;
+        if (room) {
+            return {
+                type: "default",
+                roomAlias: _alias,
+                roomName: await room.name(),
+                roomImages: await room.images(),
+                roomArrowImages: room.ArrowUrl(),
+                text: text,
+                actions: actions,
+                objects: objects,
+            };
+        };
     }
 
     /**

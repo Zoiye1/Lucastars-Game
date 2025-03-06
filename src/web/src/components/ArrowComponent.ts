@@ -29,6 +29,7 @@ export class ArrowComponent extends HTMLElement {
     private _currentGameState?: DefaultGameState;
     /** Current active game object buttons */
     private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
+
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
@@ -85,19 +86,41 @@ export class ArrowComponent extends HTMLElement {
         this.shadowRoot.append(...element);
     }
 
-    private renderArrow(): string {
+    private renderArrow(): HTMLElement[] | undefined {
         const roomArrowImages: Arrowroom[] | undefined = this._currentGameState?.roomArrowImages;
         console.log(roomArrowImages);
         if (roomArrowImages && roomArrowImages.length > 0) {
-            return `
-                    ${roomArrowImages.map(arrow => `<img 
-                    class="arrow" 
-                    src="/assets/img/Arrows/Arrow.png" 
-                    style="transform: rotate(${arrow.imageRotation}deg); width: 7%; height: auto; left: ${arrow.imageCoords.x}%; top: ${arrow.imageCoords.y}%; " />`
-            ).join("")}
-            `;
+            return roomArrowImages.map(arrow => this.createArrowElement(arrow));
         }
 
-        return "<div>IMAGE ARROW NOT LOADING</div>";
+        return undefined;
+    }
+
+    private createArrowElement(arrow: Arrowroom): HTMLElement {
+        const img: HTMLImageElement = document.createElement("img");
+
+        img.classList.add("arrow");
+        img.src = "/assets/img/Arrows/Arrow.png";
+        img.style.transform = `rotate(${arrow.imageRotation}deg)`;
+        img.style.width = "7%";
+        img.style.height = "auto";
+        img.style.left = `${arrow.imageCoords.x}%`;
+        img.style.top = `${arrow.imageCoords.y}%`;
+        img.style.position = "absolute";
+
+        img.addEventListener("click", () => this.handleClickArrow(arrow));
+
+        return img;
+    }
+
+    private async handleClickArrow(arrow: Arrowroom): Promise<void> {
+        console.log(`${arrow.alias} clicked!`);
+        const roomAlias: string = arrow.alias;
+
+        const state: GameState | undefined = await this._gameRouteService.executeRoomAction(roomAlias);
+        if (state) {
+            this.updateGameState(state);
+        }
+        this.render();
     }
 }

@@ -47,13 +47,13 @@ export class KitchenRoom extends Room implements Simple {
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "cafeteria", alias: "Cafeteria", imageRotation: 90, imageCoords: { x: 77, y: 60 } },
+            { name: "cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 77, y: 60 } },
         ];
 
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.playerOpenedDoorToStorage) {
             result.push(
-                { name: "storage", alias: "Storage", imageRotation: 180, imageCoords: { x: 46, y: 18 } }
+                { name: "storage", alias: "StorageRoom", imageRotation: 180, imageCoords: { x: 46, y: 18 } }
             );
         }
 
