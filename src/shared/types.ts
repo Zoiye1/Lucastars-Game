@@ -72,3 +72,7 @@ export type ExecuteActionRequest = {
 export type ExecuteRetrieveRequest = {
     itemAlias: string;
 };
+
+export type ExecuteDeleteItemsRequest = {
+    deleteItemsAliasArray: string[];
+};

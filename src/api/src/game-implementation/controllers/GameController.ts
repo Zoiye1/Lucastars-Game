@@ -1,4 +1,4 @@
-import { ActionReference, ExecuteActionRequest, ExecuteRetrieveRequest, GameObjectReference, GameState } from "@shared/types";
+import { ActionReference, ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameObjectReference, GameState } from "@shared/types";
 import { Request, Response } from "express";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
@@ -64,6 +64,13 @@ export class GameController {
         res.status(200).json({ message: result });
     }
 
+    public handleDeleteItemsRequest(req: Request, res: Response): void {
+        const executeDeleteItemsRequest: ExecuteDeleteItemsRequest = req.body as ExecuteDeleteItemsRequest;
+
+        const result: string = this.executeDeleteItems(executeDeleteItemsRequest.deleteItemsAliasArray);
+        res.status(200).json({ message: result });
+    }
+
     /**
      * Execute the requested action and convert the result to a type of `GameState`.
      *
@@ -101,6 +108,18 @@ export class GameController {
         inventory.push(itemAlias);
         console.log(inventory);
         return `Item "${itemAlias}" retrieved successfully.`;
+    }
+
+    private executeDeleteItems(itemsToDelete: string[]): string {
+        const inventory: string[] = gameService.getPlayerSession().inventory;
+
+        for (const itemAlias of itemsToDelete) {
+            if (inventory.includes(itemAlias)) {
+                inventory.splice(inventory.indexOf(itemAlias), 1);
+            }
+        }
+        console.log(inventory);
+        return `Items "${itemsToDelete}" deleted successfully.`;
     }
 
     /**

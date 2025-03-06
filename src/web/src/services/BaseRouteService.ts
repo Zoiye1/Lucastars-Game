@@ -58,6 +58,10 @@ export abstract class BaseRouteService {
         return this.methodJsonApi("PUT", path, data);
     }
 
+    protected async deleteJsonApi<T1, T2 = unknown>(path: string, data?: T2): Promise<T1> {
+        return this.methodJsonApi("DELETE", path, data);
+    }
+
     /**
      * Perform any type of request and retrieve a JSON response
      *
