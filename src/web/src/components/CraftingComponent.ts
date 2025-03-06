@@ -376,12 +376,9 @@ export class CraftingComponent extends HTMLElement {
     private handleSelectItem(item: string): void {
         const firstEmptySlot: number = this.slots.findIndex(slot => slot === "");
 
-        if (firstEmptySlot !== -1) {
+        if (firstEmptySlot !== -1 && !this.slots.includes(item)) {
             this.slots[firstEmptySlot] = item;
             this.updateDialog();
-        }
-        else {
-            alert("All slots are full!");
         }
     }
 
