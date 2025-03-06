@@ -208,10 +208,6 @@ const recipes: Recipe[] = [
         title: "Bomb",
         ingredients: ["Air freshener", "Lighter"],
     },
-    {
-        title: "Corrosive Acid",
-        ingredients: ["Focus Drink", "Baking Soda", "Sulfuric", "Glass Beaker"],
-    },
 ];
 
 export class CraftingComponent extends HTMLElement {
