@@ -97,3 +97,7 @@ Matisse
 6/10
 
 In 8:59 minuten uitgespeeld.
+
+## THINK 2
+
+Aan de hand van de feedbacks die we hebben gekregen gaan we onze game aanpassen. Niet-interactieve items moeten worden weggefilterd om verwarring te voorkomen. De titelpagina is onduidelijk en moeilijk leesbaar. Spelers missen extra opties bij dialogen en geven aan dat een hintknop handig zou zijn. Deze punten worden in de MAKE-fase aangepakt.
