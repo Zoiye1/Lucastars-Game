@@ -475,7 +475,10 @@
 
         - Nee
   
-  Milan scrummaster
+  
+  
+  
+Milan scrummaster
 
 ### Daily standup maandag 27-02-2025
 
@@ -563,5 +566,85 @@
     -  #### Zijn er problemen waar tegen aanloopt?
 
         - Nee
+
+
+### Daily standup maandag 28-02-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+       - sprint poker
+       - tmc cycle geholpen
+       - Onderzoek naar webcompenenten
+    
+    -  #### Wat ga je vandaag doen?
+        Ik ga het webcompenent pijlen afmaken
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  Ja, ik heb moeite met het begrijpen van de bestaande code met betrekking tot backlog
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+
+
+    -  #### Wat ga je vandaag doen?
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+
+
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Action escape
+       -  pixel art
+       -  Player session verwijdert
+
+
+    -  #### Wat ga je vandaag doen?
+       -  Zelf inlezen over webcompenenten 
+       -  Onderzoek doen naar inventory web compenenten
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+       -  tmc uitgevoerd 
+       -  lab aan gemaakt
+       -  2 nieuwe items
+       -  starterroom pixel art opnieuw maken
+
+
+    -  #### Wat ga je vandaag doen?
+       -  nieuwe action maken
+       -  userstories aanmaken
+       -  sprint 2 inplannen
+       -  starterroom pixel art afmaken
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  ja, Vs code werkt niet
+
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan?
+       -  tmc
+
+    -  #### Wat ga je vandaag doen?
+       -  userstories aanmaken
+       -  webcomponent onderzoek
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
 
 

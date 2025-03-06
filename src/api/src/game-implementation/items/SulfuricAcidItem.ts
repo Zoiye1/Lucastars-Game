@@ -5,6 +5,7 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { PlayerSession } from "../types";
 import { PickUp } from "../actions/PickUpAction";
 import { gameService } from "../../global";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class SulfuricAcidItem extends Item implements Examine, PickUp {
     public static readonly Alias: string = "SulfuricAcidItem";
@@ -19,6 +20,15 @@ export class SulfuricAcidItem extends Item implements Examine, PickUp {
 
     public examine(): ActionResult | undefined {
         return new TextActionResult(["What is this mysterious liquid..."]);
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     public pickUp(): ActionResult | undefined {

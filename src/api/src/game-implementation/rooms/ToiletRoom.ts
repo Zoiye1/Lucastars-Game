@@ -1,7 +1,7 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
-import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { BucketItem } from "../items/BucketItem";
 import { Action } from "../../game-base/actions/Action";
@@ -32,6 +32,15 @@ export class ToiletRoom extends Room implements Simple {
      */
     public name(): string {
         return "Toilet";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["room"];
     }
 
     /**

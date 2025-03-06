@@ -98,6 +98,24 @@ Matisse
 
 In 8:59 minuten uitgespeeld.
 
+Feedback Khalil
+
+7/10
+
+Opties hebben wanneer je met iemand specifiek praat.
+
+Minder knoppen. Dus wanneer je op een bepaalde knop klikt dat het dan verdwijnd
+
+Filter knoppen afhandelen van acties.3
+
+Leuke game!
+
+Game is dyanmische
+
+Liefst een leuke background music. 
+
+In 5:00 minuten uitgespeeld.
+
 ## THINK 2
 
 Aan de hand van de feedbacks die we hebben gekregen gaan we onze game aanpassen. Niet-interactieve items moeten worden weggefilterd om verwarring te voorkomen. De titelpagina is onduidelijk en moeilijk leesbaar. Spelers missen extra opties bij dialogen en geven aan dat een hintknop handig zou zijn. Deze punten worden in de MAKE-fase aangepakt.

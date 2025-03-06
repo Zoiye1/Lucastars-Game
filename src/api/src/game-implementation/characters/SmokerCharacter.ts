@@ -1,0 +1,95 @@
+import { ActionResult } from "../../game-base/actionResults/ActionResult";
+import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
+import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
+import { TalkChoice } from "../../game-base/actions/TalkAction";
+import { Character } from "../../game-base/gameObjects/Character";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { gameService } from "../../global";
+import { PlayerSession } from "../types";
+
+/**
+ * Class die de karakter "Smoker" representeert.
+ *
+ * Deze karakter kan met de speler praten en heeft een taak die moet worden voltooid.
+ */
+export class SmokerCharacter extends Character {
+    /** Alias die wordt gebruikt om de smoker te identificeren */
+    public static readonly Alias: string = "smoker";
+
+    public constructor() {
+        super(SmokerCharacter.Alias);
+    }
+
+    /**
+     * Geeft de naam van de Smoker terug
+     *
+     * @returns De naam van de karakter
+     */
+    public name(): string {
+        return "Smoker";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["npc"];
+    }
+
+    public talk(choiceId?: number): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
+        if (!playerSession.tradedWithSmoker) {
+            if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4) {
+                return new TalkActionResult(
+                    this,
+                    ["Ayo my G, I got a sweet deal for ya. Tryna make this happen?",
+                        "See here's the ting... I'm dry on cigs but holdin' lighters.",
+                        "You front me some smokes and a dime stack, I'll bless you with fire. Sounds good my g?"],
+                    [
+                        new TalkChoice(1, "We can work somethin out fo sho."),
+                        new TalkChoice(2, "Nah I'm straight, G."),
+                    ]
+                );
+            }
+            else if (choiceId === 1) {
+                return new TalkActionResult(
+                    this,
+                    ["Fo sho? Look here... you bring me a pack of cigs AND a crisp 10-euro note,",
+                        "I'll trade you this premium lighter. That's the family discount right there."],
+                    [
+                        new TalkChoice(3, "Got both, let's make this paper."),
+                        new TalkChoice(4, "I'ma see what I can scrape up."),
+                    ]
+                );
+            }
+            else if (choiceId === 2) {
+                return new TextActionResult(["Aight, your loss playa. I'll be here puffin on hopes and dreams."]);
+            }
+            else if (choiceId === 3) {
+                if (playerSession.inventory.includes("ten-euro-bill") && playerSession.inventory.includes("cigarettes")) {
+                    playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
+                    playerSession.inventory.splice(playerSession.inventory.indexOf("cigarettes"), 1);
+
+                    playerSession.inventory.push("lighter");
+                    playerSession.tradedWithSmoker = true;
+
+                    return new TextActionResult(["*snaps fingers* Aight, aight... you holdin both!",
+                        "Here's that lighter fam... don't smoke it all in one place!"]);
+                }
+                else {
+                    return new TextActionResult(["You tryna finesse me?! Where my cigs at? Where my cheddar?",
+                        "Come correct with BOTH or keep it pushin"]);
+                }
+            }
+            else {
+                return new TextActionResult(["No doubt, no doubt. Clock's tickin though... don't leave me hangin."]);
+            }
+        }
+        else {
+            return new TextActionResult(["We locked in already homie! That lighter better be treatin you right!"]);
+        }
+    }
+}

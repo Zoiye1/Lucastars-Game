@@ -5,6 +5,7 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
  * Klasse die de dealer NPC representeert.
@@ -26,6 +27,15 @@ export class DealerCharacter extends Character {
      */
     public name(): string {
         return "Dealer";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["npc"];
     }
 
     /**

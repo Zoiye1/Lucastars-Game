@@ -8,16 +8,16 @@ import { PlayerSession } from "../types";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
- * Class die het item "Focus Drink" representeert
+ * Class die het item "Jump Rope" representeert
  *
  * Dit item kan worden onderzocht (Examine) en opgepakt (Pick Up).
  */
-export class FocusDrinkItem extends Item implements Examine, PickUp {
+export class JumpRopeItem extends Item implements Examine, PickUp {
     /** Alias die wordt gebruikt om dit item te identificeren */
-    public static readonly Alias: string = "FocusDrinkItem";
+    public static readonly Alias: string = "JumpRopeItem";
 
     public constructor() {
-        super(FocusDrinkItem.Alias);
+        super(JumpRopeItem.Alias);
     }
 
     /**
@@ -26,14 +26,14 @@ export class FocusDrinkItem extends Item implements Examine, PickUp {
      * @returns De naam van het item
      */
     public name(): string {
-        return "Focus Drink";
+        return "Jump Rope";
     }
 
     /**
-     * Geeft de type van de GameObject terug
-     *
-     * @returns De type van de GameObject (GameObjectType union)
-     */
+         * Geeft de type van de GameObject terug
+         *
+         * @returns De type van de GameObject (GameObjectType union)
+         */
     public type(): GameObjectType[] {
         return ["actionableItem"];
     }
@@ -44,7 +44,7 @@ export class FocusDrinkItem extends Item implements Examine, PickUp {
      * @returns Tekst dat beschrijft wat het item is, of `undefined` als de actie niet is afgehandeld
      */
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["This is a focus drink."]);
+        return new TextActionResult(["This is a jump rope."]);
     }
 
     /**
@@ -54,8 +54,8 @@ export class FocusDrinkItem extends Item implements Examine, PickUp {
      */
     public pickUp(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        playerSession.pickedUpFocusDrink = true;
+        playerSession.pickedUpJumpRope = true;
 
-        return new TextActionResult(["You have picked up the focus drink."]);
+        return new TextActionResult(["You have picked up the jump rope."]);
     }
 }
