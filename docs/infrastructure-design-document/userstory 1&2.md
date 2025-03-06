@@ -167,8 +167,6 @@ De frontend maakt gebruik van Web Components, die herbruikbare en modulaire elem
 
 
 
-
-
 |Versie|Datum|Wijzigingen|
 |1|12-12-2024|nog niks|
 |v0.0|03-02-2024|Aangeleverde template|
