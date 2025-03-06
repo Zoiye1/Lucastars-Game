@@ -5,20 +5,24 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
+import { QuestComponent } from "../../../../web/src/components/QuestComponent";
 
 /**
  * Klasse die de dealer NPC representeert.
- * De dealer kan met de speler praten en biedt items te koop aan.
+ * De dealer kan met de speler praten en biedt een fetch quest aan.
  */
 export class DealerCharacter extends Character {
     /** Alias voor de dealer NPC. */
     public static readonly Alias: string = "dealer";
+
+    private questComponent: QuestComponent;
 
     /**
      * Constructor voor de DealerCharacter-klasse.
      */
     public constructor() {
         super(DealerCharacter.Alias);
+        this.questComponent = new QuestComponent();
     }
 
     /**
@@ -37,49 +41,44 @@ export class DealerCharacter extends Character {
     public talk(_choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        if (_choiceId === 1) {
-            return new TalkActionResult(
-                this,
-                ["I have some steroids for sale. You want to buy some?"],
-                [
-                    new TalkChoice(3, "What do I have to pay for it?"),
-                    new TalkChoice(4, "No, I'm not interested."),
-                ]
+        // Start een fetch quest
+        if (_choiceId === 7) {
+            this.questComponent.startFetchQuest(
+                "Find and bring the water bucket to the cleaner.",
+                1 // Doel is 1 item
             );
+
+            return new TextActionResult([
+                "I need you to find a water bucket and bring it to the cleaner.",
+                "Let me know when you have it!",
+            ]);
         }
 
-        if (_choiceId === 3) {
-            return new TalkActionResult(
-                this,
-                ["You have to give me powdered sugar."],
-                [new TalkChoice(5, "Give powdered sugar"), new TalkChoice(6, "I don't have it right now")]
-            );
-        }
+        // Controleer of speler het vereiste item heeft
+        if (_choiceId === 8) {
+            if (playerSession.inventory.includes("WaterBucket")) {
+                this.questComponent.updateProgress(1); // Update voortgang van quest
+                this.questComponent.completeQuest(); // Voltooi quest
 
-        // Reactie als speler geeft
-        if (_choiceId === 5) {
-            if (playerSession.inventory.includes("SugarItem")) {
-                playerSession.pickedUpSugar = true;
-                playerSession.inventory.push("Steroids");
-                return new TextActionResult(["Amazing! Here you have Steroids."]);
+                return new TextActionResult([
+                    "Thank you for bringing the water bucket to the cleaner!",
+                    "Here is your reward.",
+                ]);
+            } else {
+                return new TextActionResult(["You don't have the water bucket yet. Please keep looking!"]);
             }
-            else {
-                return new TextActionResult(["Haha... that's not funny. You don't have powdered sugar on you. Please keep looking..."]);
-            };
         }
 
-        if (_choiceId === 2 || _choiceId === 4 || _choiceId === 6) {
-            return new TextActionResult(
-                [
-                    "No stress",
-                ]
-            );
-        }
-
+        // Standaard dialoog
         return new TalkActionResult(
             this,
             ["Hey, I have some stuff for sale. You want to buy something?"],
-            [new TalkChoice(1, "What do you have for sale?"), new TalkChoice(2, "No, I'm not interested.")]
+            [
+                new TalkChoice(1, "What do you have for sale?"),
+                new TalkChoice(2, "No, I'm not interested."),
+                new TalkChoice(7, "Do you have any tasks for me?"),
+                new TalkChoice(8, "I found the water bucket!"),
+            ]
         );
     }
 }

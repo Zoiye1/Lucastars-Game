@@ -1,52 +1,81 @@
 import { Request, Response } from "express";
-import { PlayerSession } from "../types"; // Zorg ervoor dat de PlayerSession goed geïmporteerd is
-import { gameService } from "../../global";
+import { QuestComponent } from "../../../../web/src/components/QuestComponent";
+import { gameService } from "../../global"; // Zorg ervoor dat dit correct wordt geïmporteerd
+// import { PlayerSession } from "../types";
 
 export class QuestController {
-    /**
-     * Haalt de actieve quest van de speler op.
-     */
-    public getActiveQuest(req: Request, res: Response): void {
-        const playerSession: PlayerSession = gameService.getPlayerSession(req);
-
-        if (playerSession.activeQuest) {
-            res.json(playerSession.activeQuest);
-        }
-        else {
-            res.status(404).json({ message: "No active quest." });
-        }
-    }
-
     /**
      * Start een nieuwe fetch quest.
      */
     public startQuest(req: Request, res: Response): void {
-        const playerSession: PlayerSession = gameService.getPlayerSession(req);
+        // Haal de speler-sessie op
+        const playerSession = gameService.getPlayerSession();
 
-        // Start een fetch quest voor de speler
-        playerSession.activeQuest = {
-            name: "Find powdered sugar",
-            item: "SugarItem",
-            completed: false,
-        };
+        if (!playerSession) {
+            res.status(400).send("No active player session found!");
+            return;
+        }
 
-        res.json({ message: "Quest started!", quest: playerSession.activeQuest });
+        const { description, goal } = req.body;
+
+        // Valideer de request body
+        if (!description || !goal) {
+            res.status(400).send("Description and goal are required!");
+            return;
+        }
+
+        // Koppel de quest aan de speler-sessie
+        if (!playerSession.questComponent) {
+            playerSession.questComponent = new QuestComponent();
+        }
+
+        playerSession.questComponent.startFetchQuest(description, goal);
+        res.status(200).send("Fetch quest started!");
     }
-    // test
 
     /**
-     * Voltooi een fetch quest als het item is gevonden.
+     * Update de voortgang van de huidige quest.
      */
-    public completeQuest(req: Request, res: Response): void {
-        const playerSession: PlayerSession = gameService.getPlayerSession(req);
+    public updateProgress(req: Request, res: Response): void {
+        // Haal de speler-sessie op
+        const playerSession = gameService.getPlayerSession();
 
-        if (playerSession.activeQuest && playerSession.inventory.includes(playerSession.activeQuest.item)) {
-            playerSession.activeQuest.completed = true;
-            playerSession.inventory.push("Steroids"); // Beloning voor de quest
-            res.json({ message: "Quest completed! Here's your reward.", inventory: playerSession.inventory });
+        if (!playerSession || !playerSession.questComponent) {
+            res.status(400).send("No active quest found for this player!");
+            return;
         }
-        else {
-            res.status(400).json({ message: "You don't have the required item to complete the quest." });
+
+        const { amount } = req.body;
+
+        // Valideer de request body
+        if (amount === undefined || amount === null) {
+            res.status(400).send("Amount is required!");
+            return;
         }
+
+        playerSession.questComponent.updateProgress(amount);
+        res.status(200).send("Progress updated!");
+    }
+
+    /**
+     * Haal de actieve quest op.
+     */
+    public getActiveQuest(_: Request, res: Response): void {
+        // Haal de speler-sessie op
+        const playerSession = gameService.getPlayerSession();
+
+        if (!playerSession || !playerSession.questComponent) {
+            res.status(404).send("No active quest found.");
+            return;
+        }
+
+        const activeQuest = playerSession.questComponent.getActiveQuest();
+
+        if (!activeQuest) {
+            res.status(404).send("No active quest found.");
+            return;
+        }
+
+        res.status(200).json(activeQuest);
     }
 }

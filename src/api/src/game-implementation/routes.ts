@@ -5,6 +5,7 @@ import { QuestController } from "./controllers/QuestController";
 
 // Create a router
 export const router: Router = Router();
+export const questRouter: Router = Router();
 
 // Instance the controller to handle the requests
 const gameController: GameController = new GameController();
@@ -21,14 +22,6 @@ router.use(gameService.createPlayerSessionMiddleware());
 router.get("/state", (req, res) => gameController.handleStateRequest(req, res));
 router.post("/action", (req, res) => gameController.handleActionRequest(req, res));
 // Maak een nieuwe router voor quests
-
-export const questRouter: Router = Router();
-
-// Start een nieuwe fetch quest
 questRouter.post("/start", (req, res) => questController.startQuest(req, res));
-
-// Haal de actieve quest op
 questRouter.get("/active", (req, res) => questController.getActiveQuest(req, res));
-
-// Voltooi de fetch quest
-questRouter.post("/complete", (req, res) => questController.completeQuest(req, res));
+// questRouter.post("/complete", (req, res) => questController.completeQuest(req, res));
