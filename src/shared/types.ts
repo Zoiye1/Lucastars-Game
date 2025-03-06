@@ -68,3 +68,7 @@ export type ExecuteActionRequest = {
     /** Aliases of the game objects to execute the action on */
     objects?: string[];
 };
+
+export type ExecuteRetrieveRequest = {
+    itemAlias: string;
+};

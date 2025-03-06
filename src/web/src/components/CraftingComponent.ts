@@ -1,4 +1,5 @@
 import { css, htmlArray } from "../helpers/webComponents";
+import { GameRouteService } from "../services/GameRouteService";
 
 /** CSS affecting the {@link CraftingComponent} */
 const styles: string = css`
@@ -211,6 +212,8 @@ const recipes: Recipe[] = [
 ];
 
 export class CraftingComponent extends HTMLElement {
+    private readonly _gameRouteService: GameRouteService = new GameRouteService();
+
     private slots: string[] = ["", "", "", ""];
     private resultSlot: string = "";
     /**
@@ -339,7 +342,9 @@ export class CraftingComponent extends HTMLElement {
         });
 
         craftBtn.addEventListener("click", () => this.handleCraftItem(this.slots));
-        retrieveBtn?.addEventListener("click", () => this.handleRetrieveItem());
+        const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
+        const resultItemAlias: string = resultSlot.innerText;
+        retrieveBtn?.addEventListener("click", () => this.handleRetrieveItem(resultItemAlias));
 
         this.addClearSlotsListeners();
         this.addInventoryItemListeners();
@@ -418,9 +423,17 @@ export class CraftingComponent extends HTMLElement {
         this.updateDialog();
     }
 
-    private handleRetrieveItem(): void {
-        this.emptySlotItems();
-        this.updateDialog();
+    private async handleRetrieveItem(itemAlias: string): Promise<void> {
+        try {
+            const state: string | undefined = await this._gameRouteService.executeRetrieveItem(itemAlias);
+            if (state) {
+                this.emptySlotItems();
+                this.updateDialog();
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 
     private emptySlotItems(): void {
