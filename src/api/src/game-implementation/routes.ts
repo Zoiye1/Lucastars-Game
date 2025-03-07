@@ -25,3 +25,4 @@ router.post("/action", (req, res) => gameController.handleActionRequest(req, res
 questRouter.post("/start", (req, res) => questController.startQuest(req, res));
 questRouter.get("/active", (req, res) => questController.getActiveQuest(req, res));
 // questRouter.post("/complete", (req, res) => questController.completeQuest(req, res));
+router.put("/retrieve", (req, res) => gameController.handleRetrieveRequest(req, res));

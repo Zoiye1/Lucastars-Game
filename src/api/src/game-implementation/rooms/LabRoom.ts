@@ -3,7 +3,7 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
-import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { PickUpAction } from "../actions/PickUpAction";
@@ -11,6 +11,9 @@ import { PlayerSession } from "../types";
 import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
 import { StorageRoom } from "./StorageRoom";
+import { TalkAction } from "../../game-base/actions/TalkAction";
+import { ProfessorCharacter } from "../characters/ProfessorCharacter";
+import { BakingSodaItem } from "../items/BakingSodaItem";
 
 export class LabRoom extends Room implements Simple {
     public static readonly Alias: string = "labroom";
@@ -23,15 +26,24 @@ export class LabRoom extends Room implements Simple {
         return "The Lab";
     }
 
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["room"];
+    }
+
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: string[] = ["lab/labBackground"];
+        const result: string[] = ["lab/labBackground1", "lab/labProfessor"];
 
-        if (!playerSession.pickedUpFork) {
+        if (!playerSession.pickedUpSulfuricAcid) {
             result.push("lab/labSulfuricAcid");
         }
 
-        if (!playerSession.pickedUpPainting) {
+        if (!playerSession.pickedUpGlassBeaker) {
             result.push("lab/labGlassBeaker");
         }
 
@@ -45,7 +57,7 @@ export class LabRoom extends Room implements Simple {
 
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: GameObject[] = [];
+        const result: GameObject[] = [new ProfessorCharacter()];
 
         if (!playerSession.pickedUpGlassBeaker) {
             result.push(new GlassBeakerItem());
@@ -54,15 +66,24 @@ export class LabRoom extends Room implements Simple {
         if (!playerSession.pickedUpSulfuricAcid) {
             result.push(new SulfuricAcidItem());
         }
+        if (!playerSession.pickedUpBakingSoda) {
+            result.push(new BakingSodaItem());
+        }
         return result;
     }
 
     public actions(): Action[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
+        const result: Action[] = [
             new ExamineAction(),
-            new SimpleAction("enter-storage", "Enter Storage"),
             new PickUpAction(),
+            new SimpleAction("enter-storage", "Enter Storage"),
         ];
+
+        if (!playerSession.helpedProfessor) result.push(new TalkAction());
+
+        return result;
     }
 
     public simple(alias: string): ActionResult | undefined {

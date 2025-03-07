@@ -13,9 +13,10 @@ const styles: string = css`
         height: 100%;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: auto calc(50vh + 10px) minmax(calc(35vh + 10px), 1fr) auto;
+        grid-template-rows: 48px calc(50vh + 10px) minmax(calc(35vh + 10px), 1fr) auto;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
+        position: relative;
     }
 
     .title {
@@ -199,6 +200,7 @@ export class CanvasComponent extends HTMLElement {
             return `
                 <div class="header">
                     ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
+                    <game-crafting></game-crafting>
                 </div>
             `;
         }
@@ -225,6 +227,24 @@ export class CanvasComponent extends HTMLElement {
      * @returns HTML element of the footer
      */
     private renderFooter(): HTMLElement {
+        const gameObjectsReferences: GameObjectReference[] | undefined = this._currentGameState?.objects;
+        let filtratedObjects: GameObjectReference[] | undefined = [];
+
+        const selectedButton: ActionReference | undefined = this._selectedActionButton;
+
+        // filter gameObjects gebaseerd op action alias
+        if (selectedButton && selectedButton.alias === "examine") {
+            // geen filter nodig
+            filtratedObjects = gameObjectsReferences;
+        }
+        else if (selectedButton && selectedButton.alias === "talk") {
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type.includes("npc"));
+        }
+        else {
+            // game objects waar een action op werkt anders dan talk of examine (alleen items als game objects)
+            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type.includes("actionableItem"));
+        }
+
         return html`
             <div class="footer">
                 <div class="buttons">
@@ -233,7 +253,7 @@ export class CanvasComponent extends HTMLElement {
                     </div>
                     <div>
                         ${this._selectedActionButton
-                            ? this._currentGameState?.objects.map(button => this.renderGameObjectButton(button)) || ""
+                            ? filtratedObjects?.map(button => this.renderGameObjectButton(button)) || ""
                             : ""
                         }
                     </div>

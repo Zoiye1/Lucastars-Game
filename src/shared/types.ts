@@ -45,6 +45,8 @@ export type GameObjectReference = {
     alias: string;
     /** Name of the game object */
     name: string;
+    /** Type of the game object (e.g, npc, actionableItem) */
+    type: string[];
 };
 
 /**
@@ -65,4 +67,12 @@ export type ExecuteActionRequest = {
     action: string;
     /** Aliases of the game objects to execute the action on */
     objects?: string[];
+};
+
+export type ExecuteRetrieveRequest = {
+    itemAlias: string;
+};
+
+export type ExecuteDeleteItemsRequest = {
+    deleteItemsAliasArray: string[];
 };
