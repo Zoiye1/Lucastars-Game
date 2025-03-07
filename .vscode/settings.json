@@ -17,5 +17,4 @@
     ],
     "lit-plugin.rules.no-complex-attribute-binding": "off",
     "npm.packageManager": "npm",
-    "postman.settings.dotenv-detection-notification-visibility": false
 }
