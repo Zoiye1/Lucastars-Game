@@ -1,4 +1,4 @@
-import { ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameState } from "@shared/types";
+import { ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameState, ExecuteQuestStartRequest } from "@shared/types";
 import { BaseRouteService } from "./BaseRouteService";
 
 /**
@@ -77,6 +77,42 @@ export class GameRouteService extends BaseRouteService {
         catch (error) {
             console.error(error);
             return undefined;
+        }
+    }
+
+    public async executeQuestStart(
+        questAlias: string
+    ): Promise<string | undefined> {
+        try {
+            return await this.postJsonApi<string, ExecuteQuestStartRequest>("game/start", {
+                questAlias,
+            });
+        }
+        catch (error) {
+            console.error(error);
+            return undefined;
+        }
+    }
+
+    public async executeQuestActive(): Promise<string | undefined> {
+        try {
+            return await this.getJsonApi<string>("game/active");
+        }
+        catch (error) {
+            console.error(error);
+            return undefined;
+        }
+    }
+
+    public async completeQuest(questAlias: string): Promise<boolean> {
+        try {
+            return await this.postJsonApi<boolean, ExecuteQuestStartRequest>("game/complete", {
+                questAlias,
+            });
+        }
+        catch (error) {
+            console.error(error);
+            return false;
         }
     }
 }

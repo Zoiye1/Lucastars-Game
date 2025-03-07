@@ -1,4 +1,14 @@
-import { ActionReference, ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameObjectReference, GameState } from "@shared/types";
+import {
+    ActionReference,
+    ExecuteActionRequest,
+    ExecuteDeleteItemsRequest,
+    ExecuteRetrieveRequest,
+    GameObjectReference,
+    GameState,
+    ExecuteQuestActiveRequest,
+    ExecuteQuestStartRequest,
+    ExecuteQuestCompleteRequest,
+} from "@shared/types";
 import { Request, Response } from "express";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
@@ -22,14 +32,11 @@ export class GameController {
      */
     public async handleStateRequest(_: Request, res: Response): Promise<void> {
         // Execute the Examine action on the current room
-        const gameState: GameState | undefined = await this.executeAction(
-            ExamineAction.Alias
-        );
+        const gameState: GameState | undefined = await this.executeAction(ExamineAction.Alias);
 
         if (gameState) {
             res.json(gameState);
-        }
-        else {
+        } else {
             res.status(500).end();
         }
     }
@@ -51,8 +58,7 @@ export class GameController {
 
         if (gameState) {
             res.json(gameState);
-        }
-        else {
+        } else {
             res.status(500).end();
         }
     }
@@ -79,7 +85,10 @@ export class GameController {
      *
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
-    private async executeAction(actionAlias: string, gameObjectAliases?: string[]): Promise<GameState | undefined> {
+    private async executeAction(
+        actionAlias: string,
+        gameObjectAliases?: string[]
+    ): Promise<GameState | undefined> {
         // If no game object aliases are defined, use the current room instead.
         if (!gameObjectAliases || gameObjectAliases.length === 0) {
             gameObjectAliases = [gameService.getPlayerSession().currentRoom];
@@ -96,7 +105,10 @@ export class GameController {
         }
 
         // Let the game engine execute the action. It's important to use "await" here, since some actions might be asynchronous!
-        const actionResult: ActionResult | undefined = await gameService.executeAction(actionAlias, gameObjects);
+        const actionResult: ActionResult | undefined = await gameService.executeAction(
+            actionAlias,
+            gameObjects
+        );
 
         // Convert the result of the action to the new game state
         return this.convertActionResultToGameState(actionResult);
@@ -129,7 +141,9 @@ export class GameController {
      *
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
-    private async convertActionResultToGameState(actionResult?: ActionResult): Promise<GameState | undefined> {
+    private async convertActionResultToGameState(
+        actionResult?: ActionResult
+    ): Promise<GameState | undefined> {
         // If the client application has to switch pages, handle it now.
         if (actionResult instanceof SwitchPageActionResult) {
             return {
@@ -139,8 +153,9 @@ export class GameController {
         }
 
         // The room can have changed after executing an action, so we have to retrieve the player session again!
-        const room: Room | undefined = gameService
-            .getGameObjectByAlias(gameService.getPlayerSession().currentRoom) as Room | undefined;
+        const room: Room | undefined = gameService.getGameObjectByAlias(
+            gameService.getPlayerSession().currentRoom
+        ) as Room | undefined;
 
         // If no current room is found, this request is invalid.
         if (!room) {
@@ -154,8 +169,7 @@ export class GameController {
 
         if (actionResult instanceof TextActionResult) {
             text = actionResult.text;
-        }
-        else {
+        } else {
             text = ["That doesn't make any sense."];
         }
 
@@ -163,11 +177,8 @@ export class GameController {
         let actions: ActionReference[];
 
         if (actionResult instanceof TalkActionResult) {
-            actions = actionResult.choices.map(
-                e => this.convertTalkChoiceToReference(actionResult, e)
-            );
-        }
-        else {
+            actions = actionResult.choices.map((e) => this.convertTalkChoiceToReference(actionResult, e));
+        } else {
             actions = [];
 
             for (const action of await room.actions()) {
@@ -240,4 +251,36 @@ export class GameController {
             type: await gameObject.type(),
         };
     }
-};
+
+    // Voeg de nieuwe methoden toe
+
+    public async getActiveQuest(_: Request, res: Response): Promise<void> {
+        const activeQuest = gameService.getPlayerSession().activeQuest;
+        res.status(200).json(activeQuest);
+    }
+
+    public async startQuest(req: Request, res: Response): Promise<void> {
+        const executeQuestStartRequest: ExecuteQuestStartRequest = req.body as ExecuteQuestStartRequest;
+
+        gameService.getPlayerSession().activeQuest = {
+            name: executeQuestStartRequest.questName,
+            item: executeQuestStartRequest.item,
+            completed: false,
+        };
+
+        res.status(200).json({ message: "Quest started successfully." });
+    }
+
+    public async completeQuest(req: Request, res: Response): Promise<void> {
+        const executeQuestCompleteRequest: ExecuteQuestCompleteRequest =
+            req.body as ExecuteQuestCompleteRequest;
+
+        const activeQuest = gameService.getPlayerSession().activeQuest;
+        if (activeQuest && activeQuest.name === executeQuestCompleteRequest.questName) {
+            activeQuest.completed = true;
+            res.status(200).json({ message: "Quest completed successfully." });
+        } else {
+            res.status(400).json({ message: "Quest not found." });
+        }
+    }
+}
