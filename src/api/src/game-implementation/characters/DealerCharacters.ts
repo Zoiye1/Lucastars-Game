@@ -5,7 +5,7 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
-import { QuestComponent } from "../../../../web/src/components/QuestComponent";
+// import { QuestComponent } from "../../../../web/src/components/QuestComponent";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
@@ -16,14 +16,11 @@ export class DealerCharacter extends Character {
     /** Alias voor de dealer NPC. */
     public static readonly Alias: string = "dealer";
 
-    private questComponent: QuestComponent;
-
     /**
      * Constructor voor de DealerCharacter-klasse.
      */
     public constructor() {
         super(DealerCharacter.Alias);
-        this.questComponent = new QuestComponent();
     }
 
     /**
