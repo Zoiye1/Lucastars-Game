@@ -42,6 +42,8 @@ import { CourtyardTheEndRoom } from "../rooms/CourtyardTheEndRoom";
 import { VentItem } from "../items/VentItem";
 import { UseAction } from "../actions/UseAction";
 import { WindowItem } from "../items/WindowItem";
+import { ProfessorCharacter } from "../characters/ProfessorCharacter";
+import { BakingSodaItem } from "../items/BakingSodaItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -70,6 +72,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CourtyardTheEndRoom);
 
         // Items
+        this.registerGameObject(BakingSodaItem);
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
         this.registerGameObject(SugarItem);
@@ -95,6 +98,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(GymFreakCharacter);
         this.registerGameObject(SmokerCharacter);
         this.registerGameObject(CleanerCharacter);
+        this.registerGameObject(ProfessorCharacter);
 
         // Items
         this.registerGameObject(FocusDrinkItem);
@@ -136,6 +140,10 @@ export class GameService extends BaseGameService<PlayerSession> {
             tradedWithSmoker: false,
             ventUnlocked: false,
             windowBroken: false,
+            wantsToSearchGlassBeaker: false,
+            wantsToSearchIngredients: false,
+            pickedUpBakingSoda: false,
+            helpedProfessor: false,
         };
     }
 
