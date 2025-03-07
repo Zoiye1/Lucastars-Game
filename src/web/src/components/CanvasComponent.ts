@@ -16,6 +16,7 @@ const styles: string = css`
         grid-template-rows: 48px calc(50vh + 10px) minmax(calc(35vh + 10px), 1fr) auto;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
+        position: relative;
     }
 
     .title {
@@ -199,6 +200,7 @@ export class CanvasComponent extends HTMLElement {
             return `
                 <div class="header">
                     ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
+                    <game-crafting></game-crafting>
                 </div>
             `;
         }
