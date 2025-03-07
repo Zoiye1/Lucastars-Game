@@ -77,14 +77,14 @@ export type ExecuteDeleteItemsRequest = {
     deleteItemsAliasArray: string[];
 };
 
-export type ExecuteQuestStartRequest = {
-    questAlias: string;
-};
+// export type ExecuteQuestGetRequest = {
+//     questAlias: string;
+// };
 
-export type ExecuteQuestActiveRequest = {
-    questAlias: string;
-};
+// export type ExecuteQuestActiveRequest = {
+//     questAlias: string;
+// };
 
-export type ExecuteQuestCompleteRequest = {
-    questAlias: string;
-};
+// export type ExecuteQuestCompleteRequest = {
+//     questAlias: string;
+// };

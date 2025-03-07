@@ -20,6 +20,5 @@ router.use(gameService.createPlayerSessionMiddleware());
 router.get("/state", (req, res) => gameController.handleStateRequest(req, res));
 router.post("/action", (req, res) => gameController.handleActionRequest(req, res));
 // Maak een nieuwe router voor quests
-router.get("/active", (req, res) => gameController.getActiveQuest(req, res));
-router.post("/start", (req, res) => gameController.startQuest(req, res));
+router.get("/active", (req, res) => gameController.getActiveQuests(req, res));
 router.put("/retrieve", (req, res) => gameController.handleRetrieveRequest(req, res));

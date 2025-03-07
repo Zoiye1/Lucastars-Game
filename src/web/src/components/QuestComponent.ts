@@ -43,34 +43,15 @@ const styles: string = css`
     }
 `;
 
-interface Quest {
-    title: string;
-    description: string;
-    objectives: string[];
-    reward: string;
+type QuestArray = {
+    NPC: string;
+    startQuest: boolean;
     completed: boolean;
-}
-
-const quests: Quest[] = [
-    {
-        title: "Find the Key",
-        description: "A locked cabinet requires a key. Find and retrieve it.",
-        objectives: ["Locate the key", "Unlock the cabinet"],
-        reward: "Access to new area",
-        completed: false,
-    },
-    {
-        title: "Gather Materials",
-        description: "Collect necessary items for crafting a parachute.",
-        objectives: ["Find sheets", "Find a rope"],
-        reward: "Parachute unlocked",
-        completed: false,
-    },
-];
+};
 
 export class QuestComponent extends HTMLElement {
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
-    private activeQuests: Quest[] = [];
+    private activeQuests: QuestArray[] = [];
 
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
@@ -80,13 +61,14 @@ export class QuestComponent extends HTMLElement {
     private renderQuests(): string {
         let questCardsHTML: string = "";
 
-        for (const quest of quests) {
+        // We gebruiken activeQuests in plaats van de statische quests array.
+        for (const quest of this.activeQuests) {
             questCardsHTML += `
                 <div class="quest-card">
-                    <div class="quest-title">${quest.title}</div>
-                    <p>${quest.description}</p>
-                    <button class="ui-btn" data-title="${quest.title}">
-                        ${this.activeQuests.includes(quest) ? "Complete" : "Accept"}
+                    <div class="quest-title">${quest.NPC}</div>
+                    <p>${quest.startQuest ? "Start the quest" : "Complete the quest"}</p>
+                    <button class="ui-btn" data-title="${quest.NPC}">
+                        ${quest.completed ? "Completed" : "In Progress"}
                     </button>
                 </div>
             `;
@@ -118,57 +100,52 @@ export class QuestComponent extends HTMLElement {
     }
 
     private setupEventListeners(): void {
-        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector("#questDialog") as HTMLDialogElement;
-        const openButton: HTMLButtonElement = this.shadowRoot?.querySelector("#questButton") as HTMLButtonElement;
-        const closeButton: HTMLButtonElement = this.shadowRoot?.querySelector("#closeQuestDialog") as HTMLButtonElement;
-        const questButtons: NodeListOf<HTMLButtonElement> = this.shadowRoot?.querySelectorAll(".quest-card .ui-btn") as NodeListOf<HTMLButtonElement>;
+        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
+            "#questDialog"
+        ) as HTMLDialogElement;
+        const openButton: HTMLButtonElement = this.shadowRoot?.querySelector(
+            "#questButton"
+        ) as HTMLButtonElement;
+        const closeButton: HTMLButtonElement = this.shadowRoot?.querySelector(
+            "#closeQuestDialog"
+        ) as HTMLButtonElement;
 
-        openButton.addEventListener("click", () => questDialog.showModal());
+        openButton.addEventListener("click", () => this.openQuestDialog());
         closeButton.addEventListener("click", () => questDialog.close());
-
-        questButtons.forEach(button => {
-            button.addEventListener("click", event => this.handleQuestAction(event));
-        });
     }
 
-    private handleQuestAction(event: Event): void {
-        const button = event.target as HTMLButtonElement;
-        const questTitle = button.getAttribute("data-title");
-        const quest = quests.find(q => q.title === questTitle);
-        if (!quest) return;
-
-        if (this.activeQuests.includes(quest)) {
-            this.completeQuest(quest);
-        } else {
-            this.acceptQuest(quest);
-        }
+    private async openQuestDialog(): Promise<void> {
+        await this.handleGetActiveQuests();
+        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
+            "#questDialog"
+        ) as HTMLDialogElement;
+        questDialog.showModal();
     }
 
-    private acceptQuest(quest: Quest): void {
-        this.activeQuests.push(quest);
-        this.updateDialog();
-    }
-
-    private async completeQuest(quest: Quest): Promise<void> {
+    private async handleGetActiveQuests(): Promise<void> {
         try {
-            const success: boolean = await this._gameRouteService.completeQuest(quest.title);
+            const success: QuestArray[] | undefined = await this._gameRouteService.executeGetQuests();
             if (success) {
-                this.activeQuests = this.activeQuests.filter(q => q !== quest);
-                quest.completed = true;
+                this.activeQuests = success;// activeQuests wordt bijgewerkt met de quests uit de DB
                 this.updateDialog();
             }
-        } catch (error) {
-            console.error("Error completing quest:", error);
+        }
+        catch (error) {
+            console.error("Error fetching active quests:", error);
         }
     }
 
     private updateDialog(): void {
-        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector("#questDialog") as HTMLDialogElement;
+        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
+            "#questDialog"
+        ) as HTMLDialogElement;
         const isOpen: boolean = questDialog.open;
 
         this.render();
         if (isOpen) {
-            const newQuestDialog: HTMLDialogElement = this.shadowRoot?.querySelector("#questDialog") as HTMLDialogElement;
+            const newQuestDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
+                "#questDialog"
+            ) as HTMLDialogElement;
             newQuestDialog.showModal();
         }
     }

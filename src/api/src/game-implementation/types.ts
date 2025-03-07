@@ -1,3 +1,9 @@
+type QuestArray = {
+    NPC: string;
+    startQuest: boolean;
+    completed: boolean;
+};
+
 export type PlayerSession = {
     playerOpenedDoorToStorage: boolean;
     pickedUpSugar: boolean;
@@ -35,6 +41,15 @@ export type PlayerSession = {
     windowBroken: boolean;
     wantsToSearchGlassBeaker: boolean;
     wantsToSearchIngredients: boolean;
+    wantsToHelpDealer: boolean;
+    wantsToHelpProfessor: boolean;
+    wantsToHelpGymFreak: boolean;
+    wantsToHelpSmoker: boolean;
+    wantsToHelpCook: boolean;
     pickedUpBakingSoda: boolean;
     helpedProfessor: boolean;
+    questArray: QuestArray[];
+    helpedDealer: boolean;
+    helpedSmoker: boolean;
+    helpedCook: boolean;
 };

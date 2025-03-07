@@ -1,5 +1,16 @@
-import { ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameState, ExecuteQuestStartRequest } from "@shared/types";
+import {
+    ExecuteActionRequest,
+    ExecuteDeleteItemsRequest,
+    ExecuteRetrieveRequest,
+    GameState
+} from "@shared/types";
 import { BaseRouteService } from "./BaseRouteService";
+
+type QuestArray = {
+    NPC: string;
+    startQuest: boolean;
+    completed: boolean;
+};
 
 /**
  * Service to communicate with game routes of the server application
@@ -52,9 +63,7 @@ export class GameRouteService extends BaseRouteService {
         }
     }
 
-    public async executeRetrieveItem(
-        itemAlias: string
-    ): Promise<string | undefined> {
+    public async executeRetrieveItem(itemAlias: string): Promise<string | undefined> {
         try {
             return await this.putJsonApi<string, ExecuteRetrieveRequest>("game/retrieve", {
                 itemAlias,
@@ -66,9 +75,7 @@ export class GameRouteService extends BaseRouteService {
         }
     }
 
-    public async executeDeleteItem(
-        deleteItemsAliasArray: string[]
-    ): Promise<string | undefined> {
+    public async executeDeleteItem(deleteItemsAliasArray: string[]): Promise<string | undefined> {
         try {
             return await this.deleteJsonApi<string, ExecuteDeleteItemsRequest>("game/retrieve", {
                 deleteItemsAliasArray,
@@ -80,39 +87,13 @@ export class GameRouteService extends BaseRouteService {
         }
     }
 
-    public async executeQuestStart(
-        questAlias: string
-    ): Promise<string | undefined> {
+    public async executeGetQuests(): Promise<QuestArray[] | undefined> {
         try {
-            return await this.postJsonApi<string, ExecuteQuestStartRequest>("game/start", {
-                questAlias,
-            });
+            return await this.getJsonApi<QuestArray[]>("game/active");
         }
         catch (error) {
             console.error(error);
             return undefined;
-        }
-    }
-
-    public async executeQuestActive(): Promise<string | undefined> {
-        try {
-            return await this.getJsonApi<string>("game/active");
-        }
-        catch (error) {
-            console.error(error);
-            return undefined;
-        }
-    }
-
-    public async completeQuest(questAlias: string): Promise<boolean> {
-        try {
-            return await this.postJsonApi<boolean, ExecuteQuestStartRequest>("game/complete", {
-                questAlias,
-            });
-        }
-        catch (error) {
-            console.error(error);
-            return false;
         }
     }
 }

@@ -144,6 +144,15 @@ export class GameService extends BaseGameService<PlayerSession> {
             wantsToSearchIngredients: false,
             pickedUpBakingSoda: false,
             helpedProfessor: false,
+            questArray: [],
+            helpedDealer: false,
+            helpedSmoker: false,
+            helpedCook: false,
+            wantsToHelpDealer: false,
+            wantsToHelpProfessor: false,
+            wantsToHelpGymFreak: false,
+            wantsToHelpSmoker: false,
+            wantsToHelpCook: false,
         };
     }
 

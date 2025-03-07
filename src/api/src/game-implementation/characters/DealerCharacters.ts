@@ -53,11 +53,6 @@ export class DealerCharacter extends Character {
 
         // Start een fetch quest
         if (_choiceId === 7) {
-            this.questComponent.startFetchQuest(
-                "Find and bring the water bucket to the cleaner.",
-                1 // Doel is 1 item
-            );
-
             return new TextActionResult([
                 "I need you to find a water bucket and bring it to the cleaner.",
                 "Let me know when you have it!",
@@ -67,14 +62,12 @@ export class DealerCharacter extends Character {
         // Controleer of speler het vereiste item heeft
         if (_choiceId === 8) {
             if (playerSession.inventory.includes("WaterBucket")) {
-                this.questComponent.updateProgress(1); // Update voortgang van quest
-                this.questComponent.completeQuest(); // Voltooi quest
-
                 return new TextActionResult([
                     "Thank you for bringing the water bucket to the cleaner!",
                     "Here is your reward.",
                 ]);
-            } else {
+            }
+            else {
                 return new TextActionResult(["You don't have the water bucket yet. Please keep looking!"]);
             }
         }
