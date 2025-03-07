@@ -3,15 +3,26 @@ import { GameRouteService } from "../services/GameRouteService";
 
 /** CSS affecting the {@link CraftingComponent} */
 const styles: string = css`
-    .container-crafting-button {
-        background-color: blue; 
+    .ui-btn {
+        font-family: "Onesize", sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #f0f0f0;
+        border: 3px solid #222;
+        color: #222;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .open-crafting-btn {
         padding: 10px;
         position: absolute;
-        border: none;
         top: 5%;
         right: 8%;
-        color: #f0f0f0;
-        cursor: pointer;
+    }
+
+    .ui-button:hover {
+        background-color: #dfdfdf;
     }
 
     #closeDialog {
@@ -259,7 +270,7 @@ export class CraftingComponent extends HTMLElement {
             <style>
                 ${styles}
             </style>
-            <button class="container-crafting-button" id="craftingButton">Crafting</button>
+            <button class="open-crafting-btn ui-btn" id="craftingButton">Crafting</button>
             <dialog id="craftingDialog">
                 <div class="container">
                     <button id="closeDialog">✕</button>
@@ -291,8 +302,8 @@ export class CraftingComponent extends HTMLElement {
                                 <div class="result-slot">${this.resultSlot}</div>
                             </div>
                             <div class="container-craft-retrieve-buttons">
-                                <button id="craftButton">Craft</button>
-                                ${this.resultSlot ? "<button id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
+                                <button class="ui-btn" id="craftButton">Craft</button>
+                                ${this.resultSlot ? "<button class=\"ui-btn\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
                             </div>
                         </div>
                         <div class="container-inventory">
