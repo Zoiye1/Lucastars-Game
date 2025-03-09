@@ -5,7 +5,6 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
-// import { QuestComponent } from "../../../../web/src/components/QuestComponent";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
