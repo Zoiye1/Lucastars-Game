@@ -40,8 +40,12 @@ export class CourtyardRoom extends Room implements Simple {
 
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        const inventory: string[] = playerSession.inventory;
         const result: string[] = ["courtyard/courtyardBackground", "courtyard/Smoker"];
 
+        if (inventory.includes("10 Sticks")) {
+            result.push("courtyard/courtyardTreeBroken");
+        };
         if (!playerSession.pickedUpJumpRope) {
             result.push("courtyard/JumpRope");
         }
