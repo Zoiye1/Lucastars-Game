@@ -317,14 +317,6 @@ export class CraftingComponent extends HTMLElement {
         button.addEventListener("click", () => dialog.showModal());
         closeBtn.addEventListener("click", () => dialog.close());
 
-        // sluit modaal als gebruiker buiten modaal klikt
-        dialog.addEventListener("click", event => {
-            const dialogContent: HTMLDivElement = dialog.querySelector(".container")!;
-            if (!dialogContent.contains(event.target as Node)) {
-                dialog.close();
-            }
-        });
-
         craftBtn.addEventListener("click", () => this.handleCraftItem(this.slots));
         const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
         const resultItemAlias: string = resultSlot.innerText;
