@@ -89,6 +89,8 @@ const styles: string = css`
     .footer .button:hover {
         background-color: #332c57;
     }
+    
+    
 `;
 
 /**

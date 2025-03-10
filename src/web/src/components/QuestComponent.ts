@@ -78,7 +78,9 @@ export class QuestComponent extends HTMLElement {
     }
 
     private render(): void {
-        if (!this.shadowRoot) return;
+        if (!this.shadowRoot) {
+            return;
+        }
 
         const questCardsHTML: string = this.renderQuests();
 
@@ -126,7 +128,7 @@ export class QuestComponent extends HTMLElement {
         try {
             const success: QuestArray[] | undefined = await this._gameRouteService.executeGetQuests();
             if (success) {
-                this.activeQuests = success;// activeQuests wordt bijgewerkt met de quests uit de DB
+                this.activeQuests = success; // activeQuests wordt bijgewerkt met de quests uit de DB
                 this.updateDialog();
             }
         }
@@ -151,4 +153,4 @@ export class QuestComponent extends HTMLElement {
     }
 }
 
-customElements.define("quest-component", QuestComponent);
+customElements.define("game-quest", QuestComponent);
