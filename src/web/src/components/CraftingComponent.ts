@@ -26,14 +26,25 @@ const styles: string = css`
     }
 
     #closeDialog {
+        font-family: "Onesize", sans-serif;
+        background-color: #fff;
+        padding: 0 5px;
         position: absolute;
         top: 10px;
         right: 10px;
+        border: 1px solid black;
         background: transparent;
-        border: none;
-        font-size: 18px;
+        border-radius: 5px;
+        font-size: 32px;
         cursor: pointer;
-        color: #333;
+        color: black;
+        transition: all 0.3s ease
+    }
+
+    #closeDialog:hover {
+        background-color: black;
+        border: 1px solid black;
+        color: white;
     }
 
     .container-slot {
@@ -59,13 +70,21 @@ const styles: string = css`
     .container-crafting-recipes {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .crafting-title {
+        text-align: center;
     }
 
     dialog {
-        position: relative;
+        margin: 0;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%); 
         border: none;
-        padding: 0;
-        background: #ffffffe4;
+        background: #ffffffea;
     }
 
     .container-dialog {
@@ -137,40 +156,9 @@ const styles: string = css`
         color: #555;
     }
 
-    .container-inventory {
-        padding: 20px;
-    }
-
     .dashed-divider {
         width: 100%;
         border-top: 2px dashed gray;
-    }
-
-    .inventory-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .inventory-item {
-        padding: 10px;
-        background-color: #eef;
-        border: 1px solid #99c;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 14px;
-        cursor: pointer;
-        user-select: none;
-        transition: background-color 0.2s;
-    }
-
-    .inventory-item:hover {
-        background-color: #dde;
-    }
-
-    .inventory-title {
-        margin: 0;
     }
 
     .container-craft-retrieve-buttons {
@@ -186,7 +174,7 @@ const styles: string = css`
         padding: 10px 20px;
         background-color: white;
         color: black;
-        border: 2px solid black;
+        border: 1px solid black;
         cursor: pointer;
         border-radius: 5px;
         display: block;
@@ -273,11 +261,11 @@ export class CraftingComponent extends HTMLElement {
             <button class="open-crafting-btn ui-btn" id="craftingButton">Crafting</button>
             <dialog id="craftingDialog">
                 <div class="container">
-                    <button id="closeDialog">✕</button>
+                    <button id="closeDialog">X</button>
 
                     <div class="container-crafting-recipes">
                         <div class="container-dialog">
-                            <h2>Crafting Menu</h2>
+                            <h2 class="crafting-title">Crafting Menu</h2>
                             <div class="crafting-grid">
                                 <div class="container-slot">
                                     ${this.slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
@@ -304,21 +292,6 @@ export class CraftingComponent extends HTMLElement {
                             <div class="container-craft-retrieve-buttons">
                                 <button class="ui-btn" id="craftButton">Craft</button>
                                 ${this.resultSlot ? "<button class=\"ui-btn\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
-                            </div>
-                        </div>
-                        <div class="container-inventory">
-                            <div class="dashed-divider"></div>
-                            <h2 class="inventory-title">Your Inventory</h2>
-                            <div class="inventory-grid">
-                                <div class="inventory-item">Stick (x15)</div>
-                                <div class="inventory-item">Super Glue (x3)</div>
-                                <div class="inventory-item">Hammer (x1)</div>
-                                <div class="inventory-item">Air freshener (x2)</div>
-                                <div class="inventory-item">Lighter (x1)</div>
-                                <div class="inventory-item">Focus Drink (x5)</div>
-                                <div class="inventory-item">Baking Soda (x7)</div>
-                                <div class="inventory-item">Rope</div>
-                                <div class="inventory-item">Sheets</div>
                             </div>
                         </div>
                     </div>
