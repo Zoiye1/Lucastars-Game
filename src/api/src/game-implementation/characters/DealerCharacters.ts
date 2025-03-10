@@ -9,7 +9,7 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
  * Klasse die de dealer NPC representeert.
- * De dealer kan met de speler praten en biedt een fetch quest aan.
+ * De dealer kan met de speler praten, biedt items te koop aan, en biedt een fetch quest aan.
  */
 export class DealerCharacter extends Character {
     /** Alias voor de dealer NPC. */
@@ -47,7 +47,7 @@ export class DealerCharacter extends Character {
     public talk(_choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        // Start een fetch quest
+        // Fetch quest voor de water bucket
         if (_choiceId === 7) {
             return new TextActionResult([
                 "I need you to find a water bucket and bring it to the cleaner.",
@@ -55,7 +55,7 @@ export class DealerCharacter extends Character {
             ]);
         }
 
-        // Controleer of speler het vereiste item heeft
+        // Controleer of speler het vereiste item heeft voor de fetch quest
         if (_choiceId === 8) {
             if (playerSession.inventory.includes("WaterBucket")) {
                 return new TextActionResult([
@@ -66,6 +66,45 @@ export class DealerCharacter extends Character {
             else {
                 return new TextActionResult(["You don't have the water bucket yet. Please keep looking!"]);
             }
+        }
+
+        // Interactie voor het kopen van items (steroïden)
+        if (_choiceId === 1) {
+            return new TalkActionResult(
+                this,
+                ["I have some steroids for sale. You want to buy some?"],
+                [
+                    new TalkChoice(3, "What do I have to pay for it?"),
+                    new TalkChoice(4, "No, I'm not interested."),
+                ]
+            );
+        }
+
+        if (_choiceId === 3) {
+            return new TalkActionResult(
+                this,
+                ["You have to give me powdered sugar."],
+                [new TalkChoice(5, "Give powdered sugar"), new TalkChoice(6, "I don't have it right now")]
+            );
+        }
+
+        // Reactie als speler de suiker geeft
+        if (_choiceId === 5) {
+            if (playerSession.inventory.includes("SugarItem")) {
+                playerSession.pickedUpSugar = true;
+                playerSession.inventory.push("Steroids");
+                return new TextActionResult(["Amazing! Here you have Steroids."]);
+            }
+            else {
+                return new TextActionResult(["Haha... that's not funny. You don't have powdered sugar on you. Please keep looking..."]);
+            }
+        }
+
+        // Reacties voor andere keuzes
+        if (_choiceId === 2 || _choiceId === 4 || _choiceId === 6) {
+            return new TextActionResult([
+                "No stress",
+            ]);
         }
 
         // Standaard dialoog
