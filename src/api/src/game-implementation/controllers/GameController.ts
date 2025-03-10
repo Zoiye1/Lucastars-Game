@@ -291,6 +291,6 @@ export class GameController {
                 completed: playerSession.helpedSmoker,
             },
         ];
-        return questArray;
+        _res.json(questArray);
     }
 }

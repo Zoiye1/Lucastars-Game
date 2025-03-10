@@ -18,7 +18,7 @@ const styles: string = css`
         padding: 10px;
         position: absolute;
         top: 5%;
-        right: 8%;
+        left: 8%;
     }
 
     .quest-list {
