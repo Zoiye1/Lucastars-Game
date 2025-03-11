@@ -124,6 +124,10 @@ export class CanvasComponent extends HTMLElement {
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
+        this.addEventListener("state-update", () => {
+            void this.refreshGameState();
+        });
+
         void this.refreshGameState();
     }
 

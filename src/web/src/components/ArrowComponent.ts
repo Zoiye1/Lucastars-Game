@@ -67,6 +67,14 @@ export class ArrowComponent extends HTMLElement {
         this.render();
     }
 
+    private Connect(state: GameState): void {
+        this.dispatchEvent(new CustomEvent("state-update", {
+            detail: state,
+            bubbles: true, // <-- makes the event travel up DOM so canvas can hear it
+            composed: true,
+        }));
+    }
+
     private render(): void {
         if (!this.shadowRoot) {
             return;
@@ -117,11 +125,10 @@ export class ArrowComponent extends HTMLElement {
         console.log(`${arrow.alias} clicked!`);
         const roomAlias: string = arrow.alias;
 
-        const state: GameState | undefined = await this._gameRouteService.executeAction(roomAlias);
+        const state: GameState | undefined = await this._gameRouteService.executeRoomAction(roomAlias);
         console.log(state);
         if (state) {
-            this.updateGameState(state);
+            this.Connect(state);
         }
-        this.render();
     }
 }

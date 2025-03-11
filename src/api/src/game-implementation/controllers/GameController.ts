@@ -67,9 +67,12 @@ export class GameController {
      */
     protected async executeAction(actionAlias: string, gameObjectAliases?: string[]): Promise<GameState | undefined> {
         // If no game object aliases are defined, use the current room instead.
+        console.log(actionAlias);
         if (!gameObjectAliases || gameObjectAliases.length === 0) {
             gameObjectAliases = [gameService.getPlayerSession().currentRoom];
         }
+
+        console.log(gameObjectAliases);
 
         // Get the game objects for the aliases
         const gameObjects: GameObject[] = gameService.getGameObjectsByAliases(gameObjectAliases);
