@@ -27,6 +27,7 @@ export class InventoryController extends GameController {
 
         playerSession.selectedItemInventory = itemAlias;
 
+        console.log(itemAlias);
         return itemAlias;
     }
 }

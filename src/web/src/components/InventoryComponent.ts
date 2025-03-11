@@ -112,6 +112,17 @@ export class InventoryComponent extends HTMLElement {
         }
 
         this.shadowRoot.append(...elements);
+        this.addSelectItemListeners();
+    }
+
+    private addSelectItemListeners(): void {
+        const selectItemDivs: NodeList | undefined = this.shadowRoot?.querySelectorAll(".inventory-item");
+
+        selectItemDivs?.forEach(itemDiv => {
+            itemDiv.addEventListener("click", async () => {
+                if (itemDiv.textContent) await this.handleSelectItem(itemDiv.textContent);
+            });
+        });
     }
 
     private async handleGetInventory(): Promise<void> {
@@ -129,6 +140,17 @@ export class InventoryComponent extends HTMLElement {
             console.error("Error fetching inventory:", error);
             this.items = [];
             this.render();
+        }
+    }
+
+    private async handleSelectItem(itemAlias: string): Promise<void> {
+        try {
+            const state: string | undefined = await this._gameRouteService.executeSelectItem(itemAlias);
+            if (state) {
+            }
+        }
+        catch (error) {
+            console.error(error);
         }
     }
 }
