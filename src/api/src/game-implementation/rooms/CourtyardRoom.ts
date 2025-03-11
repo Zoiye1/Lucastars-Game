@@ -9,8 +9,11 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { PickUpAction } from "../actions/PickUpAction";
+import { PlaceAction } from "../actions/PlaceAction";
+import { UseAction } from "../actions/UseAction";
 import { SmokerCharacter } from "../characters/SmokerCharacter";
 import { JumpRopeItem } from "../items/JumpRopeItem";
+import { TreeItem } from "../items/TreeItem";
 import { PlayerSession } from "../types";
 import { CafeteriaRoom } from "./CafeteriaRoom";
 import { CourtyardTheEndRoom } from "./CourtyardTheEndRoom";
@@ -37,8 +40,12 @@ export class CourtyardRoom extends Room implements Simple {
 
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        const inventory: string[] = playerSession.inventory;
         const result: string[] = ["courtyard/courtyardBackground", "courtyard/Smoker"];
 
+        if (inventory.includes("10 Sticks")) {
+            result.push("courtyard/courtyardTreeBroken");
+        };
         if (!playerSession.pickedUpJumpRope) {
             result.push("courtyard/JumpRope");
         }
@@ -60,7 +67,7 @@ export class CourtyardRoom extends Room implements Simple {
      */
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: GameObject[] = [new SmokerCharacter()];
+        const result: GameObject[] = [new SmokerCharacter(), new TreeItem()];
 
         if (!playerSession.pickedUpJumpRope) {
             result.push(new JumpRopeItem());
@@ -79,6 +86,8 @@ export class CourtyardRoom extends Room implements Simple {
             new SimpleAction("enter-cafeteria", "Return to cafeteria"),
         ];
 
+        if (playerSession.inventory.includes("HammerItem")) result.push(new UseAction());
+        if (playerSession.inventory.includes("LadderItem")) result.push(new PlaceAction());
         if (playerSession.placedEscapeLadder) result.push(new SimpleAction("enter-end", "Escape"));
 
         return result;

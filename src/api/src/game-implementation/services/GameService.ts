@@ -42,6 +42,12 @@ import { CourtyardTheEndRoom } from "../rooms/CourtyardTheEndRoom";
 import { VentItem } from "../items/VentItem";
 import { UseAction } from "../actions/UseAction";
 import { WindowItem } from "../items/WindowItem";
+import { ProfessorCharacter } from "../characters/ProfessorCharacter";
+import { BakingSodaItem } from "../items/BakingSodaItem";
+import { TreeItem } from "../items/TreeItem";
+import { PlaceAction } from "../actions/PlaceAction";
+import { SheetsItem } from "../items/SheetsItem";
+import { AirFreshenerItem } from "../items/AirFreshenerItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -70,6 +76,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CourtyardTheEndRoom);
 
         // Items
+        this.registerGameObject(BakingSodaItem);
         this.registerGameObject(TitleItem);
         this.registerGameObject(KnifeItem);
         this.registerGameObject(SugarItem);
@@ -89,22 +96,25 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(GlassBeakerItem);
         this.registerGameObject(VentItem);
         this.registerGameObject(WindowItem);
+        this.registerGameObject(BucketItem);
+        this.registerGameObject(TreeItem);
+        this.registerGameObject(FocusDrinkItem);
+        this.registerGameObject(SheetsItem);
+        this.registerGameObject(AirFreshenerItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
         this.registerGameObject(GymFreakCharacter);
         this.registerGameObject(SmokerCharacter);
         this.registerGameObject(CleanerCharacter);
-
-        // Items
-        this.registerGameObject(FocusDrinkItem);
-        this.registerGameObject(BucketItem);
+        this.registerGameObject(ProfessorCharacter);
 
         // Actions
         this.registerAction(OpenAction);
         this.registerGameObject(DealerCharacter);
         this.registerAction(PickUpAction);
         this.registerAction(UseAction);
+        this.registerAction(PlaceAction);
     }
 
     /**
@@ -133,10 +143,17 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpGlassBeaker: false,
             pickedUpSulfuricAcid: false,
             pickedUpJumpRope: false,
+            retrievedTenSticks: false,
             placedEscapeLadder: false,
             tradedWithSmoker: false,
             ventUnlocked: false,
             windowBroken: false,
+            wantsToSearchGlassBeaker: false,
+            wantsToSearchIngredients: false,
+            pickedUpBakingSoda: false,
+            helpedProfessor: false,
+            pickedUpSheets: false,
+            pickedUpAirFreshener: false,
         };
     }
 

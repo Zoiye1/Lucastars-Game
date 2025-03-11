@@ -1,4 +1,4 @@
-import { ExecuteActionRequest, GameState } from "@shared/types";
+import { ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameState } from "@shared/types";
 import { BaseRouteService } from "./BaseRouteService";
 
 /**
@@ -59,6 +59,11 @@ export class GameRouteService extends BaseRouteService {
     public async executeSelectItem(itemAlias: string): Promise<string | undefined> {
         try {
             return await this.putJsonApi<string, { itemAlias: string }>("game/inventory", {
+    public async executeRetrieveItem(
+        itemAlias: string
+    ): Promise<string | undefined> {
+        try {
+            return await this.putJsonApi<string, ExecuteRetrieveRequest>("game/retrieve", {
                 itemAlias,
             });
         }
@@ -66,5 +71,23 @@ export class GameRouteService extends BaseRouteService {
             console.error(error);
             return undefined;
         }
+    }
+
+    public async executeDeleteItem(
+        deleteItemsAliasArray: string[]
+    ): Promise<string | undefined> {
+        try {
+            return await this.deleteJsonApi<string, ExecuteDeleteItemsRequest>("game/retrieve", {
+                deleteItemsAliasArray,
+            });
+        }
+        catch (error) {
+            console.error(error);
+            return undefined;
+        }
+    }
+
+    public async getSelectedItem(): Promise<string> {
+        return this.getJsonApi<string>("game/inventory");
     }
 }

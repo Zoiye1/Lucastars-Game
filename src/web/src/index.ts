@@ -2,6 +2,8 @@ import { RootComponent } from "./components/RootComponent";
 import { NotFoundComponent } from "./components/NotFoundComponent";
 import { CanvasComponent } from "./components/CanvasComponent";
 import { InventoryComponent } from "./components/InventoryComponent";
+import { CraftingComponent } from "./components/CraftingComponent";
+import { MapComponent } from "./components/MapComponent";
 // import { ArrowComponent } from "./components/ArrowComponent";
 
 // Expose the web components to the browser
@@ -10,3 +12,5 @@ window.customElements.define("game-notfound", NotFoundComponent);
 window.customElements.define("game-canvas", CanvasComponent);
 window.customElements.define("game-inventory", InventoryComponent);
 // window.customElements.define("game-arrow", ArrowComponent);
+window.customElements.define("game-crafting", CraftingComponent);
+window.customElements.define("game-map", MapComponent);

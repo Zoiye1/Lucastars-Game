@@ -72,3 +72,10 @@ export type ExecuteActionRequest = {
 export type ExecuteSelectItemRequest = {
     itemAlias: string;
 };
+export type ExecuteRetrieveRequest = {
+    itemAlias: string;
+};
+
+export type ExecuteDeleteItemsRequest = {
+    deleteItemsAliasArray: string[];
+};

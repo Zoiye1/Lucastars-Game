@@ -23,8 +23,15 @@ export type PlayerSession = {
     pickedUpGlassBeaker: boolean;
     pickedUpSulfuricAcid: boolean;
     pickedUpJumpRope: boolean;
+    retrievedTenSticks: boolean;
     placedEscapeLadder: boolean;
     tradedWithSmoker: boolean;
     ventUnlocked: boolean;
     windowBroken: boolean;
+    wantsToSearchGlassBeaker: boolean;
+    wantsToSearchIngredients: boolean;
+    pickedUpBakingSoda: boolean;
+    helpedProfessor: boolean;
+    pickedUpSheets: boolean;
+    pickedUpAirFreshener: boolean;
 };
