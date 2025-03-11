@@ -6,6 +6,7 @@ import { Open } from "../../game-base/actions/OpenAction";
 import { gameService } from "../../global";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { KnifeItem } from "./KnifeItem";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class ClosetStorageItem extends Item implements Examine, Open {
     public static readonly Alias: string = "closet";
@@ -16,6 +17,15 @@ export class ClosetStorageItem extends Item implements Examine, Open {
 
     public name(): SyncOrAsync<string> {
         return "Closet";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["actionableItem"];
     }
 
     public examine(): ActionResult | undefined {

@@ -1,4 +1,5 @@
-import { ExecuteActionRequest, ExecuteMoveRequest, GameState } from "@shared/types";
+import { ExecuteMoveRequest } from "@shared/types";
+import { ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameState } from "@shared/types";
 import { BaseRouteService } from "./BaseRouteService";
 
 /**
@@ -46,6 +47,34 @@ export class GameRouteService extends BaseRouteService {
             });
         }
         catch {
+            return undefined;
+        }
+    }
+
+    public async executeRetrieveItem(
+        itemAlias: string
+    ): Promise<string | undefined> {
+        try {
+            return await this.putJsonApi<string, ExecuteRetrieveRequest>("game/retrieve", {
+                itemAlias,
+            });
+        }
+        catch (error) {
+            console.error(error);
+            return undefined;
+        }
+    }
+
+    public async executeDeleteItem(
+        deleteItemsAliasArray: string[]
+    ): Promise<string | undefined> {
+        try {
+            return await this.deleteJsonApi<string, ExecuteDeleteItemsRequest>("game/retrieve", {
+                deleteItemsAliasArray,
+            });
+        }
+        catch (error) {
+            console.error(error);
             return undefined;
         }
     }

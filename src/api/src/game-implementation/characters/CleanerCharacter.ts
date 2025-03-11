@@ -3,6 +3,7 @@ import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { Character } from "../../game-base/gameObjects/Character";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { gameService } from "../../global";
 import { PlayerSession } from "../types";
 
@@ -26,6 +27,15 @@ export class CleanerCharacter extends Character {
      */
     public name(): string {
         return "Cleaner";
+    }
+
+    /**
+     * Geeft de type van de GameObject terug
+     *
+     * @returns De type van de GameObject (GameObjectType union)
+     */
+    public type(): GameObjectType[] {
+        return ["npc"];
     }
 
     /**

@@ -21,3 +21,4 @@ router.use(gameService.createPlayerSessionMiddleware());
 router.get("/state", (req, res) => gameController.handleStateRequest(req, res));
 router.post("/action", (req, res) => gameController.handleActionRequest(req, res));
 router.post("/move", (req, res) => moveController.handleMoveRequest(req, res));
+router.put("/retrieve", (req, res) => gameController.handleRetrieveRequest(req, res));

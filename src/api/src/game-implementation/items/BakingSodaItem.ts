@@ -7,15 +7,19 @@ import { PickUp } from "../actions/PickUpAction";
 import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
-export class PaintingItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "PaintingItem";
+export class BakingSodaItem extends Item implements Examine, PickUp {
+    public static readonly Alias: string = "BakingSodaItem";
 
     public constructor() {
-        super(PaintingItem.Alias);
+        super(BakingSodaItem.Alias);
     }
 
     public name(): string {
-        return "Painting";
+        return "Baking Soda";
+    }
+
+    public examine(): ActionResult | undefined {
+        return new TextActionResult(["Its baking soda!"]);
     }
 
     /**
@@ -27,14 +31,10 @@ export class PaintingItem extends Item implements Examine, PickUp {
         return ["actionableItem"];
     }
 
-    public examine(): ActionResult | undefined {
-        return new TextActionResult(["What a beautiful Painting! I wonder if it can be of any use..."]);
-    }
-
     public pickUp(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        playerSession.pickedUpPainting = true;
+        playerSession.pickedUpBakingSoda = true;
 
-        return new TextActionResult(["You have picked up the painting!."]);
+        return new TextActionResult(["You have picked up the Baking Soda!."]);
     }
 }
