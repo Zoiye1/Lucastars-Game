@@ -4,7 +4,7 @@ import {
     ExecuteDeleteItemsRequest,
     ExecuteRetrieveRequest,
     GameObjectReference,
-    GameState
+    GameState,
 } from "@shared/types";
 import { Request, Response } from "express";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
@@ -27,6 +27,7 @@ type QuestArray = {
     NPC: string;
     startQuest: boolean;
     completed: boolean;
+    description: string;
 };
 
 export class GameController {
@@ -37,9 +38,7 @@ export class GameController {
      */
     public async handleStateRequest(_: Request, res: Response): Promise<void> {
         // Execute the Examine action on the current room
-        const gameState: GameState | undefined = await this.executeAction(
-            ExamineAction.Alias
-        );
+        const gameState: GameState | undefined = await this.executeAction(ExamineAction.Alias);
 
         if (gameState) {
             res.json(gameState);
@@ -94,7 +93,10 @@ export class GameController {
      *
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
-    private async executeAction(actionAlias: string, gameObjectAliases?: string[]): Promise<GameState | undefined> {
+    private async executeAction(
+        actionAlias: string,
+        gameObjectAliases?: string[]
+    ): Promise<GameState | undefined> {
         // If no game object aliases are defined, use the current room instead.
         if (!gameObjectAliases || gameObjectAliases.length === 0) {
             gameObjectAliases = [gameService.getPlayerSession().currentRoom];
@@ -111,7 +113,10 @@ export class GameController {
         }
 
         // Let the game engine execute the action. It's important to use "await" here, since some actions might be asynchronous!
-        const actionResult: ActionResult | undefined = await gameService.executeAction(actionAlias, gameObjects);
+        const actionResult: ActionResult | undefined = await gameService.executeAction(
+            actionAlias,
+            gameObjects
+        );
 
         // Convert the result of the action to the new game state
         return this.convertActionResultToGameState(actionResult);
@@ -144,7 +149,9 @@ export class GameController {
      *
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
-    private async convertActionResultToGameState(actionResult?: ActionResult): Promise<GameState | undefined> {
+    private async convertActionResultToGameState(
+        actionResult?: ActionResult
+    ): Promise<GameState | undefined> {
         // If the client application has to switch pages, handle it now.
         if (actionResult instanceof SwitchPageActionResult) {
             return {
@@ -154,8 +161,9 @@ export class GameController {
         }
 
         // The room can have changed after executing an action, so we have to retrieve the player session again!
-        const room: Room | undefined = gameService
-            .getGameObjectByAlias(gameService.getPlayerSession().currentRoom) as Room | undefined;
+        const room: Room | undefined = gameService.getGameObjectByAlias(
+            gameService.getPlayerSession().currentRoom
+        ) as Room | undefined;
 
         // If no current room is found, this request is invalid.
         if (!room) {
@@ -169,8 +177,7 @@ export class GameController {
 
         if (actionResult instanceof TextActionResult) {
             text = actionResult.text;
-        }
-        else {
+        } else {
             text = ["That doesn't make any sense."];
         }
 
@@ -178,9 +185,7 @@ export class GameController {
         let actions: ActionReference[];
 
         if (actionResult instanceof TalkActionResult) {
-            actions = actionResult.choices.map(
-                e => this.convertTalkChoiceToReference(actionResult, e)
-            );
+            actions = actionResult.choices.map((e) => this.convertTalkChoiceToReference(actionResult, e));
         }
         else {
             actions = [];
@@ -264,31 +269,37 @@ export class GameController {
                 NPC: "dealer",
                 startQuest: playerSession.wantsToHelpDealer,
                 completed: playerSession.helpedDealer,
+                description: "Find the Sugar & talk to the dealer",
             },
             {
                 NPC: "cleaner",
                 startQuest: playerSession.wantsToHelpCleaner,
                 completed: playerSession.helpedCleaner,
+                description: "Search the waterbucket and help the cleaner",
             },
             {
                 NPC: "cook",
                 startQuest: playerSession.wantsToHelpCook,
                 completed: playerSession.helpedCook,
+                description: "Find the fork or find another way to get the key from the cook",
             },
             {
                 NPC: "gymfreak",
                 startQuest: playerSession.wantsToHelpGymFreak,
                 completed: playerSession.helpedGymFreak,
+                description: "Find a way to give some steriods to the gymfreak",
             },
             {
                 NPC: "professor",
                 startQuest: playerSession.wantsToHelpProfessor,
                 completed: playerSession.helpedProfessor,
+                description: "Bring the required ingredients to the professor",
             },
             {
                 NPC: "smoker",
                 startQuest: playerSession.wantsToHelpSmoker,
                 completed: playerSession.helpedSmoker,
+                description: "Get the sigarettes",
             },
         ];
         _res.json(questArray);

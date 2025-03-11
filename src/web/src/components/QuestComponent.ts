@@ -41,12 +41,36 @@ const styles: string = css`
         font-weight: bold;
         margin-bottom: 5px;
     }
+
+    .description-toggle-btn {
+        background: none;
+        border: none;
+        color: #0066cc;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 5px 0;
+        padding: 0;
+    }
+
+    .quest-description {
+        padding: 8px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    .hidden {
+        display: none;
+    }
 `;
 
 type QuestArray = {
     NPC: string;
     startQuest: boolean;
     completed: boolean;
+    description: string;
 };
 
 export class QuestComponent extends HTMLElement {
@@ -61,7 +85,6 @@ export class QuestComponent extends HTMLElement {
     private renderQuests(): string {
         let questCardsHTML: string = "";
 
-        // We gebruiken activeQuests in plaats van de statische quests array.
         for (const quest of this.activeQuests) {
             questCardsHTML += `
                 <div class="quest-card">
@@ -70,6 +93,12 @@ export class QuestComponent extends HTMLElement {
                     <button class="ui-btn" data-title="${quest.NPC}">
                         ${quest.completed ? "Completed" : "In Progress"}
                     </button>
+                    <div class="quest-description-toggle">
+                        <button class="description-toggle-btn">View description</button>
+                        <div class="quest-description hidden">
+                            <p>${quest.description}</p>
+                        </div>
+                    </div>
                 </div>
             `;
         }
@@ -83,7 +112,6 @@ export class QuestComponent extends HTMLElement {
         }
 
         const questCardsHTML: string = this.renderQuests();
-
         const elements: HTMLElement[] = htmlArray`
             <style>${styles}</style>
             <button class="open-quest-btn ui-btn" id="questButton">Quests</button>
@@ -114,6 +142,32 @@ export class QuestComponent extends HTMLElement {
 
         openButton.addEventListener("click", () => this.openQuestDialog());
         closeButton.addEventListener("click", () => questDialog.close());
+
+        // Voeg event listeners toe voor de beschrijving toggles
+        this.addDescriptionToggleListeners();
+    }
+
+    private addDescriptionToggleListeners(): void {
+        if (!this.shadowRoot) return;
+
+        const toggleButtons: NodeListOf<HTMLButtonElement> = this.shadowRoot.querySelectorAll(".description-toggle-btn");
+
+        toggleButtons.forEach(button => {
+            button.addEventListener("click", event => {
+                const target: HTMLButtonElement = event.target as HTMLButtonElement;
+                const descriptionDiv: HTMLElement = target.nextElementSibling as HTMLElement;
+
+                // Toggle de zichtbaarheid van de beschrijving
+                if (descriptionDiv.classList.contains("hidden")) {
+                    descriptionDiv.classList.remove("hidden");
+                    target.textContent = "Hide description";
+                }
+                else {
+                    descriptionDiv.classList.add("hidden");
+                    target.textContent = "View description";
+                }
+            });
+        });
     }
 
     private async openQuestDialog(): Promise<void> {

@@ -47,27 +47,6 @@ export class DealerCharacter extends Character {
     public talk(_choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        // Fetch quest voor de water bucket
-        if (_choiceId === 7) {
-            return new TextActionResult([
-                "I need you to find a water bucket and bring it to the cleaner.",
-                "Let me know when you have it!",
-            ]);
-        }
-
-        // Controleer of speler het vereiste item heeft voor de fetch quest
-        if (_choiceId === 8) {
-            if (playerSession.inventory.includes("WaterBucket")) {
-                return new TextActionResult([
-                    "Thank you for bringing the water bucket to the cleaner!",
-                    "Here is your reward.",
-                ]);
-            }
-            else {
-                return new TextActionResult(["You don't have the water bucket yet. Please keep looking!"]);
-            }
-        }
-
         // Interactie voor het kopen van items (steroïden)
         if (_choiceId === 1) {
             return new TalkActionResult(
@@ -96,27 +75,22 @@ export class DealerCharacter extends Character {
                 return new TextActionResult(["Amazing! Here you have Steroids."]);
             }
             else {
-                return new TextActionResult(["Haha... that's not funny. You don't have powdered sugar on you. Please keep looking..."]);
+                return new TextActionResult([
+                    "Haha... that's not funny. You don't have powdered sugar on you. Please keep looking...",
+                ]);
             }
         }
 
         // Reacties voor andere keuzes
         if (_choiceId === 2 || _choiceId === 4 || _choiceId === 6) {
-            return new TextActionResult([
-                "No stress",
-            ]);
+            return new TextActionResult(["No stress"]);
         }
 
         // Standaard dialoog
         return new TalkActionResult(
             this,
             ["Hey, I have some stuff for sale. You want to buy something?"],
-            [
-                new TalkChoice(1, "What do you have for sale?"),
-                new TalkChoice(2, "No, I'm not interested."),
-                new TalkChoice(7, "Do you have any tasks for me?"),
-                new TalkChoice(8, "I found the water bucket!"),
-            ]
+            [new TalkChoice(1, "What do you have for sale?"), new TalkChoice(2, "No, I'm not interested.")]
         );
     }
 }
