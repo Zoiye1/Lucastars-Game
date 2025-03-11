@@ -2,9 +2,11 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
-import { GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
+import { SheetsItem } from "../items/SheetsItem";
+import { PlayerSession } from "../types";
 import { HallwayRoom } from "./HallwayRoom";
 
 export class StrangerRoom extends Room implements Simple {
@@ -38,6 +40,16 @@ export class StrangerRoom extends Room implements Simple {
 
     public actions(): Action[] {
         return [new SimpleAction("enter-hallway", "Enter Hallway")];
+    }
+
+    public objects(): GameObject[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: GameObject[] = [];
+
+        if (!playerSession.pickedUpSheets) {
+            result.push(new SheetsItem());
+        }
+        return result;
     }
 
     public simple(alias: string): ActionResult | undefined {
