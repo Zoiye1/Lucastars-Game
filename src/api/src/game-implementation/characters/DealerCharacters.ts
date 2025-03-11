@@ -109,7 +109,7 @@ export class DealerCharacter extends Character {
         }
 
         // reactie als speler 10 euro geeft
-        if (_choiceId === 7) {
+        if (_choiceId === 8) {
             if (playerSession.inventory.includes("ten-euro-bill")) {
                 playerSession.inventory.push("CigarettesItem");
                 playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
