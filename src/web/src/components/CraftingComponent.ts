@@ -212,6 +212,8 @@ const recipes: Recipe[] = [
 
 export class CraftingComponent extends HTMLElement {
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
+    private selectedItemInventory: string = "";
+
 
     private slots: string[] = ["", "", "", ""];
     private resultSlot: string = "";
@@ -356,6 +358,10 @@ export class CraftingComponent extends HTMLElement {
             this.slots[firstEmptySlot] = item;
             this.updateDialog();
         }
+    }
+
+    private handleGetSelectedItemInventory(): void {
+        
     }
 
     private handleCraftItem(slots: string[]): void {
