@@ -10,7 +10,6 @@ export const router: Router = Router();
 const gameController: GameController = new GameController();
 const inventoryController: InventoryController = new InventoryController();
 
-
 // Setup endpoints
 router.get("/", (_, res) => {
     res.send("Welcome to the Game API!");

@@ -1,50 +1,76 @@
 import { css, htmlArray } from "../helpers/webComponents";
+import { GameRouteService } from "../services/GameRouteService";
 
 /** CSS affecting the {@link InventoryComponent} */
 const styles: string = css`
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        border: 2px solid white;
-        border-radius: 5px;
-    }
-    th, td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid white;
-    }
-    img {
-        width: 40px;
-        height: 40px;
-    }
-
-    /* CSS voor de inventory sectie */
-    .inventory-section {
-        display: none;
-        position: absolute;
-        top: 50px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.9);
+    .container-inventory {
+        position: fixed;
+        left: 0;
+        top: 27%;
+        transform: translateY(-50%);
+        background: rgba(20, 20, 20, 0.95);
         padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 400px;
-    }
-
-    .inventory-section.active {
-        display: block;
-    }
-
-    .inventory-toggle {
-        background-color: #007BFF;
+        border-radius: 12px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        width: 250px;
+        max-height: 400px; /* Set a max height */
+        overflow-y: auto; /* Enable scrolling when content exceeds max height */
         color: white;
+        scrollbar-width: thin; /* For Firefox */
+        scrollbar-color: #4a90e2 #222; /* Custom scrollbar color */
+    }
+
+    /* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) */
+    .container-inventory::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .container-inventory::-webkit-scrollbar-track {
+        background: #222;
+        border-radius: 10px;
+    }
+
+    .container-inventory::-webkit-scrollbar-thumb {
+        background: #4a90e2;
+        border-radius: 10px;
+    }
+
+    .dashed-divider {
+        width: 100%;
+        border-top: 2px dashed gray;
+        margin-bottom: 10px;
+    }
+
+    .inventory-title {
+        margin: 0;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .inventory-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .inventory-item {
         padding: 10px;
-        border: none;
+        background: linear-gradient(135deg,rgb(110, 130, 153),#af75db);
+        border: 1px solid #af75db;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 14px;
+        color: white;
+        font-weight: bold;
         cursor: pointer;
-        border-radius: 5px;
+        user-select: none;
+        transition: background 0.3s ease-in-out, transform 0.1s ease-in-out;
+    }
+
+    .inventory-item:hover {
+        background: linear-gradient(135deg,#ca58e0, #ca58e0);
+        transform: scale(1.05);
     }
 `;
 
@@ -53,74 +79,30 @@ const styles: string = css`
  */
 export class InventoryComponent extends HTMLElement {
     private items: string[] = [];
-    private inventoryVisible: boolean = false;
+    private readonly _gameRouteService: GameRouteService = new GameRouteService();
 
-    public connectedCallback(): void {
+    public async connectedCallback(): Promise <void> {
         this.attachShadow({ mode: "open" });
-
-        // Stel je voor dat we de PlayerSession ergens ophalen
-        const playerSession: PlayerSession = {
-            playerOpenedDoorToStorage: false,
-            pickedUpSugar: true,
-            pickedUpKey: true,
-            currentRoom: "gym",
-            inventory: ["key", "sugar", "hammer"],
-            GaveTheForkToCook: false,
-            ThreatenedCook: false,
-            wantsToHelpCleaner: true,
-            helpedCleaner: false,
-            pickedUpFocusDrink: false,
-            pickedUpHammer: true,
-            pickedupSticks: false,
-            pickedUpFork: false,
-            pickedUpPainting: false,
-            pickedUpKnife: false,
-            helpedGymFreak: false,
-            pickedUpBucket: false,
-            pickedUpGlassBeaker: false,
-            pickedUpSulfuricAcid: false,
-            pickedUpJumpRope: false,
-            placedEscapeLadder: false,
-            tradedWithSmoker: false,
-            ventUnlocked: false,
-            windowBroken: false,
-        };
-
-        // Gebruik de inventory uit de PlayerSession
-        this.items = playerSession.inventory;
-        this.render();
-    }
-
-    private toggleInventory(): void {
-        this.inventoryVisible = !this.inventoryVisible;
+        await this.handleGetInventory();
         this.render();
     }
 
     private render(): void {
-        if (!this.shadowRoot) {
-            return;
-        }
+        if (!this.shadowRoot) return;
+
+        const inventoryItems: string = this.items
+            .map(item => {
+                return `<div class="inventory-item">${item}</div>`;
+            })
+            .join("");
 
         const elements: HTMLElement[] = htmlArray`
             <style>${styles}</style>
-            <div>
-                <button class="inventory-toggle" @click="${this.toggleInventory.bind(this)}">Bekijk Inventory</button>
-                <div class="inventory-section ${this.inventoryVisible ? "active" : ""}">
-                    <h2>Inventory</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${this.items.map(item => htmlArray`
-                                <tr>
-                                    <td>${item}</td>
-                                </tr>
-                            `)}
-                        </tbody>
-                    </table>
+            <div class="container-inventory">
+                <div class="dashed-divider"></div>
+                <h2 class="inventory-title">Your Inventory</h2>
+                <div class="inventory-grid">
+                    ${inventoryItems}
                 </div>
             </div>
         `;
@@ -130,5 +112,23 @@ export class InventoryComponent extends HTMLElement {
         }
 
         this.shadowRoot.append(...elements);
+    }
+
+    private async handleGetInventory(): Promise<void> {
+        try {
+            const state: string[] | undefined = await this._gameRouteService.getInventory();
+            if (state) {
+                this.items = state.result;
+            }
+            else {
+                this.items = [];
+            }
+            this.render();
+        }
+        catch (error) {
+            console.error("Error fetching inventory:", error);
+            this.items = [];
+            this.render();
+        }
     }
 }

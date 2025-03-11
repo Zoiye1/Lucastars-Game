@@ -105,7 +105,6 @@ export class CanvasComponent extends HTMLElement {
     private _selectedActionButton?: ActionReference;
     /** Current active game object buttons */
     private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
-    private inventoryVisible: boolean = false;
 
     /**
      * The "constructor" of a Web Component
@@ -199,19 +198,14 @@ export class CanvasComponent extends HTMLElement {
         if (roomImages && roomImages.length > 0) {
             return `
                 <div class="header">
-                <button class="inventory-toggle" @click="${this.toggleInventory.bind(this)}">Bekijk Inventory</button>
                     ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
+                      <game-inventory> </game-inventory>
                 
                 </div>
             `;
         }
 
         return "";
-    }
-
-    private toggleInventory(): void {
-        this.inventoryVisible = !this.inventoryVisible;
-        this.render();
     }
 
     /**
@@ -223,7 +217,6 @@ export class CanvasComponent extends HTMLElement {
         return `
             <div class="content">
                 ${this._currentGameState?.text.map(text => `<p>${text}</p>`).join("") || ""}
-                      <game-inventory> </game-inventory>
             </div>
         `;
     }
