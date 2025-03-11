@@ -117,7 +117,8 @@ export class ArrowComponent extends HTMLElement {
         console.log(`${arrow.alias} clicked!`);
         const roomAlias: string = arrow.alias;
 
-        const state: GameState | undefined = await this._gameRouteService.executeRoomAction(roomAlias);
+        const state: GameState | undefined = await this._gameRouteService.executeAction(roomAlias);
+        console.log(state);
         if (state) {
             this.updateGameState(state);
         }

@@ -335,6 +335,8 @@ export class CanvasComponent extends HTMLElement {
             [...this._selectedGameObjectButtons].map(e => e.alias)
         );
 
+        console.log(state);
+
         // If 2 more game objects where on the list, clear it.
         if (this._selectedGameObjectButtons.size >= 2) {
             this._selectedActionButton = undefined;

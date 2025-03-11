@@ -3,13 +3,16 @@ import { ActionResult } from "../actionResults/ActionResult";
 import { Action } from "../actions/Action";
 import { Examine } from "../actions/ExamineAction";
 import { GameObject } from "./GameObject";
+import { Move } from "../actions/MoveAction";
+import { gameService } from "../../global";
+import { MoveActionResult } from "../actionResults/MoveActionResult";
 
 /**
  * Base class used to represent a room
  *
  * @remarks Implements the Examine action by default
  */
-export abstract class Room extends GameObject implements Examine {
+export abstract class Room extends GameObject implements Examine, Move {
     /**
      * Create a new instance of this room
      *
@@ -54,4 +57,11 @@ export abstract class Room extends GameObject implements Examine {
      * @inheritdoc
      */
     public abstract examine(): ActionResult | undefined;
+
+    public move(): ActionResult {
+        // 💡 This is what actually moves the player
+        gameService.getPlayerSession().currentRoom = this.alias;
+
+        return new MoveActionResult(); // could contain info or be empty
+    }
 }

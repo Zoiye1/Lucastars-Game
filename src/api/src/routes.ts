@@ -6,7 +6,7 @@ export const router: Router = Router();
 
 // Setup endpoints
 router.get("/", (_, res) => {
-    res.send("Welcome to the API!");
+    res.send("Welcome to the API!!");
 });
 
 // Forward endpoints to other routers
