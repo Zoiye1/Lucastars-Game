@@ -15,7 +15,7 @@ export class SheetsItem extends Item implements Examine, PickUp {
     }
 
     public name(): string {
-        return "Sugar";
+        return "Sheets";
     }
 
     public examine(): ActionResult | undefined {
