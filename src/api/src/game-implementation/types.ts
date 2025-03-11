@@ -6,6 +6,7 @@ export type PlayerSession = {
     currentRoom: string;
     /** List of game object aliases the player owns */
     inventory: string[];
+    selectedItemInventory: string;
     /** All booleans that determine game state */
     GaveTheForkToCook: boolean;
     ThreatenedCook: boolean;
