@@ -168,23 +168,22 @@ const styles: string = css`
         gap: 10px;
     }
 
-    #retrieveCraftedItem,
-    #craftButton {
+    .dialog-button {
+        font-family: "Onesize", sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #f0f0f0;
+        border: 3px solid #222;
         margin-top: 20px;
         padding: 10px 20px;
-        background-color: white;
         color: black;
-        border: 1px solid black;
         cursor: pointer;
-        border-radius: 5px;
         display: block;
-        font-weight: bold;
         text-transform: uppercase;
         transition: all 0.2s ease;
     }
 
-    #retrieveCraftedItem:hover,
-    #craftButton:hover {
+    .dialog-button:hover {
         background-color: black;
         color: white;
     }
@@ -296,9 +295,9 @@ export class CraftingComponent extends HTMLElement {
                                 <div class="result-slot">${this.resultSlot}</div>
                             </div>
                             <div class="container-craft-retrieve-buttons">
-                                <button class="ui-btn" id="addSelectedItemButton">Add selected item</button>
-                                <button class="ui-btn" id="craftButton">Craft</button>
-                                ${this.resultSlot ? "<button class=\"ui-btn\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
+                                <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
+                                <button class="dialog-button" id="craftButton">Craft</button>
+                                ${this.resultSlot ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
                             </div>
                         </div>
                     </div>
