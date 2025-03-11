@@ -44,6 +44,8 @@ import { UseAction } from "../actions/UseAction";
 import { WindowItem } from "../items/WindowItem";
 import { ProfessorCharacter } from "../characters/ProfessorCharacter";
 import { BakingSodaItem } from "../items/BakingSodaItem";
+import { TreeItem } from "../items/TreeItem";
+import { PlaceAction } from "../actions/PlaceAction";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -92,6 +94,9 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(GlassBeakerItem);
         this.registerGameObject(VentItem);
         this.registerGameObject(WindowItem);
+        this.registerGameObject(BucketItem);
+        this.registerGameObject(TreeItem);
+        this.registerGameObject(FocusDrinkItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -100,15 +105,12 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CleanerCharacter);
         this.registerGameObject(ProfessorCharacter);
 
-        // Items
-        this.registerGameObject(FocusDrinkItem);
-        this.registerGameObject(BucketItem);
-
         // Actions
         this.registerAction(OpenAction);
         this.registerGameObject(DealerCharacter);
         this.registerAction(PickUpAction);
         this.registerAction(UseAction);
+        this.registerAction(PlaceAction);
     }
 
     /**
@@ -136,6 +138,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpGlassBeaker: false,
             pickedUpSulfuricAcid: false,
             pickedUpJumpRope: false,
+            retrievedTenSticks: false,
             placedEscapeLadder: false,
             tradedWithSmoker: false,
             ventUnlocked: false,

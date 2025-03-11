@@ -13,7 +13,7 @@ const styles: string = css`
         height: 100%;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 48px calc(50vh + 10px) minmax(calc(35vh + 10px), 1fr) auto;
+        grid-template-rows: 5vh 50vh 30vh 15vh;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
         position: relative;
