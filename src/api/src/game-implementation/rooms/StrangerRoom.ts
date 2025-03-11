@@ -1,10 +1,13 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
+import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
+import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
+import { PickUpAction } from "../actions/PickUpAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { PlayerSession } from "../types";
 import { HallwayRoom } from "./HallwayRoom";
@@ -39,7 +42,13 @@ export class StrangerRoom extends Room implements Simple {
     }
 
     public actions(): Action[] {
-        return [new SimpleAction("enter-hallway", "Enter Hallway")];
+        const result: Action[] = [
+            new ExamineAction(),
+            new PickUpAction(),
+            new SimpleAction("enter-hallway", "Return to hallway"),
+        ];
+
+        return result;
     }
 
     public objects(): GameObject[] {

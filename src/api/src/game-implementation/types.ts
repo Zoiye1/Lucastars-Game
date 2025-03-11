@@ -33,5 +33,4 @@ export type PlayerSession = {
     helpedProfessor: boolean;
     pickedUpSheets: boolean;
     pickedUpAirFreshener: boolean;
-    
 };
