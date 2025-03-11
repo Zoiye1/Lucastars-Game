@@ -201,6 +201,7 @@ export class CanvasComponent extends HTMLElement {
                 <div class="header">
                     ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
                     <game-crafting></game-crafting>
+                    <game-map></game-map>
                 </div>
             `;
         }
