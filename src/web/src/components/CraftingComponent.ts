@@ -214,7 +214,6 @@ export class CraftingComponent extends HTMLElement {
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
     private selectedItemInventory: string = "";
 
-
     private slots: string[] = ["", "", "", ""];
     private resultSlot: string = "";
     /**
@@ -292,6 +291,7 @@ export class CraftingComponent extends HTMLElement {
                                 <div class="result-slot">${this.resultSlot}</div>
                             </div>
                             <div class="container-craft-retrieve-buttons">
+                                <button class="ui-btn" id="addSelectedItemButton">Add selected item</button>
                                 <button class="ui-btn" id="craftButton">Craft</button>
                                 ${this.resultSlot ? "<button class=\"ui-btn\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
                             </div>
@@ -314,10 +314,17 @@ export class CraftingComponent extends HTMLElement {
         const dialog: HTMLDialogElement = this.shadowRoot.querySelector("#craftingDialog") as HTMLDialogElement;
         const closeBtn: HTMLButtonElement = this.shadowRoot.querySelector("#closeDialog") as HTMLButtonElement;
         const craftBtn: HTMLButtonElement = this.shadowRoot.querySelector("#craftButton") as HTMLButtonElement;
+        const addSelectedBtn: HTMLButtonElement = this.shadowRoot.querySelector("#addSelectedButton") as HTMLButtonElement;
         const retrieveBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#retrieveCraftedItem");
 
         button.addEventListener("click", () => dialog.showModal());
         closeBtn.addEventListener("click", () => dialog.close());
+
+        addSelectedBtn.addEventListener("click", async () => {
+            await this.handleGetSelectedItemInventory();
+            this.handleUpdateSlots(this.selectedItemInventory);
+            this.updateDialog();
+        });
 
         craftBtn.addEventListener("click", () => this.handleCraftItem(this.slots));
         const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
@@ -325,7 +332,6 @@ export class CraftingComponent extends HTMLElement {
         retrieveBtn?.addEventListener("click", () => this.handleRetrieveItem(resultItemAlias));
 
         this.addClearSlotsListeners();
-        this.addInventoryItemListeners();
     }
 
     private addClearSlotsListeners(): void {
@@ -340,28 +346,13 @@ export class CraftingComponent extends HTMLElement {
         });
     }
 
-    private addInventoryItemListeners(): void {
-        const inventoryItems: NodeList | undefined = this.shadowRoot?.querySelectorAll(".inventory-item");
-
-        inventoryItems?.forEach(inventoryItem => {
-            inventoryItem.addEventListener("click", () => {
-                const item: string = inventoryItem.textContent!;
-                this.handleSelectItem(item);
-            });
-        });
-    }
-
-    private handleSelectItem(item: string): void {
+    private handleUpdateSlots(item: string): void {
         const firstEmptySlot: number = this.slots.findIndex(slot => slot === "");
 
         if (firstEmptySlot !== -1 && !this.slots.includes(item)) {
             this.slots[firstEmptySlot] = item;
             this.updateDialog();
         }
-    }
-
-    private handleGetSelectedItemInventory(): void {
-        
     }
 
     private handleCraftItem(slots: string[]): void {
@@ -400,6 +391,18 @@ export class CraftingComponent extends HTMLElement {
         }
 
         this.updateDialog();
+    }
+
+    private async handleGetSelectedItemInventory(): Promise<void> {
+        try {
+            const state: string | undefined = await this._gameRouteService.getSelectedItem();
+            if (state) {
+                this.selectedItemInventory = state;
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 
     private async handleRetrieveItem(itemAlias: string): Promise<void> {
