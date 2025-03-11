@@ -1,12 +1,15 @@
 import { Router } from "express";
 import { gameService } from "../global";
 import { GameController } from "./controllers/GameController";
+import { InventoryController } from "./controllers/InventoryController";
 
 // Create a router
 export const router: Router = Router();
 
 // Instance the controller to handle the requests
 const gameController: GameController = new GameController();
+const inventoryController: InventoryController = new InventoryController();
+
 
 // Setup endpoints
 router.get("/", (_, res) => {
@@ -18,3 +21,4 @@ router.use(gameService.createPlayerSessionMiddleware());
 
 router.get("/state", (req, res) => gameController.handleStateRequest(req, res));
 router.post("/action", (req, res) => gameController.handleActionRequest(req, res));
+router.get("/inventory", (req, res) => inventoryController.handleGetInventoryRequest(req, res));
