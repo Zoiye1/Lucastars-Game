@@ -168,23 +168,22 @@ const styles: string = css`
         gap: 10px;
     }
 
-    #retrieveCraftedItem,
-    #craftButton {
+    .dialog-button {
+        font-family: "Onesize", sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #f0f0f0;
+        border: 3px solid #222;
         margin-top: 20px;
         padding: 10px 20px;
-        background-color: white;
         color: black;
-        border: 1px solid black;
         cursor: pointer;
-        border-radius: 5px;
         display: block;
-        font-weight: bold;
         text-transform: uppercase;
         transition: all 0.2s ease;
     }
 
-    #retrieveCraftedItem:hover,
-    #craftButton:hover {
+    .dialog-button:hover {
         background-color: black;
         color: white;
     }
@@ -193,25 +192,31 @@ const styles: string = css`
 interface Recipe {
     title: string;
     ingredients: string[];
+    ingredientsAliases: string[];
 }
 
 const recipes: Recipe[] = [
     {
         title: "Ladder",
         ingredients: ["10 Sticks", "Super Glue", "Hammer"],
+        ingredientsAliases: ["Sticks", "Super Glue", "HammerItem"],
+
     },
     {
         title: "Parachute",
         ingredients: ["Sheets", "Rope"],
+        ingredientsAliases: ["SheetsItem", "JumpRopeItem"],
     },
     {
         title: "Bomb",
         ingredients: ["Air freshener", "Lighter"],
+        ingredientsAliases: ["AirFreshenerItem", "LighterItem"],
     },
 ];
 
 export class CraftingComponent extends HTMLElement {
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
+    private selectedItemInventory: string = "";
 
     private slots: string[] = ["", "", "", ""];
     private resultSlot: string = "";
@@ -290,8 +295,9 @@ export class CraftingComponent extends HTMLElement {
                                 <div class="result-slot">${this.resultSlot}</div>
                             </div>
                             <div class="container-craft-retrieve-buttons">
-                                <button class="ui-btn" id="craftButton">Craft</button>
-                                ${this.resultSlot ? "<button class=\"ui-btn\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
+                                <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
+                                <button class="dialog-button" id="craftButton">Craft</button>
+                                ${this.resultSlot ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
                             </div>
                         </div>
                     </div>
@@ -312,17 +318,16 @@ export class CraftingComponent extends HTMLElement {
         const dialog: HTMLDialogElement = this.shadowRoot.querySelector("#craftingDialog") as HTMLDialogElement;
         const closeBtn: HTMLButtonElement = this.shadowRoot.querySelector("#closeDialog") as HTMLButtonElement;
         const craftBtn: HTMLButtonElement = this.shadowRoot.querySelector("#craftButton") as HTMLButtonElement;
+        const addSelectedBtn: HTMLButtonElement = this.shadowRoot.querySelector("#addSelectedButton") as HTMLButtonElement;
         const retrieveBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#retrieveCraftedItem");
 
         button.addEventListener("click", () => dialog.showModal());
         closeBtn.addEventListener("click", () => dialog.close());
 
-        // sluit modaal als gebruiker buiten modaal klikt
-        dialog.addEventListener("click", event => {
-            const dialogContent: HTMLDivElement = dialog.querySelector(".container")!;
-            if (!dialogContent.contains(event.target as Node)) {
-                dialog.close();
-            }
+        addSelectedBtn.addEventListener("click", async () => {
+            await this.handleGetSelectedItemInventory();
+            this.handleUpdateSlots(this.selectedItemInventory);
+            this.updateDialog();
         });
 
         craftBtn.addEventListener("click", () => this.handleCraftItem(this.slots));
@@ -331,7 +336,6 @@ export class CraftingComponent extends HTMLElement {
         retrieveBtn?.addEventListener("click", () => this.handleRetrieveItem(resultItemAlias));
 
         this.addClearSlotsListeners();
-        this.addInventoryItemListeners();
     }
 
     private addClearSlotsListeners(): void {
@@ -346,18 +350,7 @@ export class CraftingComponent extends HTMLElement {
         });
     }
 
-    private addInventoryItemListeners(): void {
-        const inventoryItems: NodeList | undefined = this.shadowRoot?.querySelectorAll(".inventory-item");
-
-        inventoryItems?.forEach(inventoryItem => {
-            inventoryItem.addEventListener("click", () => {
-                const item: string = inventoryItem.textContent!;
-                this.handleSelectItem(item);
-            });
-        });
-    }
-
-    private handleSelectItem(item: string): void {
+    private handleUpdateSlots(item: string): void {
         const firstEmptySlot: number = this.slots.findIndex(slot => slot === "");
 
         if (firstEmptySlot !== -1 && !this.slots.includes(item)) {
@@ -402,6 +395,18 @@ export class CraftingComponent extends HTMLElement {
         }
 
         this.updateDialog();
+    }
+
+    private async handleGetSelectedItemInventory(): Promise<void> {
+        try {
+            const state: string | undefined = await this._gameRouteService.getSelectedItem();
+            if (state) {
+                this.selectedItemInventory = state;
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 
     private async handleRetrieveItem(itemAlias: string): Promise<void> {

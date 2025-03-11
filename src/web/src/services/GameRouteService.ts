@@ -79,4 +79,8 @@ export class GameRouteService extends BaseRouteService {
             return undefined;
         }
     }
+
+    public async getSelectedItem(): Promise<string> {
+        return this.getJsonApi<string>("game/inventory");
+    }
 }
