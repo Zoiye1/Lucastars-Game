@@ -47,7 +47,7 @@ export class SmokerCharacter extends Character {
                     this,
                     ["Ayo my G, I got a sweet deal for ya. Tryna make this happen?",
                         "See here's the ting... I'm dry on cigs but holdin' lighters.",
-                        "You front me some smokes and a dime stack, I'll bless you with fire. Sounds good my g?"],
+                        "You front me some smokes, I'll bless you with fire. Sounds good my g?"],
                     [
                         new TalkChoice(1, "We can work somethin out fo sho."),
                         new TalkChoice(2, "Nah I'm straight, G."),
@@ -57,10 +57,10 @@ export class SmokerCharacter extends Character {
             else if (choiceId === 1) {
                 return new TalkActionResult(
                     this,
-                    ["Fo sho? Look here... you bring me a pack of cigs AND a crisp 10-euro note,",
+                    ["Fo sho? Look here... you bring me a pack of cigs, and...",
                         "I'll trade you this premium lighter. That's the family discount right there."],
                     [
-                        new TalkChoice(3, "Got both, let's make this paper."),
+                        new TalkChoice(3, "Got you those good cigs my man."),
                         new TalkChoice(4, "I'ma see what I can scrape up."),
                     ]
                 );
@@ -69,19 +69,18 @@ export class SmokerCharacter extends Character {
                 return new TextActionResult(["Aight, your loss playa. I'll be here puffin on hopes and dreams."]);
             }
             else if (choiceId === 3) {
-                if (playerSession.inventory.includes("ten-euro-bill") && playerSession.inventory.includes("cigarettes")) {
-                    playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
-                    playerSession.inventory.splice(playerSession.inventory.indexOf("cigarettes"), 1);
+                if (playerSession.inventory.includes("CigarettesItem")) {
+                    playerSession.inventory.splice(playerSession.inventory.indexOf("CigarettesItem"), 1);
 
-                    playerSession.inventory.push("lighter");
+                    playerSession.inventory.push("LighterItem");
                     playerSession.tradedWithSmoker = true;
 
-                    return new TextActionResult(["*snaps fingers* Aight, aight... you holdin both!",
+                    return new TextActionResult(["*snaps fingers* Aight, aight... thats wassup!",
                         "Here's that lighter fam... don't smoke it all in one place!"]);
                 }
                 else {
-                    return new TextActionResult(["You tryna finesse me?! Where my cigs at? Where my cheddar?",
-                        "Come correct with BOTH or keep it pushin"]);
+                    return new TextActionResult(["You tryna finesse me?! Where my cigs at? Hurry up dawg",
+                        "Come back with the stuff or keep it pushin"]);
                 }
             }
             else {

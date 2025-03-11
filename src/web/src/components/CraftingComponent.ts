@@ -193,20 +193,25 @@ const styles: string = css`
 interface Recipe {
     title: string;
     ingredients: string[];
+    ingredientsAliases: string[];
 }
 
 const recipes: Recipe[] = [
     {
         title: "Ladder",
         ingredients: ["10 Sticks", "Super Glue", "Hammer"],
+        ingredientsAliases: ["Sticks", "Super Glue", "HammerItem"],
+
     },
     {
         title: "Parachute",
         ingredients: ["Sheets", "Rope"],
+        ingredientsAliases: ["SheetsItem", "JumpRopeItem"],
     },
     {
         title: "Bomb",
         ingredients: ["Air freshener", "Lighter"],
+        ingredientsAliases: ["AirFreshenerItem", "LighterItem"],
     },
 ];
 
