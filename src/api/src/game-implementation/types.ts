@@ -147,6 +147,9 @@ export type ExecuteDeleteItemsRequest = {
  * Player session data for the game
  */
 export type PlayerSession = {
+    pickedUpGlue: boolean;
+    pickedUpWirecutter: boolean;
+    pickedUpKeyCard: boolean;
     playerOpenedCloset: boolean;
     playerOpenedDoorToStorage: boolean;
     playerOpenedSteelbox: boolean;

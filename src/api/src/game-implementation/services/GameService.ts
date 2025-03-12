@@ -49,6 +49,9 @@ import { PlaceAction } from "../actions/PlaceAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { AirFreshenerItem } from "../items/AirFreshenerItem";
 import { GymTheEndRoom } from "../rooms/GymEndRoom";
+import { GlueItem } from "../items/GlueItem";
+import { WirecutterItem } from "../items/WirecutterItem";
+import { KeyCardItem } from "../items/KeyCardItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -103,6 +106,9 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(FocusDrinkItem);
         this.registerGameObject(SheetsItem);
         this.registerGameObject(AirFreshenerItem);
+        this.registerGameObject(GlueItem);
+        this.registerGameObject(WirecutterItem);
+        this.registerGameObject(KeyCardItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -158,6 +164,9 @@ export class GameService extends BaseGameService<PlayerSession> {
             helpedProfessor: false,
             pickedUpSheets: false,
             pickedUpAirFreshener: false,
+            pickedUpKeyCard: false,
+            pickedUpWirecutter: false,
+            pickedUpGlue: false,
         };
     }
 
