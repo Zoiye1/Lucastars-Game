@@ -91,12 +91,13 @@ export class InventoryComponent extends HTMLElement {
 
     public async connectedCallback(): Promise <void> {
         this.attachShadow({ mode: "open" });
-        await this.handleGetInventory();
-        await this.handleGetSelectedItemInventory();
-        this.render();
+        await this.render();
     }
 
-    private render(): void {
+    public async render(): Promise<void> {
+        await this.handleGetInventory();
+        await this.handleGetSelectedItemInventory();
+
         if (!this.shadowRoot) return;
 
         const inventoryItems: string = this.items

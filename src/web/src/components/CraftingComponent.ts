@@ -1,5 +1,6 @@
 import { css, htmlArray } from "../helpers/webComponents";
 import { GameRouteService } from "../services/GameRouteService";
+import { InventoryComponent } from "./InventoryComponent";
 
 /** CSS affecting the {@link CraftingComponent} */
 const styles: string = css`
@@ -228,6 +229,14 @@ export class CraftingComponent extends HTMLElement {
         this.render();
     }
 
+    private async refreshInventory(): Promise<void> {
+        const root: HTMLElement | null = document.querySelector("game-root");
+        const canvas: HTMLElement | null | undefined = root?.shadowRoot?.querySelector("game-canvas");
+        const inventory: InventoryComponent | null | undefined = canvas?.shadowRoot?.querySelector("game-inventory");
+
+        await inventory?.render();
+    }
+
     private renderRecipes(): string {
         let recipeCardsHTML: string = "";
 
@@ -338,7 +347,7 @@ export class CraftingComponent extends HTMLElement {
         retrieveBtn?.addEventListener("click", async () => {
             await this.handleDeleteItems(this.slots);
             await this.handleRetrieveItem(resultItemAlias);
-            this.render();
+            this.refreshInventory();
         });
 
         this.addClearSlotsListeners();
