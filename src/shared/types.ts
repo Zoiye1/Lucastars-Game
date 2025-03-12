@@ -17,12 +17,14 @@ export type DefaultGameState = {
     roomName: string;
     /** Images of the room the player is in */
     roomImages: string[];
+    roomArrowImages: Arrowroom[];
     /** Lines of text to show to the player */
     text: string[];
     /** Actions that are available to the player */
     actions: ActionReference[];
     /** Game objects that can be interacted with by the player */
     objects: GameObjectReference[];
+
 };
 
 /**
@@ -35,6 +37,16 @@ export type ActionReference = {
     name: string;
     /** Is `true` if the action requires another `GameObject` to work, otherwise `false`. */
     needsObject: boolean;
+};
+
+export type Arrowroom = {
+    name: string;
+    alias: string;
+    imageRotation: number;
+    imageCoords: {
+        x: number;
+        y: number;
+    };
 };
 
 /**
@@ -67,6 +79,10 @@ export type ExecuteActionRequest = {
     action: string;
     /** Aliases of the game objects to execute the action on */
     objects?: string[];
+};
+
+export type ExecuteMoveRequest = {
+    alias: string;
 };
 
 export type ExecuteRetrieveRequest = {

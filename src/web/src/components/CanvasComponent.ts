@@ -43,6 +43,18 @@ const styles: string = css`
         position: absolute;
     }
 
+    game-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 100%; 
+    }
+
+
     .content {
         flex-grow: 1;
         overflow: auto;
@@ -114,6 +126,10 @@ export class CanvasComponent extends HTMLElement {
      */
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
+
+        this.addEventListener("state-update", () => {
+            void this.refreshGameState();
+        });
 
         void this.refreshGameState();
     }
@@ -202,8 +218,10 @@ export class CanvasComponent extends HTMLElement {
             return `
                 <div class="header">
                     ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
+                    <game-arrow></game-arrow>
                     <game-crafting></game-crafting>
                     <game-quest></game-quest>
+                    <game-map></game-map>
                 </div>
             `;
         }
@@ -316,7 +334,7 @@ export class CanvasComponent extends HTMLElement {
         }
 
         // Otherwise, execute the action and update the game state.
-        const state: GameState | undefined = await this._gameRouteService.executeMoveAction(button.alias);
+        const state: GameState | undefined = await this._gameRouteService.executeAction(button.alias);
 
         if (state === undefined) {
             return;
@@ -344,6 +362,8 @@ export class CanvasComponent extends HTMLElement {
             this._selectedActionButton.alias,
             [...this._selectedGameObjectButtons].map(e => e.alias)
         );
+
+        console.log(state);
 
         // If 2 more game objects where on the list, clear it.
         if (this._selectedGameObjectButtons.size >= 2) {

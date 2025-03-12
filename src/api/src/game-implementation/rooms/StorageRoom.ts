@@ -11,6 +11,7 @@ import { BoxStorageItem } from "../items/BoxStorageItem";
 import { ClosetStorageItem } from "../items/ClosetStorageItem";
 import { ElevatorStorageItem } from "../items/ElevatorStorageItem";
 import { KeypadStorageItem } from "../items/KeypadStorageItem";
+import { PlayerSession } from "../types";
 import { KitchenRoom } from "./KitchenRoom";
 import { LabRoom } from "./LabRoom";
 
@@ -35,7 +36,15 @@ export class StorageRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["storage/Storage", "storage/StorageToKitchen"];
+        const result: string[] = ["storage/Storage", "storage/StorageToKitchen"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (playerSession.playerOpenedCloset) {
+            result.push("storage/Opencloset");
+        }
+        if (playerSession.playerOpenedSteelbox) {
+            result.push("storage/Openbox");
+        }
+        return result;
     }
 
     public actions(): Action[] {

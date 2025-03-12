@@ -5,7 +5,9 @@ type QuestArray = {
 };
 
 export type PlayerSession = {
+    playerOpenedCloset: boolean;
     playerOpenedDoorToStorage: boolean;
+    playerOpenedSteelbox: boolean;
     pickedUpSugar: boolean;
     pickedUpKey: boolean;
     /** Alias of the room the player is in */
@@ -53,4 +55,6 @@ export type PlayerSession = {
     helpedDealer: boolean;
     helpedSmoker: boolean;
     helpedCook: boolean;
+    pickedUpSheets: boolean;
+    pickedUpAirFreshener: boolean;
 };

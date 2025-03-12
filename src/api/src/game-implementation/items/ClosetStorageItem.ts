@@ -3,6 +3,9 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { Examine } from "../../game-base/actions/ExamineAction";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Open } from "../../game-base/actions/OpenAction";
+import { gameService } from "../../global";
+import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { KnifeItem } from "./KnifeItem";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class ClosetStorageItem extends Item implements Examine, Open {
@@ -32,7 +35,18 @@ export class ClosetStorageItem extends Item implements Examine, Open {
     }
 
     public open(): ActionResult | undefined {
-        return new TextActionResult(["It seems to be closed. Maybe I could open it by using something sharp?",
+        const inventory: GameObject[] = gameService.getGameObjectsFromInventory();
+        const result: GameObject | undefined = inventory.find(e => e.alias === KnifeItem.Alias);
+        if (gameService.getPlayerSession().playerOpenedCloset) {
+            return new TextActionResult(["Its already open"]);
+        }
+        if (result !== undefined) {
+            gameService.getPlayerSession().playerOpenedCloset = true;
+            return new TextActionResult(["You use the sharp end of the knife to open the closet",
+                "There is a Wirecutter and a Keycard inside",
+            ]);
+        }
+        return new TextActionResult(["You cant open it the lock is preventing it", "Maybe you could lockpick it with something sharp",
         ]);
     }
 }

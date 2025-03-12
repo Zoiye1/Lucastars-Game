@@ -16,6 +16,7 @@ import { CafeteriaRoom } from "./CafeteriaRoom";
 import { StorageRoom } from "./StorageRoom";
 import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
+import { Arrowroom } from "@shared/types";
 
 export class KitchenRoom extends Room implements Simple {
     public static readonly Alias: string = "KitchenRoom";
@@ -38,7 +39,7 @@ export class KitchenRoom extends Room implements Simple {
 
     public images(): string[] {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
-        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4"];
+        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook"];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.pickedUpKnife) {
             result.push("kitchen/KnifeKitchen");
@@ -46,9 +47,25 @@ export class KitchenRoom extends Room implements Simple {
         if (!playerSession.pickedUpSugar) {
             result.push("kitchen/BagOfSugar");
         }
+        // if (playerSession.playerOpenedDoorToStorage) {
+        //     result.push("kitchen/ArrowToStorageKitchen4");
+        // }
+        return result;
+    }
+
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 77, y: 60 } },
+        ];
+
+        const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.playerOpenedDoorToStorage) {
-            result.push("kitchen/ArrowToStorageKitchen4");
+            result.push(
+                { name: "storage", alias: "StorageRoom", imageRotation: 180, imageCoords: { x: 46, y: 18 } }
+            );
         }
+
         return result;
     }
 

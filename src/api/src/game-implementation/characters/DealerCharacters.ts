@@ -70,8 +70,8 @@ export class DealerCharacter extends Character {
         // Reactie als speler de suiker geeft
         if (_choiceId === 5) {
             if (playerSession.inventory.includes("SugarItem")) {
-                playerSession.pickedUpSugar = true;
                 playerSession.inventory.push("Steroids");
+                playerSession.inventory.splice(playerSession.inventory.indexOf("SugarItem"), 1);
                 return new TextActionResult(["Amazing! Here you have Steroids."]);
             }
             else {
@@ -81,12 +81,49 @@ export class DealerCharacter extends Character {
             }
         }
 
-        // Reacties voor andere keuzes
-        if (_choiceId === 2 || _choiceId === 4 || _choiceId === 6) {
-            return new TextActionResult(["No stress"]);
+        if (_choiceId === 2 || _choiceId === 6 || _choiceId === 9) {
+            return new TextActionResult(
+                [
+                    "No stress",
+                ]
+            );
         }
 
-        // Standaard dialoog
+        if (_choiceId === 4) {
+            return new TalkActionResult(
+                this,
+                ["Wait! I also have a pack of cigs. Do you want to buy it?"],
+                [
+                    new TalkChoice(7, "What do I have to pay for it?"),
+                    new TalkChoice(8, "No, I'm not interested."),
+                ]
+            );
+        }
+
+        if (_choiceId === 7) {
+            return new TalkActionResult(
+                this,
+                ["That will be a nice 10 euro bill for you. Without taxes!"],
+                [
+                    new TalkChoice(8, "Ok, I got the cash on me. Hand me those cigs."),
+                    new TalkChoice(9, "No, I'm not interested."),
+                ]
+            );
+        }
+
+        // reactie als speler 10 euro geeft
+        if (_choiceId === 8) {
+            if (playerSession.inventory.includes("ten-euro-bill")) {
+                playerSession.inventory.push("CigarettesItem");
+                playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
+
+                return new TextActionResult(["Amazing! Here you have the pack of cigarettes."]);
+            }
+            else {
+                return new TextActionResult(["Haha... that's not funny. You don't have any cash on you. Save up some cash and then come back..."]);
+            };
+        }
+
         return new TalkActionResult(
             this,
             ["Hey, I have some stuff for sale. You want to buy something?"],
