@@ -12,6 +12,7 @@ import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { DealerCharacter } from "../characters/DealerCharacters";
 import { HallwayRoom } from "./HallwayRoom";
+import { AirFreshenerItem } from "../items/AirFreshenerItem";
 
 /**
  * Klasse die de kamer "Toilet" vertegenwoordigt.
@@ -70,6 +71,10 @@ export class ToiletRoom extends Room implements Simple {
         // Controleert of de speler de emmer nog niet heeft opgepakt en voegt deze toe aan de objecten.
         if (!playerSession.pickedUpBucket) {
             result.push(new BucketItem());
+        }
+
+        if (!playerSession.pickedUpAirFreshener) {
+            result.push(new AirFreshenerItem());
         }
 
         // Voegt de dealer NPC toe aan de kamer.

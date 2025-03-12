@@ -46,6 +46,8 @@ import { ProfessorCharacter } from "../characters/ProfessorCharacter";
 import { BakingSodaItem } from "../items/BakingSodaItem";
 import { TreeItem } from "../items/TreeItem";
 import { PlaceAction } from "../actions/PlaceAction";
+import { SheetsItem } from "../items/SheetsItem";
+import { AirFreshenerItem } from "../items/AirFreshenerItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -97,6 +99,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(BucketItem);
         this.registerGameObject(TreeItem);
         this.registerGameObject(FocusDrinkItem);
+        this.registerGameObject(SheetsItem);
+        this.registerGameObject(AirFreshenerItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -149,6 +153,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             wantsToSearchIngredients: false,
             pickedUpBakingSoda: false,
             helpedProfessor: false,
+            pickedUpSheets: false,
+            pickedUpAirFreshener: false,
         };
     }
 

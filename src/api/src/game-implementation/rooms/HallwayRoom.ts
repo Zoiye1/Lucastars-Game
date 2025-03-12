@@ -36,7 +36,7 @@ export class HallwayRoom extends Room implements Simple {
     }
 
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["he hallway goes in many directions. Which way will you go?"]);
+        return new TextActionResult(["The hallway goes in many directions. Which way will you go?"]);
     }
 
     public actions(): Action[] {

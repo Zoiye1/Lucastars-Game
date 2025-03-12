@@ -1,4 +1,4 @@
-import { ActionReference, ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameObjectReference, GameState } from "@shared/types";
+import { ActionReference, ExecuteActionRequest, GameObjectReference, GameState } from "@shared/types";
 import { Request, Response } from "express";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
@@ -57,20 +57,6 @@ export class GameController {
         }
     }
 
-    public handleRetrieveRequest(req: Request, res: Response): void {
-        const executeRetrieveRequest: ExecuteRetrieveRequest = req.body as ExecuteRetrieveRequest;
-
-        const result: string = this.executeRetrieveItem(executeRetrieveRequest.itemAlias);
-        res.status(200).json({ message: result });
-    }
-
-    public handleDeleteItemsRequest(req: Request, res: Response): void {
-        const executeDeleteItemsRequest: ExecuteDeleteItemsRequest = req.body as ExecuteDeleteItemsRequest;
-
-        const result: string = this.executeDeleteItems(executeDeleteItemsRequest.deleteItemsAliasArray);
-        res.status(200).json({ message: result });
-    }
-
     /**
      * Execute the requested action and convert the result to a type of `GameState`.
      *
@@ -103,26 +89,6 @@ export class GameController {
 
         // Convert the result of the action to the new game state
         return this.convertActionResultToGameState(actionResult);
-    }
-
-    private executeRetrieveItem(itemAlias: string): string {
-        const inventory: string[] = gameService.getPlayerSession().inventory;
-
-        inventory.push(itemAlias);
-        console.log(inventory);
-        return `Item "${itemAlias}" retrieved successfully.`;
-    }
-
-    private executeDeleteItems(itemsToDelete: string[]): string {
-        const inventory: string[] = gameService.getPlayerSession().inventory;
-
-        for (const itemAlias of itemsToDelete) {
-            if (inventory.includes(itemAlias)) {
-                inventory.splice(inventory.indexOf(itemAlias), 1);
-            }
-        }
-        console.log(inventory);
-        return `Items "${itemsToDelete}" deleted successfully.`;
     }
 
     /**
