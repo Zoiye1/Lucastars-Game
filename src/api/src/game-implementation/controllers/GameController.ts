@@ -65,11 +65,14 @@ export class GameController {
      *
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
-    private async executeAction(actionAlias: string, gameObjectAliases?: string[]): Promise<GameState | undefined> {
+    protected async executeAction(actionAlias: string, gameObjectAliases?: string[]): Promise<GameState | undefined> {
         // If no game object aliases are defined, use the current room instead.
+        console.log(actionAlias);
         if (!gameObjectAliases || gameObjectAliases.length === 0) {
             gameObjectAliases = [gameService.getPlayerSession().currentRoom];
         }
+
+        console.log(gameObjectAliases);
 
         // Get the game objects for the aliases
         const gameObjects: GameObject[] = gameService.getGameObjectsByAliases(gameObjectAliases);
@@ -154,7 +157,7 @@ export class GameController {
             roomAlias: room.alias,
             roomName: await room.name(),
             roomImages: await room.images(),
-            roomArrows: await room.ArrowUrl(),
+            roomArrowImages: room.ArrowUrl(),
             text: text,
             actions: actions,
             objects: objects,

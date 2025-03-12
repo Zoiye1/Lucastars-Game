@@ -6,26 +6,24 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { ForkItem } from "../items/ForkItem";
 import { PaintingItem } from "../items/PaintingItem";
-import { HallwayRoom } from "./HallwayRoom";
 import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
-import { VentsRoom } from "./VentsRoom";
 import { VentItem } from "../items/VentItem";
 import { WindowItem } from "../items/WindowItem";
 import { UseAction } from "../actions/UseAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
+import { Arrowroom } from "@shared/types";
 
 /**
  * Klasse die de startkamer in het spel vertegenwoordigt.
  * De speler kan objecten onderzoeken, oppakken en gebruiken om een uitweg te vinden.
  */
-export class StarterRoom extends Room implements Simple {
+export class StarterRoom extends Room {
     /** De alias voor de startkamer. */
     public static readonly Alias: string = "starterroom";
 
@@ -87,6 +85,26 @@ export class StarterRoom extends Room implements Simple {
         return result;
     }
 
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+        ];
+
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (playerSession.ventUnlocked) {
+            result.push(
+                { name: "vent", alias: "Vents", imageRotation: 0, imageCoords: { x: 26, y: 16 } }
+            );
+        }
+        if (playerSession.windowBroken) {
+            result.push(
+                { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 50, y: 25 } }
+            );
+        }
+
+        return result;
+    }
+
     /**
      * Onderzoekt de kamer en geeft een beschrijving.
      * @returns {ActionResult | undefined} De beschrijving van de startkamer.
@@ -127,44 +145,12 @@ export class StarterRoom extends Room implements Simple {
      * @returns {Action[]} Een lijst met beschikbare acties.
      */
     public actions(): Action[] {
-        const playerSession: PlayerSession = gameService.getPlayerSession();
         const actions: Action[] = [
             new ExamineAction(),
             new PickUpAction(),
             new UseAction(),
         ];
 
-        // Voeg opties toe om de gang of ventilatie te betreden als deze ontgrendeld zijn
-        if (playerSession.ventUnlocked) {
-            actions.push(new SimpleAction("enter-vent", "Enter Vent"));
-        }
-
-        if (playerSession.windowBroken) {
-            actions.push(new SimpleAction("enter-hallway", "Enter Hallway"));
-        }
-
         return actions;
-    }
-
-    /**
-     * Behandelt eenvoudige acties die de speler kan uitvoeren, zoals het betreden van een nieuwe kamer.
-     * @param {string} alias - De alias van de actie.
-     * @returns {ActionResult | undefined} Het resultaat van de actie.
-     */
-    public simple(alias: string): ActionResult | undefined {
-        switch (alias) {
-            case "enter-hallway": {
-                const room: HallwayRoom = new HallwayRoom();
-                gameService.getPlayerSession().currentRoom = room.alias;
-                return room.examine();
-            }
-            case "enter-vent": {
-                const room: VentsRoom = new VentsRoom();
-                gameService.getPlayerSession().currentRoom = room.alias;
-                return room.examine();
-            }
-        }
-
-        return undefined;
     }
 }

@@ -1,17 +1,16 @@
+import { Arrowroom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
 import { PickUpAction } from "../actions/PickUpAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { PlayerSession } from "../types";
-import { HallwayRoom } from "./HallwayRoom";
 
-export class StrangerRoom extends Room implements Simple {
+export class StrangerRoom extends Room {
     public static readonly Alias: string = "strangerroom";
 
     public constructor() {
@@ -35,6 +34,15 @@ export class StrangerRoom extends Room implements Simple {
         return ["strangerroom/StrangerRoomBackground"];
     }
 
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 25, y: 25 } },
+        ];
+
+        return result;
+    }
+
     public examine(): ActionResult | undefined {
         return new TextActionResult(["You walk into a room with an open door, it looks like its a room from someone else...",
             "You might be able to find something useful here"]);
@@ -44,7 +52,6 @@ export class StrangerRoom extends Room implements Simple {
         const result: Action[] = [
             new ExamineAction(),
             new PickUpAction(),
-            new SimpleAction("enter-hallway", "Return to hallway"),
         ];
 
         return result;
@@ -58,17 +65,5 @@ export class StrangerRoom extends Room implements Simple {
             result.push(new SheetsItem());
         }
         return result;
-    }
-
-    public simple(alias: string): ActionResult | undefined {
-        if (alias === "enter-hallway") {
-            const room: Room = new HallwayRoom();
-
-            // Set the current room to the startup room
-            gameService.getPlayerSession().currentRoom = room.alias;
-
-            return room.examine();
-        }
-        return undefined;
     }
 }

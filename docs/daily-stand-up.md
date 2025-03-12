@@ -587,13 +587,15 @@ Milan scrummaster
 - Farmaan
 
     -  #### Wat heb je gisteren gedaan?
-
+       -  Gisteren heb ik game objects gefiltreerd zodat het specifieker is.
 
     -  #### Wat ga je vandaag doen?
+       -  Vandaag ga ik wat resterende user stories in gitlab maken en daarna courtyard afmaken
 
 
 
     -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
 
 
 
@@ -648,3 +650,161 @@ Milan scrummaster
        -  nee
 
 
+### Daily standup maandag 04-03-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Onderzoek naar webcomponents
+    
+    -  #### Wat ga je vandaag doen?
+       -  Webcomponent inplannen en maken
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  Ja, ik heb moeite met webcomponents
+
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  courtyard gemaakt
+       -  userstories gemaakt
+       -  gekeken naar webcomponents
+
+    -  #### Wat ga je vandaag doen?
+       -  action maken
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Action gemaakt
+
+
+    -  #### Wat ga je vandaag doen?
+       -  webcompenent
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Nieuwe starter room pixel art
+       -  userstories voor komende sprint
+       -  webcomponents
+       -  use action
+
+
+
+    -  #### Wat ga je vandaag doen?
+       -  use action af maken
+
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan? 
+       -  user stories aan gemaakt
+
+    -  #### Wat ga je vandaag doen?
+       -  onderzoek naar webcomponents
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  ja webcomponent zijn onduidelijk
+
+### Daily standup maandag 06-03-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  maken pijlen webcomponent
+    
+    -  #### Wat ga je vandaag doen?
+       -  component afmaken
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  aan crafting component gewerkt
+
+    -  #### Wat ga je vandaag doen?
+       -  veder werken aan crafting component
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+       -  inventory component
+
+
+    -  #### Wat ga je vandaag doen?
+       -  veder werken aan component
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  component is onduidelijk
+
+
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+       -  begonnen met professor character
+       -  begonnen met nieuw einde
+
+
+
+    -  #### Wat ga je vandaag doen?
+       -  professor afmaken
+       -  einde af maken
+
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan? 
+       -  Gewerkt aan mijn quest api 
+
+    -  #### Wat ga je vandaag doen?
+       -  Aan de quest api verder werken
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  Nee momenteel niet

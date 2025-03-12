@@ -1,3 +1,4 @@
+import { ExecuteMoveRequest } from "@shared/types";
 import { ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameState } from "@shared/types";
 import { BaseRouteService } from "./BaseRouteService";
 
@@ -37,14 +38,12 @@ export class GameRouteService extends BaseRouteService {
         }
     }
 
-    public async executeMoveAction(
-        actionAlias: string,
-        objectAliases?: string[]
+    public async executeRoomAction(
+        roomAlias: string
     ): Promise<GameState | undefined> {
         try {
-            return await this.postJsonApi<GameState, ExecuteActionRequest>("game/action", {
-                action: actionAlias,
-                objects: objectAliases,
+            return await this.postJsonApi<GameState, ExecuteMoveRequest>("game/move", {
+                alias: roomAlias,
             });
         }
         catch {

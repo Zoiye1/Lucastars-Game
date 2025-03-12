@@ -1,8 +1,8 @@
+import { Arrowroom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
@@ -10,9 +10,8 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { HammerItem } from "../items/HammerItem";
 import { SticksItem } from "../items/SticksItem";
 import { PlayerSession } from "../types";
-import { VentsRoom } from "./VentsRoom";
 
-export class RoofRoom extends Room implements Simple {
+export class RoofRoom extends Room {
     // Unieke alias voor deze kamer, gebruikt voor identificatie
     public static readonly Alias: string = "roof";
 
@@ -51,6 +50,15 @@ export class RoofRoom extends Room implements Simple {
         return result;
     }
 
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "vent", alias: "Vents", imageRotation: -90, imageCoords: { x: 20, y: 60 } },
+        ];
+
+        return result;
+    }
+
     // Bepaalt welke objecten zich in deze kamer bevinden en interactief zijn
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
@@ -72,7 +80,6 @@ export class RoofRoom extends Room implements Simple {
         return [
             new ExamineAction(),
             new PickUpAction(),
-            new SimpleAction("enter-vent", "Return to Vents"),
         ];
     }
 
@@ -83,21 +90,5 @@ export class RoofRoom extends Room implements Simple {
             "The city below seems so close, yet still out of reach",
             "Maybe there are things here that can help you escape…",
         ]);
-    }
-
-    // Verwerkt simpele acties, zoals het betreden van een andere kamer
-    public simple(alias: string): ActionResult | undefined {
-        let room: Room | undefined;
-        switch (alias) {
-            case "enter-vent":
-                room = new VentsRoom();
-                break;
-        }
-        if (room) {
-            // Update de huidige kamer van de speler en geef de beschrijving van de nieuwe kamer terug
-            gameService.getPlayerSession().currentRoom = room.alias;
-            return room.examine();
-        }
-        return undefined;
     }
 }

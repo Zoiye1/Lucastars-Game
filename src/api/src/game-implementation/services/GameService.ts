@@ -142,6 +142,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             helpedGymFreak: false,
             pickedUpGlassBeaker: false,
             pickedUpSulfuricAcid: false,
+            playerOpenedSteelbox: false,
+            playerOpenedCloset: false,
             pickedUpJumpRope: false,
             retrievedTenSticks: false,
             placedEscapeLadder: false,
