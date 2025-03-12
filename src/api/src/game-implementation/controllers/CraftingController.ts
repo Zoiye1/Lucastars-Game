@@ -37,6 +37,7 @@ export class CraftingController extends GameController {
                 inventory.splice(inventory.indexOf(itemAlias), 1);
             }
         }
+
         return `Items "${itemsToDelete}" deleted successfully.`;
     }
 }

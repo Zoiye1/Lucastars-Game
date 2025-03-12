@@ -26,4 +26,4 @@ router.get("/inventory", (req, res) => inventoryController.handleGetInventoryReq
 router.get("/inventoryItem", (req, res) => inventoryController.handleGetInventoryItemRequest(req, res));
 router.put("/inventory", (req, res) => inventoryController.handleSelectedItemInventory(req, res));
 router.put("/retrieve", (req, res) => craftingController.handleRetrieveRequest(req, res));
-router.delete("/retrieve", (req, res) => craftingController.handleRetrieveRequest(req, res));
+router.delete("/retrieve", (req, res) => craftingController.handleDeleteItemsRequest(req, res));

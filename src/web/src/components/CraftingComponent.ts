@@ -335,7 +335,11 @@ export class CraftingComponent extends HTMLElement {
         craftBtn?.addEventListener("click", () => this.handleCraftItem(this.slots));
         const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
         const resultItemAlias: string = resultSlot.innerText;
-        retrieveBtn?.addEventListener("click", () => this.handleRetrieveItem(resultItemAlias));
+        retrieveBtn?.addEventListener("click", async () => {
+            await this.handleDeleteItems(this.slots);
+            await this.handleRetrieveItem(resultItemAlias);
+            this.render();
+        });
 
         this.addClearSlotsListeners();
     }
@@ -415,6 +419,19 @@ export class CraftingComponent extends HTMLElement {
     private async handleRetrieveItem(itemAlias: string): Promise<void> {
         try {
             const state: string | undefined = await this._gameRouteService.executeRetrieveItem(itemAlias);
+            if (state) {
+                this.emptySlotItems();
+                this.updateDialog();
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    private async handleDeleteItems(itemAliases: string[]): Promise<void> {
+        try {
+            const state: string | undefined = await this._gameRouteService.executeDeleteItem(itemAliases);
             if (state) {
                 this.emptySlotItems();
                 this.updateDialog();
