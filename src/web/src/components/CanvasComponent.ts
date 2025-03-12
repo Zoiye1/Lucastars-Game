@@ -70,6 +70,26 @@ const styles: string = css`
         margin: 0;
     }
 
+    /* Typewriter effect styles */
+    .typewriter {
+        display: inline-block;
+        white-space: pre-wrap;
+        overflow: hidden;
+        border-right: 0.15em solid orange; /* Cursor effect */
+        animation: blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: orange; }
+    }
+
+    /* Item name highlighting */
+    .item-name {
+        color: #ff5252; /* Red color for item names */
+        font-weight: bold;
+    }
+
     .footer {
         border-radius: 10px 10px 0 0;
         background-color: #52478b;
@@ -101,6 +121,18 @@ const styles: string = css`
     .footer .button:hover {
         background-color: #332c57;
     }
+    
+    /* Add responsive design for better mobile experience */
+    @media (max-width: 768px) {
+        :host {
+            grid-template-rows: auto 45vh auto auto;
+        }
+        
+        .footer {
+            height: auto;
+            min-height: 105px;
+        }
+    }
 `;
 
 /**
@@ -118,6 +150,12 @@ export class CanvasComponent extends HTMLElement {
     private _selectedActionButton?: ActionReference;
     /** Current active game object buttons */
     private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
+    /** Store previous text to detect changes */
+    private _previousText: string = "";
+    /** Typewriter interval reference for cleanup */
+    private _typewriterInterval?: NodeJS.Timeout;
+    /** Cached list of item names for highlighting */
+    private _itemNames: string[] = [];
 
     /**
      * The "constructor" of a Web Component
@@ -150,7 +188,6 @@ export class CanvasComponent extends HTMLElement {
         // Handle switching pages, if requested.
         if (state.type === "switch-page") {
             this._gameEventService.switchPage(state.page as Page);
-
             return;
         }
 
@@ -160,8 +197,41 @@ export class CanvasComponent extends HTMLElement {
         this._selectedActionButton = undefined;
         this._selectedGameObjectButtons.clear();
 
+        // Update item names list for highlighting
+        this.updateItemNamesList();
+
         // Refresh the web component
         this.render();
+    }
+
+    /**
+     * Update the cached list of item names for highlighting in text
+     */
+    private updateItemNamesList(): void {
+        // Create a list of all item names from game objects for highlighting
+        this._itemNames = [];
+
+        // Add game objects from the current room
+        if (this._currentGameState?.objects) {
+            this._currentGameState.objects.forEach((obj: GameObjectReference) => {
+                if (obj.type.includes("actionableItem") || obj.type.includes("item")) {
+                    this._itemNames.push(obj.name);
+                }
+            });
+        }
+
+        // Add items from inventory
+        const inventoryItems = this._gameRouteService.getInventoryItems?.();
+        if (inventoryItems) {
+            inventoryItems.forEach((item: { name: string }) => {
+                if (!this._itemNames.includes(item.name)) {
+                    this._itemNames.push(item.name);
+                }
+            });
+        }
+
+        // Sort by length (descending) to ensure we match longer names first
+        this._itemNames.sort((a: string, b: string) => b.length - a.length);
     }
 
     /**
@@ -188,6 +258,50 @@ export class CanvasComponent extends HTMLElement {
         }
 
         this.shadowRoot.append(...elements);
+
+        // Apply typewriter effect to the content if text has changed
+        const newText: string = this._currentGameState?.text.join(" ") || "";
+        if (newText !== this._previousText) {
+            this.typeWriterEffect(newText, "typewriter");
+            this._previousText = newText;
+        }
+        else {
+            const typewriterElement: HTMLElement | null = this.shadowRoot.querySelector("#typewriter");
+            if (typewriterElement) {
+                typewriterElement.innerHTML = this.highlightItemNamesInText(newText);
+            }
+        }
+    }
+
+    /**
+     * Highlight item names in text
+     *
+     * @param text The text to process
+     * @returns Text with HTML for highlighted item names
+     */
+    private highlightItemNamesInText(text: string): string {
+        if (!this._itemNames.length) return text;
+
+        let processedText: string = text;
+
+        // Look for item names and wrap them in spans
+        this._itemNames.forEach((itemName: string) => {
+            // Case insensitive global replace
+            const regex: RegExp = new RegExp(`\\b${this.escapeRegExp(itemName)}\\b`, "gi");
+            processedText = processedText.replace(regex, `<span class="item-name">${itemName}</span>`);
+        });
+
+        return processedText;
+    }
+
+    /**
+     * Escape special characters for RegExp
+     *
+     * @param text The text to escape for RegExp
+     * @returns Escaped text safe for RegExp
+     */
+    private escapeRegExp(text: string): string {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     }
 
     /**
@@ -215,12 +329,12 @@ export class CanvasComponent extends HTMLElement {
         if (roomImages && roomImages.length > 0) {
             return `
                 <div class="header">
-                    ${roomImages.map(url => `<img src="/assets/img/rooms/${url}.png" />`).join("")}
-                    <game-arrow></game-arrow>
-                    <game-inventory> </game-inventory>
-                
+                    ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
+                    onerror="this.onerror=null;this.src='/assets/img/rooms/${url}.gif';" />`).join("")}
                     <game-crafting></game-crafting>
                     <game-map></game-map>
+                    <game-arrow></game-arrow>
+                    <game-inventory> </game-inventory>
                 </div>
             `;
         }
@@ -236,9 +350,143 @@ export class CanvasComponent extends HTMLElement {
     private renderContent(): string {
         return `
             <div class="content">
-                ${this._currentGameState?.text.map(text => `<p>${text}</p>`).join("") || ""}
+                <span id="typewriter" class="typewriter"></span>
             </div>
         `;
+    }
+
+    /**
+     * Apply a typewriter effect to the specified element with item name highlighting
+     *
+     * @param text The text to display with the typewriter effect
+     * @param elementId The ID of the element to apply the effect to
+     * @param speed The speed of the typewriter effect in milliseconds per character
+     */
+    private typeWriterEffect(text: string, elementId: string, speed: number = 27): void {
+        // Clear any existing typewriter effect
+        if (this._typewriterInterval) {
+            clearInterval(this._typewriterInterval);
+        }
+
+        const element: HTMLElement | null | undefined = this.shadowRoot?.getElementById(elementId);
+        if (!element) return;
+
+        element.innerHTML = ""; // Clear the element before starting the animation
+
+        // Pre-process the text to mark up the item names
+        const highlightedText: string = this.highlightItemNamesInText(text);
+
+        // Create a temporary DOM element to parse the HTML
+        const tempContainer: HTMLDivElement = document.createElement("div");
+        tempContainer.innerHTML = highlightedText;
+
+        // Extract text nodes and spans (which contain item names)
+        const nodes: (Node | HTMLSpanElement)[] = [];
+        this.extractNodesRecursive(tempContainer, nodes);
+
+        let currentNodeIndex: number = 0;
+        let currentCharIndex: number = 0;
+        let currentNode: Node | HTMLSpanElement = nodes[0];
+
+        // Function to get next character, handling HTML nodes properly
+        // eslint-disable-next-line @typescript-eslint/typedef
+        const getNextChar = (): { char: string; isHtml: boolean } | null => {
+            if (currentNodeIndex >= nodes.length) return null;
+
+            currentNode = nodes[currentNodeIndex];
+
+            // If it's a text node
+            if (currentNode.nodeType === Node.TEXT_NODE) {
+                const nodeText: string = currentNode.textContent || "";
+                if (currentCharIndex >= nodeText.length) {
+                    currentNodeIndex++;
+                    currentCharIndex = 0;
+                    return getNextChar();
+                }
+                return {
+                    char: nodeText[currentCharIndex++],
+                    isHtml: false,
+                };
+            }
+            // If it's an element node (like our span)
+            else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+                // Return the whole element at once
+                currentNodeIndex++;
+                currentCharIndex = 0;
+                return {
+                    char: (currentNode as HTMLElement).outerHTML,
+                    isHtml: true,
+                };
+            }
+
+            // Skip other node types
+            currentNodeIndex++;
+            currentCharIndex = 0;
+            return getNextChar();
+        };
+
+        this._typewriterInterval = setInterval(() => {
+            const nextChar = getNextChar();
+
+            if (!nextChar) {
+                clearInterval(this._typewriterInterval as NodeJS.Timeout);
+                this._typewriterInterval = undefined;
+                return;
+            }
+
+            if (nextChar.isHtml) {
+                // For HTML elements (spans with item names), add the whole element at once
+                element.innerHTML += nextChar.char;
+            }
+            else {
+                // For regular text, add character by character
+                element.innerHTML += nextChar.char;
+            }
+
+            // Auto-scroll to follow the text
+            element.scrollIntoView({ behavior: "smooth", block: "end" });
+        }, speed);
+    }
+
+    /**
+     * Helper method to extract text nodes and elements recursively
+     *
+     * @param node The node to extract from
+     * @param result The array to store results in
+     */
+    private extractNodesRecursive(node: Node, result: (Node | HTMLSpanElement)[]): void {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (node.textContent && node.textContent.trim()) {
+                result.push(node);
+            }
+        }
+        else if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.nodeName === "SPAN" && (node as HTMLElement).classList.contains("item-name")) {
+                // Keep item name spans as a single unit
+                result.push(node as HTMLSpanElement);
+            }
+            else {
+                // Recursively process other elements
+                for (let i = 0; i < node.childNodes.length; i++) {
+                    this.extractNodesRecursive(node.childNodes[i], result);
+                }
+            }
+        }
+    }
+
+    /**
+     * Skip the current typewriter animation
+     */
+    private skipTypewriter(): void {
+        if (this._typewriterInterval) {
+            clearInterval(this._typewriterInterval);
+            this._typewriterInterval = undefined;
+
+            const typewriterElement: HTMLElement | null = this.shadowRoot?.querySelector("#typewriter");
+            if (typewriterElement && this._previousText) {
+                typewriterElement.innerHTML = this.highlightItemNamesInText(this._previousText);
+            }
+        }
     }
 
     /**
@@ -248,32 +496,36 @@ export class CanvasComponent extends HTMLElement {
      */
     private renderFooter(): HTMLElement {
         const gameObjectsReferences: GameObjectReference[] | undefined = this._currentGameState?.objects;
-        let filtratedObjects: GameObjectReference[] | undefined = [];
+        let filtratedObjects: GameObjectReference[] = [];
 
         const selectedButton: ActionReference | undefined = this._selectedActionButton;
 
         // filter gameObjects gebaseerd op action alias
         if (selectedButton && selectedButton.alias === "examine") {
             // geen filter nodig
-            filtratedObjects = gameObjectsReferences;
+            filtratedObjects = gameObjectsReferences || [];
         }
         else if (selectedButton && selectedButton.alias === "talk") {
-            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type.includes("npc"));
+            filtratedObjects = gameObjectsReferences?.filter(
+                (gameObjectReference: GameObjectReference) => gameObjectReference.type.includes("npc")
+            ) || [];
         }
         else {
             // game objects waar een action op werkt anders dan talk of examine (alleen items als game objects)
-            filtratedObjects = gameObjectsReferences?.filter(gameObjectReference => gameObjectReference.type.includes("actionableItem"));
+            filtratedObjects = gameObjectsReferences?.filter(
+                (gameObjectReference: GameObjectReference) => gameObjectReference.type.includes("actionableItem")
+            ) || [];
         }
 
         return html`
             <div class="footer">
                 <div class="buttons">
                     <div>
-                        ${this._currentGameState?.actions.map(button => this.renderActionButton(button))}
+                        ${this._currentGameState?.actions.map((button: ActionReference) => this.renderActionButton(button))}
                     </div>
                     <div>
                         ${this._selectedActionButton
-                            ? filtratedObjects?.map(button => this.renderGameObjectButton(button)) || ""
+                            ? filtratedObjects.map((button: GameObjectReference) => this.renderGameObjectButton(button)) || ""
                             : ""
                         }
                     </div>
@@ -285,6 +537,7 @@ export class CanvasComponent extends HTMLElement {
     /**
      * Render an action button for a given action reference
      *
+     * @param button Action button that should be rendered
      * @returns HTML element of the action button
      */
     private renderActionButton(button: ActionReference): HTMLElement {
@@ -294,7 +547,11 @@ export class CanvasComponent extends HTMLElement {
             </a>
         `;
 
-        element.addEventListener("click", () => this.handleClickAction(button));
+        element.addEventListener("click", (): void => {
+            // Skip typewriter effect when clicking buttons
+            this.skipTypewriter();
+            void this.handleClickAction(button);
+        });
 
         return element;
     }
@@ -302,6 +559,7 @@ export class CanvasComponent extends HTMLElement {
     /**
      * Render a game object button for a given game object reference
      *
+     * @param button Game object button that should be rendered
      * @returns HTML element of the game object button
      */
     private renderGameObjectButton(button: GameObjectReference): HTMLElement {
@@ -311,7 +569,11 @@ export class CanvasComponent extends HTMLElement {
             </a>
         `;
 
-        element.addEventListener("click", () => this.handleClickGameObject(button));
+        element.addEventListener("click", (): void => {
+            // Skip typewriter effect when clicking buttons
+            this.skipTypewriter();
+            void this.handleClickGameObject(button);
+        });
 
         return element;
     }
@@ -359,7 +621,7 @@ export class CanvasComponent extends HTMLElement {
         // Try to execute the action with all game objects on the list
         const state: GameState | undefined = await this._gameRouteService.executeAction(
             this._selectedActionButton.alias,
-            [...this._selectedGameObjectButtons].map(e => e.alias)
+            [...this._selectedGameObjectButtons].map((e: GameObjectReference) => e.alias)
         );
 
         console.log(state);

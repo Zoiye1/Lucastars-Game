@@ -17,12 +17,12 @@ body {
 }
 
 .dashed-divider {
-    border-top: 2px dashed #99c;
+    border-top: 2px dashed #000000;
     margin: 10px 0;
 }
 
 .map-title {
-    color: #448;
+    color: #000000;
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
@@ -33,7 +33,7 @@ body {
     width: 100%;
     height: 400px;
     background-color: #f8f8ff;
-    border: 2px solid #99c;
+    border: 2px solid #000000;
     border-radius: 8px;
     overflow: auto;
 }
@@ -62,11 +62,22 @@ body {
     font-size: 14px;
 }
 
-#mapButton {
-    padding: 10px;
+.map-button {
     position: absolute;
-    top: 30%;
-    right: 8%;
+    top: 40%;
+    right: 15%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.map-button img {
+    width: 200%;
+    height: 200%;
+    object-fit: contain;
 }
 
 .current-room {
@@ -115,7 +126,7 @@ body {
 
 .arrow-head-up {
     border-width: 0 5px 8px 5px;
-    border-color: transparent transparent #555 transparent;
+    border-color: transparent transparent transparent #555;
     margin-left: -4px;
 }
 
@@ -150,7 +161,7 @@ dialog {
     border: none;
     font-size: 20px;
     cursor: pointer;
-    color: #448;
+    color: #000000;
     z-index: 10;
 }
 
@@ -255,7 +266,9 @@ export class MapComponent extends HTMLElement {
             <style>
                 ${styles}
             </style>
-            <button class="open-map-btn ui-btn" id="mapButton">Map</button>
+            <button class="map-button" id="mapButton">
+                <img src="public/assets/img/MapButton.png" alt="Map">
+            </button>
 <dialog id="mapDialog">
     <div class="container">
         <button id="closeMapDialog">✕</button>
