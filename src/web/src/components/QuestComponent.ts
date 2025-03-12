@@ -129,32 +129,7 @@ export class QuestComponent extends HTMLElement {
         this.setupEventListeners();
     }
 
-    private observeQuestCompletion(): void {
-        if (!this.shadowRoot) return;
-
-        const buttons: NodeListOf<HTMLButtonElement> = this.shadowRoot.querySelectorAll(".ui-btn[data-title]");
-
-        buttons.forEach(button => {
-            const observer: MutationObserver = new MutationObserver(mutations => {
-                mutations.forEach(mutation => {
-                    if (mutation.type === "childList" && button.textContent?.trim() === "Completed") {
-                        console.log("hello");
-                        this.playCompletionSound();
-                    }
-                });
-            });
-
-            observer.observe(button, { childList: true });
-        });
-    }
-
-    private playCompletionSound(): void {
-        const audio: HTMLAudioElement = new Audio("http://localhost:3000/assets/sounds/videoplayback.mp3");
-        audio.play().catch((error: unknown) => console.error("Error playing sound:", error));
-    }
-
     private setupEventListeners(): void {
-        this.observeQuestCompletion();
         const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
             "#questDialog"
         ) as HTMLDialogElement;

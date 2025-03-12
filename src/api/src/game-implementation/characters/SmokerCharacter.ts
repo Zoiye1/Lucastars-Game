@@ -74,6 +74,7 @@ export class SmokerCharacter extends Character {
 
                     playerSession.inventory.push("LighterItem");
                     playerSession.tradedWithSmoker = true;
+                    playerSession.helpedSmoker = true;
 
                     return new TextActionResult(["*snaps fingers* Aight, aight... thats wassup!",
                         "Here's that lighter fam... don't smoke it all in one place!"]);

@@ -117,6 +117,7 @@ export class cookCharacter extends Character implements Examine {
             }
             if (choiceId === 8) {
                 gameService.getPlayerSession().GaveTheForkToCook = true;
+                playerSession.helpedCook = true;
                 return new TextActionResult(
                     [
                         "You hand the Cook the Fork",
