@@ -91,13 +91,12 @@ export class InventoryComponent extends HTMLElement {
 
     public async connectedCallback(): Promise <void> {
         this.attachShadow({ mode: "open" });
-        await this.render();
-    }
-
-    public async render(): Promise<void> {
         await this.handleGetInventory();
         await this.handleGetSelectedItemInventory();
+        this.render();
+    }
 
+    private render(): void {
         if (!this.shadowRoot) return;
 
         const inventoryItems: string = this.items
@@ -140,7 +139,7 @@ export class InventoryComponent extends HTMLElement {
         });
     }
 
-    private async handleGetInventory(): Promise<void> {
+    public async handleGetInventory(): Promise<void> {
         try {
             const state: string[] | undefined = await this._gameRouteService.getInventory();
             console.log(state);

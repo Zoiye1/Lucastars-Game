@@ -234,7 +234,7 @@ export class CraftingComponent extends HTMLElement {
         const canvas: HTMLElement | null | undefined = root?.shadowRoot?.querySelector("game-canvas");
         const inventory: InventoryComponent | null | undefined = canvas?.shadowRoot?.querySelector("game-inventory");
 
-        await inventory?.render();
+        await inventory?.handleGetInventory();
     }
 
     private renderRecipes(): string {
@@ -347,7 +347,7 @@ export class CraftingComponent extends HTMLElement {
         retrieveBtn?.addEventListener("click", async () => {
             await this.handleDeleteItems(this.slots);
             await this.handleRetrieveItem(resultItemAlias);
-            this.refreshInventory();
+            await this.refreshInventory();
         });
 
         this.addClearSlotsListeners();
