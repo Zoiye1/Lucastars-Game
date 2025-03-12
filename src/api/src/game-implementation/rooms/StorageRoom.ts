@@ -34,7 +34,7 @@ export class StorageRoom extends Room {
     }
 
     public images(): string[] {
-        const result: string[] = ["storage/Storage", "storage/StorageToKitchen"];
+        const result: string[] = ["storage/Storage"];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.playerOpenedCloset) {
             result.push("storage/Opencloset");
