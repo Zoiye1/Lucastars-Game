@@ -96,9 +96,9 @@ const styles: string = css`
     dialog {
         margin: 0;
         z-index: 1;
-        top: 10%;
+        top: 8%;
         left: 50%;
-        transform: translateX(-50%); 
+        transform: translateX(-55%); 
         border: none;
         background: #ffffffea;
     }
