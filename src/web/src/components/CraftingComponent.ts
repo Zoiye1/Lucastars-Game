@@ -15,10 +15,21 @@ const styles: string = css`
     }
 
     .open-crafting-btn {
-        padding: 10px;
         position: absolute;
-        top: 5%;
-        right: 8%;
+        top: 10%;
+        right: 15%;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+}
+
+    .open-crafting-btn img{
+        width: 200%;
+        height: 200%;
+        object-fit: contain;
     }
 
     .ui-button:hover {
@@ -258,7 +269,9 @@ export class CraftingComponent extends HTMLElement {
             <style>
                 ${styles}
             </style>
-            <button class="open-crafting-btn ui-btn" id="craftingButton">Crafting</button>
+            <button class="open-crafting-btn" id="craftingButton">
+                <img src="public/assets/img/CraftingButton.png" alt="Map">
+            </button>
             <dialog id="craftingDialog">
                 <div class="container">
                     <button id="closeDialog">X</button>
