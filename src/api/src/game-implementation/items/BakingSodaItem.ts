@@ -8,7 +8,7 @@ import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class BakingSodaItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "Baking Soda";
+    public static readonly Alias: string = "BakingSodaItem";
 
     public constructor() {
         super(BakingSodaItem.Alias);

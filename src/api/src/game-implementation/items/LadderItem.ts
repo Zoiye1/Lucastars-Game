@@ -13,7 +13,7 @@ import { Place } from "../actions/PlaceAction";
  */
 export class LadderItem extends Item implements Place {
     /** Alias die wordt gebruikt om dit item te identificeren */
-    public static readonly Alias: string = "Ladder";
+    public static readonly Alias: string = "LadderItem";
 
     public constructor() {
         super(LadderItem.Alias);

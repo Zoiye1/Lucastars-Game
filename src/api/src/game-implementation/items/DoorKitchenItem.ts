@@ -8,7 +8,7 @@ import { PlayerSession } from "../types";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class DoorKitchenItem extends Item implements Examine, Open {
-    public static readonly Alias: string = "Door";
+    public static readonly Alias: string = "door";
 
     public constructor() {
         super(DoorKitchenItem.Alias);
