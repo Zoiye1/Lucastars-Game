@@ -321,7 +321,7 @@ export class CraftingComponent extends HTMLElement {
         const addSelectedBtn: HTMLButtonElement = this.shadowRoot.querySelector("#addSelectedItemButton") as HTMLButtonElement;
         const retrieveBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#retrieveCraftedItem");
 
-        button.addEventListener("click", () => dialog.showModal());
+        button.addEventListener("click", () => dialog.show());
         closeBtn.addEventListener("click", () => dialog.close());
 
         addSelectedBtn.addEventListener("click", async () => {
@@ -436,7 +436,7 @@ export class CraftingComponent extends HTMLElement {
         // zorg ervoor dat de dialoog niet sluit na klikken
         if (dialogOpenState) {
             const newCraftingDialog: HTMLDialogElement = this.shadowRoot?.querySelector("#craftingDialog") as HTMLDialogElement;
-            newCraftingDialog.showModal();
+            newCraftingDialog.show();
         }
     }
 }
