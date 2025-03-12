@@ -81,13 +81,13 @@ export type ExecuteActionRequest = {
     objects?: string[];
 };
 
-export type ExecuteSelectItemRequest = {
-    itemAlias: string;
-};
 export type ExecuteMoveRequest = {
     alias: string;
 };
 
+export type ExecuteSelectItemRequest = {
+    itemAlias: string;
+};
 export type ExecuteRetrieveRequest = {
     itemAlias: string;
 };
