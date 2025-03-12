@@ -13,7 +13,7 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
  */
 export class BucketItem extends Item implements Examine, PickUp {
     /** Alias voor het item bucket. */
-    public static readonly Alias: string = "bucket";
+    public static readonly Alias: string = "Bucket";
 
     /**
      * Constructor voor de BucketItem-klasse.

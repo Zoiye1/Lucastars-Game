@@ -9,7 +9,7 @@ import { KnifeItem } from "./KnifeItem";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class BoxStorageItem extends Item implements Examine, Open {
-    public static readonly Alias: string = "steel box";
+    public static readonly Alias: string = "Steel Box";
 
     public constructor() {
         super(BoxStorageItem.Alias);

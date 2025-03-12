@@ -8,7 +8,7 @@ import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class SulfuricAcidItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "SulfuricAcidItem";
+    public static readonly Alias: string = "Sulfuric Acid";
 
     public constructor() {
         super(SulfuricAcidItem.Alias);
