@@ -48,7 +48,7 @@ export class ToiletRoom extends Room {
      */
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: string[] = ["toilet/ToiletBackground", "toilet/ArrowToHallway"];
+        const result: string[] = ["toilet/ToiletBackground"];
 
         // Controleert of de speler de emmer nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
         if (!playerSession.pickedUpBucket) {
