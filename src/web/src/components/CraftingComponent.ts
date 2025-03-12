@@ -318,7 +318,7 @@ export class CraftingComponent extends HTMLElement {
         const dialog: HTMLDialogElement = this.shadowRoot.querySelector("#craftingDialog") as HTMLDialogElement;
         const closeBtn: HTMLButtonElement = this.shadowRoot.querySelector("#closeDialog") as HTMLButtonElement;
         const craftBtn: HTMLButtonElement = this.shadowRoot.querySelector("#craftButton") as HTMLButtonElement;
-        const addSelectedBtn: HTMLButtonElement = this.shadowRoot.querySelector("#addSelectedButton") as HTMLButtonElement;
+        const addSelectedBtn: HTMLButtonElement = this.shadowRoot.querySelector("#addSelectedItemButton") as HTMLButtonElement;
         const retrieveBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#retrieveCraftedItem");
 
         button.addEventListener("click", () => dialog.showModal());

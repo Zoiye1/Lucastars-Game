@@ -7,7 +7,7 @@ import { Request, Response } from "express";
 export class InventoryController extends GameController {
     public handleGetInventoryRequest(_req: Request, res: Response): void {
         const result: string[] = this.executeGetInventory();
-        res.status(200).json({ result });
+        res.status(200).json(result);
     }
 
     private executeGetInventory(): string[] {
@@ -29,5 +29,15 @@ export class InventoryController extends GameController {
 
         console.log(itemAlias);
         return itemAlias;
+    }
+
+    public handleGetInventoryItemRequest(_req: Request, res: Response): void {
+        const result: string = this.executeGetInventoryItem();
+        res.status(200).json(result);
+    }
+
+    private executeGetInventoryItem(): string {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        return playerSession.selectedItemInventory;
     }
 }

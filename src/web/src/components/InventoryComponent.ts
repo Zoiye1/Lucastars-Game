@@ -128,8 +128,9 @@ export class InventoryComponent extends HTMLElement {
     private async handleGetInventory(): Promise<void> {
         try {
             const state: string[] | undefined = await this._gameRouteService.getInventory();
+            console.log(state);
             if (state) {
-                this.items = state.result;
+                this.items = state;
             }
             else {
                 this.items = [];
@@ -145,9 +146,7 @@ export class InventoryComponent extends HTMLElement {
 
     private async handleSelectItem(itemAlias: string): Promise<void> {
         try {
-            const state: string | undefined = await this._gameRouteService.executeSelectItem(itemAlias);
-            if (state) {
-            }
+            await this._gameRouteService.executeSelectItem(itemAlias);
         }
         catch (error) {
             console.error(error);
