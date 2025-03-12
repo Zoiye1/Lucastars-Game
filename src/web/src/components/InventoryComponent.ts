@@ -72,6 +72,13 @@ const styles: string = css`
         background: linear-gradient(135deg,#ca58e0, #ca58e0);
         transform: scale(1.05);
     }
+
+    .inventory-item.selected {
+        background: linear-gradient(135deg,#ca58e0, #ca58e0);
+        transform: scale(1.05);
+        box-shadow: 0 0 10px #ca58e0, 0 0 20px rgba(202, 88, 224, 0.5);
+        border: 2px solid #ffffff;
+    }
 `;
 
 /**
@@ -80,10 +87,12 @@ const styles: string = css`
 export class InventoryComponent extends HTMLElement {
     private items: string[] = [];
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
+    private selectedItem: string | null = null;
 
     public async connectedCallback(): Promise <void> {
         this.attachShadow({ mode: "open" });
         await this.handleGetInventory();
+        await this.handleGetSelectedItemInventory();
         this.render();
     }
 
@@ -92,7 +101,8 @@ export class InventoryComponent extends HTMLElement {
 
         const inventoryItems: string = this.items
             .map(item => {
-                return `<div class="inventory-item">${item}</div>`;
+                const selectedClass: string = item === this.selectedItem ? "selected" : "";
+                return `<div class="inventory-item ${selectedClass}">${item}</div>`;
             })
             .join("");
 
@@ -120,7 +130,11 @@ export class InventoryComponent extends HTMLElement {
 
         selectItemDivs?.forEach(itemDiv => {
             itemDiv.addEventListener("click", async () => {
-                if (itemDiv.textContent) await this.handleSelectItem(itemDiv.textContent);
+                if (itemDiv.textContent) {
+                    await this.handleSelectItem(itemDiv.textContent);
+                    await this.handleGetSelectedItemInventory();
+                    this.render();
+                }
             });
         });
     }
@@ -147,6 +161,18 @@ export class InventoryComponent extends HTMLElement {
     private async handleSelectItem(itemAlias: string): Promise<void> {
         try {
             await this._gameRouteService.executeSelectItem(itemAlias);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    private async handleGetSelectedItemInventory(): Promise<void> {
+        try {
+            const state: string | undefined = await this._gameRouteService.getSelectedItem();
+            if (state) {
+                this.selectedItem = state;
+            }
         }
         catch (error) {
             console.error(error);
