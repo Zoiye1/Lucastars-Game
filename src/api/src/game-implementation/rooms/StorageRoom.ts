@@ -1,9 +1,9 @@
+import { Arrowroom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { OpenAction } from "../../game-base/actions/OpenAction";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
@@ -12,10 +12,8 @@ import { ClosetStorageItem } from "../items/ClosetStorageItem";
 import { ElevatorStorageItem } from "../items/ElevatorStorageItem";
 import { KeypadStorageItem } from "../items/KeypadStorageItem";
 import { PlayerSession } from "../types";
-import { KitchenRoom } from "./KitchenRoom";
-import { LabRoom } from "./LabRoom";
 
-export class StorageRoom extends Room implements Simple {
+export class StorageRoom extends Room {
     public static readonly Alias: string = "StorageRoom";
 
     public constructor() {
@@ -51,8 +49,6 @@ export class StorageRoom extends Room implements Simple {
         return [
             new ExamineAction(),
             new OpenAction(),
-            new SimpleAction("Kitchen-enter", "Go to Kitchen"),
-            new SimpleAction("Lab-enter", "Enter Elevator"),
         ];
     }
 
@@ -72,19 +68,19 @@ export class StorageRoom extends Room implements Simple {
         ];
     }
 
-    public simple(alias: string): ActionResult | undefined {
-        let room: Room | undefined;
-        switch (alias) {
-            case "Kitchen-enter":
-                room = new KitchenRoom();
-                break;
-            case "Lab-enter":
-                room = new LabRoom();
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "Kitchen", alias: "KitchenRoom", imageRotation: -90, imageCoords: { x: 15, y: 65 } },
+        ];
+
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (playerSession.playerOpenedDoorToStorage) {
+            result.push(
+                { name: "Elevator", alias: "labroom", imageRotation: 180, imageCoords: { x: 68, y: 7 } }
+            );
         }
-        if (room) {
-            gameService.getPlayerSession().currentRoom = room.alias;
-            return room.examine();
-        }
-        return undefined;
+
+        return result;
     }
 }

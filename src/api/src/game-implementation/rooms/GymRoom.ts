@@ -1,3 +1,4 @@
+import { Arrowroom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -45,6 +46,15 @@ export class GymRoom extends Room implements Simple {
         else {
             result.push("Gym/GymFreakEnd");
         }
+
+        return result;
+    }
+
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 75, y: 50 } },
+        ];
 
         return result;
     }
