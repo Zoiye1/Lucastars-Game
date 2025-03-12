@@ -1,13 +1,12 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Examine } from "../../game-base/actions/ExamineAction";
-import { Item } from "../../game-base/gameObjects/Item";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
-import { Usable } from "../actions/UseAction";
-import { GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { TargetItem } from "../../game-base/gameObjects/TargetItem";
 
-export class WindowItem extends Item implements Examine, Usable {
+export class WindowItem extends TargetItem implements Examine {
     public static readonly Alias: string = "WindowItem";
 
     public constructor() {
@@ -18,10 +17,6 @@ export class WindowItem extends Item implements Examine, Usable {
         return "Window";
     }
 
-    /**
-
-    Geeft de type van de GameObject terug*
-    @returns De type van de GameObject (GameObjectType union) */
     public type(): GameObjectType[] {
         return ["actionableItem"];
     }
@@ -30,15 +25,28 @@ export class WindowItem extends Item implements Examine, Usable {
         return new TextActionResult(["A window leading to the hallway. It's locked."]);
     }
 
-    public use(): ActionResult | undefined {
+    /**
+     * Handle using an inventory item on this window
+     */
+    public useWith(sourceItem: GameObject): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const hasPainting: boolean = playerSession.pickedUpPainting;
 
-        if (hasPainting) {
+        // Check if using the painting on the window
+        if (sourceItem.alias === "PaintingItem") {
             playerSession.windowBroken = true;
-            return new TextActionResult(["You throw the painting at the window, shattering it! You can now enter the hallway."]);
+            // Remove the painting from inventory since it's been used
+            const inventory = playerSession.inventory;
+            const index = inventory.indexOf("PaintingItem");
+            if (index !== -1) {
+                inventory.splice(index, 1);
+            }
+
+            return new TextActionResult([
+                "You throw the painting at the window, shattering it!",
+                "You can now enter the hallway.",
+            ]);
         }
 
-        return new TextActionResult(["You need something heavy to break the window."]);
+        return new TextActionResult(["That doesn't seem to work on the window."]);
     }
 }

@@ -1,73 +1,49 @@
-/**
- * Vertegenwoordigt een ventilatie-item dat onderzocht en gebruikt kan worden.
- * De ventilatieopening is aanvankelijk vastgeschroefd en vereist een gereedschap om te openen.
- */
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Examine } from "../../game-base/actions/ExamineAction";
-import { Item } from "../../game-base/gameObjects/Item";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
-import { Usable } from "../actions/UseAction";
-import { GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { TargetItem } from "../../game-base/gameObjects/TargetItem";
 
-/**
- * Klasse die een ventilatie-item in het spel vertegenwoordigt.
- * De speler kan het onderzoeken of proberen te gebruiken.
- */
-export class VentItem extends Item implements Examine, Usable {
-    /** De alias voor het ventilatie-item. */
+export class VentItem extends TargetItem implements Examine {
     public static readonly Alias: string = "VentItem";
 
-    /**
-     * Maakt een nieuwe instantie van VentItem aan.
-     */
     public constructor() {
         super(VentItem.Alias);
     }
 
-    /**
-     * Haalt de weergavenaam van het item op.
-     * @returns {string} De naam van het ventilatie-item.
-     */
     public name(): string {
-        return "Vent";
+        return "Ventilation";
     }
 
-    /**
-
-    Geeft de type van de GameObject terug*
-    @returns De type van de GameObject (GameObjectType union) */
     public type(): GameObjectType[] {
         return ["actionableItem"];
     }
 
-    /**
-     * Onderzoekt het ventilatie-item en geeft een beschrijving.
-     * @returns {ActionResult | undefined} Het resultaat van het onderzoeken van de ventilatie.
-     */
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["A metal vent cover. It's screwed shut."]);
+        return new TextActionResult([
+            "A ventilation grate. It's securely fastened with screws.",
+            "If only you had something to pry it open...",
+        ]);
     }
 
     /**
-     * Probeert het ventilatie-item te gebruiken.
-     * Als de speler een vork heeft, kan hij de ventilatieopening losschroeven.
-     * @returns {ActionResult | undefined} Het resultaat van het proberen te gebruiken van de ventilatie.
+     * Handle using an inventory item on this vent
      */
-    public use(): ActionResult | undefined {
+    public useWith(sourceItem: GameObject): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const hasFork: boolean = playerSession.pickedUpFork;
 
-        if (hasFork) {
+        // Check if using the fork on the vent
+        if (sourceItem.alias === "ForkItem") {
             playerSession.ventUnlocked = true;
+
             return new TextActionResult([
-                "You use the fork to unscrew the vent cover. You can now enter the vent.",
+                "You use the fork to pry open the ventilation grate.",
+                "The screws come loose and you can now enter the ventilation system!",
             ]);
         }
 
-        return new TextActionResult([
-            "You need something to unscrew the vent cover.",
-        ]);
+        return new TextActionResult(["That doesn't work on the ventilation grate."]);
     }
 }
