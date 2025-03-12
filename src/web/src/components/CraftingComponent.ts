@@ -18,7 +18,8 @@ const styles: string = css`
     .open-crafting-btn {
         position: absolute;
         top: 10%;
-        right: 15%;
+        right: 10%;
+        z-index: 1;
         background: none;
         border: none;
         padding: 0;
@@ -92,6 +93,7 @@ const styles: string = css`
 
     dialog {
         margin: 0;
+        z-index: 1;
         top: 10%;
         left: 50%;
         transform: translateX(-50%); 

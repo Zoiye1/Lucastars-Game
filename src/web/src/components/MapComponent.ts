@@ -65,7 +65,8 @@ body {
 .map-button {
     position: absolute;
     top: 40%;
-    right: 15%;
+    right: 10%;
+    z-index: 1;
     background: none;
     border: none;
     padding: 0;
@@ -151,6 +152,7 @@ dialog {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     max-width: 90vw;
     max-height: 90vh;
+    z-index: 1;
 }
 
 #closeMapDialog {

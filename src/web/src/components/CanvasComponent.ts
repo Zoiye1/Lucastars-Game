@@ -47,7 +47,6 @@ const styles: string = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 0;
     position: absolute;
     margin: 0;
     width: 100%;
