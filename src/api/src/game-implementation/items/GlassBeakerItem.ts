@@ -8,7 +8,7 @@ import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class GlassBeakerItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "GlassBeakerItem";
+    public static readonly Alias: string = "Glass Beaker";
 
     public constructor() {
         super(GlassBeakerItem.Alias);

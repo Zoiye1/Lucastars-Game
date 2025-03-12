@@ -13,7 +13,7 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
  */
 export class TreeItem extends Item implements Examine, Usable {
     /** De alias voor de boom item. */
-    public static readonly Alias: string = "TreeItem";
+    public static readonly Alias: string = "Tree";
 
     /**
      * Maakt een nieuwe instantie van TreeItem aan.

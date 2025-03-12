@@ -7,7 +7,7 @@ import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObje
 import { TargetItem } from "../../game-base/gameObjects/TargetItem";
 
 export class VentItem extends TargetItem implements Examine {
-    public static readonly Alias: string = "VentItem";
+    public static readonly Alias: string = "Vent";
 
     public constructor() {
         super(VentItem.Alias);

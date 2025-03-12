@@ -14,7 +14,7 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
  */
 export class FocusDrinkItem extends Item implements Examine, PickUp {
     /** Alias die wordt gebruikt om dit item te identificeren */
-    public static readonly Alias: string = "FocusDrinkItem";
+    public static readonly Alias: string = "Focus Drink";
 
     public constructor() {
         super(FocusDrinkItem.Alias);

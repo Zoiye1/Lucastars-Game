@@ -14,7 +14,7 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
  */
 export class JumpRopeItem extends Item implements Examine, PickUp {
     /** Alias die wordt gebruikt om dit item te identificeren */
-    public static readonly Alias: string = "JumpRopeItem";
+    public static readonly Alias: string = "Jumping Rope";
 
     public constructor() {
         super(JumpRopeItem.Alias);

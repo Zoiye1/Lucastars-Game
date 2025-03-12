@@ -8,7 +8,7 @@ import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class ForkItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "ForkItem";
+    public static readonly Alias: string = "Fork";
 
     public constructor() {
         super(ForkItem.Alias);
