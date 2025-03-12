@@ -79,7 +79,6 @@ export class ArrowComponent extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
-
         const element: HTMLElement[] = htmlArray`
             <style>
                 ${styles}
@@ -101,7 +100,7 @@ export class ArrowComponent extends HTMLElement {
             return roomArrowImages.map(arrow => this.createArrowElement(arrow));
         }
 
-        return undefined;
+        return ``;
     }
 
     private createArrowElement(arrow: Arrowroom): HTMLElement {
