@@ -49,6 +49,7 @@ import { PlaceAction } from "../actions/PlaceAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { AirFreshenerItem } from "../items/AirFreshenerItem";
 import { GymTheEndRoom } from "../rooms/GymEndRoom";
+import { LadderItem } from "../items/LadderItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -103,6 +104,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(FocusDrinkItem);
         this.registerGameObject(SheetsItem);
         this.registerGameObject(AirFreshenerItem);
+        this.registerGameObject(LadderItem);
 
         // Characters
         this.registerGameObject(cookCharacter);

@@ -19,7 +19,7 @@ export class CourtyardTheEndRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["courtyard/courtyardBackground"];
+        return ["courtyard/courtyardTheEnd"];
     }
 
     public examine(): ActionResult | undefined {

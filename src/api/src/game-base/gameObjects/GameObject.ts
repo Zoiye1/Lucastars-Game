@@ -5,6 +5,7 @@ export type GameObjectType =
   | "open"
   | "escape"
   | "use"
+  | "place"
   | "npc"
   | "actionableItem"
   | "nonActionableItem"

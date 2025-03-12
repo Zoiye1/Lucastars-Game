@@ -196,41 +196,8 @@ export class CanvasComponent extends HTMLElement {
         this._selectedActionButton = undefined;
         this._selectedGameObjectButtons.clear();
 
-        // Update item names list for highlighting
-        this.updateItemNamesList();
-
         // Refresh the web component
         this.render();
-    }
-
-    /**
-     * Update the cached list of item names for highlighting in text
-     */
-    private updateItemNamesList(): void {
-        // Create a list of all item names from game objects for highlighting
-        this._itemNames = [];
-
-        // Add game objects from the current room
-        if (this._currentGameState?.objects) {
-            this._currentGameState.objects.forEach((obj: GameObjectReference) => {
-                if (obj.type.includes("actionableItem") || obj.type.includes("item")) {
-                    this._itemNames.push(obj.name);
-                }
-            });
-        }
-
-        // Add items from inventory
-        const inventoryItems = this._gameRouteService.getInventoryItems?.();
-        if (inventoryItems) {
-            inventoryItems.forEach((item: { name: string }) => {
-                if (!this._itemNames.includes(item.name)) {
-                    this._itemNames.push(item.name);
-                }
-            });
-        }
-
-        // Sort by length (descending) to ensure we match longer names first
-        this._itemNames.sort((a: string, b: string) => b.length - a.length);
     }
 
     /**
@@ -425,7 +392,7 @@ export class CanvasComponent extends HTMLElement {
         };
 
         this._typewriterInterval = setInterval(() => {
-            const nextChar = getNextChar();
+            const nextChar: { char: string; isHtml: boolean } | null = getNextChar();
 
             if (!nextChar) {
                 clearInterval(this._typewriterInterval as NodeJS.Timeout);
@@ -466,7 +433,7 @@ export class CanvasComponent extends HTMLElement {
             }
             else {
                 // Recursively process other elements
-                for (let i = 0; i < node.childNodes.length; i++) {
+                for (let i: number = 0; i < node.childNodes.length; i++) {
                     this.extractNodesRecursive(node.childNodes[i], result);
                 }
             }
@@ -481,7 +448,7 @@ export class CanvasComponent extends HTMLElement {
             clearInterval(this._typewriterInterval);
             this._typewriterInterval = undefined;
 
-            const typewriterElement: HTMLElement | null = this.shadowRoot?.querySelector("#typewriter");
+            const typewriterElement: HTMLElement | null | undefined = this.shadowRoot?.querySelector("#typewriter");
             if (typewriterElement && this._previousText) {
                 typewriterElement.innerHTML = this.highlightItemNamesInText(this._previousText);
             }
@@ -509,6 +476,11 @@ export class CanvasComponent extends HTMLElement {
                 (gameObjectReference: GameObjectReference) => gameObjectReference.type.includes("npc")
             ) || [];
         }
+        else if (selectedButton && selectedButton.alias === "place") {
+            filtratedObjects = gameObjectsReferences?.filter(
+                (gameObjectReference: GameObjectReference) => gameObjectReference.type.includes("place")
+            ) || [];
+        }
         else {
             // game objects waar een action op werkt anders dan talk of examine (alleen items als game objects)
             filtratedObjects = gameObjectsReferences?.filter(
@@ -524,7 +496,7 @@ export class CanvasComponent extends HTMLElement {
                     </div>
                     <div>
                         ${this._selectedActionButton
-                            ? filtratedObjects.map((button: GameObjectReference) => this.renderGameObjectButton(button)) || ""
+                            ? filtratedObjects.map((button: GameObjectReference) => this.renderGameObjectButton(button))
                             : ""
                         }
                     </div>

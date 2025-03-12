@@ -34,7 +34,7 @@ export class TreeItem extends TargetItem implements Examine {
      *  @returns De type van de GameObject (GameObjectType union)
      */
     public type(): GameObjectType[] {
-        return ["actionableItem"];
+        return ["nonActionableItem"];
     }
 
     /**
@@ -56,7 +56,7 @@ export class TreeItem extends TargetItem implements Examine {
         if (!inventory.includes("10 Sticks")) {
             inventory.push("10 Sticks");
             return new TextActionResult([
-                "You have received 10 sticks.",
+                "You have received 10 sticks...",
                 "Smoker: \"HEY!! Why did you chop that tree man...\"",
             ]);
         }

@@ -16,10 +16,9 @@ import { SmokerCharacter } from "../characters/SmokerCharacter";
 import { JumpRopeItem } from "../items/JumpRopeItem";
 import { TreeItem } from "../items/TreeItem";
 import { PlayerSession } from "../types";
-import { CafeteriaRoom } from "./CafeteriaRoom";
-import { CourtyardTheEndRoom } from "./CourtyardTheEndRoom";
+import { LadderItem } from "../items/LadderItem";
 
-export class CourtyardRoom extends Room implements Simple {
+export class CourtyardRoom extends Room {
     public static readonly Alias: string = "courtyard";
 
     public constructor() {
@@ -58,10 +57,16 @@ export class CourtyardRoom extends Room implements Simple {
     }
 
     public ArrowUrl(): Arrowroom[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
             { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 75, y: 80 } },
         ];
+
+        if (playerSession.placedEscapeLadder) {
+            result.push({ name: "The End", alias: "courtyard-end", imageRotation: 90, imageCoords: { x: 20, y: 100 } });
+        };
 
         return result;
     }
@@ -83,6 +88,8 @@ export class CourtyardRoom extends Room implements Simple {
             result.push(new JumpRopeItem());
         }
 
+        if (playerSession.inventory.includes("LadderItem")) result.push(new LadderItem());
+
         return result;
     }
 
@@ -93,33 +100,11 @@ export class CourtyardRoom extends Room implements Simple {
             new ExamineAction(),
             new TalkAction(),
             new PickUpAction(),
-            new SimpleAction("enter-cafeteria", "Return to cafeteria"),
         ];
 
         if (playerSession.inventory.includes("HammerItem")) result.push(new UseAction());
         if (playerSession.inventory.includes("LadderItem")) result.push(new PlaceAction());
-        if (playerSession.placedEscapeLadder) result.push(new SimpleAction("enter-end", "Escape"));
 
         return result;
-    }
-
-    public simple(alias: string): ActionResult | undefined {
-        let room: Room | undefined;
-
-        switch (alias) {
-            case "enter-cafeteria":
-                room = new CafeteriaRoom();
-                break;
-            case "enter-end":
-                room = new CourtyardTheEndRoom();
-                break;
-        }
-
-        if (room) {
-            gameService.getPlayerSession().currentRoom = room.alias;
-            return room.examine();
-        }
-
-        return undefined;
     }
 }
