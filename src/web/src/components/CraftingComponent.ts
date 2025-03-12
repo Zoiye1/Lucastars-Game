@@ -296,8 +296,10 @@ export class CraftingComponent extends HTMLElement {
                             </div>
                             <div class="container-craft-retrieve-buttons">
                                 <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
-                                <button class="dialog-button" id="craftButton">Craft</button>
-                                ${this.resultSlot ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>" : ""}
+                                ${this.resultSlot
+                                    ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>"
+                                    : "<button class=\"dialog-button\" id=\"craftButton\">Craft</button>"
+                                }
                             </div>
                         </div>
                     </div>
@@ -317,7 +319,7 @@ export class CraftingComponent extends HTMLElement {
         const button: HTMLButtonElement = this.shadowRoot.querySelector("#craftingButton") as HTMLButtonElement;
         const dialog: HTMLDialogElement = this.shadowRoot.querySelector("#craftingDialog") as HTMLDialogElement;
         const closeBtn: HTMLButtonElement = this.shadowRoot.querySelector("#closeDialog") as HTMLButtonElement;
-        const craftBtn: HTMLButtonElement = this.shadowRoot.querySelector("#craftButton") as HTMLButtonElement;
+        const craftBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#craftButton");
         const addSelectedBtn: HTMLButtonElement = this.shadowRoot.querySelector("#addSelectedItemButton") as HTMLButtonElement;
         const retrieveBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#retrieveCraftedItem");
 
@@ -330,7 +332,7 @@ export class CraftingComponent extends HTMLElement {
             this.updateDialog();
         });
 
-        craftBtn.addEventListener("click", () => this.handleCraftItem(this.slots));
+        craftBtn?.addEventListener("click", () => this.handleCraftItem(this.slots));
         const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
         const resultItemAlias: string = resultSlot.innerText;
         retrieveBtn?.addEventListener("click", () => this.handleRetrieveItem(resultItemAlias));
@@ -356,6 +358,7 @@ export class CraftingComponent extends HTMLElement {
         if (firstEmptySlot !== -1 && !this.slots.includes(item)) {
             this.slots[firstEmptySlot] = item;
             this.updateDialog();
+            console.log(this.slots);
         }
     }
 
@@ -369,7 +372,7 @@ export class CraftingComponent extends HTMLElement {
                 continue;
             }
 
-            const ingredients: string[] = recipe.ingredients;
+            const ingredients: string[] = recipe.ingredientsAliases;
 
             const sortedSlots: string[] = [...filledSlots].sort();
             const sortedIngredients: string[] = [...ingredients].sort();
