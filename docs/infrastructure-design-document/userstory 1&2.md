@@ -142,17 +142,13 @@ De frontend maakt gebruik van Web Components, die herbruikbare en modulaire elem
 
 #### Encryptie:
 - Alle communicatie tussen frontend en backend wordt versleuteld met HTTPS om de gegevens te beschermen tegen afluisteren en manipulatie.
-- Gevoelige gegevens zoals voortgang en scores worden niet opgeslagen zonder encryptie in de database.
+- Gevoelige gegevens zoals voortgang en scores worden niet opgeslagen zonder encryptie in de database. (Playersessiomn word gehashed)
 
 #### Toegangsbeheer:
 - Er is geen uitgebreid toegangsbeheer nodig omdat de game geen persoonlijke gebruikersaccounts heeft. De toegang tot gamegegevens is echter strikt beperkt tot de serverapplicatie.
 
 #### Beveiligingsmaatregelen:
-- Beveiliging van de backend gebeurt met firewalls en inputvalidatie om SQL-injectie en andere aanvallen te voorkomen.
-We zorgen ervoor dat de server goed wordt onderhouden en beveiligingspatches regelmatig worden toegepast.
-
-
-
+- Beveiliging van de backend gebeurt met inputvalidatie om SQL-injectie en andere aanvallen te voorkomen.
 
 
 

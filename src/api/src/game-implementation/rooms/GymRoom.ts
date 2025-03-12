@@ -11,6 +11,7 @@ import { gameService } from "../../global";
 import { GymFreakCharacter } from "../characters/GymFreakCharacter";
 import { PlayerSession } from "../types";
 import { CafeteriaRoom } from "./CafeteriaRoom";
+import { GymTheEndRoom } from "./GymEndRoom";
 
 // Klasse die de Gym Room definieert in de game
 export class GymRoom extends Room implements Simple {
@@ -68,11 +69,17 @@ export class GymRoom extends Room implements Simple {
 
     // Geeft een lijst van mogelijke acties in de kamer
     public actions(): Action[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
+        const result: Action[] = [
             new ExamineAction(), // Speler kan de kamer onderzoeken
             new TalkAction(), // Speler kan praten met de Gym Freak
             new SimpleAction("caf-door", "Go to cafeteria"), // Verplaatsing naar de Cafeteria Room
         ];
+
+        if (playerSession.helpedGymFreak) result.push(new SimpleAction("enter-end", "Escape"));
+
+        return result;
     }
 
     // Beschrijving van de kamer wanneer de speler deze onderzoekt
@@ -91,7 +98,10 @@ export class GymRoom extends Room implements Simple {
             case "caf-door":
                 room = new CafeteriaRoom(); // Speler verplaatst naar de Cafeteria Room
                 break;
+            case "enter-end":
+                room = new GymTheEndRoom();
         }
+
         if (room) {
             gameService.getPlayerSession().currentRoom = room.alias;
             return room.examine(); // Geef de beschrijving van de nieuwe kamer terug

@@ -48,6 +48,7 @@ import { TreeItem } from "../items/TreeItem";
 import { PlaceAction } from "../actions/PlaceAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { AirFreshenerItem } from "../items/AirFreshenerItem";
+import { GymTheEndRoom } from "../rooms/GymEndRoom";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -74,6 +75,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CafeteriaRoom);
         this.registerGameObject(CourtyardRoom);
         this.registerGameObject(CourtyardTheEndRoom);
+        this.registerGameObject(GymTheEndRoom);
 
         // Items
         this.registerGameObject(BakingSodaItem);
