@@ -4,7 +4,7 @@ import {
     ExecuteDeleteItemsRequest,
     ExecuteRetrieveRequest,
     GameObjectReference,
-    GameState,
+    GameState
 } from "@shared/types";
 import { Request, Response } from "express";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
@@ -177,7 +177,8 @@ export class GameController {
 
         if (actionResult instanceof TextActionResult) {
             text = actionResult.text;
-        } else {
+        }
+        else {
             text = ["That doesn't make any sense."];
         }
 
@@ -262,13 +263,13 @@ export class GameController {
     }
 
     // Voeg de nieuwe methoden toe
-    public getActiveQuests(_: Request, _res: Response): QuestArray[] {
+    public getActiveQuests(_: Request, res: Response): QuestArray[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const questArray: QuestArray[] = [
             {
                 NPC: "dealer",
-                startQuest: playerSession.wantsToHelpDealer,
-                completed: playerSession.helpedDealer,
+                startQuest: !!playerSession.wantsToHelpDealer,
+                completed: !!playerSession.helpedDealer,
                 description: "Find the Sugar & talk to the dealer",
             },
             {
@@ -279,29 +280,36 @@ export class GameController {
             },
             {
                 NPC: "cook",
-                startQuest: playerSession.wantsToHelpCook,
-                completed: playerSession.helpedCook,
+                startQuest: !!playerSession.wantsToHelpCook,
+                completed: !!playerSession.helpedCook,
                 description: "Find the fork or find another way to get the key from the cook",
             },
             {
                 NPC: "gymfreak",
-                startQuest: playerSession.wantsToHelpGymFreak,
+                startQuest: !!playerSession.wantsToHelpGymFreak,
                 completed: playerSession.helpedGymFreak,
                 description: "Find a way to give some steriods to the gymfreak",
             },
             {
                 NPC: "professor",
-                startQuest: playerSession.wantsToHelpProfessor,
+                startQuest: !!playerSession.wantsToHelpProfessor,
                 completed: playerSession.helpedProfessor,
                 description: "Bring the required ingredients to the professor",
             },
             {
                 NPC: "smoker",
-                startQuest: playerSession.wantsToHelpSmoker,
-                completed: playerSession.helpedSmoker,
+                startQuest: !!playerSession.wantsToHelpSmoker,
+                completed: !!playerSession.helpedSmoker,
                 description: "Get the sigarettes",
             },
         ];
-        _res.json(questArray);
+        // console.log("Dealer Quest: ", playerSession.helpedDealer);
+        // console.log("Cleaner Quest: ", playerSession.helpedCleaner);
+        // console.log("Cook Quest: ", playerSession.helpedCook);
+        // console.log("Gymfreak Quest: ", playerSession.helpedGymFreak);
+        // console.log("Professor Quest: ", playerSession.helpedProfessor);
+        // console.log("Smoker Quest: ", playerSession.helpedSmoker);
+        res.json(questArray);
+        return questArray;
     }
 }
