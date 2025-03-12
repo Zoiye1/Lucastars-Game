@@ -6,7 +6,7 @@ import { Open } from "../../game-base/actions/OpenAction";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class ElevatorStorageItem extends Item implements Examine, Open {
-    public static readonly Alias: string = "Elevator";
+    public static readonly Alias: string = "elevator";
 
     public constructor() {
         super(ElevatorStorageItem.Alias);

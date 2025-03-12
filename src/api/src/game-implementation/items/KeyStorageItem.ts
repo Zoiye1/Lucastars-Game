@@ -5,7 +5,7 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class KeyItem extends Item implements Examine {
-    public static readonly Alias: string = "Key";
+    public static readonly Alias: string = "KeyItem";
 
     public constructor() {
         super(KeyItem.Alias);

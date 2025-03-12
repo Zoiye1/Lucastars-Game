@@ -8,7 +8,7 @@ import { PickUp } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
 
 export class HammerItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "Hammer";
+    public static readonly Alias: string = "HammerItem";
 
     public constructor() {
         super(HammerItem.Alias);

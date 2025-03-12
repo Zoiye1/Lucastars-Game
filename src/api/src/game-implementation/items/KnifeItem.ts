@@ -8,7 +8,7 @@ import { PickUp } from "../actions/PickUpAction";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class KnifeItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "Knife";
+    public static readonly Alias: string = "KnifeItem";
 
     public constructor() {
         super(KnifeItem.Alias);

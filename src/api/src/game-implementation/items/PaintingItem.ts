@@ -8,7 +8,7 @@ import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class PaintingItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "Painting";
+    public static readonly Alias: string = "PaintingItem";
 
     public constructor() {
         super(PaintingItem.Alias);

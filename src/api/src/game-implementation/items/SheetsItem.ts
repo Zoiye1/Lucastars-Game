@@ -8,7 +8,7 @@ import { PickUp } from "../actions/PickUpAction";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class SheetsItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "Sheets";
+    public static readonly Alias: string = "SheetsItem";
 
     public constructor() {
         super(SheetsItem.Alias);

@@ -8,7 +8,7 @@ import { PickUp } from "../actions/PickUpAction";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class AirFreshenerItem extends Item implements Examine, PickUp {
-    public static readonly Alias: string = "Air Freshener";
+    public static readonly Alias: string = "AirFreshenerItem";
 
     public constructor() {
         super(AirFreshenerItem.Alias);
