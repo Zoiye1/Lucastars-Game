@@ -14,6 +14,7 @@ import { StorageRoom } from "./StorageRoom";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { ProfessorCharacter } from "../characters/ProfessorCharacter";
 import { BakingSodaItem } from "../items/BakingSodaItem";
+import { Arrowroom } from "@shared/types";
 
 export class LabRoom extends Room implements Simple {
     public static readonly Alias: string = "labroom";
@@ -46,6 +47,15 @@ export class LabRoom extends Room implements Simple {
         if (!playerSession.pickedUpGlassBeaker) {
             result.push("lab/labGlassBeaker");
         }
+
+        return result;
+    }
+
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "Storage", alias: "StorageRoom", imageRotation: -90, imageCoords: { x: 15, y: 30 } },
+        ];
 
         return result;
     }

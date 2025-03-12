@@ -17,8 +17,9 @@ const styles: string = css`
     .open-quest-btn {
         padding: 10px;
         position: absolute;
-        top: 20%;
-        right: 9%;
+        top: 45%;
+        right: 3%;
+        z-index: 1;
     }
 
     .quest-list {
@@ -35,6 +36,7 @@ const styles: string = css`
         border: 1px solid #ccc;
         border-radius: 5px;
         background-color: #ffffffa2;
+        
     }
 
     .quest-title {

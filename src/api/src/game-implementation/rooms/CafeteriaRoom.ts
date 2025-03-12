@@ -1,8 +1,8 @@
+import { Arrowroom } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
@@ -11,17 +11,13 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { CleanerCharacter } from "../characters/CleanerCharacter";
 import { FocusDrinkItem } from "../items/FocusDrinkItem";
 import { PlayerSession } from "../types";
-import { CourtyardRoom } from "./CourtyardRoom";
-import { GymRoom } from "./GymRoom";
-import { HallwayRoom } from "./HallwayRoom";
-import { KitchenRoom } from "./KitchenRoom";
 
 /**
  * Class representeert de cafeteria in het spel.
  *
  *  @remarks Bereikbaar via de hallway en gaat door naar courtyard, kitchen of gym
  */
-export class CafeteriaRoom extends Room implements Simple {
+export class CafeteriaRoom extends Room {
     /** Alias van deze kamer */
     public static readonly Alias: string = "cafeteria";
 
@@ -100,60 +96,31 @@ export class CafeteriaRoom extends Room implements Simple {
      * @returns Een array van mogelijke actions
      */
     public actions(): Action[] {
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-
         const result: Action[] = [
             new ExamineAction(),
             new TalkAction(),
             new PickUpAction(),
-            new SimpleAction("enter-hallway", "Enter Hallway"),
-            new SimpleAction("enter-courtyard", "Enter Courtyard"),
-            new SimpleAction("enter-gym", "Enter Gym"),
             // new SimpleAction("enter-kitchen", "Enter Kitchen"),
         ];
-
-        if (playerSession.helpedCleaner) result.push(new SimpleAction("enter-kitchen", "Enter Kitchen"));
 
         return result;
     }
 
-    /**
-     * Voert een simpele actie uit op basis van een alias
-     *
-     * @param alias Het alias van de action die moet worden uitgevoerd
-     * @returns Het resultaat van de action of `undefined` als de action niet bestaat
-     */
-    public simple(alias: string): ActionResult | undefined {
-        let room: Room | undefined;
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 26, y: 85 } },
+            { name: "Courtyard", alias: "courtyard", imageRotation: 90, imageCoords: { x: 77, y: 70 } },
+            { name: "Gym", alias: "gym", imageRotation: 90, imageCoords: { x: 77, y: 30 } },
+        ];
 
-        switch (alias) {
-            case "enter-hallway":
-                room = new HallwayRoom();
-                break;
-            case "enter-courtyard":
-                room = new CourtyardRoom();
-                break;
-            case "enter-gym":
-                room = new GymRoom();
-                break;
-            case "enter-kitchen":
-                room = new KitchenRoom();
-                break;
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (playerSession.helpedCleaner) {
+            result.push(
+                { name: "Kitchen", alias: "KitchenRoom", imageRotation: 180, imageCoords: { x: 44, y: 24 } }
+            );
         }
 
-        if (room) {
-            gameService.getPlayerSession().currentRoom = room.alias;
-            return room.examine();
-        }
-
-        if (alias === "enter-kitchen") {
-            const room: Room = new KitchenRoom();
-
-            // Set the current room to the startup room
-            gameService.getPlayerSession().currentRoom = room.alias;
-
-            return room.examine();
-        }
-        return undefined;
+        return result;
     }
 }

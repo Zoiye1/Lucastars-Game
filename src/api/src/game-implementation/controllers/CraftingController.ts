@@ -20,10 +20,13 @@ export class CraftingController extends GameController {
 
     private executeRetrieveItem(itemAlias: string): string {
         const inventory: string[] = gameService.getPlayerSession().inventory;
-
-        inventory.push(itemAlias);
-        console.log(inventory);
-        return `Item "${itemAlias}" retrieved successfully.`;
+        if (!inventory.includes(itemAlias)) {
+            inventory.push(itemAlias);
+            return `Item "${itemAlias}" retrieved successfully.`;
+        }
+        else {
+            return "Item already in inventory";
+        }
     }
 
     private executeDeleteItems(itemsToDelete: string[]): string {
@@ -34,7 +37,7 @@ export class CraftingController extends GameController {
                 inventory.splice(inventory.indexOf(itemAlias), 1);
             }
         }
-        console.log(inventory);
+
         return `Items "${itemsToDelete}" deleted successfully.`;
     }
 }

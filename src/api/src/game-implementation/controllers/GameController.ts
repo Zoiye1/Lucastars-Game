@@ -11,6 +11,8 @@ import { SwitchPageActionResult } from "../actionResults/SwitchPageActionResult"
 import { Action } from "../../game-base/actions/Action";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { PlayerSession } from "../types";
+import { ShowInventoryActionResult, ShowTargetsActionResult } from "../actionResults/InventoryActionResult";
+import { UseAction } from "../actions/UseAction";
 
 /**
  * Controller to handle all game related requests
@@ -108,9 +110,70 @@ export class GameController {
      *
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
-    private async convertActionResultToGameState(
-        actionResult?: ActionResult
-    ): Promise<GameState | undefined> {
+    private async convertActionResultToGameState(actionResult?: ActionResult): Promise<GameState | undefined> {
+        // Handle ShowInventoryActionResult to show inventory items
+        if (actionResult instanceof ShowInventoryActionResult) {
+            const inventoryItems = actionResult.inventoryItems;
+            const inventoryReferences: GameObjectReference[] = [];
+
+            for (const item of inventoryItems) {
+                inventoryReferences.push(await this.convertGameObjectToReference(item));
+            }
+
+            // Create actions for each inventory item
+            const actions: ActionReference[] = [];
+            for (const itemRef of inventoryReferences) {
+                actions.push({
+                    alias: `${UseAction.SelectInventoryPrefix}${itemRef.alias}`,
+                    name: `Use ${itemRef.name}`,
+                    needsObject: false,
+                });
+            }
+
+            return {
+                type: "inventory-selection",
+                text: ["Select an item to use:"],
+                objects: inventoryReferences,
+                actions: actions,
+                roomAlias: gameService.getPlayerSession().currentRoom,
+                roomName: "Inventory Selection",
+                roomImages: [],
+            };
+        }
+
+        // Handle ShowTargetsActionResult to show target items in the room
+        if (actionResult instanceof ShowTargetsActionResult) {
+            const sourceItem = actionResult.sourceItem;
+            const targetItems = actionResult.targetItems;
+
+            const sourceRef = await this.convertGameObjectToReference(sourceItem);
+            const targetRefs: GameObjectReference[] = [];
+
+            for (const item of targetItems) {
+                targetRefs.push(await this.convertGameObjectToReference(item));
+            }
+
+            // Create actions for each target item
+            const actions: ActionReference[] = [];
+            for (const targetRef of targetRefs) {
+                actions.push({
+                    alias: `${UseAction.UseWithPrefix}${sourceItem.alias}:${targetRef.alias}`,
+                    name: `Use on ${targetRef.name}`,
+                    needsObject: false,
+                });
+            }
+
+            return {
+                type: "target-selection",
+                text: [`Select where to use the ${await sourceItem.name()}:`],
+                objects: targetRefs,
+                actions: actions,
+                roomAlias: gameService.getPlayerSession().currentRoom,
+                roomName: "Target Selection",
+                roomImages: [],
+            };
+        }
+
         // If the client application has to switch pages, handle it now.
         if (actionResult instanceof SwitchPageActionResult) {
             return {
@@ -262,12 +325,6 @@ export class GameController {
                 description: "Get the sigarettes",
             },
         ];
-        // console.log("Dealer Quest: ", playerSession.helpedDealer);
-        // console.log("Cleaner Quest: ", playerSession.helpedCleaner);
-        // console.log("Cook Quest: ", playerSession.helpedCook);
-        // console.log("Gymfreak Quest: ", playerSession.helpedGymFreak);
-        // console.log("Professor Quest: ", playerSession.helpedProfessor);
-        // console.log("Smoker Quest: ", playerSession.helpedSmoker);
         res.json(questArray);
         return questArray;
     }

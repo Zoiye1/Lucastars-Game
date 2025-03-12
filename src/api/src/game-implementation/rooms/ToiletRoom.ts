@@ -8,16 +8,15 @@ import { Action } from "../../game-base/actions/Action";
 import { PickUpAction } from "../actions/PickUpAction";
 import { gameService } from "../../global";
 import { PlayerSession } from "../types";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { DealerCharacter } from "../characters/DealerCharacters";
-import { HallwayRoom } from "./HallwayRoom";
 import { AirFreshenerItem } from "../items/AirFreshenerItem";
+import { Arrowroom } from "@shared/types";
 
 /**
  * Klasse die de kamer "Toilet" vertegenwoordigt.
  */
-export class ToiletRoom extends Room implements Simple {
+export class ToiletRoom extends Room {
     /** Alias voor de kamer. */
     public static readonly Alias: string = "toilet";
 
@@ -61,6 +60,15 @@ export class ToiletRoom extends Room implements Simple {
         return result;
     }
 
+    public ArrowUrl(): Arrowroom[] {
+        // Initialize result as an array of Arrowroom objects
+        const result: Arrowroom[] = [
+            { name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 78, y: 60 } },
+        ];
+
+        return result;
+    }
+
     /**
      * Retourneert een lijst van objecten die zich in de kamer bevinden.
      */
@@ -91,8 +99,6 @@ export class ToiletRoom extends Room implements Simple {
             new ExamineAction(),
             // Speler kan objecten oppakken
             new PickUpAction(),
-            // Actie om de hal binnen te gaan
-            new SimpleAction("enter-hallway", "Enter the Hallway"),
             // Speler kan praten met NPC's
             new TalkAction(),
         ];
@@ -103,18 +109,18 @@ export class ToiletRoom extends Room implements Simple {
      * @param alias - De alias van de actie.
      * @returns Het resultaat van de actie.
      */
-    public simple(alias: string): ActionResult | undefined {
-        if (alias === "enter-hallway") {
-            const room: Room = new HallwayRoom();
+    // public simple(alias: string): ActionResult | undefined {
+    //     if (alias === "enter-hallway") {
+    //         const room: Room = new HallwayRoom();
 
-            // Wijzigt de huidige kamer van de speler naar de hal
-            gameService.getPlayerSession().currentRoom = room.alias;
+    //         // Wijzigt de huidige kamer van de speler naar de hal
+    //         gameService.getPlayerSession().currentRoom = room.alias;
 
-            return room.examine();
-        }
+    //         return room.examine();
+    //     }
 
-        return new TextActionResult(["You can't go there."]);
-    }
+    //     return new TextActionResult(["You can't go there."]);
+    // }
 
     /**
      * Retourneert de beschrijving van de kamer wanneer de speler deze onderzoekt.
