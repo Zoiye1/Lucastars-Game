@@ -70,6 +70,7 @@ export class DealerCharacter extends Character {
         // Reactie als speler de suiker geeft
         if (_choiceId === 5) {
             if (playerSession.inventory.includes("SugarItem")) {
+                playerSession.helpedDealer = true;
                 playerSession.inventory.push("Steroids");
                 playerSession.inventory.splice(playerSession.inventory.indexOf("SugarItem"), 1);
                 return new TextActionResult(["Amazing! Here you have Steroids."]);

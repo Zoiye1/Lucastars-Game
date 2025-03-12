@@ -81,6 +81,7 @@ export class ProfessorCharacter extends Character {
 
                 playerSession.inventory.push("CorrosiveAcid");
                 playerSession.helpedProfessor = true;
+                playerSession.helpedCook = true;
                 return new TextActionResult(["Perfect, here you go +1 CorrosiveAcid"]);
             }
             else {
