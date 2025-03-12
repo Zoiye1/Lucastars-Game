@@ -54,7 +54,7 @@ export class LabRoom extends Room implements Simple {
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "Storage", alias: "StorageRoom", imageRotation: 180, imageCoords: { x: 63, y: 15 } },
+            { name: "Storage", alias: "StorageRoom", imageRotation: -90, imageCoords: { x: 15, y: 30 } },
         ];
 
         return result;
