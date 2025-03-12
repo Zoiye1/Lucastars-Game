@@ -3,7 +3,6 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
@@ -72,7 +71,13 @@ export class CourtyardRoom extends Room {
     }
 
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["Welcome to the courtyard."]);
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.inventory.includes("LadderItem")) {
+            return new TextActionResult(["Welcome to the courtyard."]);
+        }
+        else {
+            return new TextActionResult(["Maybe we can climb out of here...!"]);
+        }
     }
 
     /**
