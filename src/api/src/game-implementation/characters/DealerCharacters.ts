@@ -9,7 +9,7 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 /**
  * Klasse die de dealer NPC representeert.
- * De dealer kan met de speler praten en biedt items te koop aan.
+ * De dealer kan met de speler praten, biedt items te koop aan, en biedt een fetch quest aan.
  */
 export class DealerCharacter extends Character {
     /** Alias voor de dealer NPC. */
@@ -47,6 +47,7 @@ export class DealerCharacter extends Character {
     public talk(_choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
+        // Interactie voor het kopen van items (steroïden)
         if (_choiceId === 1) {
             return new TalkActionResult(
                 this,
@@ -66,16 +67,19 @@ export class DealerCharacter extends Character {
             );
         }
 
-        // Reactie als speler geeft
+        // Reactie als speler de suiker geeft
         if (_choiceId === 5) {
             if (playerSession.inventory.includes("SugarItem")) {
+                playerSession.helpedDealer = true;
                 playerSession.inventory.push("Steroids");
                 playerSession.inventory.splice(playerSession.inventory.indexOf("SugarItem"), 1);
                 return new TextActionResult(["Amazing! Here you have Steroids."]);
             }
             else {
-                return new TextActionResult(["Haha... that's not funny. You don't have powdered sugar on you. Please keep looking..."]);
-            };
+                return new TextActionResult([
+                    "Haha... that's not funny. You don't have powdered sugar on you. Please keep looking...",
+                ]);
+            }
         }
 
         if (_choiceId === 2 || _choiceId === 6 || _choiceId === 9) {

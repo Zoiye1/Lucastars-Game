@@ -1,6 +1,17 @@
-import { ExecuteMoveRequest } from "@shared/types";
-import { ExecuteActionRequest, ExecuteDeleteItemsRequest, ExecuteRetrieveRequest, GameState } from "@shared/types";
+import {
+    ExecuteActionRequest,
+    ExecuteDeleteItemsRequest,
+    ExecuteRetrieveRequest,
+    GameState,
+    ExecuteMoveRequest
+} from "@shared/types";
 import { BaseRouteService } from "./BaseRouteService";
+
+type QuestArray = {
+    NPC: string;
+    startQuest: boolean;
+    completed: boolean;
+};
 
 /**
  * Service to communicate with game routes of the server application
@@ -81,13 +92,21 @@ export class GameRouteService extends BaseRouteService {
         }
     }
 
-    public async executeDeleteItem(
-        deleteItemsAliasArray: string[]
-    ): Promise<string | undefined> {
+    public async executeDeleteItem(deleteItemsAliasArray: string[]): Promise<string | undefined> {
         try {
             return await this.deleteJsonApi<string, ExecuteDeleteItemsRequest>("game/retrieve", {
                 deleteItemsAliasArray,
             });
+        }
+        catch (error) {
+            console.error(error);
+            return undefined;
+        }
+    }
+
+    public async executeGetQuests(): Promise<QuestArray[] | undefined> {
+        try {
+            return await this.getJsonApi<QuestArray[]>("game/active");
         }
         catch (error) {
             console.error(error);

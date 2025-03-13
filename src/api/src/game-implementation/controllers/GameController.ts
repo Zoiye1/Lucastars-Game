@@ -10,12 +10,21 @@ import { gameService } from "../../global";
 import { SwitchPageActionResult } from "../actionResults/SwitchPageActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
+import { PlayerSession } from "../types";
 import { ShowInventoryActionResult, ShowTargetsActionResult } from "../actionResults/InventoryActionResult";
 import { UseAction } from "../actions/UseAction";
 
 /**
  * Controller to handle all game related requests
  */
+
+type QuestArray = {
+    NPC: string;
+    startQuest: boolean;
+    completed: boolean;
+    description: string;
+};
+
 export class GameController {
     /**
      * Handle the request to retrieve the game state for the current player
@@ -24,9 +33,7 @@ export class GameController {
      */
     public async handleStateRequest(_: Request, res: Response): Promise<void> {
         // Execute the Examine action on the current room
-        const gameState: GameState | undefined = await this.executeAction(
-            ExamineAction.Alias
-        );
+        const gameState: GameState | undefined = await this.executeAction(ExamineAction.Alias);
 
         if (gameState) {
             res.json(gameState);
@@ -87,7 +94,10 @@ export class GameController {
         }
 
         // Let the game engine execute the action. It's important to use "await" here, since some actions might be asynchronous!
-        const actionResult: ActionResult | undefined = await gameService.executeAction(actionAlias, gameObjects);
+        const actionResult: ActionResult | undefined = await gameService.executeAction(
+            actionAlias,
+            gameObjects
+        );
 
         // Convert the result of the action to the new game state
         return this.convertActionResultToGameState(actionResult);
@@ -173,8 +183,9 @@ export class GameController {
         }
 
         // The room can have changed after executing an action, so we have to retrieve the player session again!
-        const room: Room | undefined = gameService
-            .getGameObjectByAlias(gameService.getPlayerSession().currentRoom) as Room | undefined;
+        const room: Room | undefined = gameService.getGameObjectByAlias(
+            gameService.getPlayerSession().currentRoom
+        ) as Room | undefined;
 
         // If no current room is found, this request is invalid.
         if (!room) {
@@ -197,9 +208,7 @@ export class GameController {
         let actions: ActionReference[];
 
         if (actionResult instanceof TalkActionResult) {
-            actions = actionResult.choices.map(
-                e => this.convertTalkChoiceToReference(actionResult, e)
-            );
+            actions = actionResult.choices.map((e) => this.convertTalkChoiceToReference(actionResult, e));
         }
         else {
             actions = [];
@@ -273,5 +282,50 @@ export class GameController {
             name: await gameObject.name(),
             type: await gameObject.type(),
         };
+    }
+
+    // Voeg de nieuwe methoden toe
+    public getActiveQuests(_: Request, res: Response): QuestArray[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const questArray: QuestArray[] = [
+            {
+                NPC: "dealer",
+                startQuest: !!playerSession.wantsToHelpDealer,
+                completed: !!playerSession.helpedDealer,
+                description: "Find the Sugar & talk to the dealer",
+            },
+            {
+                NPC: "cleaner",
+                startQuest: playerSession.wantsToHelpCleaner,
+                completed: playerSession.helpedCleaner,
+                description: "Search the waterbucket and help the cleaner",
+            },
+            {
+                NPC: "cook",
+                startQuest: !!playerSession.wantsToHelpCook,
+                completed: !!playerSession.helpedCook,
+                description: "Find the fork or find another way to get the key from the cook",
+            },
+            {
+                NPC: "gymfreak",
+                startQuest: !!playerSession.wantsToHelpGymFreak,
+                completed: playerSession.helpedGymFreak,
+                description: "Find a way to give some steriods to the gymfreak",
+            },
+            {
+                NPC: "professor",
+                startQuest: !!playerSession.wantsToHelpProfessor,
+                completed: playerSession.helpedProfessor,
+                description: "Bring the required ingredients to the professor",
+            },
+            {
+                NPC: "smoker",
+                startQuest: !!playerSession.wantsToHelpSmoker,
+                completed: !!playerSession.helpedSmoker,
+                description: "Get the sigarettes",
+            },
+        ];
+        res.json(questArray);
+        return questArray;
     }
 }

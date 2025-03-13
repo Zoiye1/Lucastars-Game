@@ -121,6 +121,7 @@ const styles: string = css`
         background-color: #332c57;
     }
     
+    
     /* Add responsive design for better mobile experience */
     @media (max-width: 768px) {
         :host {
@@ -298,6 +299,7 @@ export class CanvasComponent extends HTMLElement {
                     ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
                     onerror="this.onerror=null;this.src='/assets/img/rooms/${url}.gif';" />`).join("")}
                     <game-crafting></game-crafting>
+                    <game-quest></game-quest>
                     <game-map></game-map>
                     <game-arrow></game-arrow>
                     <game-inventory> </game-inventory>
