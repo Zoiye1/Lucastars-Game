@@ -17,8 +17,8 @@ const styles: string = css`
     .open-quest-btn {
         padding: 10px;
         position: absolute;
-        top: 45%;
-        right: 3%;
+        top: 55%;
+        right: 6%;
         z-index: 1;
     }
 
@@ -208,5 +208,3 @@ export class QuestComponent extends HTMLElement {
         }
     }
 }
-
-customElements.define("game-quest", QuestComponent);
