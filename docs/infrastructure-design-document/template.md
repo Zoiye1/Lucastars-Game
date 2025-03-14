@@ -178,8 +178,8 @@ De uitrol gebeurt als volgt:
 Nadat de frontend en de backend zijn geupload naar de cloud, worden er tests uitgevoerd op basis van de volgende checks:
     1. De frontend wordt correct geladen in de browser.
     2. De backend reageert correct op API-requests.
-    3. Er is een correcte verbinding met de database (Geen foutmeldingen, CRUD-operaties werken, correcte configuratie van env-variabelen).
-
+    3. Alle CRUD-operaties werken
+    
 ## Beveiligingsmaatregelen
 
 **Stap 8: Omschrijf welke maatregelen je implementeert**
