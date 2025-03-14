@@ -49,6 +49,8 @@ import { PlaceAction } from "../actions/PlaceAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { AirFreshenerItem } from "../items/AirFreshenerItem";
 import { GymTheEndRoom } from "../rooms/GymEndRoom";
+import { ParachuteItem } from "../items/ParachuteItem";
+import { RoofEndRoom } from "../rooms/RoofEndRoom";
 import { LadderItem } from "../items/LadderItem";
 import { GlueItem } from "../items/GlueItem";
 import { WirecutterItem } from "../items/WirecutterItem";
@@ -80,7 +82,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CourtyardRoom);
         this.registerGameObject(CourtyardTheEndRoom);
         this.registerGameObject(GymTheEndRoom);
-
+        this.registerGameObject(RoofEndRoom);
         // Items
         this.registerGameObject(BakingSodaItem);
         this.registerGameObject(TitleItem);
@@ -107,6 +109,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(FocusDrinkItem);
         this.registerGameObject(SheetsItem);
         this.registerGameObject(AirFreshenerItem);
+        this.registerGameObject(ParachuteItem);
         this.registerGameObject(LadderItem);
         this.registerGameObject(GlueItem);
         this.registerGameObject(WirecutterItem);
@@ -175,6 +178,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             wantsToHelpCook: false,
             pickedUpSheets: false,
             pickedUpAirFreshener: false,
+            equippedParachute: false,
             pickedUpKeyCard: false,
             pickedUpWirecutter: false,
             pickedUpGlue: false,
