@@ -40,7 +40,7 @@ export class LadderItem extends Item implements Place {
     /**
      * Voert de Place action uit voor het item
      *
-     * @returns Tekst dat aangeeft dat het item is neergelegd, of `undefined` als de actie niet is afgehandeld
+     * @returns Tekst dat aangeeft dat het item is neergelegd of undefined als de actie niet is afgehandeld
      */
     public place(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
