@@ -140,3 +140,35 @@ Tijdgebonden:
 
     Tijdsgebonden:
     Ik wil deze doelen bereiken vóór het begin van de volgende sprint.
+
+Milan retro
+
+Wat goed ging:
+
+-Er is veel werk verricht.
+-Alles is goed op schema.
+-De game werd goed ontvangen tijdens de productreview.
+-Ik heb een beter begrip van OOP en Webcomponents.
+
+Wat er beter kon:
+
+-Meer tijd had kunnen worden besteed aan het polijsten van bestaande features.
+
+Smartdoel:
+
+Ik moet een professionele werkhouding aanhouden, zodat ik minder fouten maak. Vooral het maken van duidelijke comments.
+
+Specifiek:
+Ik ga meer comments schrijven die duidelijk zijn en in TSDoc zichtbaar zijn.
+
+Meetbaar:
+Ik wil in mijn volgende expert review vragen of de comments goed zijn.
+
+Acceptabel:
+Ik wil graag een professionele uitstraling hebben.
+
+Realistisch:
+Ik ga onderzoek doen op de knowledgebase en online zoeken naar tips.
+
+Tijdsgebonden:
+Voor de volgende expert review.

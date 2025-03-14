@@ -2,7 +2,6 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
 import { ExamineAction } from "../../game-base/actions/ExamineAction";
-import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Room } from "../../game-base/gameObjects/Room";
 import { gameService } from "../../global";
@@ -10,13 +9,12 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
 import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
-import { StorageRoom } from "./StorageRoom";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { ProfessorCharacter } from "../characters/ProfessorCharacter";
 import { BakingSodaItem } from "../items/BakingSodaItem";
 import { Arrowroom } from "@shared/types";
 
-export class LabRoom extends Room implements Simple {
+export class LabRoom extends Room {
     public static readonly Alias: string = "labroom";
 
     public constructor() {
@@ -88,22 +86,10 @@ export class LabRoom extends Room implements Simple {
         const result: Action[] = [
             new ExamineAction(),
             new PickUpAction(),
-            new SimpleAction("enter-storage", "Enter Storage"),
         ];
 
         if (!playerSession.helpedProfessor) result.push(new TalkAction());
 
         return result;
-    }
-
-    public simple(alias: string): ActionResult | undefined {
-        if (alias === "enter-storage") {
-            const room: Room = new StorageRoom();
-
-            gameService.getPlayerSession().currentRoom = room.alias;
-
-            return room.examine();
-        }
-        return undefined;
     }
 }

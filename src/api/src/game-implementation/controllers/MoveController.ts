@@ -8,8 +8,9 @@ export class MoveController extends GameController {
         const { alias } = req.body as ExecuteMoveRequest;
 
         gameService.getPlayerSession().currentRoom = alias;
+        // updates room in the gamestate
         const gameState: GameState | undefined = await this.executeAction("move", [alias]);
-        // works
+        // saving gamestate
         if (gameState) {
             res.json(gameState);
         }
