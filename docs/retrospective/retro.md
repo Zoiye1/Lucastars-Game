@@ -285,5 +285,5 @@ Ik plan alle user stories vooraf in mijn rooster door de benodigde taken te iden
 
 
 ### Smart doelen.
-Mijn SMART-doel is om voor de volgende voortgangsevaluatie de komende maand diepgaand onderzoek te doen naar programmeerconcepten die ik niet volledig begrijp, zoals webcomponents, en wekelijks feedback te vragen aan ervaren ontwikkelaars om mijn kennis te verbeteren en deze concepten praktisch toe te passen in mijn project.
+Mijn SMART-doel is om voor de volgende voortgangsevaluatie de komende maand diepgaand onderzoek te doen naar programmeerconcepten die ik niet volledig begrijp en wekelijks feedback te vragen aan ervaren ontwikkelaars om mijn kennis te verbeteren en deze concepten praktisch toe te passen in mijn project.
 
