@@ -12,6 +12,10 @@ import { ClosetStorageItem } from "../items/ClosetStorageItem";
 import { ElevatorStorageItem } from "../items/ElevatorStorageItem";
 import { KeypadStorageItem } from "../items/KeypadStorageItem";
 import { PlayerSession } from "../types";
+import { PickUpAction } from "../actions/PickUpAction";
+import { KeyCardItem } from "../items/KeyCardItem";
+import { WirecutterItem } from "../items/WirecutterItem";
+import { GlueItem } from "../items/GlueItem";
 
 export class StorageRoom extends Room {
     public static readonly Alias: string = "StorageRoom";
@@ -34,7 +38,7 @@ export class StorageRoom extends Room {
     }
 
     public images(): string[] {
-        const result: string[] = ["storage/Storage", "storage/StorageToKitchen"];
+        const result: string[] = ["storage/Storage"];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.playerOpenedCloset) {
             result.push("storage/Opencloset");
@@ -49,6 +53,7 @@ export class StorageRoom extends Room {
         return [
             new ExamineAction(),
             new OpenAction(),
+            new PickUpAction(),
         ];
     }
 
@@ -60,12 +65,28 @@ export class StorageRoom extends Room {
     }
 
     public objects(): GameObject[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: GameObject[] = [
             new ClosetStorageItem(),
             new BoxStorageItem(),
             new ElevatorStorageItem(),
             new KeypadStorageItem(),
         ];
+
+        if (playerSession.playerOpenedCloset) {
+            if (!playerSession.pickedUpKeyCard) {
+                result.push(new KeyCardItem());
+            }
+            if (!playerSession.pickedUpWirecutter) {
+                result.push(new WirecutterItem());
+            }
+        }
+        if (playerSession.playerOpenedSteelbox) {
+            if (!playerSession.pickedUpGlue) {
+                result.push(new GlueItem());
+            }
+        }
+        return result;
     }
 
     public ArrowUrl(): Arrowroom[] {

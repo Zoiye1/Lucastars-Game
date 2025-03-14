@@ -1,3 +1,9 @@
+type QuestArray = {
+    NPC: string;
+    startQuest: boolean;
+    completed: boolean;
+};
+
 /**
  * Type definitions shared between client and server
  */
@@ -147,6 +153,9 @@ export type ExecuteDeleteItemsRequest = {
  * Player session data for the game
  */
 export type PlayerSession = {
+    pickedUpGlue: boolean;
+    pickedUpWirecutter: boolean;
+    pickedUpKeyCard: boolean;
     playerOpenedCloset: boolean;
     playerOpenedDoorToStorage: boolean;
     playerOpenedSteelbox: boolean;
@@ -172,6 +181,13 @@ export type PlayerSession = {
     pickedUpBucket: boolean;
     pickedUpGlassBeaker: boolean;
     pickedUpSulfuricAcid: boolean;
+
+    // Voeg de nieuwe activeQuest eigenschap toe
+    activeQuest?: {
+        name: string;
+        item: string;
+        completed: boolean;
+    };
     pickedUpJumpRope: boolean;
     retrievedTenSticks: boolean;
     placedEscapeLadder: boolean;
@@ -180,8 +196,17 @@ export type PlayerSession = {
     windowBroken: boolean;
     wantsToSearchGlassBeaker: boolean;
     wantsToSearchIngredients: boolean;
+    wantsToHelpDealer: boolean;
+    wantsToHelpProfessor: boolean;
+    wantsToHelpGymFreak: boolean;
+    wantsToHelpSmoker: boolean;
+    wantsToHelpCook: boolean;
     pickedUpBakingSoda: boolean;
     helpedProfessor: boolean;
+    questArray: QuestArray[];
+    helpedDealer: boolean;
+    helpedSmoker: boolean;
+    helpedCook: boolean;
     pickedUpSheets: boolean;
     pickedUpAirFreshener: boolean;
     equippedParachute: boolean;

@@ -34,7 +34,7 @@ export class LadderItem extends Item implements Place {
      * @returns De type van de GameObject (GameObjectType union)
      */
     public type(): GameObjectType[] {
-        return ["actionableItem"];
+        return ["place"];
     }
 
     /**

@@ -1,17 +1,16 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Examine } from "../../game-base/actions/ExamineAction";
-import { Item } from "../../game-base/gameObjects/Item";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
-import { Usable } from "../actions/UseAction";
-import { GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { TargetItem } from "../../game-base/gameObjects/TargetItem";
 
 /**
  * Class die een boom in het spel vertegenwoordigt.
  * De speler kan het onderzoeken of proberen te gebruiken.
  */
-export class TreeItem extends Item implements Examine, Usable {
+export class TreeItem extends TargetItem implements Examine {
     /** De alias voor de boom item. */
     public static readonly Alias: string = "TreeItem";
 
@@ -35,7 +34,7 @@ export class TreeItem extends Item implements Examine, Usable {
      *  @returns De type van de GameObject (GameObjectType union)
      */
     public type(): GameObjectType[] {
-        return ["actionableItem"];
+        return ["nonActionableItem"];
     }
 
     /**
@@ -57,7 +56,7 @@ export class TreeItem extends Item implements Examine, Usable {
         if (!inventory.includes("10 Sticks")) {
             inventory.push("10 Sticks");
             return new TextActionResult([
-                "You have received 10 sticks",
+                "You have received 10 sticks...",
                 "Smoker: \"HEY!! Why did you chop that tree man...\"",
             ]);
         }
@@ -66,5 +65,27 @@ export class TreeItem extends Item implements Examine, Usable {
                 "Smoker: Watcha doin BRO! You trippin dawg? Leave that tree alone..",
             ]);
         };
+    }
+
+    public useWith(sourceItem: GameObject): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const inventory: string[] = playerSession.inventory;
+
+        if (sourceItem.alias === "HammerItem") {
+            if (!inventory.includes("10 Sticks")) {
+                inventory.push("10 Sticks");
+                return new TextActionResult([
+                    "You have received 10 sticks",
+                    "Smoker: \"HEY!! Why did you chop that tree man...\"",
+                ]);
+            }
+            else {
+                return new TextActionResult([
+                    "Smoker: Watcha doin BRO! You trippin dawg? Leave that tree alone..",
+                ]);
+            };
+        }
+
+        return new TextActionResult(["That doesn't work on the tree."]);
     }
 }

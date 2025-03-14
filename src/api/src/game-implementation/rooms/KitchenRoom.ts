@@ -51,12 +51,15 @@ export class KitchenRoom extends Room {
     }
 
     public ArrowUrl(): Arrowroom[] {
-        // Initialize result as an array of Arrowroom objects
+        // Always give 4 paramaters for Arrowroom objects: The name (will be displayed), alias of room to send player to,
+        // The image rotation and the x-y coords of the arrow
+
+        // result as an array of Arrowroom objects
         const result: Arrowroom[] = [
             { name: "cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 77, y: 60 } },
         ];
-
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Only add the arrow is the player actually opened the door
         if (playerSession.playerOpenedDoorToStorage) {
             result.push(
                 { name: "storage", alias: "StorageRoom", imageRotation: 180, imageCoords: { x: 46, y: 18 } }

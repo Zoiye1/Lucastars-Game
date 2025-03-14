@@ -1,6 +1,8 @@
+import { DefaultGameState, GameObjectReference, GameState } from "@shared/types";
 import { css, htmlArray } from "../helpers/webComponents";
+import { GameEventService } from "../services/GameEventService";
 import { GameRouteService } from "../services/GameRouteService";
-import { InventoryComponent } from "./InventoryComponent";
+import { Page } from "../enums/Page";
 
 /** CSS affecting the {@link CraftingComponent} */
 const styles: string = css`
@@ -17,8 +19,8 @@ const styles: string = css`
 
     .open-crafting-btn {
         position: absolute;
-        top: 10%;
-        right: 10%;
+        top: 0%;
+        right: 12%;
         z-index: 1;
         background: none;
         border: none;
@@ -94,9 +96,9 @@ const styles: string = css`
     dialog {
         margin: 0;
         z-index: 1;
-        top: 10%;
+        top: 8%;
         left: 50%;
-        transform: translateX(-50%); 
+        transform: translateX(-55%); 
         border: none;
         background: #ffffffea;
     }
@@ -213,7 +215,7 @@ const recipes: Recipe[] = [
     {
         title: "Ladder",
         ingredients: ["10 Sticks", "Super Glue", "Hammer"],
-        ingredientsAliases: ["Sticks", "Super Glue", "HammerItem"],
+        ingredientsAliases: ["10 Sticks", "HammerItem", "GlueItem"],
 
     },
     {
@@ -229,6 +231,11 @@ const recipes: Recipe[] = [
 ];
 
 export class CraftingComponent extends HTMLElement {
+    /** Current game state */
+    private _currentGameState?: DefaultGameState;
+    /** Current active game object buttons */
+    private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
+    private readonly _gameEventService: GameEventService = new GameEventService();
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
     private selectedItemInventory: string = "";
 
@@ -239,15 +246,37 @@ export class CraftingComponent extends HTMLElement {
      */
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
+
+        this.addEventListener("state-update", () => {
+            void this.refreshGameState();
+        });
+
+        void this.refreshGameState();
+
         this.render();
     }
 
-    private async refreshInventory(): Promise<void> {
-        const root: HTMLElement | null = document.querySelector("game-root");
-        const canvas: HTMLElement | null | undefined = root?.shadowRoot?.querySelector("game-canvas");
-        const inventory: InventoryComponent | null | undefined = canvas?.shadowRoot?.querySelector("game-inventory");
+    private async refreshGameState(): Promise<void> {
+        const state: GameState = await this._gameRouteService.getGameState();
 
-        await inventory?.handleGetInventory();
+        this.updateGameState(state);
+    }
+
+    private updateGameState(state: GameState): void {
+        // Handle switching pages, if requested.
+        if (state.type === "switch-page") {
+            this._gameEventService.switchPage(state.page as Page);
+
+            return;
+        }
+
+        // Reset the component
+        this._currentGameState = state;
+
+        this._selectedGameObjectButtons.clear();
+
+        // Refresh the web component
+        this.render();
     }
 
     private renderRecipes(): string {
@@ -358,11 +387,17 @@ export class CraftingComponent extends HTMLElement {
 
         craftBtn?.addEventListener("click", () => this.handleCraftItem(this.slots));
         const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
-        const resultItemAlias: string = resultSlot.innerText;
+        const resultItemAlias: string = resultSlot.innerText + "Item";
         retrieveBtn?.addEventListener("click", async () => {
             await this.handleDeleteItems(this.slots);
             await this.handleRetrieveItem(resultItemAlias);
-            await this.refreshInventory();
+
+            this.dispatchEvent(new CustomEvent("state-update", {
+                bubbles: true,
+                composed: true,
+            }));
+
+            await this.refreshGameState();
         });
 
         this.addClearSlotsListeners();
@@ -396,12 +431,13 @@ export class CraftingComponent extends HTMLElement {
 
         for (const recipe of recipes) {
             // als hoeveelheid niet gelijk is, ga naar volgende ingredient
-            if (recipe.ingredients.length !== filledSlots.length) {
+            if (recipe.ingredientsAliases.length !== filledSlots.length) {
                 continue;
             }
 
             const ingredients: string[] = recipe.ingredientsAliases;
 
+            console.log(ingredients, filledSlots);
             const sortedSlots: string[] = [...filledSlots].sort();
             const sortedIngredients: string[] = [...ingredients].sort();
 

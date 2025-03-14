@@ -51,6 +51,11 @@ import { AirFreshenerItem } from "../items/AirFreshenerItem";
 import { GymTheEndRoom } from "../rooms/GymEndRoom";
 import { ParachuteItem } from "../items/ParachuteItem";
 import { RoofEndRoom } from "../rooms/RoofEndRoom";
+import { LadderItem } from "../items/LadderItem";
+import { GlueItem } from "../items/GlueItem";
+import { WirecutterItem } from "../items/WirecutterItem";
+import { KeyCardItem } from "../items/KeyCardItem";
+
 /**
  * Implementation of the game service used to operate the game engine
  */
@@ -105,6 +110,10 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(SheetsItem);
         this.registerGameObject(AirFreshenerItem);
         this.registerGameObject(ParachuteItem);
+        this.registerGameObject(LadderItem);
+        this.registerGameObject(GlueItem);
+        this.registerGameObject(WirecutterItem);
+        this.registerGameObject(KeyCardItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -158,9 +167,21 @@ export class GameService extends BaseGameService<PlayerSession> {
             wantsToSearchIngredients: false,
             pickedUpBakingSoda: false,
             helpedProfessor: false,
+            questArray: [],
+            helpedDealer: false,
+            helpedSmoker: false,
+            helpedCook: false,
+            wantsToHelpDealer: false,
+            wantsToHelpProfessor: false,
+            wantsToHelpGymFreak: false,
+            wantsToHelpSmoker: false,
+            wantsToHelpCook: false,
             pickedUpSheets: false,
             pickedUpAirFreshener: false,
             equippedParachute: false,
+            pickedUpKeyCard: false,
+            pickedUpWirecutter: false,
+            pickedUpGlue: false,
         };
     }
 

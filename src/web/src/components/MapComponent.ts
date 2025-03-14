@@ -64,8 +64,8 @@ body {
 
 .map-button {
     position: absolute;
-    top: 40%;
-    right: 10%;
+    top: 24%;
+    right: 12%;
     z-index: 1;
     background: none;
     border: none;

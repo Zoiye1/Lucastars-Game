@@ -4,6 +4,7 @@ import { CanvasComponent } from "./components/CanvasComponent";
 import { InventoryComponent } from "./components/InventoryComponent";
 import { ArrowComponent } from "./components/ArrowComponent";
 import { CraftingComponent } from "./components/CraftingComponent";
+import { QuestComponent } from "./components/QuestComponent";
 import { MapComponent } from "./components/MapComponent";
 // import { ArrowComponent } from "./components/ArrowComponent";
 
@@ -15,4 +16,5 @@ window.customElements.define("game-inventory", InventoryComponent);
 window.customElements.define("game-arrow", ArrowComponent);
 // window.customElements.define("game-arrow", ArrowComponent);
 window.customElements.define("game-crafting", CraftingComponent);
+window.customElements.define("game-quest", QuestComponent);
 window.customElements.define("game-map", MapComponent);
