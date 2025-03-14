@@ -19,6 +19,7 @@ De belangrijkste gebruikers van de infrastructuur zijn:
 - Spelers: Zij spelen de game, verkennen de kamers, maken keuzes,  verzamelen items en proberen te ontsnappen.
 - Ontwikkelteam: Zij ontwikkelen de game, implementeren nieuwe functionaliteiten (zoals de leaderboard, timer, inventory, etc.), testen de game en beheren de code.
 - Docenten/Begeleiders: Zij beoordelen de voortgang van het project, geven feedback op zowel de technische aspecten als de gameplay.
+- Beheerders: Zij beheren de gebruikers, scores, voortgangsgegevens en de backend van de game, voeren systeemupdates uit, geven feedback over technische aspecten, en zorgen voor de stabiliteit en continuïteit van de infrastructuur.
 
 ### Welke acties voeren zij uit? Hoe vaak?<br>
 
@@ -27,6 +28,7 @@ De belangrijkste gebruikers van de infrastructuur zijn:
 | **Spelers**         | Spelen, voortgang opslaan, scores bekijken | Dagelijks  |
 | **Ontwikkelteam**   | Code ontwikkelen, API’s testen, database beheren | Daglijks/Wekelijks   |
 | **Docenten**        | Game testen, code/documentatie beoordelen | Wekelijks/maandelijks |
+| **Beheerders**        | gebruikers beheren, scores beheren, backend beheren | willekeurige basis |
 
 ## 2. Bedrijfsdoelen & Infrastructuur<br>
 
@@ -41,7 +43,8 @@ De belangrijkste gebruikers van de infrastructuur zijn:
 ### Welke interacties vinden plaats tussen gebruikers en de infrastructuur?<br>
 - Spelers communiceren met de backend via API’s om hun voortgang op te slaan, inventory-items toe te voegen of hun speeltijd te registreren.
 - Het ontwikkelteam implementeert nieuwe features (zoals de leaderboard, timer en dialoog), voert systeemtests uit en zorgt ervoor dat de game goed draait voor alle spelers.
-- Docenten/Begeleiders kunnen het leaderboard bekijken, met spelersprestaties en tijden, en feedback geven over technische of spelinhoudelijke aspecten van de game.
+- Docenten/Begeleiders: Docenten of begeleiders kijken naar de voortgang van de spelers via het leaderboard en geven feedback over technische en gameplay-aspecten van de game. Dit gebeurt meestal wekelijks of maandelijks en heeft invloed op de evaluatie van het project.
+- Beheerders beheren gebruikers, scores en voortgangsgegevens, voeren systeemupdates uit, geven feedback over technische aspecten, onderhouden de backend en zorgen voor de continuïteit van de game-infrastructuur.
 
 ## 3. Beveiliging & Gegevensbeheer<br>
 
@@ -125,10 +128,20 @@ We gebruiken JSON voor het versturen van gegevens tussen frontend en backend.
 De frontend maakt gebruik van Web Components, die herbruikbare en modulaire elementen van de gebruikersinterface vertegenwoordigen.
 
 #### Belangrijke componenten:
-- game-map: toont de kamers van het ziekenhuis en de voortgang van de speler.
-- inventory: toont de items die de speler heeft verzameld.
-- dialog-box: toont de dialoog tussen personages en de speler.
-- leaderboard: toont de scores van spelers in realtime.
+- Map:
+De map toont de verschillende kamers en de voortgang van de speler. Deze component haalt de actuele voortgang en kamerstatus op via een GET API-aanroep. Bijvoorbeeld, de frontend vraagt om de kamerinformatie en de voortgang van de speler via een endpoint zoals GET /map. De backend haalt deze gegevens uit de database en stuurt ze terug naar de frontend.
+
+- Craftingsysteem:
+Het craftingsysteem stelt spelers in staat om items te combineren en nieuwe voorwerpen te maken. Dit vereist een POST API-aanroep om de gemaakte items op te slaan. Wanneer een speler een item maakt, stuurt de frontend een verzoek naar de backend via een endpoint zoals POST /crafting. De backend verwerkt de gegevens, past de inventory van de speler aan, en slaat het nieuwe item op in de database.
+
+- Inventory:
+De inventory toont de verzamelde items van de speler. Elke keer dat een item wordt toegevoegd of verwijderd, wordt dit doorgegeven via een POST of DELETE API-aanroep naar de backend, afhankelijk van de actie. Bijvoorbeeld, als een speler een item toevoegt, wordt er een verzoek gestuurd naar een endpoint zoals POST /inventory/add. De backend werkt de database bij en bevestigt het succes van de actie.
+
+- Arrow (Point and Click):
+De arrow is een interactieve knop die de speler kan gebruiken om acties uit te voeren. Wanneer de speler op een object klikt, wordt er een GET of POST API-aanroep gedaan om de actie te registreren. Bijvoorbeeld, als een speler een object aanklikt, zou de frontend een verzoek sturen naar een endpoint zoals GET /action/{object_id}, waarna de backend het object controleert en de juiste reactie terugstuurt (bijvoorbeeld het verkrijgen van een item of het openen van een kamer).
+
+- Quests:
+De quest-component biedt de speler opdrachten van NPC's. Elke keer dat de speler een opdracht krijgt, wordt er een GET API-aanroep gedaan om de details van de quest op te halen, bijvoorbeeld GET /quests/{npc_id}. Als de speler de quest voltooit, wordt er een POST API-aanroep gedaan om de voortgang bij te werken via bijvoorbeeld POST /quests/complete/{quest_id}. Dit zorgt ervoor dat de backend de voortgang van de quest registreert en bijhoudt in de database.
 
 
 ## 2. Authenticatie en Beveiliging<br>
