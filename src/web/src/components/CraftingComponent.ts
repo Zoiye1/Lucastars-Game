@@ -1,4 +1,4 @@
-import { DefaultGameState, GameObjectReference, GameState } from "@shared/types";
+import { GameObjectReference, GameState } from "@shared/types";
 import { css, htmlArray } from "../helpers/webComponents";
 import { GameEventService } from "../services/GameEventService";
 import { GameRouteService } from "../services/GameRouteService";
@@ -231,8 +231,6 @@ const recipes: Recipe[] = [
 ];
 
 export class CraftingComponent extends HTMLElement {
-    /** Current game state */
-    private _currentGameState?: DefaultGameState;
     /** Current active game object buttons */
     private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
     private readonly _gameEventService: GameEventService = new GameEventService();
@@ -269,9 +267,6 @@ export class CraftingComponent extends HTMLElement {
 
             return;
         }
-
-        // Reset the component
-        this._currentGameState = state;
 
         this._selectedGameObjectButtons.clear();
 

@@ -172,3 +172,84 @@ Ik ga onderzoek doen op de knowledgebase en online zoeken naar tips.
 
 Tijdsgebonden:
 Voor de volgende expert review.
+
+## Retrospective 14 maart 2025
+
+# Terugkijkend op deze sprint(laatse sprint 2 2025)
+
+#### Batuhan
+
+## Doelen van onze sprint
+
+#### Doel 1: Webcomponents maken ?
+
+- [x] Doel behaald: Ja,  Ik heb mijn doel afgerond. Ik heb webcomponent gemaakt waarbij je quests kan zien en voltooien.
+
+
+#### Doel 2: Kamers afmaken ?
+
+- [x] Doel behaald: Deels, Ik mijn kamer toilet helemaal afgerond alleen de stranger room niet omdat ik niet genoeg tijd had.
+
+## Liked:
+
+- Het werken met webcomponents. Ondanks dat best complex was, omdat ik er nog nooit mee had gewerkt, was het leuk om te zien dat ik het kon maken.
+
+## learned
+
+- Ik heb geleerd hoe ik moet werken met webcomponents. En hoe je werkt met API's in Node.js Express
+
+## Lacked:
+
+- Het begrijpen van de folder structuur van de game. Ik had moeite met het vinden van de juiste bestanden. En waar ik bepaalde code moest schrijven.
+
+### Smart doelen.
+
+- Batuhan
+
+    - Ik wil beter worden met stellen van prioriteiten en het maken van een planning.
+
+     - Specifiek: Ik schreef mijn taken op in mijn schrift en maakte een takenlijst wat ik af wou hebben voor de week.
+
+    - Meetbaar: Ik beoordeel mijn vooruitgang door elke week terug te kijken naar mijn takenlijst en te kijken wat ik heb afgerond en wat niet.
+
+    - Acceptabel: Dit doel sluit aan bij mijn ambitie om beter te worden in het stellen van prioriteiten en het maken van een planning.
+
+    Realistisch: Ik plan om elke dag bepaalde taken af te hebben of te kijken hoe ver ik kom met mijn taken.
+
+    Tijdgebonden: Voor de volgende sprint wil ik mijn takenlijst af hebben en gekeken hebben wat ik heb afgerond en wat niet.
+
+# Terugkijkend op deze sprint(laatse sprint 2 2025)
+
+#### Farmaan
+
+## Doelen van onze sprint
+
+#### Doel 1: Webcomponents maken ? Crafting Component
+
+- [x] Doel behaald: Ja,  Ik heb mijn doel afgerond. Ik had de inventory component nodig want de crafting component en de inventory component werkten samen, maar uiteindelijk is het mij gelukt.
+
+
+#### Doel 2: Kamers afmaken ? Courtyard
+
+- [x] Doel behaald: Ik heb de courtyard kunnen afmaken binnen de sprint. De courtyard heeft nu een escape einde.
+
+## Liked:
+
+- Ik vond het leuk om de crafting component te maken, want het een pittige uitdaging. Eerst begreep ik niet hoe de backend en de frontend met elkaar samenwerkten, en moest ik dat diepgaand onderzoeken. Uiteindelijk was het kwartje gevallen, en begreep ik het.
+- Nadat ik het begreep vond ik het ook leuk om het aan anderen uit te leggen die wat hulp nodig hadden. 
+
+## learned
+
+- Ik heb geleerd over hoe api requests werken en worden geimplementeerd in de code. 
+- Ik heb ook geleerd om afspraken te kunnen formaliseren in de contract, in plaats van informele afspraken te maken.
+- Ik heb geleerd over web componenten en hoe je een custom web component toepast.
+
+## Lacked:
+
+- Het begrijpen van de folder structuur van de game. Ik had moeite met het vinden van de juiste bestanden. En waar ik bepaalde code moest schrijven.
+- Ik vond het moeilijk om te begrjipen hoe de response werkt van een api request. Het waren ook veel bestanden waarin we moesten werken deze sprint en het kon een beetje chaotisch zijn.
+- Ik vond het moeilijk om tijd te verdelen en mijn werkhouding zag er wat rommelig uit.
+
+### Smart doelen.
+
+Ik plan alle user stories vooraf in mijn rooster door de benodigde taken te identificeren, de tijd per taak realistisch in te schatten en de uitvoering in te plannen, waarbij ik mij minimaal voor 80% aan deze planning houd. Aan het einde van de sprint evalueer ik mijn aanpak en pas ik deze aan op basis van mijn voortgang en teamfeedback om mijn planningsvaardigheden te verbeteren.

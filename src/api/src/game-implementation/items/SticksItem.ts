@@ -23,7 +23,7 @@ export class SticksItem extends Item implements Examine, PickUp {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         playerSession.pickedupSticks = true;
 
-        return new TextActionResult(["You have picked up the 4 sticks."]);
+        return new TextActionResult(["You have picked up the 4 sticks. You can use it later to make a ladder."]);
     }
 
     public name(): string {
