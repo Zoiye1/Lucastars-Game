@@ -140,3 +140,49 @@ Tijdgebonden:
 
     Tijdsgebonden:
     Ik wil deze doelen bereiken vóór het begin van de volgende sprint.
+
+
+## Retrospective 14 maart 2025
+
+# Terugkijkend op deze sprint(laatse sprint 2 2025)
+
+#### Batuhan
+
+## Doelen van onze sprint
+
+#### Doel 1: Webcomponents maken ?
+
+- [x] Doel behaald: Ja,  Ik heb mijn doel afgerond. Ik heb webcomponent gemaakt waarbij je quests kan zien en voltooien.
+
+
+#### Doel 2: Kamers afmaken ?
+
+- [x] Doel behaald: Deels, Ik mijn kamer toilet helemaal afgerond alleen de stranger room niet omdat ik niet genoeg tijd had.
+
+## Liked:
+
+- Het werken met webcomponents. Ondanks dat best complex was, omdat ik er nog nooit mee had gewerkt, was het leuk om te zien dat ik het kon maken.
+
+## learned
+
+- Ik heb geleerd hoe ik moet werken met webcomponents. En hoe je werkt met API's in Node.js Express
+
+## Lacked:
+
+- Het begrijpen van de folder structuur van de game. Ik had moeite met het vinden van de juiste bestanden. En waar ik bepaalde code moest schrijven.
+
+### Smart doelen.
+
+- Batuhan
+
+    - Ik wil beter worden met stellen van prioriteiten en het maken van een planning.
+
+     - Specifiek: Ik schreef mijn taken op in mijn schrift en maakte een takenlijst wat ik af wou hebben voor de week.
+
+    - Meetbaar: Ik beoordeel mijn vooruitgang door elke week terug te kijken naar mijn takenlijst en te kijken wat ik heb afgerond en wat niet.
+
+    - Acceptabel: Dit doel sluit aan bij mijn ambitie om beter te worden in het stellen van prioriteiten en het maken van een planning.
+
+    Realistisch: Ik plan om elke dag bepaalde taken af te hebben of te kijken hoe ver ik kom met mijn taken.
+
+    Tijdgebonden: Voor de volgende sprint wil ik mijn takenlijst af hebben en gekeken hebben wat ik heb afgerond en wat niet.
