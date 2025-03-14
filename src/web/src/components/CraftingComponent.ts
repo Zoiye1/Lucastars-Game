@@ -206,12 +206,18 @@ const styles: string = css`
     }
 `;
 
+/**
+ * Interface voor een crafting recept
+ */
 interface Recipe {
     title: string;
     ingredients: string[];
     ingredientsAliases: string[];
 }
 
+/**
+ * Beschikbare recepten voor crafting
+ */
 const recipes: Recipe[] = [
     {
         title: "Ladder",
@@ -232,17 +238,24 @@ const recipes: Recipe[] = [
 ];
 
 export class CraftingComponent extends HTMLElement {
-    /** Current active game object buttons */
+    /** Verzameling van geselecteerde GameObject knoppen */
     private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
+    /** Instantie van de game event service */
     private readonly _gameEventService: GameEventService = new GameEventService();
+    /** Instantie van de game route service */
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
+    /** Instantie van de crafting route service */
     private readonly _craftingRouteService: CraftingRouteService = new CraftingRouteService();
-    private selectedItemInventory: string = "";
+    /** Momenteel geselecteerd item uit de inventaris */
+    private _selectedItemInventory: string = "";
 
-    private slots: string[] = ["", "", "", ""];
-    private resultSlot: string = "";
+    /** Array met items in de crafting slots */
+    private _slots: string[] = ["", "", "", ""];
+    /** Item in de resultaat slot */
+    private _resultSlot: string = "";
+
     /**
-     * The "constructor" of a Web Component
+     * De "constructor" van een Web Component
      */
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
@@ -256,12 +269,20 @@ export class CraftingComponent extends HTMLElement {
         this.render();
     }
 
+    /**
+     * Vernieuw de huidige game state
+     */
     private async refreshGameState(): Promise<void> {
         const state: GameState = await this._gameRouteService.getGameState();
 
         this.updateGameState(state);
     }
 
+    /**
+     * Update de crafting component naar de nieuwe game state
+     *
+     * @param state Game state om de component mee te updaten
+     */
     private updateGameState(state: GameState): void {
         // Handle switching pages, if requested.
         if (state.type === "switch-page") {
@@ -276,6 +297,11 @@ export class CraftingComponent extends HTMLElement {
         this.render();
     }
 
+    /**
+     * Genereer de HTML voor de recepten lijst
+     *
+     * @returns HTML string voor de recepten lijst
+     */
     private renderRecipes(): string {
         let recipeCardsHTML: string = "";
 
@@ -300,6 +326,9 @@ export class CraftingComponent extends HTMLElement {
         return recipeCardsHTML;
     }
 
+    /**
+     * Render de inhoud van deze component
+     */
     private render(): void {
         if (!this.shadowRoot) {
             return;
@@ -323,30 +352,30 @@ export class CraftingComponent extends HTMLElement {
                             <h2 class="crafting-title">Crafting Menu</h2>
                             <div class="crafting-grid">
                                 <div class="container-slot">
-                                    ${this.slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
-                                    <div class="slot">${this.slots[0]}</div>
+                                    ${this._slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
+                                    <div class="slot">${this._slots[0]}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
-                                    ${this.slots[1] ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
-                                    <div class="slot">${this.slots[1]}</div>
+                                    ${this._slots[1] ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
+                                    <div class="slot">${this._slots[1]}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
-                                    ${this.slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
-                                    <div class="slot">${this.slots[2]}</div>
+                                    ${this._slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
+                                    <div class="slot">${this._slots[2]}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
-                                    ${this.slots[3] ? "<button id=\"emptySlot\" data-slot=\"3\">✕</button>" : ""}
-                                    <div class="slot">${this.slots[3]}</div>
+                                    ${this._slots[3] ? "<button id=\"emptySlot\" data-slot=\"3\">✕</button>" : ""}
+                                    <div class="slot">${this._slots[3]}</div>
                                 </div>
                                 <span class="symbol">=</span>
-                                <div class="result-slot">${this.resultSlot}</div>
+                                <div class="result-slot">${this._resultSlot}</div>
                             </div>
                             <div class="container-craft-retrieve-buttons">
                                 <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
-                                ${this.resultSlot
+                                ${this._resultSlot
                                     ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>"
                                     : "<button class=\"dialog-button\" id=\"craftButton\">Craft</button>"
                                 }
@@ -378,15 +407,15 @@ export class CraftingComponent extends HTMLElement {
 
         addSelectedBtn.addEventListener("click", async () => {
             await this.handleGetSelectedItemInventory();
-            this.handleUpdateSlots(this.selectedItemInventory);
+            this.handleUpdateSlots(this._selectedItemInventory);
             this.updateDialog();
         });
 
-        craftBtn?.addEventListener("click", () => this.handleCraftItem(this.slots));
+        craftBtn?.addEventListener("click", () => this.handleCraftItem(this._slots));
         const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
         const resultItemAlias: string = resultSlot.innerText + "Item";
         retrieveBtn?.addEventListener("click", async () => {
-            await this.handleDeleteItems(this.slots);
+            await this.handleDeleteItems(this._slots);
             await this.handleRetrieveItem(resultItemAlias);
 
             this.dispatchEvent(new CustomEvent("state-update", {
@@ -400,28 +429,41 @@ export class CraftingComponent extends HTMLElement {
         this.addClearSlotsListeners();
     }
 
+    /**
+     * Voeg event listeners toe aan de leegmaak-knoppen voor de slots
+     */
     private addClearSlotsListeners(): void {
         const clearSlotButtons: NodeList | undefined = this.shadowRoot?.querySelectorAll("#emptySlot");
 
         clearSlotButtons?.forEach(button => {
             button.addEventListener("click", event => {
                 const slotIndex: number = parseInt((event.target as HTMLButtonElement).getAttribute("data-slot")!);
-                this.slots[slotIndex] = "";
+                this._slots[slotIndex] = "";
                 this.updateDialog();
             });
         });
     }
 
+    /**
+     * Voeg een item toe aan de eerste beschikbare slot
+     *
+     * @param item Het item dat toegevoegd moet worden
+     */
     private handleUpdateSlots(item: string): void {
-        const firstEmptySlot: number = this.slots.findIndex(slot => slot === "");
+        const firstEmptySlot: number = this._slots.findIndex(slot => slot === "");
 
-        if (firstEmptySlot !== -1 && !this.slots.includes(item)) {
-            this.slots[firstEmptySlot] = item;
+        if (firstEmptySlot !== -1 && !this._slots.includes(item)) {
+            this._slots[firstEmptySlot] = item;
             this.updateDialog();
-            console.log(this.slots);
+            console.log(this._slots);
         }
     }
 
+    /**
+     * Craft de item en zet het in de result slot
+     *
+     * @param slots string array die de craft items representeert
+     */
     private handleCraftItem(slots: string[]): void {
         const filledSlots: string[] = slots.filter(slot => slot !== "");
         let matchingRecipe: Recipe | null = null;
@@ -452,7 +494,7 @@ export class CraftingComponent extends HTMLElement {
         }
 
         if (matchingRecipe) {
-            this.resultSlot = matchingRecipe.title;
+            this._resultSlot = matchingRecipe.title;
         }
         else {
             this.emptySlotItems();
@@ -461,11 +503,14 @@ export class CraftingComponent extends HTMLElement {
         this.updateDialog();
     }
 
+    /**
+     * Verzoek aan de database (playerSession) om de gekozen item te sturen
+     */
     private async handleGetSelectedItemInventory(): Promise<void> {
         try {
             const state: string | undefined = await this._craftingRouteService.getSelectedItem();
             if (state) {
-                this.selectedItemInventory = state;
+                this._selectedItemInventory = state;
             }
         }
         catch (error) {
@@ -473,6 +518,11 @@ export class CraftingComponent extends HTMLElement {
         }
     }
 
+    /**
+     * Verstuur een verzoek naar de database (playerSession) om een item op te slaan in inventory
+     *
+     * @param itemAlias string die de gemaakte item representeert
+     */
     private async handleRetrieveItem(itemAlias: string): Promise<void> {
         try {
             const state: string | undefined = await this._craftingRouteService.executeRetrieveItem(itemAlias);
@@ -486,6 +536,11 @@ export class CraftingComponent extends HTMLElement {
         }
     }
 
+    /**
+     * Verstuur een verzoek om de items die gebruikt zijn in de craft te verwijderen uit de inventory
+     *
+     * @param itemAlias string array die de verwijderde items representeert
+     */
     private async handleDeleteItems(itemAliases: string[]): Promise<void> {
         try {
             const state: string | undefined = await this._craftingRouteService.executeDeleteItem(itemAliases);
@@ -500,8 +555,8 @@ export class CraftingComponent extends HTMLElement {
     }
 
     private emptySlotItems(): void {
-        this.slots = ["", "", "", ""];
-        this.resultSlot = "";
+        this._slots = ["", "", "", ""];
+        this._resultSlot = "";
     }
 
     private updateDialog(): void {
