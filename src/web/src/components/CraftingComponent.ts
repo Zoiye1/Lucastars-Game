@@ -1,8 +1,9 @@
 import { GameObjectReference, GameState } from "@shared/types";
 import { css, htmlArray } from "../helpers/webComponents";
 import { GameEventService } from "../services/GameEventService";
-import { GameRouteService } from "../services/GameRouteService";
 import { Page } from "../enums/Page";
+import { CraftingRouteService } from "../services/CraftingRouteService";
+import { GameRouteService } from "../services/GameRouteService";
 
 /** CSS affecting the {@link CraftingComponent} */
 const styles: string = css`
@@ -235,6 +236,7 @@ export class CraftingComponent extends HTMLElement {
     private _selectedGameObjectButtons: Set<GameObjectReference> = new Set<GameObjectReference>();
     private readonly _gameEventService: GameEventService = new GameEventService();
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
+    private readonly _craftingRouteService: CraftingRouteService = new CraftingRouteService();
     private selectedItemInventory: string = "";
 
     private slots: string[] = ["", "", "", ""];
@@ -461,7 +463,7 @@ export class CraftingComponent extends HTMLElement {
 
     private async handleGetSelectedItemInventory(): Promise<void> {
         try {
-            const state: string | undefined = await this._gameRouteService.getSelectedItem();
+            const state: string | undefined = await this._craftingRouteService.getSelectedItem();
             if (state) {
                 this.selectedItemInventory = state;
             }
@@ -473,7 +475,7 @@ export class CraftingComponent extends HTMLElement {
 
     private async handleRetrieveItem(itemAlias: string): Promise<void> {
         try {
-            const state: string | undefined = await this._gameRouteService.executeRetrieveItem(itemAlias);
+            const state: string | undefined = await this._craftingRouteService.executeRetrieveItem(itemAlias);
             if (state) {
                 this.emptySlotItems();
                 this.updateDialog();
@@ -486,7 +488,7 @@ export class CraftingComponent extends HTMLElement {
 
     private async handleDeleteItems(itemAliases: string[]): Promise<void> {
         try {
-            const state: string | undefined = await this._gameRouteService.executeDeleteItem(itemAliases);
+            const state: string | undefined = await this._craftingRouteService.executeDeleteItem(itemAliases);
             if (state) {
                 this.emptySlotItems();
                 this.updateDialog();
