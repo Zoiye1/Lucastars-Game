@@ -253,3 +253,37 @@ Voor de volgende expert review.
 ### Smart doelen.
 
 Ik plan alle user stories vooraf in mijn rooster door de benodigde taken te identificeren, de tijd per taak realistisch in te schatten en de uitvoering in te plannen, waarbij ik mij minimaal voor 80% aan deze planning houd. Aan het einde van de sprint evalueer ik mijn aanpak en pas ik deze aan op basis van mijn voortgang en teamfeedback om mijn planningsvaardigheden te verbeteren.
+
+# Terugkijkend op deze sprint(laatse sprint 2 2025)
+
+#### Mustafa
+
+## Doelen van onze sprint
+
+#### Doel 1: Webcomponents maken ? Inventory Component
+
+- [x] Doel behaald: Ja,  Ik heb mijn doel afgerond.
+
+
+#### Doel 2: Kamers afmaken ? Gym
+
+- [x] Doel behaald: Gym is nu helemaal klaar en heeft zelfs een espace.
+
+## Liked:
+
+- Ondanks dat het lastig was, vond ik het wel tof om iets nieuws te leren. Het gaf een goed gevoel om uiteindelijk een werkend systeem te hebben en te zien hoe alles samenkwam.
+- Het was echt tof om het gevoel te hebben dat ik steeds meer controle kreeg over de game. Van een simpel idee tot een werkend prototype was het proces zowel uitdagend als leuk.
+
+## learned
+- Het maken van de inventory-component was echt een uitdaging, omdat ik alles zelf moest onderzoeken. Hierdoor heb ik veel geleerd over hoe inventory-systemen werken en hoe ik data goed kan beheren.
+- Ik heb geleerd hoe belangrijk het is om gestructureerd te werken bij het ontwikkelen van een game. Het was een uitdaging om alles in de juiste volgorde te doen en alle onderdelen goed op elkaar af te stemmen, maar dat zorgde uiteindelijk voor een beter resultaat.
+
+## Lacked:
+
+-  In het begin miste ik een duidelijke aanpak, waardoor ik veel tijd kwijt was aan trial-and-error. Achteraf gezien had het slimmer geweest om eerst een plan of een simpel prototype te maken om efficiënter te werken.
+- Wat ik miste was een duidelijk plan voor hoe ik alles in de game zou testen. Ik ben vaak tegen problemen aangelopen die ik niet had voorzien, en daardoor verloor ik soms tijd doordat ik niet van tevoren alles goed had doordacht.
+
+
+### Smart doelen.
+Mijn SMART-doel is om voor de volgende voortgangsevaluatie de komende maand diepgaand onderzoek te doen naar programmeerconcepten die ik niet volledig begrijp, zoals webcomponents, en wekelijks feedback te vragen aan ervaren ontwikkelaars om mijn kennis te verbeteren en deze concepten praktisch toe te passen in mijn project.
+
