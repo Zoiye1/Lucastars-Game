@@ -10,13 +10,36 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { HammerItem } from "../items/HammerItem";
 import { SticksItem } from "../items/SticksItem";
 import { PlayerSession } from "../types";
+import { Jump, JumpAction } from "../actions/EquipAction";
+import { RoofEndRoom } from "./RoofEndRoom";
 
-export class RoofRoom extends Room {
+export class RoofRoom extends Room implements Jump {
     // Unieke alias voor deze kamer, gebruikt voor identificatie
     public static readonly Alias: string = "roof";
 
     public constructor() {
         super(RoofRoom.Alias);
+    }
+
+    public jump(): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const inventory: string[] = playerSession.inventory;
+        let room: Room | undefined;
+        console.log("hallo farmaan");
+
+        if (inventory.includes("ParachuteItem")) {
+            // Als de speler een parachute heeft, ga naar de 'RoofEndRoom'
+            room = new RoofEndRoom(); // Speler verplaatst naar de Cafeteria Room
+        }
+        else {
+            // room = new GymTheEndRoom(); >> STRAKS HIER BAD ENDING
+        }
+        // Als de speler geen parachute heeft, ga naar de 'RoofBADenging' kamer
+        if (room) {
+            gameService.getPlayerSession().currentRoom = room.alias;
+            return room.examine(); // Geef de beschrijving van de nieuwe kamer terug
+        }
+        return undefined;
     }
 
     // Geeft de naam van de kamer terug, gebruikt in de UI of logsF
@@ -36,14 +59,16 @@ export class RoofRoom extends Room {
     // Bepaalt welke afbeeldingen in deze kamer zichtbaar zijn
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        const inventory: string[] = playerSession.inventory;
         const result: string[] = ["Roof/RoofBackground"];
 
         // Voeg de hamer toe aan de afbeeldingen als deze nog niet is opgepakt
         if (!playerSession.pickedUpHammer) {
             result.push("Roof/Hammer");
         }
+
         // Voeg de stokken toe aan de afbeeldingen als deze nog niet zijn opgepakt
-        if (!playerSession.pickedupSticks) {
+        if (!inventory.includes("Sticks") && !inventory.includes("10Sticks")) {
             result.push("Roof/Sticks");
         }
 
@@ -62,16 +87,19 @@ export class RoofRoom extends Room {
     // Bepaalt welke objecten zich in deze kamer bevinden en interactief zijn
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        const inventory: string[] = playerSession.inventory;
         const result: GameObject[] = [];
 
         // Voeg de hamer toe aan de kamer als deze nog niet is opgepakt
         if (!playerSession.pickedUpHammer) {
             result.push(new HammerItem());
         }
-        // Voeg de stokken toe aan de kamer als deze nog niet zijn opgepakt
-        if (!playerSession.pickedupSticks) {
+
+        // Voeg de stokken toe aan de kamer als deze nog niet zijn opgepakt en nog niet in de inventaris zitten
+        if (!inventory.includes("Sticks") && !inventory.includes("10Sticks")) {
             result.push(new SticksItem());
         }
+
         return result;
     }
 
@@ -80,6 +108,7 @@ export class RoofRoom extends Room {
         return [
             new ExamineAction(),
             new PickUpAction(),
+            new JumpAction(),
         ];
     }
 

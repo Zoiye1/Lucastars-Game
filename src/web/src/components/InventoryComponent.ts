@@ -1,4 +1,5 @@
 import { css, htmlArray } from "../helpers/webComponents";
+import { CraftingRouteService } from "../services/CraftingRouteService";
 import { GameRouteService } from "../services/GameRouteService";
 
 /** CSS affecting the {@link InventoryComponent} */
@@ -94,6 +95,7 @@ const styles: string = css`
 export class InventoryComponent extends HTMLElement {
     private items: string[] = [];
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
+    private readonly _craftingRouteService: CraftingRouteService = new CraftingRouteService();
     private selectedItem: string | null = null;
 
     public async connectedCallback(): Promise <void> {
@@ -109,7 +111,7 @@ export class InventoryComponent extends HTMLElement {
         const inventoryItems: string = this.items
             .map(item => {
                 const selectedClass: string = item === this.selectedItem ? "selected" : "";
-                return `<div class="inventory-item ${selectedClass}"><img class="inventory-icon" src="/public/assets/img/icons/${item}.png"/></div>`;
+                return `<div class="inventory-item ${selectedClass}"><img data-item="${item}" class="inventory-icon" src="/public/assets/img/icons/${item}.png"/></div>`;
             })
             .join("");
 
@@ -133,15 +135,14 @@ export class InventoryComponent extends HTMLElement {
     }
 
     private addSelectItemListeners(): void {
-        const selectItemDivs: NodeList | undefined = this.shadowRoot?.querySelectorAll(".inventory-item");
+        const selectItemDivs: NodeList | undefined = this.shadowRoot?.querySelectorAll(".inventory-icon");
 
         selectItemDivs?.forEach(itemDiv => {
             itemDiv.addEventListener("click", async () => {
-                if (itemDiv.textContent) {
-                    await this.handleSelectItem(itemDiv.textContent);
-                    await this.handleGetSelectedItemInventory();
-                    this.render();
-                }
+                const div: HTMLElement = itemDiv as HTMLElement;
+                await this.handleSelectItem(div.dataset.item!);
+                await this.handleGetSelectedItemInventory();
+                this.render();
             });
         });
     }
@@ -176,7 +177,7 @@ export class InventoryComponent extends HTMLElement {
 
     private async handleGetSelectedItemInventory(): Promise<void> {
         try {
-            const state: string | undefined = await this._gameRouteService.getSelectedItem();
+            const state: string | undefined = await this._craftingRouteService.getSelectedItem();
             if (state) {
                 this.selectedItem = state;
             }
