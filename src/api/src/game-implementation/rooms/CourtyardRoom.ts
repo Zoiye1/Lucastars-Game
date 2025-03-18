@@ -58,7 +58,7 @@ export class CourtyardRoom extends Room {
         const inventory: string[] = playerSession.inventory;
         const result: string[] = ["courtyard/courtyardBackground", "courtyard/Smoker"];
 
-        if (inventory.includes("10 Sticks")) {
+        if (inventory.includes("6sticks")) {
             result.push("courtyard/courtyardTreeBroken");
         };
         if (!playerSession.pickedUpJumpRope) {
