@@ -53,8 +53,8 @@ export class TreeItem extends TargetItem implements Examine {
     public use(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const inventory: string[] = playerSession.inventory;
-        if (!inventory.includes("10 Sticks")) {
-            inventory.push("10 Sticks");
+        if (!inventory.includes("6sticks")) {
+            inventory.push("6sticks");
             return new TextActionResult([
                 "You have received 10 sticks...",
                 "Smoker: \"HEY!! Why did you chop that tree man...\"",
@@ -72,8 +72,8 @@ export class TreeItem extends TargetItem implements Examine {
         const inventory: string[] = playerSession.inventory;
 
         if (sourceItem.alias === "HammerItem") {
-            if (!inventory.includes("10 Sticks")) {
-                inventory.push("10 Sticks");
+            if (!inventory.includes("6sticks")) {
+                inventory.push("6sticks");
                 return new TextActionResult([
                     "You have received 10 sticks",
                     "Smoker: \"HEY!! Why did you chop that tree man...\"",
