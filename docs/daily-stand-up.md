@@ -808,3 +808,82 @@ Milan scrummaster
 
     -  #### Zijn er problemen waar tegen aanloopt?
        -  Nee momenteel niet
+
+### Daily standup maandag 18-03-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Aan portfolio gewerkt
+
+    
+    -  #### Wat ga je vandaag doen?
+       -  pixel art maken voor items
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+       - Voortgangsevaluatie afgemaakt
+
+    -  #### Wat ga je vandaag doen?
+       - Aan de sprintplanning werken
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Voortgangsevaluatie
+
+
+    -  #### Wat ga je vandaag doen?
+       -  escape maken voor roof
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  component is onduidelijk
+
+
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Voorbereid voor voortgangsevaluatie
+
+
+
+    -  #### Wat ga je vandaag doen?
+       -  Sprintplanning maken
+       -  Taken verdelen en beginnen aan die taken
+
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan? 
+       -  Voorbereiding voortgangsevaluatie
+
+    -  #### Wat ga je vandaag doen?
+       -  Pixel art maken, Actions toevoegen voor nieuwe objecten en kamers afmaken
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  Nee momenteel niet
