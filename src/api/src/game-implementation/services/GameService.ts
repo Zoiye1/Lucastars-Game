@@ -53,7 +53,6 @@ import { ParachuteItem } from "../items/ParachuteItem";
 import { RoofEndRoom } from "../rooms/RoofEndRoom";
 import { LadderItem } from "../items/LadderItem";
 import { GlueItem } from "../items/GlueItem";
-import { WirecutterItem } from "../items/WirecutterItem";
 import { KeyCardItem } from "../items/KeyCardItem";
 
 /**
@@ -112,7 +111,6 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(ParachuteItem);
         this.registerGameObject(LadderItem);
         this.registerGameObject(GlueItem);
-        this.registerGameObject(WirecutterItem);
         this.registerGameObject(KeyCardItem);
 
         // Characters
