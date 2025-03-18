@@ -14,7 +14,6 @@ import { KeypadStorageItem } from "../items/KeypadStorageItem";
 import { PlayerSession } from "../types";
 import { PickUpAction } from "../actions/PickUpAction";
 import { KeyCardItem } from "../items/KeyCardItem";
-import { WirecutterItem } from "../items/WirecutterItem";
 import { GlueItem } from "../items/GlueItem";
 
 export class StorageRoom extends Room {
@@ -76,9 +75,6 @@ export class StorageRoom extends Room {
         if (playerSession.playerOpenedCloset) {
             if (!playerSession.pickedUpKeyCard) {
                 result.push(new KeyCardItem());
-            }
-            if (!playerSession.pickedUpWirecutter) {
-                result.push(new WirecutterItem());
             }
         }
         if (playerSession.playerOpenedSteelbox) {
