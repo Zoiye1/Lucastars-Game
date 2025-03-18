@@ -17,13 +17,24 @@ import { TreeItem } from "../items/TreeItem";
 import { PlayerSession } from "../types";
 import { LadderItem } from "../items/LadderItem";
 
+/**
+ * Class representeert de courtyard in het spel.
+ *
+ *  @remarks Bereikbaar via de cafeteria
+ */
 export class CourtyardRoom extends Room {
+    /** Alias van deze kamer */
     public static readonly Alias: string = "courtyard";
 
     public constructor() {
         super(CourtyardRoom.Alias);
     }
 
+    /**
+     * Geeft de naam van de kamer terug
+     *
+     * @returns De string "Courtyard"
+     */
     public name(): string {
         return "Courtyard";
     }
@@ -37,6 +48,11 @@ export class CourtyardRoom extends Room {
         return ["room"];
     }
 
+    /**
+     * Geeft de afbeeldingen die worden gebruikt voor de kamer door aan de game engine
+     *
+     * @returns Een array met afbeeldinglocaties als string
+     */
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const inventory: string[] = playerSession.inventory;
@@ -70,6 +86,11 @@ export class CourtyardRoom extends Room {
         return result;
     }
 
+    /**
+     * Voert de examine-actie uit voor de kamer
+     *
+     * @returns Een text action dat de speler verwelkomt in de courtyard
+     */
     public examine(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.inventory.includes("LadderItem")) {
@@ -98,6 +119,11 @@ export class CourtyardRoom extends Room {
         return result;
     }
 
+    /**
+     * Geeft een array van actions die beschikbaar zijn in deze kamer
+     *
+     * @returns Een array van mogelijke actions
+     */
     public actions(): Action[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 

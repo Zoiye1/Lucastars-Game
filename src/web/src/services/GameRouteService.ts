@@ -1,7 +1,5 @@
 import {
     ExecuteActionRequest,
-    ExecuteDeleteItemsRequest,
-    ExecuteRetrieveRequest,
     GameState,
     ExecuteMoveRequest
 } from "@shared/types";
@@ -62,48 +60,6 @@ export class GameRouteService extends BaseRouteService {
         }
     }
 
-    public async getInventory(): Promise<string[] | undefined> {
-        return this.getJsonApi<string[] | undefined>("game/inventory");
-    }
-
-    public async executeSelectItem(itemAlias: string): Promise<string | undefined> {
-        try {
-            return await this.putJsonApi<string, { itemAlias: string }>("game/inventory", {
-                itemAlias,
-            });
-        }
-        catch (error) {
-            console.error(error);
-            return undefined;
-        }
-    }
-
-    public async executeRetrieveItem(
-        itemAlias: string
-    ): Promise<string | undefined> {
-        try {
-            return await this.putJsonApi<string, ExecuteRetrieveRequest>("game/retrieve", {
-                itemAlias,
-            });
-        }
-        catch (error) {
-            console.error(error);
-            return undefined;
-        }
-    }
-
-    public async executeDeleteItem(deleteItemsAliasArray: string[]): Promise<string | undefined> {
-        try {
-            return await this.deleteJsonApi<string, ExecuteDeleteItemsRequest>("game/retrieve", {
-                deleteItemsAliasArray,
-            });
-        }
-        catch (error) {
-            console.error(error);
-            return undefined;
-        }
-    }
-
     public async executeGetQuests(): Promise<QuestArray[] | undefined> {
         try {
             return await this.getJsonApi<QuestArray[]>("game/active");
@@ -112,9 +68,5 @@ export class GameRouteService extends BaseRouteService {
             console.error(error);
             return undefined;
         }
-    }
-
-    public async getSelectedItem(): Promise<string> {
-        return this.getJsonApi<string>("game/inventoryItem");
     }
 }
