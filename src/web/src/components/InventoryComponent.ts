@@ -49,7 +49,7 @@ const styles: string = css`
 
     .inventory-grid {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 10px;
         margin-top: 10px;
     }
@@ -79,6 +79,13 @@ const styles: string = css`
         box-shadow: 0 0 10px #ca58e0, 0 0 20px rgba(202, 88, 224, 0.5);
         border: 2px solid #ffffff;
     }
+
+    .inventory-icon {
+        width: 64px;
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
+    }
 `;
 
 /**
@@ -102,7 +109,7 @@ export class InventoryComponent extends HTMLElement {
         const inventoryItems: string = this.items
             .map(item => {
                 const selectedClass: string = item === this.selectedItem ? "selected" : "";
-                return `<div class="inventory-item ${selectedClass}">${item}</div>`;
+                return `<div class="inventory-item ${selectedClass}"><img class="inventory-icon" src="/public/assets/img/icons/${item}.png"/></div>`;
             })
             .join("");
 
