@@ -92,7 +92,7 @@ export class StorageRoom extends Room {
         ];
 
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        if (playerSession.playerOpenedDoorToStorage) {
+        if (playerSession.playerOpenedElevator) {
             result.push(
                 { name: "Elevator", alias: "labroom", imageRotation: 180, imageCoords: { x: 68, y: 7 } }
             );

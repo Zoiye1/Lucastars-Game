@@ -180,6 +180,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpKeyCard: false,
             pickedUpWirecutter: false,
             pickedUpGlue: false,
+            playerOpenedElevator: false,
         };
     }
 
