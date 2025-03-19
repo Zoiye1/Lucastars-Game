@@ -17,6 +17,13 @@ const styles: string = css`
       filter: hue-rotate(90deg) brightness(1.5);
     }
 
+    .locationText {
+        position: absolute;
+        bottom: 5%;
+        color:rgb(0, 255, 0);
+        text-shadow: 2px 2px 2px black;
+    }
+
 `;
 
 export class ArrowComponent extends HTMLElement {
@@ -79,11 +86,15 @@ export class ArrowComponent extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
+        const locationText: HTMLParagraphElement = document.createElement("p");
+        locationText.classList.add("locationText");
+        locationText.textContent = "";
         const element: HTMLElement[] = htmlArray`
             <style>
                 ${styles}
             </style>
                 ${this.renderArrow()}
+                ${locationText}
             `;
 
         while (this.shadowRoot.firstChild) {
@@ -100,7 +111,7 @@ export class ArrowComponent extends HTMLElement {
             return roomArrowImages.map(arrow => this.createArrowElement(arrow));
         }
 
-        return ``;
+        return htmlArray``;
     }
 
     private createArrowElement(arrow: Arrowroom): HTMLElement {
@@ -116,6 +127,8 @@ export class ArrowComponent extends HTMLElement {
         img.style.position = "absolute";
 
         img.addEventListener("click", () => this.handleClickArrow(arrow));
+        img.addEventListener("mouseover", () => this.handleHoverArrow(arrow));
+        img.addEventListener("mouseleave", () => this.handleNoHoverArrow());
 
         return img;
     }
@@ -128,6 +141,28 @@ export class ArrowComponent extends HTMLElement {
         console.log(state);
         if (state) {
             this.Connect(state);
+        }
+    }
+
+    private handleHoverArrow(arrow: Arrowroom): void {
+        console.log(`${arrow.alias} hovered!`);
+        // const roomAlias: string = arrow.alias;
+        const locationText: HTMLParagraphElement | null = this.shadowRoot?.querySelector(".locationText") as HTMLParagraphElement | null;
+        if (locationText) {
+            locationText.textContent = `Enter ${arrow.name}`;
+        }
+        else {
+            console.warn("error");
+        }
+    }
+
+    private handleNoHoverArrow(): void {
+        const locationText: HTMLParagraphElement | null = this.shadowRoot?.querySelector(".locationText") as HTMLParagraphElement | null;
+        if (locationText) {
+            locationText.textContent = "";
+        }
+        else {
+            console.warn("error");
         }
     }
 }
