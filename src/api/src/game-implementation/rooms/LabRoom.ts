@@ -13,6 +13,9 @@ import { TalkAction } from "../../game-base/actions/TalkAction";
 import { ProfessorCharacter } from "../characters/ProfessorCharacter";
 import { BakingSodaItem } from "../items/BakingSodaItem";
 import { Arrowroom } from "@shared/types";
+import { UseAction } from "../actions/UseAction";
+import { MetalDoorItem } from "../items/MetalDoorItem";
+import { CorrosiveAcidItem } from "../items/CorrosiveAcidItem";
 
 export class LabRoom extends Room {
     public static readonly Alias: string = "labroom";
@@ -46,14 +49,22 @@ export class LabRoom extends Room {
             result.push("lab/labGlassBeaker");
         }
 
+        if (playerSession.EscapedLab) {
+            result.push("lab/LabEnding");
+        }
+
         return result;
     }
 
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
+        const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: Arrowroom[] = [
             { name: "Storage", alias: "StorageRoom", imageRotation: -90, imageCoords: { x: 15, y: 30 } },
         ];
+        if (playerSession.EscapedLab) {
+            result.push({ name: "The End", alias: "lab-end", imageRotation: 0, imageCoords: { x: 63, y: 70 } });
+        };
 
         return result;
     }
@@ -77,6 +88,10 @@ export class LabRoom extends Room {
         if (!playerSession.pickedUpBakingSoda) {
             result.push(new BakingSodaItem());
         }
+        if (playerSession.inventory.includes("CorrosiveAcid")) result.push(new CorrosiveAcidItem());
+
+        result.push(new MetalDoorItem());
+
         return result;
     }
 
@@ -86,6 +101,7 @@ export class LabRoom extends Room {
         const result: Action[] = [
             new ExamineAction(),
             new PickUpAction(),
+            new UseAction(),
         ];
 
         if (!playerSession.helpedProfessor) result.push(new TalkAction());
