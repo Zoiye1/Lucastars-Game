@@ -194,6 +194,7 @@ export type PlayerSession = {
     tradedWithSmoker: boolean;
     ventUnlocked: boolean;
     windowBroken: boolean;
+    cupboardOpened: boolean;
     wantsToSearchGlassBeaker: boolean;
     wantsToSearchIngredients: boolean;
     wantsToHelpDealer: boolean;

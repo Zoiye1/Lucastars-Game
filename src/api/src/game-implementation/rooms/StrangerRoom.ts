@@ -9,6 +9,7 @@ import { gameService } from "../../global";
 import { PickUpAction } from "../actions/PickUpAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { PlayerSession } from "../types";
+import { OpenAction } from "../../game-base/actions/OpenAction";
 
 export class StrangerRoom extends Room {
     public static readonly Alias: string = "strangerroom";
@@ -34,9 +35,8 @@ export class StrangerRoom extends Room {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: string[] = ["strangerroom/StrangerRoomBackground"];
 
-        // Add images based on player session state
-        if (!playerSession.pickedUpSheets) {
-            result.push("strangerroom/Sheets");
+        if (playerSession.cupboardOpened) {
+            result.push("strangerroom/Strangeroom-opend");
         }
 
         return result;
@@ -60,6 +60,7 @@ export class StrangerRoom extends Room {
         const result: Action[] = [
             new ExamineAction(),
             new PickUpAction(),
+            new OpenAction(),
         ];
 
         return result;
