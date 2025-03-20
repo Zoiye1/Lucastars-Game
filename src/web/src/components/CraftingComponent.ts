@@ -127,6 +127,11 @@ const styles: string = css`
         background-color: #f0f0f0;
     }
 
+    .slot-icon {
+        width: 48px;
+        object-fit: contain;
+    }
+
     .symbol {
         font-size: 24px;
         font-weight: bold;
@@ -353,25 +358,25 @@ export class CraftingComponent extends HTMLElement {
                             <div class="crafting-grid">
                                 <div class="container-slot">
                                     ${this._slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[0]}</div>
+                                    <div class="slot">${this._slots[0] !== "" ? `<img data-item="${this._slots[0]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[0]}.png"/>` : ""}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
                                     ${this._slots[1] ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[1]}</div>
+                                    <div class="slot">${this._slots[1] !== "" ? `<img data-item="${this._slots[1]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[1]}.png"/>` : ""}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
                                     ${this._slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[2]}</div>
+                                    <div class="slot">${this._slots[2] !== "" ? `<img data-item="${this._slots[2]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[2]}.png"/>` : ""}</div>
                                 </div>
                                 <span class="symbol">+</span>
                                 <div class="container-slot">
                                     ${this._slots[3] ? "<button id=\"emptySlot\" data-slot=\"3\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[3]}</div>
+                                    <div class="slot">${this._slots[3] !== "" ? `<img data-item="${this._slots[3]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[3]}.png"/>` : ""}</div>
                                 </div>
                                 <span class="symbol">=</span>
-                                <div class="result-slot">${this._resultSlot}</div>
+                                <div class="result-slot">${this._resultSlot !== "" ? `<img data-item="${this._resultSlot}" class="slot-icon" src="/public/assets/img/icons/${this._resultSlot}.png"/>` : ""}</div>
                             </div>
                             <div class="container-craft-retrieve-buttons">
                                 <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
