@@ -106,6 +106,8 @@ Ik kan user stories vooraf plannen door voor elke user story een concreet plan v
 
 Ik kan elke week consistent een gestructureerd log bijhouden door een vaste structuur te volgen met secties voor behaalde doelen, uitdagingen, verbeterpunten en reflecties. Ik vul dit log wekelijks vóór zondagavond in, zodat ik mijn voortgang overzichtelijk bijhoud en bewuster werk aan mijn ontwikkeling.
 
+Ik kan user stories vooraf plannen door aan het begin van elke week een planning te maken in een Excel-sheet, waarin ik de benodigde taken identificeer en de uitvoering inplan. Elke week zal ik in mijn rooster een planning maken. Daarnaast reflecteer ik aan het einde van de week op mijn voortgang door mijn aanpak te evalueren en feedback te vragen aan mijn medestudenten. Hierdoor verbeter ik mijn planningsvaardigheden.
+
 Mustafa 
 
 Tegen de voortgangsevalutatie wil ik beter begrijpen wat mijn code doet door actief debugging en documentatie toe te passen, zodat ik deze duidelijk en correct kan uitleggen.
