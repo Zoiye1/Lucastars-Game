@@ -420,6 +420,7 @@ export class CraftingComponent extends HTMLElement {
 
         retrieveBtn?.addEventListener("click", async () => {
             await this.handleRetrieveItem(this._resultSlot);
+            console.log(this._slots);
             await this.handleDeleteItems(this._slots);
 
             this.dispatchEvent(new CustomEvent("state-update", {
@@ -497,7 +498,6 @@ export class CraftingComponent extends HTMLElement {
 
         if (matchingRecipe) {
             this._resultSlot = matchingRecipe.title + "Item";
-            console.log("crafted", this._resultSlot);
         }
         else {
             this.emptySlotItems();
@@ -530,7 +530,6 @@ export class CraftingComponent extends HTMLElement {
         try {
             const state: string | undefined = await this._craftingRouteService.executeRetrieveItem(itemAlias);
             if (state) {
-                this.emptySlotItems();
                 this.updateDialog();
             }
         }
