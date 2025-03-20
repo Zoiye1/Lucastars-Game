@@ -31,7 +31,15 @@ export class StrangerRoom extends Room {
     }
 
     public images(): string[] {
-        return ["strangerroom/StrangerRoomBackground"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ["strangerroom/StrangerRoomBackground"];
+
+        // Add images based on player session state
+        if (!playerSession.pickedUpSheets) {
+            result.push("strangerroom/Sheets");
+        }
+
+        return result;
     }
 
     public ArrowUrl(): Arrowroom[] {
