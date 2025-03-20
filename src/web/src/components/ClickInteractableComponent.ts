@@ -30,7 +30,7 @@ const styles: string = css`
 
 `;
 
-export class ArrowComponent extends HTMLElement {
+export class ClickInteractableComponent extends HTMLElement {
     /** Instance of the game event service */
     private readonly _gameEventService: GameEventService = new GameEventService();
     /** Instance of the game route service */
@@ -106,67 +106,5 @@ export class ArrowComponent extends HTMLElement {
         }
 
         this.shadowRoot.append(...element);
-    }
-
-    private renderArrow(): HTMLElement[] | undefined {
-        const roomArrowImages: Arrowroom[] | undefined = this._currentGameState?.roomArrowImages;
-        console.log(roomArrowImages);
-        if (roomArrowImages && roomArrowImages.length > 0) {
-            return roomArrowImages.map(arrow => this.createArrowElement(arrow));
-        }
-
-        return htmlArray``;
-    }
-
-    private createArrowElement(arrow: Arrowroom): HTMLElement {
-        const img: HTMLImageElement = document.createElement("img");
-
-        img.classList.add("arrow");
-        img.src = "/assets/img/Arrows/Arrow.png";
-        img.style.transform = `rotate(${arrow.imageRotation}deg)`;
-        img.style.width = "7%";
-        img.style.height = "auto";
-        img.style.left = `${arrow.imageCoords.x}%`;
-        img.style.top = `${arrow.imageCoords.y}%`;
-        img.style.position = "absolute";
-
-        img.addEventListener("click", () => this.handleClickArrow(arrow));
-        img.addEventListener("mouseover", () => this.handleHoverArrow(arrow));
-        img.addEventListener("mouseleave", () => this.handleNoHoverArrow());
-
-        return img;
-    }
-
-    private async handleClickArrow(arrow: Arrowroom): Promise<void> {
-        console.log(`${arrow.alias} clicked!`);
-        const roomAlias: string = arrow.alias;
-
-        const state: GameState | undefined = await this._gameRouteService.executeRoomAction(roomAlias);
-        console.log(state);
-        if (state) {
-            this.Connect(state);
-        }
-    }
-
-    private handleHoverArrow(arrow: Arrowroom): void {
-        console.log(`${arrow.alias} hovered!`);
-        // const roomAlias: string = arrow.alias;
-        const locationText: HTMLParagraphElement | null = this.shadowRoot?.querySelector(".locationText") as HTMLParagraphElement | null;
-        if (locationText) {
-            locationText.textContent = `Enter ${arrow.name}`;
-        }
-        else {
-            console.warn("error");
-        }
-    }
-
-    private handleNoHoverArrow(): void {
-        const locationText: HTMLParagraphElement | null = this.shadowRoot?.querySelector(".locationText") as HTMLParagraphElement | null;
-        if (locationText) {
-            locationText.textContent = "";
-        }
-        else {
-            console.warn("error");
-        }
     }
 }
