@@ -417,11 +417,10 @@ export class CraftingComponent extends HTMLElement {
         });
 
         craftBtn?.addEventListener("click", () => this.handleCraftItem(this._slots));
-        const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
-        const resultItemAlias: string = resultSlot.innerText + "Item";
+
         retrieveBtn?.addEventListener("click", async () => {
+            await this.handleRetrieveItem(this._resultSlot);
             await this.handleDeleteItems(this._slots);
-            await this.handleRetrieveItem(resultItemAlias);
 
             this.dispatchEvent(new CustomEvent("state-update", {
                 bubbles: true,
@@ -460,7 +459,6 @@ export class CraftingComponent extends HTMLElement {
         if (firstEmptySlot !== -1 && !this._slots.includes(item)) {
             this._slots[firstEmptySlot] = item;
             this.updateDialog();
-            console.log(this._slots);
         }
     }
 
@@ -481,7 +479,6 @@ export class CraftingComponent extends HTMLElement {
 
             const ingredients: string[] = recipe.ingredientsAliases;
 
-            console.log(ingredients, filledSlots);
             const sortedSlots: string[] = [...filledSlots].sort();
             const sortedIngredients: string[] = [...ingredients].sort();
 
@@ -499,7 +496,8 @@ export class CraftingComponent extends HTMLElement {
         }
 
         if (matchingRecipe) {
-            this._resultSlot = matchingRecipe.title;
+            this._resultSlot = matchingRecipe.title + "Item";
+            console.log("crafted", this._resultSlot);
         }
         else {
             this.emptySlotItems();
