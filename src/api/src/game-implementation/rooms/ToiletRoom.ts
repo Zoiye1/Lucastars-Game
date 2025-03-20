@@ -114,18 +114,6 @@ export class ToiletRoom extends Room {
      * @param alias - De alias van de actie.
      * @returns Het resultaat van de actie.
      */
-    // public simple(alias: string): ActionResult | undefined {
-    //     if (alias === "enter-hallway") {
-    //         const room: Room = new HallwayRoom();
-
-    //         // Wijzigt de huidige kamer van de speler naar de hal
-    //         gameService.getPlayerSession().currentRoom = room.alias;
-
-    //         return room.examine();
-    //     }
-
-    //     return new TextActionResult(["You can't go there."]);
-    // }
 
     /**
      * Retourneert de beschrijving van de kamer wanneer de speler deze onderzoekt.
