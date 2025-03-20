@@ -55,6 +55,11 @@ export class ToiletRoom extends Room {
             result.push("toilet/Bucket");
         }
 
+        // Controleert of de speler de luchtverfrisser nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
+        if (!playerSession.pickedUpAirFreshener) {
+            result.push("toilet/AirFreshener");
+        }
+
         // Voegt de dealer NPC-afbeelding toe.
         result.push("characters/Dealer");
         return result;
