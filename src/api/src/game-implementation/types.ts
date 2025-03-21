@@ -158,6 +158,7 @@ export type PlayerSession = {
     pickedUpKeyCard: boolean;
     playerOpenedCloset: boolean;
     playerOpenedDoorToStorage: boolean;
+    cupboardOpened: boolean;
     playerOpenedSteelbox: boolean;
     pickedUpSugar: boolean;
     pickedUpKey: boolean;
@@ -194,7 +195,6 @@ export type PlayerSession = {
     tradedWithSmoker: boolean;
     ventUnlocked: boolean;
     windowBroken: boolean;
-    cupboardOpened: boolean;
     wantsToSearchGlassBeaker: boolean;
     wantsToSearchIngredients: boolean;
     wantsToHelpDealer: boolean;

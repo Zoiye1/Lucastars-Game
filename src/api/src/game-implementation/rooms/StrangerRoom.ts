@@ -10,6 +10,7 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { PlayerSession } from "../types";
 import { OpenAction } from "../../game-base/actions/OpenAction";
+import { CupBoardItem } from "../items/CupBoardItem";
 
 export class StrangerRoom extends Room {
     public static readonly Alias: string = "strangerroom";
@@ -36,6 +37,7 @@ export class StrangerRoom extends Room {
         const result: string[] = ["strangerroom/StrangerRoomBackground"];
 
         if (playerSession.cupboardOpened) {
+            console.log("Cupboard opened");
             result.push("strangerroom/Strangeroom-opend");
         }
 
@@ -68,11 +70,12 @@ export class StrangerRoom extends Room {
 
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: GameObject[] = [];
+        const result: GameObject[] = [new CupBoardItem()];
 
         if (!playerSession.pickedUpSheets) {
             result.push(new SheetsItem());
         }
+
         return result;
     }
 }
