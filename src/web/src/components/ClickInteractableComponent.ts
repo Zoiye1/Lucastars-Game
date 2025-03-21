@@ -64,7 +64,10 @@ const styles: string = css`
     .button:hover {
         background-color: #332c57;
     }
-    
+    .TitleItem {
+    position: absolute;
+    color: rgb(255, 196, 0);
+    }
     
     `;
 
@@ -118,7 +121,7 @@ export class ClickInteractableComponent extends HTMLElement {
 
     private Connect(state: GameState): void {
         console.log(state);
-        this.dispatchEvent(new CustomEvent("state-update", {
+        this.dispatchEvent(new CustomEvent("state-update-click", {
             detail: state,
             bubbles: true, // <-- makes the event travel up DOM so canvas can hear it
             composed: true,
@@ -161,14 +164,20 @@ export class ClickInteractableComponent extends HTMLElement {
         img.style.left = `${item.imageCoords.x}%`;
         img.style.top = `${item.imageCoords.y}%`;
         img.src = `/assets/img/rooms/${item.imageUrl}.png`;
-        img.style.width = `${img.naturalWidth * 0.5}px`;
-        img.style.height = `${img.naturalHeight * 0.5}px`;
+        img.onload = () => {
+            img.style.width = `${img.naturalWidth * 0.5}px`;
+            img.style.height = `${img.naturalHeight * 0.5}px`;
+        };
 
         const Buttons: HTMLDivElement = document.createElement("div");
         Buttons.classList.add("buttons");
         // added 7 so it doesnt overlap with the img
         Buttons.style.left = `${item.imageCoords.x}%`;
-        Buttons.style.transform = `translateX(${img.naturalWidth * 0.5 + 1}px)`;
+        img.onload = () => {
+            img.style.width = `${img.naturalWidth * 0.5}px`;
+            img.style.height = `${img.naturalHeight * 0.5}px`;
+            Buttons.style.transform = `translateX(${img.naturalWidth * 0.5 + 1}px)`;
+        };
         Buttons.style.top = `${item.imageCoords.y}%`;
 
         Buttons.innerHTML = "";
@@ -189,7 +198,6 @@ export class ClickInteractableComponent extends HTMLElement {
             });
         }
         img.addEventListener("click", () => this.handleClickItem(Buttons, img));
-
         container.appendChild(img);
         container.appendChild(Buttons);
 

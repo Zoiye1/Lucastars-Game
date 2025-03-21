@@ -174,7 +174,10 @@ export class CanvasComponent extends HTMLElement {
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
-        this.addEventListener("state-update", (event: CustomEvent) => {
+        this.addEventListener("state-update", () => {
+            void this.refreshGameState();
+        });
+        this.addEventListener("state-update-click", (event: CustomEvent) => {
             this.refreshGameStateAction(event.detail as GameState);
         });
         void this.refreshGameState();
@@ -185,12 +188,10 @@ export class CanvasComponent extends HTMLElement {
      */
     private async refreshGameState(): Promise<void> {
         const state: GameState = await this._gameRouteService.getGameState();
-        console.log(state);
         this.updateGameState(state);
     }
 
     private refreshGameStateAction(state: GameState): void {
-        console.log(state);
         this.updateGameState(state);
     }
 

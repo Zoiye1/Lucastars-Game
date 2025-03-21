@@ -76,7 +76,7 @@ export class KitchenRoom extends Room {
             { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 47 } },
         ];
         if (!playerSession.pickedUpKnife) {
-            result.push({ name: "Knife", alias: "KnifeItem", imageUrl: "kitchen/KnifeKitchen", type: ["actionableItem"], imageCoords: { x: 20, y: 47 } });
+            result.push({ name: "Knife", alias: "KnifeItem", imageUrl: "kitchen/KnifeKitchen", type: ["actionableItem"], imageCoords: { x: 25, y: 42 } });
         }
 
         return result;
