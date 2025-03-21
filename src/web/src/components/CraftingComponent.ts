@@ -227,7 +227,7 @@ const recipes: Recipe[] = [
     {
         title: "Ladder",
         ingredients: ["10 Sticks", "Super Glue", "Hammer"],
-        ingredientsAliases: ["10 Sticks", "HammerItem", "GlueItem"],
+        ingredientsAliases: ["10Sticks", "HammerItem", "GlueItem"],
 
     },
     {
