@@ -13,7 +13,7 @@ import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
 import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 
 export class KitchenRoom extends Room {
     public static readonly Alias: string = "KitchenRoom";
@@ -36,7 +36,7 @@ export class KitchenRoom extends Room {
 
     public images(): string[] {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
-        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook"];
+        const result: string[] = ["kitchen/Kitchen"];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.pickedUpKnife) {
             result.push("kitchen/KnifeKitchen");
@@ -65,6 +65,18 @@ export class KitchenRoom extends Room {
                 { name: "storage", alias: "StorageRoom", imageRotation: 180, imageCoords: { x: 46, y: 18 } }
             );
         }
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+            { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 47 } },
+        ];
 
         return result;
     }

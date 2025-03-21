@@ -1,34 +1,64 @@
-import { Arrowroom, DefaultGameState, GameObjectReference, GameState } from "@shared/types";
-import { css } from "../helpers/webComponents";
+import { ActionReference, ClickItem, DefaultGameState, GameObjectReference, GameState } from "@shared/types";
+import { css, html } from "../helpers/webComponents";
 import { GameEventService } from "../services/GameEventService";
 import { GameRouteService } from "../services/GameRouteService";
 import { htmlArray } from "../helpers/webComponents";
 import { Page } from "../enums/Page";
 
 const styles: string = css`
-    .arrow {
+    .Item {
         width: auto;
-        height: 100%;
+        height: 50%;
         image-rendering: pixelated;
         position: absolute;
+        
     }
     
-    .arrow:hover {
-      filter: hue-rotate(90deg) brightness(1.5);
+    .Item:hover {
+      filter: brightness(0.4);
     }
 
-    .locationText {
+    .buttons {
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        padding: 5px 5px 5px 5px;
+        background:rgb(66, 51, 142);
         position: absolute;
-        bottom: 5%;
-        color:rgb(81, 255, 81);
-        text-shadow: 
-    -2px -2px 0 #000,  
-     2px -2px 0 #000,  
-    -2px  2px 0 #000,  
-     2px  2px 0 #000;
+        visibility: hidden;
     }
 
-`;
+    .buttons.active {
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        padding: 5px 5px 5px 5px;
+        background:rgb(66, 51, 142);
+        position: absolute;
+        visibility: visible;
+    }
+
+    .button {
+        z-index: 3;
+        background-color: #7f6ed7;
+        border: 1px solid #332c57;
+        padding: 3px 0px;
+        margin: 0 0 0px 0px;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: inline-block;
+        user-select: none;
+    }
+
+    .button.active,
+    .button:hover {
+        background-color: #332c57;
+    }
+    
+    
+    `;
 
 export class ClickInteractableComponent extends HTMLElement {
     /** Instance of the game event service */
@@ -79,6 +109,7 @@ export class ClickInteractableComponent extends HTMLElement {
     }
 
     private Connect(state: GameState): void {
+        console.log(state);
         this.dispatchEvent(new CustomEvent("state-update", {
             detail: state,
             bubbles: true, // <-- makes the event travel up DOM so canvas can hear it
@@ -90,15 +121,12 @@ export class ClickInteractableComponent extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
-        const locationText: HTMLParagraphElement = document.createElement("p");
-        locationText.classList.add("locationText");
-        locationText.textContent = "";
+
         const element: HTMLElement[] = htmlArray`
             <style>
                 ${styles}
             </style>
-                ${this.renderArrow()}
-                ${locationText}
+            ${this.renderInteractables()}
             `;
 
         while (this.shadowRoot.firstChild) {
@@ -106,5 +134,83 @@ export class ClickInteractableComponent extends HTMLElement {
         }
 
         this.shadowRoot.append(...element);
+    }
+
+    private renderInteractables(): HTMLElement[] | undefined {
+        const roomImages: ClickItem[] | undefined = this._currentGameState?.roomClickImages;
+        if (roomImages && roomImages.length > 0) {
+            return roomImages.map(item => this.createItemElement(item));
+        }
+
+        return htmlArray``;
+    }
+
+    private createItemElement(item: ClickItem): HTMLElement {
+        const container: HTMLElement = document.createElement("div");
+        const img: HTMLImageElement = document.createElement("img");
+
+        img.classList.add("Item");
+        img.style.left = `${item.imageCoords.x}%`;
+        img.style.top = `${item.imageCoords.y}%`;
+        img.src = `/assets/img/rooms/${item.imageUrl}.png`;
+
+        const Buttons: HTMLDivElement = document.createElement("div");
+        Buttons.classList.add("buttons");
+        // added 7 so it doesnt overlap with the img
+        Buttons.style.left = `${item.imageCoords.x + 7}%`;
+        Buttons.style.top = `${item.imageCoords.y}%`;
+
+        Buttons.innerHTML = "";
+        // get the array of action
+        let ArrayOfActions: ActionReference[] | undefined = this._currentGameState?.actions;
+
+        // Some interactables cant have certain actions, check happens here.
+        if (item.type.includes("npc")) {
+            ArrayOfActions = ArrayOfActions?.filter(action => action.alias === "examine" || action.alias === "talk");
+        }
+        if (item.type.includes("actionableItem")) {
+            ArrayOfActions = ArrayOfActions?.filter(action => action.alias === "examine" || action.alias === "pick-up");
+        }
+        if (ArrayOfActions) {
+            ArrayOfActions.forEach((button: ActionReference) => {
+                const buttonElement: HTMLElement = this.renderActionButton(button, item);
+                Buttons.appendChild(buttonElement);
+            });
+        }
+        img.addEventListener("click", () => this.handleClickItem(Buttons));
+
+        container.appendChild(img);
+        container.appendChild(Buttons);
+
+        return container;
+    }
+
+    private handleClickItem(Buttons: HTMLDivElement): void {
+        Buttons.classList.toggle("active");
+    }
+
+    private renderActionButton(button: ActionReference, item: ClickItem): HTMLElement {
+        const element: HTMLElement = html`
+            <a class="button">
+                ${button.name}
+            </a>
+        `;
+
+        element.addEventListener("click", (): void => {
+            void this.handleClickAction(button, item);
+        });
+
+        return element;
+    }
+
+    private async handleClickAction(button: ActionReference, item: ClickItem): Promise<void> {
+        console.log(button);
+        console.log(item);
+
+        const state: GameState | undefined = await this._gameRouteService.executeAction(button.alias, [item.alias]);
+        console.log(state);
+        if (state) {
+            this.Connect(state);
+        }
     }
 }

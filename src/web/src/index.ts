@@ -6,6 +6,7 @@ import { ArrowComponent } from "./components/ArrowComponent";
 import { CraftingComponent } from "./components/CraftingComponent";
 import { QuestComponent } from "./components/QuestComponent";
 import { MapComponent } from "./components/MapComponent";
+import { ClickInteractableComponent } from "./components/ClickInteractableComponent";
 // import { ArrowComponent } from "./components/ArrowComponent";
 
 // Expose the web components to the browser
@@ -14,6 +15,7 @@ window.customElements.define("game-notfound", NotFoundComponent);
 window.customElements.define("game-canvas", CanvasComponent);
 window.customElements.define("game-inventory", InventoryComponent);
 window.customElements.define("game-arrow", ArrowComponent);
+window.customElements.define("game-click", ClickInteractableComponent);
 // window.customElements.define("game-arrow", ArrowComponent);
 window.customElements.define("game-crafting", CraftingComponent);
 window.customElements.define("game-quest", QuestComponent);
