@@ -48,7 +48,7 @@ export class CleanerCharacter extends Character {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
         if (!playerSession.wantsToHelpCleaner) {
-            if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4) {
+            if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4 && choiceId !== 5 && choiceId !== 6) {
                 return new TalkActionResult(
                     this,
                     ["Oh, hi. Sorry, I am a little busy trying to clean up."],
@@ -72,30 +72,50 @@ export class CleanerCharacter extends Character {
                 );
             }
             else if (choiceId === 3) {
+                return new TalkActionResult(
+                    this,
+                    ["Thank you! I just need my water bucket, but someone took it. If you can help me find it, I would really appreciate it, and I might have something for you in return."],
+                    [
+                        new TalkChoice(5, "Okay, I will go look for it!"),
+                        new TalkChoice(6, "Actually, I already have the bucket! Here you go."),
+                    ]
+                );
+            }
+            else if (choiceId === 4) {
+                return new TextActionResult(["Don't talk to me like that... I am already exhausted!"]);
+            }
+            else if (choiceId === 5) {
                 playerSession.wantsToHelpCleaner = true;
-
-                return new TextActionResult(["Thank you! I just need my water bucket, but someone took it. If you can help me find it, I would really appreciate it, and I might have something for you in return."]);
+                return new TextActionResult(["Thank you for trying to help. Goodluck :)"]);
             }
             else {
-                // choiceId == 4
-                return new TextActionResult(["Don't talk to me like that... I am already exhausted!"]);
+                // choideId 6
+                if (playerSession.inventory.includes("bucket")) {
+                    playerSession.helpedCleaner = true;
+                    playerSession.inventory.push("ten-euro-bill");
+                    playerSession.inventory.splice(playerSession.inventory.indexOf("bucket"), 1);
+                    return new TextActionResult(["Amazing! Thank you for helping me. Now I can finally make my boss happy! I promised you a reward and here you go, a €10 bill. Go ahead and treat yourself with a gift :)"]);
+                }
+                else {
+                    return new TextActionResult(["Haha.. that's not funny. You do not have a bucket on you. Please keep looking..."]);
+                };
             }
         }
         else {
-            if (choiceId !== 5 && choiceId !== 6) {
+            if (choiceId !== 7 && choiceId !== 8) {
                 return new TalkActionResult(
                     this,
                     ["Did you manage to find my water bucket?"],
                     [
-                        new TalkChoice(5, "Not yet, I am still looking."),
-                        new TalkChoice(6, "Yes, I found it! Here you go. "),
+                        new TalkChoice(7, "Not yet, I am still looking."),
+                        new TalkChoice(8, "Yes, I found it! Here you go. "),
                     ]);
             }
-            else if (choiceId === 5) {
+            else if (choiceId === 7) {
                 return new TextActionResult(["Okay. I will be waiting here."]);
             }
             else {
-                // choiceId == 6
+                // choiceId == 8
                 if (playerSession.inventory.includes("bucket")) {
                     playerSession.helpedCleaner = true;
                     playerSession.inventory.push("ten-euro-bill");
