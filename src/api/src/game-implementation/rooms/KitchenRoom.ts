@@ -38,9 +38,6 @@ export class KitchenRoom extends Room {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
         const result: string[] = ["kitchen/Kitchen"];
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        if (!playerSession.pickedUpKnife) {
-            result.push("kitchen/KnifeKitchen");
-        }
         if (!playerSession.pickedUpSugar) {
             result.push("kitchen/BagOfSugar");
         }
@@ -70,6 +67,7 @@ export class KitchenRoom extends Room {
     }
 
     public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
         // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
         // The imageurl and the types
 
@@ -77,6 +75,9 @@ export class KitchenRoom extends Room {
         const result: ClickItem[] = [
             { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 47 } },
         ];
+        if (!playerSession.pickedUpKnife) {
+            result.push({ name: "Knife", alias: "KnifeItem", imageUrl: "kitchen/KnifeKitchen", type: ["actionableItem"], imageCoords: { x: 20, y: 47 } });
+        }
 
         return result;
     }

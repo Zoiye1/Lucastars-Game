@@ -18,6 +18,14 @@ const styles: string = css`
       filter: brightness(0.4);
     }
 
+    .Item.active {
+        width: auto;
+        height: 50%;
+        image-rendering: pixelated;
+        position: absolute;
+         filter: drop-shadow(0 0 8px rgb(255, 196, 0)); 
+    }
+
     .buttons {
         z-index: 3;
         display: flex;
@@ -153,11 +161,14 @@ export class ClickInteractableComponent extends HTMLElement {
         img.style.left = `${item.imageCoords.x}%`;
         img.style.top = `${item.imageCoords.y}%`;
         img.src = `/assets/img/rooms/${item.imageUrl}.png`;
+        img.style.width = `${img.naturalWidth * 0.5}px`;
+        img.style.height = `${img.naturalHeight * 0.5}px`;
 
         const Buttons: HTMLDivElement = document.createElement("div");
         Buttons.classList.add("buttons");
         // added 7 so it doesnt overlap with the img
-        Buttons.style.left = `${item.imageCoords.x + 7}%`;
+        Buttons.style.left = `${item.imageCoords.x}%`;
+        Buttons.style.transform = `translateX(${img.naturalWidth * 0.5 + 1}px)`;
         Buttons.style.top = `${item.imageCoords.y}%`;
 
         Buttons.innerHTML = "";
@@ -177,7 +188,7 @@ export class ClickInteractableComponent extends HTMLElement {
                 Buttons.appendChild(buttonElement);
             });
         }
-        img.addEventListener("click", () => this.handleClickItem(Buttons));
+        img.addEventListener("click", () => this.handleClickItem(Buttons, img));
 
         container.appendChild(img);
         container.appendChild(Buttons);
@@ -185,8 +196,9 @@ export class ClickInteractableComponent extends HTMLElement {
         return container;
     }
 
-    private handleClickItem(Buttons: HTMLDivElement): void {
+    private handleClickItem(Buttons: HTMLDivElement, Img: HTMLImageElement): void {
         Buttons.classList.toggle("active");
+        Img.classList.toggle("active");
     }
 
     private renderActionButton(button: ActionReference, item: ClickItem): HTMLElement {
