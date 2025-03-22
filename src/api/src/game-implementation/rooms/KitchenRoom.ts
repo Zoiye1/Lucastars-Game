@@ -37,10 +37,6 @@ export class KitchenRoom extends Room {
     public images(): string[] {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
         const result: string[] = ["kitchen/Kitchen"];
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-        if (!playerSession.pickedUpSugar) {
-            result.push("kitchen/BagOfSugar");
-        }
         // if (playerSession.playerOpenedDoorToStorage) {
         //     result.push("kitchen/ArrowToStorageKitchen4");
         // }
@@ -73,10 +69,13 @@ export class KitchenRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 47 } },
+            { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 52 } },
         ];
         if (!playerSession.pickedUpKnife) {
             result.push({ name: "Knife", alias: "KnifeItem", imageUrl: "kitchen/KnifeKitchen", type: ["actionableItem"], imageCoords: { x: 25, y: 42 } });
+        }
+        if (!playerSession.pickedUpSugar) {
+            result.push({ name: "Sugar", alias: "SugarItem", imageUrl: "kitchen/BagOfSugar", type: ["actionableItem"], imageCoords: { x: 70, y: 19 } });
         }
 
         return result;
