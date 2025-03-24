@@ -1,4 +1,4 @@
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -58,18 +58,37 @@ export class RoofRoom extends Room implements Jump {
 
     // Bepaalt welke afbeeldingen in deze kamer zichtbaar zijn
     public images(): string[] {
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-        const inventory: string[] = playerSession.inventory;
+        // const playerSession: PlayerSession = gameService.getPlayerSession();
+        // const inventory: string[] = playerSession.inventory;
         const result: string[] = ["Roof/RoofBackground"];
 
-        // Voeg de hamer toe aan de afbeeldingen als deze nog niet is opgepakt
-        if (!playerSession.pickedUpHammer) {
-            result.push("Roof/Hammer");
-        }
+        // // Voeg de hamer toe aan de afbeeldingen als deze nog niet is opgepakt
+        // if (!playerSession.pickedUpHammer) {
+        //     result.push("Roof/Hammer");
+        // }
 
-        // Voeg de stokken toe aan de afbeeldingen als deze nog niet zijn opgepakt
+        // // Voeg de stokken toe aan de afbeeldingen als deze nog niet zijn opgepakt
+        // if (!inventory.includes("Sticks") && !inventory.includes("10Sticks")) {
+        //     result.push("Roof/Sticks");
+        // }
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const inventory: string[] = playerSession.inventory;
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+        ];
+        if (!playerSession.pickedUpHammer) {
+            result.push({ name: "Hammer", alias: "HammerItem", imageUrl: "Roof/Hammer", type: ["actionableItem"], imageCoords: { x: 55, y: 46 } });
+        }
         if (!inventory.includes("Sticks") && !inventory.includes("10Sticks")) {
-            result.push("Roof/Sticks");
+            result.push({ name: "Sticks", alias: "Sticks", imageUrl: "Roof/Sticks", type: ["actionableItem"], imageCoords: { x: 25, y: 84 } });
         }
 
         return result;
