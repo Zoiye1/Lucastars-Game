@@ -39,6 +39,7 @@ export class StrangerRoom extends Room {
         if (playerSession.cupboardOpened) {
             console.log("Cupboard opened");
             result.push("strangerroom/Strangeroom-opend");
+            result.push("strangerroom/Sheets");
         }
 
         return result;

@@ -114,6 +114,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(GlueItem);
         this.registerGameObject(KeyCardItem);
         this.registerGameObject(CupBoardItem);
+        this.registerGameObject(SheetsItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
