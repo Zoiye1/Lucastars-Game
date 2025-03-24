@@ -887,3 +887,88 @@ Milan scrummaster
 
     -  #### Zijn er problemen waar tegen aanloopt?
        -  Nee momenteel niet
+
+### Daily standup maandag 18-03-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Aan arrows gewerkt (tekst toegevoegd)
+
+    
+    -  #### Wat ga je vandaag doen?
+       -  Click item webcomponent toevoegen, onderzoek doen naar deployen game op hva cloud
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+       - Voortgangsgesprek, Geholpen inventory, user stories gemaakt
+
+    -  #### Wat ga je vandaag doen?
+       - Sprintpoker deelnemen, user stories afmaken
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Icons gemaakt, Inventory component gefixed, begonnen aan jump action
+
+
+    -  #### Wat ga je vandaag doen?
+       -  Voortgangsevaluatiegesprek doen en jump action maken
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+       -  icons + nieuwe pixel art gemaakt
+       -  begonnen aan feedback verwerken use action
+
+
+
+    -  #### Wat ga je vandaag doen?
+        - sprint planning maken
+        - sprint pokeren
+        - verder werken aan lab ending
+
+
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan? 
+       -  Voortgangsevaluatie
+
+
+    -  #### Wat ga je vandaag doen?
+       -  Items toegevoegd aan mijn kamers & en begin te werken aan de give action
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  momenteel niet
+

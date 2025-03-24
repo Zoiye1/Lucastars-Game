@@ -182,6 +182,7 @@ export type PlayerSession = {
     pickedUpBucket: boolean;
     pickedUpGlassBeaker: boolean;
     pickedUpSulfuricAcid: boolean;
+    EscapedLab: boolean;
 
     // Voeg de nieuwe activeQuest eigenschap toe
     activeQuest?: {
