@@ -255,7 +255,7 @@ export class CraftingComponent extends HTMLElement {
     private _selectedItemInventory: string = "";
 
     /** Array met items in de crafting slots */
-    private _slots: string[] = ["", "", "", ""];
+    private _slots: string[] = ["", "", ""];
     /** Item in de resultaat slot */
     private _resultSlot: string = "";
 
@@ -369,11 +369,6 @@ export class CraftingComponent extends HTMLElement {
                                 <div class="container-slot">
                                     ${this._slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
                                     <div class="slot">${this._slots[2] !== "" ? `<img data-item="${this._slots[2]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[2]}.png"/>` : ""}</div>
-                                </div>
-                                <span class="symbol">+</span>
-                                <div class="container-slot">
-                                    ${this._slots[3] ? "<button id=\"emptySlot\" data-slot=\"3\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[3] !== "" ? `<img data-item="${this._slots[3]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[3]}.png"/>` : ""}</div>
                                 </div>
                                 <span class="symbol">=</span>
                                 <div class="result-slot">${this._resultSlot !== "" ? `<img data-item="${this._resultSlot}" class="slot-icon" src="/public/assets/img/icons/${this._resultSlot}.png"/>` : ""}</div>
