@@ -7,15 +7,15 @@ import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 
-export class CupBoardItem extends Item implements Examine, Open {
-    public static readonly Alias: string = "cupboard";
+export class WardrobeItem extends Item implements Examine, Open {
+    public static readonly Alias: string = "wardrobe";
 
     public constructor() {
-        super(CupBoardItem.Alias);
+        super(WardrobeItem.Alias);
     }
 
     public name(): string {
-        return "Cupboard";
+        return "Wardrobe";
     }
 
     public type(): GameObjectType[] {
@@ -23,15 +23,15 @@ export class CupBoardItem extends Item implements Examine, Open {
     }
 
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["This is a cupboard."]);
+        return new TextActionResult(["This is a wardrobe."]);
     }
 
     public open(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        if (!playerSession.cupboardOpened) {
-            playerSession.cupboardOpened = true;
-            return new TextActionResult(["You open the cupboard and found a sheets."]);
+        if (!playerSession.wardrobeOpened) {
+            playerSession.wardrobeOpened = true;
+            return new TextActionResult(["You opend the wardrobe and found a sheets."]);
         }
-        return new TextActionResult(["The cupboard is already open!"]);
+        return new TextActionResult(["The wardrobe is already open!"]);
     }
 }

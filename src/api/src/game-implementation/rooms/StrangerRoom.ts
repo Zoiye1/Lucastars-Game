@@ -10,7 +10,7 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { SheetsItem } from "../items/SheetsItem";
 import { PlayerSession } from "../types";
 import { OpenAction } from "../../game-base/actions/OpenAction";
-import { CupBoardItem } from "../items/CupBoardItem";
+import { WardrobeItem } from "../items/WardrobeItem";
 
 export class StrangerRoom extends Room {
     public static readonly Alias: string = "strangerroom";
@@ -36,8 +36,7 @@ export class StrangerRoom extends Room {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: string[] = ["strangerroom/StrangerRoomBackground"];
 
-        if (playerSession.cupboardOpened) {
-            console.log("Cupboard opened");
+        if (playerSession.wardrobeOpened) {
             result.push("strangerroom/Strangeroom-opend");
 
             // Sheets alleen toevoegen als ze nog niet zijn opgepakt
@@ -75,7 +74,7 @@ export class StrangerRoom extends Room {
 
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: GameObject[] = [new CupBoardItem()];
+        const result: GameObject[] = [new WardrobeItem()];
 
         if (!playerSession.pickedUpSheets) {
             result.push(new SheetsItem());

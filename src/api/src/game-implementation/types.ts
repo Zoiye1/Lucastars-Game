@@ -158,7 +158,7 @@ export type PlayerSession = {
     pickedUpKeyCard: boolean;
     playerOpenedCloset: boolean;
     playerOpenedDoorToStorage: boolean;
-    cupboardOpened: boolean;
+    wardrobeOpened: boolean;
     playerOpenedSteelbox: boolean;
     pickedUpSugar: boolean;
     pickedUpKey: boolean;
