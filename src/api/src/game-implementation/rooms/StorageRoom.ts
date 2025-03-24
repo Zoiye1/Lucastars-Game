@@ -1,4 +1,4 @@
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -38,13 +38,13 @@ export class StorageRoom extends Room {
 
     public images(): string[] {
         const result: string[] = ["storage/Storage"];
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-        if (playerSession.playerOpenedCloset) {
-            result.push("storage/Opencloset");
-        }
-        if (playerSession.playerOpenedSteelbox) {
-            result.push("storage/Openbox");
-        }
+        // const playerSession: PlayerSession = gameService.getPlayerSession();
+        // if (playerSession.playerOpenedCloset) {
+        //     result.push("storage/Opencloset");
+        // }
+        // if (playerSession.playerOpenedSteelbox) {
+        //     result.push("storage/Openbox");
+        // }
         return result;
     }
 
@@ -85,6 +85,42 @@ export class StorageRoom extends Room {
         return result;
     }
 
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+            { name: "Keypad", alias: "KeypadItem", imageUrl: "storage/KeyPad", type: ["actionableItemOpen"], imageCoords: { x: 60, y: 45 } },
+            { name: "Elevator", alias: "elevator", imageUrl: "storage/Elevator", type: ["actionableItemOpen"], imageCoords: { x: 65, y: 25 } },
+        ];
+        if (!playerSession.playerOpenedCloset) {
+            result.push({ name: "closet", alias: "closet", imageUrl: "storage/Closet", type: ["actionableItemOpen"], imageCoords: { x: 15, y: 25 } });
+        }
+        if (!playerSession.playerOpenedSteelbox) {
+            result.push({ name: "steel box", alias: "steel box", imageUrl: "storage/Steelbox", type: ["actionableItemOpen"], imageCoords: { x: 38, y: 40 } });
+        }
+        if (playerSession.playerOpenedCloset) {
+            result.push({ name: "closet", alias: "closet", imageUrl: "storage/Opencloset", type: ["actionableItemOpen"], imageCoords: { x: 15, y: 25 } });
+        }
+        if (playerSession.playerOpenedSteelbox) {
+            result.push({ name: "steel box", alias: "steel box", imageUrl: "storage/Openbox", type: ["actionableItemOpen"], imageCoords: { x: 38, y: 40 } });
+        }
+        if (playerSession.playerOpenedCloset) {
+            if (!playerSession.pickedUpKeyCard) {
+                result.push({ name: "KeyCard", alias: "KeyCardItem", imageUrl: "storage/Keycard", type: ["actionableItem"], imageCoords: { x: 23, y: 48 } });
+            }
+        }
+        if (playerSession.playerOpenedSteelbox) {
+            if (!playerSession.pickedUpGlue) {
+                result.push({ name: "Glue", alias: "GlueItem", imageUrl: "storage/GlueItem", type: ["actionableItem"], imageCoords: { x: 50, y: 40 } });
+            }
+        }
+
+        return result;
+    }
+
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
@@ -94,7 +130,7 @@ export class StorageRoom extends Room {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.playerOpenedElevator) {
             result.push(
-                { name: "Elevator", alias: "labroom", imageRotation: 180, imageCoords: { x: 68, y: 7 } }
+                { name: "Elevator", alias: "labroom", imageRotation: 180, imageCoords: { x: 69, y: 7 } }
             );
         }
 

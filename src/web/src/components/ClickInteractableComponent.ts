@@ -191,6 +191,9 @@ export class ClickInteractableComponent extends HTMLElement {
         if (item.type.includes("actionableItem")) {
             ArrayOfActions = ArrayOfActions?.filter(action => action.alias === "examine" || action.alias === "pick-up");
         }
+        if (item.type.includes("actionableItemOpen")) {
+            ArrayOfActions = ArrayOfActions?.filter(action => action.alias === "examine" || action.alias === "open");
+        }
         if (ArrayOfActions) {
             ArrayOfActions.forEach((button: ActionReference) => {
                 const buttonElement: HTMLElement = this.renderActionButton(button, item);
