@@ -54,6 +54,9 @@ import { RoofEndRoom } from "../rooms/RoofEndRoom";
 import { LadderItem } from "../items/LadderItem";
 import { GlueItem } from "../items/GlueItem";
 import { KeyCardItem } from "../items/KeyCardItem";
+import { LabEndRoom } from "../rooms/LabEndRoom";
+import { CorrosiveAcidItem } from "../items/CorrosiveAcidItem";
+import { MetalDoorItem } from "../items/MetalDoorItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -82,6 +85,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(CourtyardTheEndRoom);
         this.registerGameObject(GymTheEndRoom);
         this.registerGameObject(RoofEndRoom);
+        this.registerGameObject(LabEndRoom);
+
         // Items
         this.registerGameObject(BakingSodaItem);
         this.registerGameObject(TitleItem);
@@ -112,6 +117,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(LadderItem);
         this.registerGameObject(GlueItem);
         this.registerGameObject(KeyCardItem);
+        this.registerGameObject(CorrosiveAcidItem);
+        this.registerGameObject(MetalDoorItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -180,6 +187,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpKeyCard: false,
             pickedUpWirecutter: false,
             pickedUpGlue: false,
+            EscapedLab: false,
         };
     }
 
