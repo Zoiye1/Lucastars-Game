@@ -497,7 +497,7 @@ export class CraftingComponent extends HTMLElement {
                 this.showNotification(false, "Oops... This crafting combination did not work!");
             }
             else if (previousResultSlot !== this._resultSlot) {
-                const displayString: string = this._resultSlot.replace("item", "");
+                const displayString: string = this._resultSlot.replace("Item", "");
                 this.showNotification(true, `Success! You have crafted a ${displayString}!`);
             }
         });
