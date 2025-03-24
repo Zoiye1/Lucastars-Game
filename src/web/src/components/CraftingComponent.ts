@@ -360,7 +360,7 @@ export class CraftingComponent extends HTMLElement {
      * @param message De boodschap om te tonen
      * @param duration Tijd in ms dat de notificatie zichtbaar blijft
      */
-    private showNotification(success: boolean, message: string, duration: number = 3000): void {
+    private showCraftNotification(success: boolean, message: string, duration: number = 3000): void {
         this.removeExistingNotification();
 
         const notificationElement: HTMLElement = document.createElement("div");
@@ -494,22 +494,33 @@ export class CraftingComponent extends HTMLElement {
             this.handleCraftItem(this._slots);
 
             if (!this._resultSlot) {
-                this.showNotification(false, "Oops... This crafting combination did not work!");
+                this.showCraftNotification(false, "Oops... This crafting combination did not work!");
             }
             else if (previousResultSlot !== this._resultSlot) {
                 const displayString: string = this._resultSlot.replace("Item", "");
-                this.showNotification(true, `Success! You have crafted a ${displayString}!`);
+                this.showCraftNotification(true, `Success! You have crafted a ${displayString}!`);
             }
         });
 
         retrieveBtn?.addEventListener("click", async () => {
             await this.handleRetrieveItem(this._resultSlot);
+            const displayString: string = this._resultSlot.replace("Item", "");
+
             await this.handleDeleteItems(this._slots);
 
             this.dispatchEvent(new CustomEvent("state-update", {
                 bubbles: true,
                 composed: true,
             }));
+
+            setTimeout(() => {
+                // stuur event naar canvas component voor retrieve notificatie
+                this.dispatchEvent(new CustomEvent("show-retrieve-notification", {
+                    bubbles: true,
+                    composed: true,
+                    detail: { message: `You have saved the ${displayString} in the inventory!` },
+                }));
+            }, 500);
 
             await this.refreshGameState();
         });
