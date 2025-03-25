@@ -20,7 +20,7 @@ export class CorrosiveAcidItem extends Item {
      * @returns De naam van het item
      */
     public name(): string {
-        return "CorrosiveAcid";
+        return "Corrosive Acid";
     }
 
     /**

@@ -15,7 +15,7 @@ export class GlassBeakerItem extends Item implements Examine, PickUp {
     }
 
     public name(): string {
-        return "GlassBeaker";
+        return "Glass Beaker";
     }
 
     /**
