@@ -7,7 +7,11 @@ import { CraftingComponent } from "./components/CraftingComponent";
 import { QuestComponent } from "./components/QuestComponent";
 import { MapComponent } from "./components/MapComponent";
 import { ClickInteractableComponent } from "./components/ClickInteractableComponent";
+import { AudioComponent } from "./components/AudioComponent";
 // import { ArrowComponent } from "./components/ArrowComponent";
+import { enableAudioAutoplay } from "./utils/audioUtils";
+
+enableAudioAutoplay();
 
 // Expose the web components to the browser
 window.customElements.define("game-root", RootComponent);
@@ -20,3 +24,4 @@ window.customElements.define("game-click", ClickInteractableComponent);
 window.customElements.define("game-crafting", CraftingComponent);
 window.customElements.define("game-quest", QuestComponent);
 window.customElements.define("game-map", MapComponent);
+window.customElements.define("game-audio", AudioComponent);
