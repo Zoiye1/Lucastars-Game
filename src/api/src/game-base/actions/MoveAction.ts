@@ -1,6 +1,6 @@
 import { ActionResult } from "../actionResults/ActionResult";
-import { GameObject } from "../gameObjects/GameObject";
-import { Action } from "./Action";
+// import { GameObject } from "../gameObjects/GameObject";
+// import { Action } from "./Action";
 
 @Interface
 export abstract class Move {
