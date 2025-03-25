@@ -481,9 +481,17 @@ export class CanvasComponent extends HTMLElement {
      */
     private renderFooter(): HTMLElement {
         const gameObjectsReferences: GameObjectReference[] | undefined = this._currentGameState?.objects;
+        const gameActionRefrences: ActionReference[] | undefined = this._currentGameState?.actions;
         let filtratedObjects: GameObjectReference[] = [];
+        let filtratedActions: ActionReference[] = [];
 
         const selectedButton: ActionReference | undefined = this._selectedActionButton;
+
+        // checks if action is valid
+        filtratedActions = gameActionRefrences?.filter(
+            (gameActionRefrences: ActionReference) =>
+                !["examine", "talk", "pick-up"].some(action => gameActionRefrences.alias.includes(action))
+        );
 
         // filter gameObjects gebaseerd op action alias
         if (selectedButton && selectedButton.alias === "examine") {
@@ -511,7 +519,7 @@ export class CanvasComponent extends HTMLElement {
             <div class="footer">
                 <div class="buttons">
                     <div>
-                        ${this._currentGameState?.actions.map((button: ActionReference) => this.renderActionButton(button))}
+                        ${filtratedActions.map((button: ActionReference) => this.renderActionButton(button))}
                     </div>
                     <div>
                         ${this._selectedActionButton
