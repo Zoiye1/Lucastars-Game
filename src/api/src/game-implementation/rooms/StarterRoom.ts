@@ -18,7 +18,6 @@ import { WindowItem } from "../items/WindowItem";
 import { UseAction } from "../actions/UseAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 import { Arrowroom } from "@shared/types";
-
 /**
  * Klasse die de startkamer in het spel vertegenwoordigt.
  * De speler kan objecten onderzoeken, oppakken en gebruiken om een uitweg te vinden.
@@ -110,11 +109,22 @@ export class StarterRoom extends Room {
      * @returns {ActionResult | undefined} De beschrijving van de startkamer.
      */
     public examine(): ActionResult | undefined {
-        return new TextActionResult([
-            "You wake up with a pounding headache",
-            "You have no idea where you are. Your head throbs as you glance around the room.",
-            "The door is locked. You need to find a way out!",
-        ]);
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.HasVisitedStarterRoom) {
+            playerSession.HasVisitedStarterRoom = true;
+            return new TextActionResult([
+                "You wake up with a pounding headache",
+                "You have no idea where you are. Your head throbs as you glance around the room.",
+                "The door is locked. You need to find a way out!",
+            ]);
+        }
+        else {
+            return new TextActionResult([
+                "You're back in the room where you woke up.",
+                "The familiar surroundings bring back the memory of your confusion when you first arrived.",
+                "You need to keep looking for a way out.",
+            ]);
+        }
     }
 
     /**
@@ -145,12 +155,15 @@ export class StarterRoom extends Room {
      * @returns {Action[]} Een lijst met beschikbare acties.
      */
     public actions(): Action[] {
-        const actions: Action[] = [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: Action[] = [
             new ExamineAction(),
-            new PickUpAction(),
-            new UseAction(),
         ];
 
-        return actions;
+        if (!playerSession.pickedUpPainting || !playerSession.pickedUpFork) result.push(new PickUpAction());
+
+        if (!playerSession.windowBroken || !playerSession.ventUnlocked) result.push(new UseAction());
+
+        return result;
     }
 }
