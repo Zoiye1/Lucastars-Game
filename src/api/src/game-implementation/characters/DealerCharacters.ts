@@ -93,7 +93,8 @@ export class DealerCharacter extends Character {
             }
         }
 
-        if (_choiceId === 6 || _choiceId === 9) {
+        // Speler wijst aanbod af (op elk moment)
+        if (_choiceId === 4 || _choiceId === 6 || _choiceId === 9 || _choiceId === 10) {
             return new TextActionResult(["No stress."]);
         }
 
