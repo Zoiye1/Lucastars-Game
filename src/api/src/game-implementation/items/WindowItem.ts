@@ -46,10 +46,6 @@ export class WindowItem extends TargetItem implements Examine {
             // Remove the item from inventory since it's been used
             const inventory = playerSession.inventory;
             const index = inventory.indexOf(sourceItem.alias);
-            if (index !== -1) {
-                inventory.splice(index, 1);
-            }
-
             const messages: MessagesByItem = {
                 PaintingItem: [
                     "You throw the painting at the window, shattering it!",
