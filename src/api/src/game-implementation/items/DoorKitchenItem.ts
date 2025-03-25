@@ -36,7 +36,7 @@ export class DoorKitchenItem extends Item implements Examine, Open {
     public open(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.playerOpenedDoorToStorage) {
-            if (playerSession.inventory.includes("Key-Storage")) {
+            if (playerSession.inventory.includes("Key")) {
                 playerSession.playerOpenedDoorToStorage = true;
                 return new TextActionResult(["You use the key to open the door",
                 ]);
