@@ -972,3 +972,91 @@ Milan scrummaster
     -  #### Zijn er problemen waar tegen aanloopt?
        -  momenteel niet
 
+
+### Daily standup maandag 18-03-2025
+
+- Milan
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Click webcomponent afgemaakt (voor items)
+
+    
+    -  #### Wat ga je vandaag doen?
+       -  UAT Uitvoeren
+       -  Onderzoek doen naar linux
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Farmaan
+
+    -  #### Wat heb je gisteren gedaan?
+       - Crafting component afgemaakt (feedback verwerkt)
+
+    -  #### Wat ga je vandaag doen?
+       - Mergen
+       - Kennis uitbreiden
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+
+- Mustafa
+
+    -  #### Wat heb je gisteren gedaan?
+       -  Nieuwe visuals toegevoegd
+
+
+    -  #### Wat ga je vandaag doen?
+       -  Roof afmaken
+       -  bugfixes
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Zoiye 
+
+    -  #### Wat heb je gisteren gedaan?
+        - Starterroom afgemaakt
+        - Nieuwe visuals toegevoegd
+        - Audiocomponent toegevoegd
+
+
+
+    -  #### Wat ga je vandaag doen?
+        - Mergen naar main
+        - Verder met use action
+        - voorbereiden op feedbackmoment
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  nee
+
+
+
+- Batuhan 
+
+    -  #### Wat heb je gisteren gedaan? 
+       -  
+
+
+    -  #### Wat ga je vandaag doen?
+       -  
+
+
+
+    -  #### Zijn er problemen waar tegen aanloopt?
+       -  
+
+
