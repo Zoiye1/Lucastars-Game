@@ -57,6 +57,7 @@ export class ProfessorCharacter extends Character implements Examine {
         if (choiceId === 4) {
             if (playerSession.inventory.includes("GlassBeakerItem")) {
                 playerSession.wantsToSearchIngredients = true;
+                playerSession.inventory.splice(playerSession.inventory.indexOf("GlassBeakerItem"), 1);
                 return new TextActionResult(["Professor: Perfect! But we still need the ingredients... Find: SulfuricAcid, FocusDrink, Baking Soda"]);
             }
             else {
@@ -83,7 +84,6 @@ export class ProfessorCharacter extends Character implements Examine {
                 playerSession.inventory.push("CorrosiveAcid");
                 playerSession.helpedProfessor = true;
                 return new TextActionResult(["Professor: Perfect, here you go +1 CorrosiveAcid"]);
-                audioService.playSoundEffect("unlock");
             }
             else {
                 return new TextActionResult(["Professor: You dont have all items yet, keep searching."]);

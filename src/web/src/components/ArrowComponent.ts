@@ -22,7 +22,7 @@ const styles: string = css`
     .locationText {
         z-index: 2;
         position: absolute;
-        bottom: 5%;
+        top: 5%;
         color:rgb(81, 255, 81);
         text-shadow: 
     -2px -2px 0 #000,  
