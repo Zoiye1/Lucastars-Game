@@ -1,4 +1,4 @@
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -40,9 +40,9 @@ export class StrangerRoom extends Room {
             result.push("strangerroom/Strangeroom-opend");
 
             // Sheets alleen toevoegen als ze nog niet zijn opgepakt
-            if (!playerSession.pickedUpSheets) {
-                result.push("strangerroom/Sheets");
-            }
+            // if (!playerSession.pickedUpSheets) {
+            //     result.push("strangerroom/Sheets");
+            // }
         }
 
         return result;
@@ -55,6 +55,24 @@ export class StrangerRoom extends Room {
             { name: "vent", alias: "Vents", imageRotation: 0, imageCoords: { x: 65, y: 25 } }, /// Recht omhoog
 
         ];
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: ClickItem[] = [];
+
+        // Voeg de sheets alleen toe als ze nog niet zijn opgepakt
+        if (playerSession.wardrobeOpened && !playerSession.pickedUpSheets) {
+            result.push({
+                name: "Sheets",
+                alias: "SheetsItem",
+                imageUrl: "strangerroom/Sheets",
+                type: ["actionableItem"],
+                imageCoords: { x: 25, y: 30 },
+            });
+        }
 
         return result;
     }
