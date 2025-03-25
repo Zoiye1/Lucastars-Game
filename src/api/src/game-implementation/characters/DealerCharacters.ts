@@ -7,47 +7,25 @@ import { PlayerSession } from "../types";
 import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
-/**
- * Klasse die de dealer NPC representeert.
- * De dealer kan met de speler praten, biedt items te koop aan, en biedt een fetch quest aan.
- */
 export class DealerCharacter extends Character {
-    /** Alias voor de dealer NPC. */
     public static readonly Alias: string = "dealer";
 
-    /**
-     * Constructor voor de DealerCharacter-klasse.
-     */
     public constructor() {
         super(DealerCharacter.Alias);
     }
 
-    /**
-     * Retourneert de naam van het personage.
-     */
     public name(): string {
         return "Dealer";
     }
 
-    /**
-     * Geeft de type van de GameObject terug
-     *
-     * @returns De type van de GameObject (GameObjectType union)
-     */
     public type(): GameObjectType[] {
         return ["npc"];
     }
 
-    /**
-     * Methode waarmee de dealer met de speler kan praten.
-     * Op basis van de keuze van de speler worden verschillende reacties gegeven.
-     * @param _choiceId - De keuze-ID van de speler.
-     * @returns Een actie resultaat met de dialoog.
-     */
     public talk(_choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        // Interactie voor het kopen van items (steroïden)
+        // Speler vraagt wat de dealer verkoopt
         if (_choiceId === 1) {
             return new TalkActionResult(
                 this,
@@ -67,7 +45,6 @@ export class DealerCharacter extends Character {
             );
         }
 
-        // Reactie als speler de suiker geeft
         if (_choiceId === 5) {
             if (playerSession.inventory.includes("SugarItem")) {
                 playerSession.helpedDealer = true;
@@ -82,21 +59,13 @@ export class DealerCharacter extends Character {
             }
         }
 
-        if (_choiceId === 2 || _choiceId === 6 || _choiceId === 9) {
-            return new TextActionResult(
-                [
-                    "No stress",
-                ]
-            );
-        }
-
-        if (_choiceId === 4) {
+        if (_choiceId === 2) {
             return new TalkActionResult(
                 this,
-                ["Wait! I also have a pack of cigs. Do you want to buy it?"],
+                ["I also have a pack of cigarettes for sale. Interested?"],
                 [
                     new TalkChoice(7, "What do I have to pay for it?"),
-                    new TalkChoice(8, "No, I'm not interested."),
+                    new TalkChoice(9, "No, I'm not interested."),
                 ]
             );
         }
@@ -112,7 +81,6 @@ export class DealerCharacter extends Character {
             );
         }
 
-        // reactie als speler 10 euro geeft
         if (_choiceId === 8) {
             if (playerSession.inventory.includes("ten-euro-bill")) {
                 playerSession.inventory.push("CigarettesItem");
@@ -122,13 +90,21 @@ export class DealerCharacter extends Character {
             }
             else {
                 return new TextActionResult(["Haha... that's not funny. You don't have any cash on you. Save up some cash and then come back..."]);
-            };
+            }
+        }
+
+        if (_choiceId === 6 || _choiceId === 9) {
+            return new TextActionResult(["No stress."]);
         }
 
         return new TalkActionResult(
             this,
-            ["Hey, I have some stuff for sale. You want to buy something?"],
-            [new TalkChoice(1, "What do you have for sale?"), new TalkChoice(2, "No, I'm not interested.")]
+            ["Hey, I have some stuff for sale. What are you interested in?"],
+            [
+                new TalkChoice(1, "Tell me about the steroids."),
+                new TalkChoice(2, "Tell me about the cigarettes."),
+                new TalkChoice(10, "No, I'm not interested."),
+            ]
         );
     }
 }
