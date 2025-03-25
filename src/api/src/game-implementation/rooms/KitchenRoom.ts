@@ -14,6 +14,7 @@ import { SugarItem } from "../items/SugarItem";
 import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
 import { Arrowroom, ClickItem } from "@shared/types";
+import { BakingSodaItem } from "../items/BakingSodaItem";
 
 export class KitchenRoom extends Room {
     public static readonly Alias: string = "KitchenRoom";
@@ -77,7 +78,9 @@ export class KitchenRoom extends Room {
         if (!playerSession.pickedUpSugar) {
             result.push({ name: "Sugar", alias: "SugarItem", imageUrl: "kitchen/BagOfSugar", type: ["actionableItem"], imageCoords: { x: 70, y: 19 } });
         }
-
+        if (!playerSession.pickedUpBakingSoda) {
+            result.push({ name: "BakingSoda", alias: "BakingSodaItem", imageUrl: "kitchen/BakingSoda", type: ["actionableItem"], imageCoords: { x: 13, y: 55 } });
+        }
         return result;
     }
 
@@ -91,6 +94,9 @@ export class KitchenRoom extends Room {
         }
         if (!playerSession.pickedUpSugar) {
             result.push(new SugarItem());
+        }
+        if (!playerSession.pickedUpBakingSoda) {
+            result.push(new BakingSodaItem());
         }
         return result;
     }

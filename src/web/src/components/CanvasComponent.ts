@@ -144,6 +144,34 @@ const styles: string = css`
             min-height: 105px;
         }
     }
+
+    .notification {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 25px;
+        background-color: #fff;
+        border: 3px solid #222;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 10;
+        font-size: 18px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 1;
+        transition: opacity 0.5s ease;
+        max-width: 80%;
+    }
+
+    .notification.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #155724;
+    }
+
+    .notification.fadeOut {
+        opacity: 0;
+    }
 `;
 
 /**
@@ -167,6 +195,8 @@ export class CanvasComponent extends HTMLElement {
     private _typewriterInterval?: NodeJS.Timeout;
     /** Cached list of item names for highlighting */
     private _itemNames: string[] = [];
+    /** Notification timeout ID */
+    private _notificationTimeoutId: number | null = null;
 
     /**
      * The "constructor" of a Web Component
@@ -180,6 +210,15 @@ export class CanvasComponent extends HTMLElement {
         this.addEventListener("state-update-click", (event: CustomEvent) => {
             this.refreshGameStateAction(event.detail as GameState);
         });
+        this.addEventListener("show-retrieve-notification", (event: CustomEvent) => {
+            const message: string = event.detail.message as string;
+            void this.refreshGameState();
+
+            setTimeout(() => {
+                this.showRetrieveNotification(message);
+            }, 500);
+        });
+
         void this.refreshGameState();
     }
 
@@ -338,6 +377,41 @@ export class CanvasComponent extends HTMLElement {
                 <span id="typewriter" class="typewriter"></span>
             </div>
         `;
+    }
+
+    /**
+     * Verwijder een bestaande notificatie als deze er is
+     */
+    private removeExistingNotification(): void {
+        const existingNotification: HTMLElement | null | undefined = this.shadowRoot?.getElementById("crafting-notification");
+        existingNotification?.remove();
+
+        if (this._notificationTimeoutId !== null) {
+            window.clearTimeout(this._notificationTimeoutId);
+            this._notificationTimeoutId = null;
+        }
+    }
+
+    /**
+     * Toon een notificatie aan de gebruiker wanneer gebruiker gecrafte item opslaat in inventory
+     * @param message De boodschap om te tonen
+     * @param duration Tijd in ms dat de notificatie zichtbaar blijft
+     */
+    private showRetrieveNotification(message: string, duration: number = 3000): void {
+        this.removeExistingNotification();
+
+        const notificationElement: HTMLElement = document.createElement("div");
+        notificationElement.innerHTML = `<div class="notification success">${message}</div>`;
+
+        const notification: HTMLElement = notificationElement.firstElementChild as HTMLElement;
+        this.shadowRoot?.appendChild(notification);
+
+        this._notificationTimeoutId = window.setTimeout(() => {
+            notification.classList.add("fadeOut");
+            window.setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, duration);
     }
 
     /**
