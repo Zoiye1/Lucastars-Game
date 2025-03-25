@@ -33,7 +33,7 @@ export class VentsRoom extends Room {
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "Go-left", alias: "starterroom", imageRotation: -90, imageCoords: { x: 17, y: 60 } },
+            { name: "Go-left", alias: "strangerroom", imageRotation: -90, imageCoords: { x: 17, y: 60 } },
             { name: "Go-right", alias: "roof", imageRotation: 90, imageCoords: { x: 77, y: 60 } },
             { name: "Go-back", alias: "starterroom", imageRotation: 180, imageCoords: { x: 45, y: 80 } },
         ];
