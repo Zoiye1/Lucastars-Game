@@ -11,7 +11,6 @@ import { GlassBeakerItem } from "../items/GlassBeakerItem";
 import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { ProfessorCharacter } from "../characters/ProfessorCharacter";
-import { BakingSodaItem } from "../items/BakingSodaItem";
 import { Arrowroom, ClickItem } from "@shared/types";
 import { UseAction } from "../actions/UseAction";
 import { MetalDoorItem } from "../items/MetalDoorItem";
@@ -108,9 +107,7 @@ export class LabRoom extends Room {
         if (!playerSession.pickedUpSulfuricAcid) {
             result.push(new SulfuricAcidItem());
         }
-        if (!playerSession.pickedUpBakingSoda) {
-            result.push(new BakingSodaItem());
-        }
+
         if (playerSession.inventory.includes("CorrosiveAcid")) result.push(new CorrosiveAcidItem());
 
         result.push(new MetalDoorItem());
