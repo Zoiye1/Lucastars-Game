@@ -1,4 +1,4 @@
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -41,11 +41,23 @@ export class GymRoom extends Room implements Simple {
         const result: string[] = ["Gym/GymBackground"]; // Achtergrondafbeelding
 
         // Verander het personagebeeld op basis van of de speler heeft geholpen
-        if (!playerSession.helpedGymFreak) {
-            result.push("Gym/GymFreakStart");
-        }
-        else {
+        if (playerSession.helpedGymFreak) {
             result.push("Gym/GymFreakEnd");
+        }
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+        ];
+        if (!playerSession.helpedGymFreak) {
+            result.push({ name: "GymFreak", alias: "GymFreak", imageUrl: "Gym/GymFreakStart", type: ["npc"], imageCoords: { x: 20, y: 52 } });
         }
 
         return result;

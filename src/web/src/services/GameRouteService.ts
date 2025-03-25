@@ -21,7 +21,7 @@ export class GameRouteService extends BaseRouteService {
      * @returns A type of game state for the current player
      */
     public async getGameState(): Promise<GameState> {
-        return this.getJsonApi<GameState>("game/state");
+        return await this.getJsonApi<GameState>("game/state");
     }
 
     /**

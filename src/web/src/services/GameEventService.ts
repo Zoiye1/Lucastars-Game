@@ -1,5 +1,7 @@
+import { ExecuteActionRequest, GameState } from "@shared/types";
 import { GameEvent } from "../enums/GameEvent";
 import { Page } from "../enums/Page";
+import { BaseRouteService } from "./BaseRouteService";
 
 /**
  * Represents the data of a Switch Page event
@@ -12,7 +14,7 @@ export type SwitchPageEvent = {
 /**
  * Service to allow components to communicate with eachother through events
  */
-export class GameEventService {
+export class GameEventService extends BaseRouteService {
     /**
      * Listen for a game event and execute a function when it occurs
      *
@@ -39,6 +41,21 @@ export class GameEventService {
         this.dispatchGameEvent<SwitchPageEvent>(GameEvent.SwitchPage, {
             page: page,
         });
+    }
+
+    public async executeAction(
+        actionAlias: string,
+        objectAliases?: string[]
+    ): Promise<GameState | undefined> {
+        try {
+            return await this.postJsonApi<GameState, ExecuteActionRequest>("game/action", {
+                action: actionAlias,
+                objects: objectAliases,
+            });
+        }
+        catch {
+            return undefined;
+        }
     }
 
     /**

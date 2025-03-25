@@ -1,6 +1,7 @@
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TalkActionResult } from "../../game-base/actionResults/TalkActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
+import { Examine } from "../../game-base/actions/ExamineAction";
 import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { Character } from "../../game-base/gameObjects/Character";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
@@ -12,7 +13,7 @@ import { PlayerSession } from "../types";
  *
  * Deze karakter kan met de speler praten en heeft een taak die moet worden voltooid.
  */
-export class CleanerCharacter extends Character {
+export class CleanerCharacter extends Character implements Examine {
     /** Alias die wordt gebruikt om de cleaner te identificeren */
     public static readonly Alias: string = "cleaner";
 
@@ -27,6 +28,12 @@ export class CleanerCharacter extends Character {
      */
     public name(): string {
         return "Cleaner";
+    }
+
+    public examine(): ActionResult | undefined {
+        return new TextActionResult([
+            "This is a cleaner!",
+        ]);
     }
 
     /**

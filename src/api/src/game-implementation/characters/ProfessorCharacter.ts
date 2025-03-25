@@ -82,6 +82,7 @@ export class ProfessorCharacter extends Character {
                 playerSession.inventory.push("CorrosiveAcid");
                 playerSession.helpedProfessor = true;
                 return new TextActionResult(["Perfect, here you go +1 CorrosiveAcid"]);
+                audioService.playSoundEffect("unlock");
             }
             else {
                 return new TextActionResult(["You dont have all items yet, keep searching."]);

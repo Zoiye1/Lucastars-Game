@@ -232,6 +232,7 @@ export class GameController {
             roomName: await room.name(),
             roomImages: await room.images(),
             roomArrowImages: room.ArrowUrl(),
+            roomClickImages: room.ClickItem(),
             text: text,
             actions: actions,
             objects: objects,
