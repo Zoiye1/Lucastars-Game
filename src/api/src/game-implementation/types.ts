@@ -212,5 +212,5 @@ export type PlayerSession = {
     helpedCook: boolean;
     pickedUpSheets: boolean;
     pickedUpAirFreshener: boolean;
-    equippedParachute: boolean;
+    EscapedRoof: boolean;
 };

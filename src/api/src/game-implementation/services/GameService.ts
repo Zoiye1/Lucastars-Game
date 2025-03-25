@@ -57,6 +57,7 @@ import { KeyCardItem } from "../items/KeyCardItem";
 import { LabEndRoom } from "../rooms/LabEndRoom";
 import { CorrosiveAcidItem } from "../items/CorrosiveAcidItem";
 import { MetalDoorItem } from "../items/MetalDoorItem";
+import { RoofItem } from "../items/RoofItem";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -119,6 +120,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(KeyCardItem);
         this.registerGameObject(CorrosiveAcidItem);
         this.registerGameObject(MetalDoorItem);
+        this.registerGameObject(RoofItem);
 
         // Characters
         this.registerGameObject(cookCharacter);
@@ -183,7 +185,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             wantsToHelpCook: false,
             pickedUpSheets: false,
             pickedUpAirFreshener: false,
-            equippedParachute: false,
+            EscapedRoof: false,
             pickedUpKeyCard: false,
             pickedUpWirecutter: false,
             pickedUpGlue: false,

@@ -19,7 +19,7 @@ export class RoofEndRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["courtyard/courtyardBackground"];
+        return ["Roof/RoofEndRoom"];
     }
 
     public examine(): ActionResult | undefined {

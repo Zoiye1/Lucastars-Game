@@ -10,36 +10,16 @@ import { PickUpAction } from "../actions/PickUpAction";
 import { HammerItem } from "../items/HammerItem";
 import { SticksItem } from "../items/SticksItem";
 import { PlayerSession } from "../types";
-import { Jump, JumpAction } from "../actions/EquipAction";
-import { RoofEndRoom } from "./RoofEndRoom";
+import { UseAction } from "../actions/UseAction";
+import { RoofItem } from "../items/RoofItem";
+// import { RoofEndRoom } from "./RoofEndRoom";
 
-export class RoofRoom extends Room implements Jump {
+export class RoofRoom extends Room {
     // Unieke alias voor deze kamer, gebruikt voor identificatie
     public static readonly Alias: string = "roof";
 
     public constructor() {
         super(RoofRoom.Alias);
-    }
-
-    public jump(): ActionResult | undefined {
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-        const inventory: string[] = playerSession.inventory;
-        let room: Room | undefined;
-        console.log("hallo farmaan");
-
-        if (inventory.includes("ParachuteItem")) {
-            // Als de speler een parachute heeft, ga naar de 'RoofEndRoom'
-            room = new RoofEndRoom(); // Speler verplaatst naar de Cafeteria Room
-        }
-        else {
-            // room = new GymTheEndRoom(); >> STRAKS HIER BAD ENDING
-        }
-        // Als de speler geen parachute heeft, ga naar de 'RoofBADenging' kamer
-        if (room) {
-            gameService.getPlayerSession().currentRoom = room.alias;
-            return room.examine(); // Geef de beschrijving van de nieuwe kamer terug
-        }
-        return undefined;
     }
 
     // Geeft de naam van de kamer terug, gebruikt in de UI of logsF
@@ -91,6 +71,9 @@ export class RoofRoom extends Room implements Jump {
             result.push({ name: "Sticks", alias: "Sticks", imageUrl: "Roof/Sticks", type: ["actionableItem"], imageCoords: { x: 25, y: 84 } });
         }
 
+        if (playerSession.EscapedRoof)
+            result.push("Roof/RoofEscaping");
+
         return result;
     }
 
@@ -98,7 +81,15 @@ export class RoofRoom extends Room implements Jump {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
             { name: "vent", alias: "Vents", imageRotation: -90, imageCoords: { x: 20, y: 60 } },
+
         ];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Only add the arrow is the player actually opened the door
+        if (playerSession.EscapedRoof) {
+            result.push(
+                { name: "Escape", alias: "RoofEndRoom", imageRotation: 90, imageCoords: { x: 77, y: 50 } }
+            );
+        }
 
         return result;
     }
@@ -119,16 +110,19 @@ export class RoofRoom extends Room implements Jump {
             result.push(new SticksItem());
         }
 
+        result.push(new RoofItem());
+
         return result;
     }
 
     // Geeft een lijst van mogelijke acties die de speler in deze kamer kan uitvoeren
     public actions(): Action[] {
-        return [
+        const actions: Action[] = [
             new ExamineAction(),
             new PickUpAction(),
-            new JumpAction(),
+            new UseAction(),
         ];
+        return actions;
     }
 
     // Beschrijving van de kamer wanneer de speler deze onderzoekt
