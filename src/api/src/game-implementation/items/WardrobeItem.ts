@@ -30,7 +30,7 @@ export class WardrobeItem extends Item implements Examine, Open {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.wardrobeOpened) {
             playerSession.wardrobeOpened = true;
-            return new TextActionResult(["You opend the wardrobe and found a sheets."]);
+            return new TextActionResult(["You opened the wardrobe and found sheets."]);
         }
         return new TextActionResult(["The wardrobe is already open!"]);
     }
