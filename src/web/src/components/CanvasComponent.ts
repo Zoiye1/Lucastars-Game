@@ -163,6 +163,12 @@ const styles: string = css`
         max-width: 80%;
     }
 
+    .notification.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #155724;
+    }
+
     .notification.fadeOut {
         opacity: 0;
     }
@@ -204,11 +210,13 @@ export class CanvasComponent extends HTMLElement {
         this.addEventListener("state-update-click", (event: CustomEvent) => {
             this.refreshGameStateAction(event.detail as GameState);
         });
-        this.addEventListener("show-retrieve-notification", (event: Event) => {
-            console.log("hello");
-            const customEvent: CustomEvent<{ message: string }> = event as CustomEvent<{ message: string }>;
-            const message: string = customEvent.detail.message;
-            this.showRetrieveNotification(message);
+        this.addEventListener("show-retrieve-notification", (event: CustomEvent) => {
+            const message: string = event.detail.message as string;
+            void this.refreshGameState();
+
+            setTimeout(() => {
+                this.showRetrieveNotification(message);
+            }, 500);
         });
 
         void this.refreshGameState();
@@ -393,7 +401,7 @@ export class CanvasComponent extends HTMLElement {
         this.removeExistingNotification();
 
         const notificationElement: HTMLElement = document.createElement("div");
-        notificationElement.innerHTML = `<div class="notification">${message}</div>`;
+        notificationElement.innerHTML = `<div class="notification success">${message}</div>`;
 
         const notification: HTMLElement = notificationElement.firstElementChild as HTMLElement;
         this.shadowRoot?.appendChild(notification);

@@ -97,7 +97,7 @@ const styles: string = css`
 
     dialog {
         margin: 0;
-        z-index: 1;
+        z-index: 3;
         top: 8%;
         left: 50%;
         transform: translateX(-55%); 
@@ -508,19 +508,12 @@ export class CraftingComponent extends HTMLElement {
 
             await this.handleDeleteItems(this._slots);
 
-            this.dispatchEvent(new CustomEvent("state-update", {
+            // stuur event naar canvas component voor retrieve notificatie
+            this.dispatchEvent(new CustomEvent("show-retrieve-notification", {
                 bubbles: true,
                 composed: true,
+                detail: { message: `You have saved the ${displayString} in the inventory!` },
             }));
-
-            setTimeout(() => {
-                // stuur event naar canvas component voor retrieve notificatie
-                this.dispatchEvent(new CustomEvent("show-retrieve-notification", {
-                    bubbles: true,
-                    composed: true,
-                    detail: { message: `You have saved the ${displayString} in the inventory!` },
-                }));
-            }, 500);
 
             await this.refreshGameState();
         });
