@@ -17,8 +17,7 @@ import { VentItem } from "../items/VentItem";
 import { WindowItem } from "../items/WindowItem";
 import { UseAction } from "../actions/UseAction";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
-import { Arrowroom } from "@shared/types";
-
+import { Arrowroom, ClickItem } from "@shared/types";
 /**
  * Klasse die de startkamer in het spel vertegenwoordigt.
  * De speler kan objecten onderzoeken, oppakken en gebruiken om een uitweg te vinden.
@@ -74,12 +73,32 @@ export class StarterRoom extends Room {
         }
 
         // Voeg objecten toe die nog niet zijn opgepakt
+        // if (!playerSession.pickedUpFork) {
+        //     result.push("starterroom/StarterRoomFork");
+        // }
+
+        // if (!playerSession.pickedUpPainting) {
+        //     result.push("starterroom/StarterRoomPainting");
+        // }
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+
+        ];
         if (!playerSession.pickedUpFork) {
-            result.push("starterroom/StarterRoomFork");
+            result.push({ name: "Fork", alias: "ForkItem", imageUrl: "starterroom/StarterRoomFork", type: ["actionableItem"], imageCoords: { x: 50, y: 69 } });
         }
 
         if (!playerSession.pickedUpPainting) {
-            result.push("starterroom/StarterRoomPainting");
+            result.push({ name: "Pain ting", alias: "PaintingItem", imageUrl: "starterroom/StarterRoomPainting", type: ["actionableItem"], imageCoords: { x: 25, y: 42 } });
         }
 
         return result;
@@ -110,11 +129,22 @@ export class StarterRoom extends Room {
      * @returns {ActionResult | undefined} De beschrijving van de startkamer.
      */
     public examine(): ActionResult | undefined {
-        return new TextActionResult([
-            "You wake up with a pounding headache",
-            "You have no idea where you are. Your head throbs as you glance around the room.",
-            "The door is locked. You need to find a way out!",
-        ]);
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.HasVisitedStarterRoom) {
+            playerSession.HasVisitedStarterRoom = true;
+            return new TextActionResult([
+                "You wake up with a pounding headache",
+                "You have no idea where you are. Your head throbs as you glance around the room.",
+                "The door is locked. You need to find a way out!",
+            ]);
+        }
+        else {
+            return new TextActionResult([
+                "You're back in the room where you woke up.",
+                "The familiar surroundings bring back the memory of your confusion when you first arrived.",
+                "You need to keep looking for a way out.",
+            ]);
+        }
     }
 
     /**
@@ -145,12 +175,15 @@ export class StarterRoom extends Room {
      * @returns {Action[]} Een lijst met beschikbare acties.
      */
     public actions(): Action[] {
-        const actions: Action[] = [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: Action[] = [
             new ExamineAction(),
-            new PickUpAction(),
-            new UseAction(),
         ];
 
-        return actions;
+        if (!playerSession.pickedUpPainting || !playerSession.pickedUpFork) result.push(new PickUpAction());
+
+        if (!playerSession.windowBroken || !playerSession.ventUnlocked) result.push(new UseAction());
+
+        return result;
     }
 }

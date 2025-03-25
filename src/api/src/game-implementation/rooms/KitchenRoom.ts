@@ -13,7 +13,8 @@ import { KnifeItem } from "../items/KnifeItem";
 import { SugarItem } from "../items/SugarItem";
 import { PickUpAction } from "../actions/PickUpAction";
 import { PlayerSession } from "../types";
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
+import { BakingSodaItem } from "../items/BakingSodaItem";
 
 export class KitchenRoom extends Room {
     public static readonly Alias: string = "KitchenRoom";
@@ -36,14 +37,7 @@ export class KitchenRoom extends Room {
 
     public images(): string[] {
         // return ["kitchen/Kitchen", "kitchen/Cook", "kitchen/ArrowToCafKitchen4", "kitchen/KnifeKitchen", "kitchen/BagOfSugar"];
-        const result: string[] = ["kitchen/Kitchen", "kitchen/Cook"];
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-        if (!playerSession.pickedUpKnife) {
-            result.push("kitchen/KnifeKitchen");
-        }
-        if (!playerSession.pickedUpSugar) {
-            result.push("kitchen/BagOfSugar");
-        }
+        const result: string[] = ["kitchen/Kitchen"];
         // if (playerSession.playerOpenedDoorToStorage) {
         //     result.push("kitchen/ArrowToStorageKitchen4");
         // }
@@ -69,6 +63,27 @@ export class KitchenRoom extends Room {
         return result;
     }
 
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+            { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 52 } },
+        ];
+        if (!playerSession.pickedUpKnife) {
+            result.push({ name: "Knife", alias: "KnifeItem", imageUrl: "kitchen/KnifeKitchen", type: ["actionableItem"], imageCoords: { x: 25, y: 42 } });
+        }
+        if (!playerSession.pickedUpSugar) {
+            result.push({ name: "Sugar", alias: "SugarItem", imageUrl: "kitchen/BagOfSugar", type: ["actionableItem"], imageCoords: { x: 70, y: 19 } });
+        }
+        if (!playerSession.pickedUpBakingSoda) {
+            result.push({ name: "BakingSoda", alias: "BakingSodaItem", imageUrl: "kitchen/BakingSoda", type: ["actionableItem"], imageCoords: { x: 13, y: 55 } });
+        }
+        return result;
+    }
+
     public objects(): GameObject[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: GameObject[] = [new cookCharacter(),
@@ -79,6 +94,9 @@ export class KitchenRoom extends Room {
         }
         if (!playerSession.pickedUpSugar) {
             result.push(new SugarItem());
+        }
+        if (!playerSession.pickedUpBakingSoda) {
+            result.push(new BakingSodaItem());
         }
         return result;
     }

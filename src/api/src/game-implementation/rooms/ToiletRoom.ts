@@ -11,7 +11,7 @@ import { PlayerSession } from "../types";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { DealerCharacter } from "../characters/DealerCharacters";
 import { AirFreshenerItem } from "../items/AirFreshenerItem";
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 
 /**
  * Klasse die de kamer "Toilet" vertegenwoordigt.
@@ -51,9 +51,9 @@ export class ToiletRoom extends Room {
         const result: string[] = ["toilet/ToiletBackground"];
 
         // Controleert of de speler de emmer nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
-        if (!playerSession.pickedUpBucket) {
-            result.push("toilet/Bucket");
-        }
+        // if (!playerSession.pickedUpBucket) {
+        //     result.push("toilet/Bucket");
+        // }
 
         // Controleert of de speler de luchtverfrisser nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
         if (!playerSession.pickedUpAirFreshener) {
@@ -61,7 +61,23 @@ export class ToiletRoom extends Room {
         }
 
         // Voegt de dealer NPC-afbeelding toe.
-        result.push("characters/Dealer");
+        // result.push("characters/Dealer");
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+            { name: "Dealer", alias: "dealer", imageUrl: "characters/Dealer", type: ["npc"], imageCoords: { x: 60, y: 52 } },
+        ];
+        if (!playerSession.pickedUpBucket) {
+            result.push({ name: "Bucket", alias: "bucket", imageUrl: "toilet/Bucket", type: ["actionableItem"], imageCoords: { x: 45, y: 80 } });
+        }
+
         return result;
     }
 

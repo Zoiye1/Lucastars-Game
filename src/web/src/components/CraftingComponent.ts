@@ -81,6 +81,7 @@ const styles: string = css`
     .container {
         display: flex;
         flex-direction: row-reverse;
+        justify-content: space-evenly;
     }
 
     .container-crafting-recipes {
@@ -96,12 +97,13 @@ const styles: string = css`
 
     dialog {
         margin: 0;
-        z-index: 1;
+        z-index: 3;
         top: 8%;
         left: 50%;
         transform: translateX(-55%); 
         border: none;
         background: #ffffffea;
+        width: 700px;
     }
 
     .container-dialog {
@@ -125,6 +127,11 @@ const styles: string = css`
         align-items: center;
         justify-content: center;
         background-color: #f0f0f0;
+    }
+
+    .slot-icon {
+        width: 48px;
+        object-fit: contain;
     }
 
     .symbol {
@@ -204,6 +211,40 @@ const styles: string = css`
         background-color: black;
         color: white;
     }
+
+    .notification {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 25px;
+        background-color: #fff;
+        border: 3px solid #222;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 10;
+        font-size: 18px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 1;
+        transition: opacity 0.5s ease;
+        max-width: 80%;
+    }
+
+    .notification.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #155724;
+    }
+
+    .notification.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #721c24;
+    }
+
+    .notification.fadeOut {
+        opacity: 0;
+    }
 `;
 
 /**
@@ -222,7 +263,7 @@ const recipes: Recipe[] = [
     {
         title: "Ladder",
         ingredients: ["10 Sticks", "Super Glue", "Hammer"],
-        ingredientsAliases: ["10 Sticks", "HammerItem", "GlueItem"],
+        ingredientsAliases: ["10Sticks", "HammerItem", "GlueItem"],
 
     },
     {
@@ -248,9 +289,11 @@ export class CraftingComponent extends HTMLElement {
     private readonly _craftingRouteService: CraftingRouteService = new CraftingRouteService();
     /** Momenteel geselecteerd item uit de inventaris */
     private _selectedItemInventory: string = "";
+    /** Notification timeout ID */
+    private _notificationTimeoutId: number | null = null;
 
     /** Array met items in de crafting slots */
-    private _slots: string[] = ["", "", "", ""];
+    private _slots: string[] = ["", "", ""];
     /** Item in de resultaat slot */
     private _resultSlot: string = "";
 
@@ -298,6 +341,48 @@ export class CraftingComponent extends HTMLElement {
     }
 
     /**
+     * Verwijder een bestaande notificatie als deze er is
+     */
+    private removeExistingNotification(): void {
+        const existingNotification: HTMLElement | null | undefined = this.shadowRoot?.getElementById("crafting-notification");
+        existingNotification?.remove();
+
+        if (this._notificationTimeoutId !== null) {
+            window.clearTimeout(this._notificationTimeoutId);
+            this._notificationTimeoutId = null;
+        }
+    }
+
+    /**
+     * Toon een notificatie aan de gebruiker
+     *
+     * @param success Boolean die aangeeft of de notificatie een succes of fout weergeeft
+     * @param message De boodschap om te tonen
+     * @param duration Tijd in ms dat de notificatie zichtbaar blijft
+     */
+    private showCraftNotification(success: boolean, message: string, duration: number = 3000): void {
+        this.removeExistingNotification();
+
+        const notificationElement: HTMLElement = document.createElement("div");
+        notificationElement.innerHTML = `
+            <div id="crafting-notification" class="notification ${success ? "success" : "error"}">
+                ${message}
+            </div>
+        `;
+
+        const notification: HTMLElement = notificationElement.firstElementChild as HTMLElement;
+        this.shadowRoot?.appendChild(notification);
+
+        this._notificationTimeoutId = window.setTimeout(() => {
+            notification.classList.add("fadeOut");
+
+            window.setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, duration);
+    }
+
+    /**
      * Genereer de HTML voor de recepten lijst
      *
      * @returns HTML string voor de recepten lijst
@@ -341,51 +426,44 @@ export class CraftingComponent extends HTMLElement {
                 ${styles}
             </style>
             <button class="open-crafting-btn" id="craftingButton">
-                <img src="public/assets/img/CraftingButton.png" alt="Map">
+                <img src="public/assets/img/CraftingButton.png" alt="crafting">
             </button>
             <dialog id="craftingDialog">
                 <div class="container">
                     <button id="closeDialog">X</button>
-
-                    <div class="container-crafting-recipes">
-                        <div class="container-dialog">
-                            <h2 class="crafting-title">Crafting Menu</h2>
-                            <div class="crafting-grid">
-                                <div class="container-slot">
-                                    ${this._slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[0]}</div>
+                        <div class="container-crafting-recipes">
+                            <div class="container-dialog">
+                                <h2 class="crafting-title">Crafting Menu</h2>
+                                <div class="crafting-grid">
+                                    <div class="container-slot">
+                                        ${this._slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
+                                        <div class="slot">${this._slots[0] !== "" ? `<img data-item="${this._slots[0]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[0]}.png"/>` : ""}</div>
+                                    </div>
+                                    <span class="symbol">+</span>
+                                    <div class="container-slot">
+                                        ${this._slots[1] ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
+                                        <div class="slot">${this._slots[1] !== "" ? `<img data-item="${this._slots[1]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[1]}.png"/>` : ""}</div>
+                                    </div>
+                                    <span class="symbol">+</span>
+                                    <div class="container-slot">
+                                        ${this._slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
+                                        <div class="slot">${this._slots[2] !== "" ? `<img data-item="${this._slots[2]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[2]}.png"/>` : ""}</div>
+                                    </div>
+                                    <span class="symbol">=</span>
+                                    <div class="result-slot">${this._resultSlot !== "" ? `<img data-item="${this._resultSlot}" class="slot-icon" src="/public/assets/img/icons/${this._resultSlot}.png"/>` : ""}</div>
                                 </div>
-                                <span class="symbol">+</span>
-                                <div class="container-slot">
-                                    ${this._slots[1] ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[1]}</div>
+                                <div class="container-craft-retrieve-buttons">
+                                    <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
+                                    ${this._resultSlot
+                                        ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>"
+                                        : "<button class=\"dialog-button\" id=\"craftButton\">Craft</button>"
+                                    }
                                 </div>
-                                <span class="symbol">+</span>
-                                <div class="container-slot">
-                                    ${this._slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[2]}</div>
-                                </div>
-                                <span class="symbol">+</span>
-                                <div class="container-slot">
-                                    ${this._slots[3] ? "<button id=\"emptySlot\" data-slot=\"3\">✕</button>" : ""}
-                                    <div class="slot">${this._slots[3]}</div>
-                                </div>
-                                <span class="symbol">=</span>
-                                <div class="result-slot">${this._resultSlot}</div>
-                            </div>
-                            <div class="container-craft-retrieve-buttons">
-                                <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
-                                ${this._resultSlot
-                                    ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>"
-                                    : "<button class=\"dialog-button\" id=\"craftButton\">Craft</button>"
-                                }
                             </div>
                         </div>
-                    </div>
                     <div class="recipes-list">
                             ${recipeCardsHTML}
                     </div>    
-                    
                 </div>
             </dialog>
         `;
@@ -411,16 +489,30 @@ export class CraftingComponent extends HTMLElement {
             this.updateDialog();
         });
 
-        craftBtn?.addEventListener("click", () => this.handleCraftItem(this._slots));
-        const resultSlot: HTMLDivElement = this.shadowRoot.querySelector(".result-slot") as HTMLDivElement;
-        const resultItemAlias: string = resultSlot.innerText + "Item";
-        retrieveBtn?.addEventListener("click", async () => {
-            await this.handleDeleteItems(this._slots);
-            await this.handleRetrieveItem(resultItemAlias);
+        craftBtn?.addEventListener("click", () => {
+            const previousResultSlot: string = this._resultSlot;
+            this.handleCraftItem(this._slots);
 
-            this.dispatchEvent(new CustomEvent("state-update", {
+            if (!this._resultSlot) {
+                this.showCraftNotification(false, "Oops... This crafting combination did not work!");
+            }
+            else if (previousResultSlot !== this._resultSlot) {
+                const displayString: string = this._resultSlot.replace("Item", "");
+                this.showCraftNotification(true, `Success! You have crafted a ${displayString}!`);
+            }
+        });
+
+        retrieveBtn?.addEventListener("click", async () => {
+            await this.handleRetrieveItem(this._resultSlot);
+            const displayString: string = this._resultSlot.replace("Item", "");
+
+            await this.handleDeleteItems(this._slots);
+
+            // stuur event naar canvas component voor retrieve notificatie
+            this.dispatchEvent(new CustomEvent("show-retrieve-notification", {
                 bubbles: true,
                 composed: true,
+                detail: { message: `You have saved the ${displayString} in the inventory!` },
             }));
 
             await this.refreshGameState();
@@ -455,7 +547,6 @@ export class CraftingComponent extends HTMLElement {
         if (firstEmptySlot !== -1 && !this._slots.includes(item)) {
             this._slots[firstEmptySlot] = item;
             this.updateDialog();
-            console.log(this._slots);
         }
     }
 
@@ -476,7 +567,6 @@ export class CraftingComponent extends HTMLElement {
 
             const ingredients: string[] = recipe.ingredientsAliases;
 
-            console.log(ingredients, filledSlots);
             const sortedSlots: string[] = [...filledSlots].sort();
             const sortedIngredients: string[] = [...ingredients].sort();
 
@@ -494,7 +584,7 @@ export class CraftingComponent extends HTMLElement {
         }
 
         if (matchingRecipe) {
-            this._resultSlot = matchingRecipe.title;
+            this._resultSlot = matchingRecipe.title + "Item";
         }
         else {
             this.emptySlotItems();
@@ -527,7 +617,6 @@ export class CraftingComponent extends HTMLElement {
         try {
             const state: string | undefined = await this._craftingRouteService.executeRetrieveItem(itemAlias);
             if (state) {
-                this.emptySlotItems();
                 this.updateDialog();
             }
         }

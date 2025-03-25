@@ -50,6 +50,17 @@ const styles: string = css`
     position: absolute;
     margin: 0;
     width: 100%;
+    height: 100%;
+    
+    }
+    
+    game-click {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    margin: 0;
+    width: 100%;
     height: 100%; 
     }
 
@@ -133,6 +144,34 @@ const styles: string = css`
             min-height: 105px;
         }
     }
+
+    .notification {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 25px;
+        background-color: #fff;
+        border: 3px solid #222;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 10;
+        font-size: 18px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 1;
+        transition: opacity 0.5s ease;
+        max-width: 80%;
+    }
+
+    .notification.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #155724;
+    }
+
+    .notification.fadeOut {
+        opacity: 0;
+    }
 `;
 
 /**
@@ -156,6 +195,8 @@ export class CanvasComponent extends HTMLElement {
     private _typewriterInterval?: NodeJS.Timeout;
     /** Cached list of item names for highlighting */
     private _itemNames: string[] = [];
+    /** Notification timeout ID */
+    private _notificationTimeoutId: number | null = null;
 
     /**
      * The "constructor" of a Web Component
@@ -166,6 +207,17 @@ export class CanvasComponent extends HTMLElement {
         this.addEventListener("state-update", () => {
             void this.refreshGameState();
         });
+        this.addEventListener("state-update-click", (event: CustomEvent) => {
+            this.refreshGameStateAction(event.detail as GameState);
+        });
+        this.addEventListener("show-retrieve-notification", (event: CustomEvent) => {
+            const message: string = event.detail.message as string;
+            void this.refreshGameState();
+
+            setTimeout(() => {
+                this.showRetrieveNotification(message);
+            }, 500);
+        });
 
         void this.refreshGameState();
     }
@@ -175,7 +227,10 @@ export class CanvasComponent extends HTMLElement {
      */
     private async refreshGameState(): Promise<void> {
         const state: GameState = await this._gameRouteService.getGameState();
+        this.updateGameState(state);
+    }
 
+    private refreshGameStateAction(state: GameState): void {
         this.updateGameState(state);
     }
 
@@ -298,10 +353,11 @@ export class CanvasComponent extends HTMLElement {
                 <div class="header">
                     ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
                     onerror="this.onerror=null;this.src='/assets/img/rooms/${url}.gif';" />`).join("")}
+                    <game-arrow></game-arrow>
+                    <game-click></game-click>
                     <game-crafting></game-crafting>
                     <game-quest></game-quest>
                     <game-map></game-map>
-                    <game-arrow></game-arrow>
                     <game-inventory> </game-inventory>
                 </div>
             `;
@@ -321,6 +377,41 @@ export class CanvasComponent extends HTMLElement {
                 <span id="typewriter" class="typewriter"></span>
             </div>
         `;
+    }
+
+    /**
+     * Verwijder een bestaande notificatie als deze er is
+     */
+    private removeExistingNotification(): void {
+        const existingNotification: HTMLElement | null | undefined = this.shadowRoot?.getElementById("crafting-notification");
+        existingNotification?.remove();
+
+        if (this._notificationTimeoutId !== null) {
+            window.clearTimeout(this._notificationTimeoutId);
+            this._notificationTimeoutId = null;
+        }
+    }
+
+    /**
+     * Toon een notificatie aan de gebruiker wanneer gebruiker gecrafte item opslaat in inventory
+     * @param message De boodschap om te tonen
+     * @param duration Tijd in ms dat de notificatie zichtbaar blijft
+     */
+    private showRetrieveNotification(message: string, duration: number = 3000): void {
+        this.removeExistingNotification();
+
+        const notificationElement: HTMLElement = document.createElement("div");
+        notificationElement.innerHTML = `<div class="notification success">${message}</div>`;
+
+        const notification: HTMLElement = notificationElement.firstElementChild as HTMLElement;
+        this.shadowRoot?.appendChild(notification);
+
+        this._notificationTimeoutId = window.setTimeout(() => {
+            notification.classList.add("fadeOut");
+            window.setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, duration);
     }
 
     /**
@@ -464,9 +555,17 @@ export class CanvasComponent extends HTMLElement {
      */
     private renderFooter(): HTMLElement {
         const gameObjectsReferences: GameObjectReference[] | undefined = this._currentGameState?.objects;
+        const gameActionRefrences: ActionReference[] | undefined = this._currentGameState?.actions;
         let filtratedObjects: GameObjectReference[] = [];
+        let filtratedActions: ActionReference[] = [];
 
         const selectedButton: ActionReference | undefined = this._selectedActionButton;
+
+        // checks if action is valid
+        filtratedActions = gameActionRefrences?.filter(
+            (gameActionRefrences: ActionReference) =>
+                !["examine", "talk", "pick-up"].some(action => gameActionRefrences.alias.includes(action))
+        );
 
         // filter gameObjects gebaseerd op action alias
         if (selectedButton && selectedButton.alias === "examine") {
@@ -494,7 +593,7 @@ export class CanvasComponent extends HTMLElement {
             <div class="footer">
                 <div class="buttons">
                     <div>
-                        ${this._currentGameState?.actions.map((button: ActionReference) => this.renderActionButton(button))}
+                        ${filtratedActions.map((button: ActionReference) => this.renderActionButton(button))}
                     </div>
                     <div>
                         ${this._selectedActionButton

@@ -15,11 +15,22 @@ const styles: string = css`
     }
 
     .open-quest-btn {
-        padding: 10px;
         position: absolute;
-        top: 55%;
-        right: 6%;
+        top: 47%;
+        right: 12%;
         z-index: 1;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+    }
+
+    .open-quest-btn img{
+        width: 200%;
+        height: 200%;
+        object-fit: contain;
     }
 
     .quest-list {
@@ -116,7 +127,9 @@ export class QuestComponent extends HTMLElement {
         const questCardsHTML: string = this.renderQuests();
         const elements: HTMLElement[] = htmlArray`
             <style>${styles}</style>
-            <button class="open-quest-btn ui-btn" id="questButton">Quests</button>
+            <button class="open-quest-btn ui-btn" id="questButton">
+                <img src="public/assets/img/QuestButton.png" alt="Quests">
+            </button>
             <dialog id="questDialog">
                 <div class="quest-list">${questCardsHTML}</div>
                 <button class="ui-btn" id="closeQuestDialog">✕</button>

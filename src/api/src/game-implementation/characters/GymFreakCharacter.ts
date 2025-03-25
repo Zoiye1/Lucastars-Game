@@ -91,7 +91,7 @@ export class GymFreakCharacter extends Character implements Examine {
      */
     public examine(): ActionResult | undefined {
         return new TextActionResult([
-            "This is a GymFreak",
+            "This is a GymFreak!",
         ]);
     }
 }

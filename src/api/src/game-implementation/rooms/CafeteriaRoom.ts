@@ -1,4 +1,4 @@
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -53,14 +53,26 @@ export class CafeteriaRoom extends Room {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: string[] = ["cafeteria/CafeteriaBackground"];
 
-        if (!playerSession.helpedCleaner) {
-            result.push("cafeteria/CleanerInTheWay");
-        }
-        else {
+        if (playerSession.helpedCleaner) {
             result.push("cafeteria/CleanerOutOfWay");
         }
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+        ];
         if (!playerSession.pickedUpFocusDrink) {
-            result.push("cafeteria/FocusDrink");
+            result.push({ name: "FocusDrink", alias: "FocusDrinkItem", imageUrl: "cafeteria/FocusDrink", type: ["actionableItem"], imageCoords: { x: 30, y: 60 } });
+        }
+        if (!playerSession.helpedCleaner) {
+            result.push({ name: "Cleaner", alias: "cleaner", imageUrl: "cafeteria/CleanerInTheWay", type: ["npc"], imageCoords: { x: 43, y: 45 } });
         }
 
         return result;
