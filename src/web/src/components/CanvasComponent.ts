@@ -564,8 +564,7 @@ export class CanvasComponent extends HTMLElement {
         // checks if action is valid
         filtratedActions = gameActionRefrences?.filter(
             (gameActionRefrences: ActionReference) =>
-                !["examine", "talk", "pick-up"].some(action => gameActionRefrences.alias.includes(action))
-        );
+                !["examine", "pick-up"].some(action => gameActionRefrences.alias.includes(action)));
 
         // filter gameObjects gebaseerd op action alias
         if (selectedButton && selectedButton.alias === "examine") {
