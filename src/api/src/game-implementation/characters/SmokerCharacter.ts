@@ -52,7 +52,7 @@ export class SmokerCharacter extends Character implements Examine {
             if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4) {
                 return new TalkActionResult(
                     this,
-                    ["Ayo my G, I got a sweet deal for ya. Tryna make this happen?",
+                    ["Smoker: Ayo my G, I got a sweet deal for ya. Tryna make this happen?",
                         "See here's the ting... I'm dry on cigs but holdin' lighters.",
                         "You front me some smokes, I'll bless you with fire. Sounds good my g?"],
                     [
@@ -64,7 +64,7 @@ export class SmokerCharacter extends Character implements Examine {
             else if (choiceId === 1) {
                 return new TalkActionResult(
                     this,
-                    ["Fo sho? Look here... you bring me a pack of cigs, and...",
+                    ["Smoker: Fo sho? Look here... you bring me a pack of cigs, and...",
                         "I'll trade you this premium lighter. That's the family discount right there."],
                     [
                         new TalkChoice(3, "Got you those good cigs my man."),
@@ -73,7 +73,7 @@ export class SmokerCharacter extends Character implements Examine {
                 );
             }
             else if (choiceId === 2) {
-                return new TextActionResult(["Aight, your loss playa. I'll be here puffin on hopes and dreams."]);
+                return new TextActionResult(["Smoker: Aight, your loss playa. I'll be here puffin on hopes and dreams."]);
             }
             else if (choiceId === 3) {
                 if (playerSession.inventory.includes("CigarettesItem")) {
@@ -83,20 +83,20 @@ export class SmokerCharacter extends Character implements Examine {
                     playerSession.tradedWithSmoker = true;
                     playerSession.helpedSmoker = true;
 
-                    return new TextActionResult(["*snaps fingers* Aight, aight... thats wassup!",
+                    return new TextActionResult(["Smoker: *snaps fingers* Aight, aight... thats wassup!",
                         "Here's that lighter fam... don't smoke it all in one place!"]);
                 }
                 else {
-                    return new TextActionResult(["You tryna finesse me?! Where my cigs at? Hurry up dawg",
+                    return new TextActionResult(["Smoker: You tryna finesse me?! Where my cigs at? Hurry up dawg",
                         "Come back with the stuff or keep it pushin"]);
                 }
             }
             else {
-                return new TextActionResult(["No doubt, no doubt. Clock's tickin though... don't leave me hangin."]);
+                return new TextActionResult(["Smoker: No doubt, no doubt. Clock's tickin though... don't leave me hangin."]);
             }
         }
         else {
-            return new TextActionResult(["We locked in already homie! That lighter better be treatin you right!"]);
+            return new TextActionResult(["Smoker: We locked in already homie! That lighter better be treatin you right!"]);
         }
     }
 }

@@ -6,8 +6,9 @@ import { Character } from "../../game-base/gameObjects/Character";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
+import { Examine } from "../../game-base/actions/ExamineAction";
 
-export class ProfessorCharacter extends Character {
+export class ProfessorCharacter extends Character implements Examine {
     public static Alias: string = "Professor";
 
     public constructor() {
@@ -35,7 +36,7 @@ export class ProfessorCharacter extends Character {
             return new TalkActionResult(
                 this,
                 [
-                    "Alright, lets get to work then. Your first task: Can you find my glass beaker for me?I cant seem to find it",
+                    "Professor: Alright, lets get to work then. Your first task: Can you find my glass beaker for me?I cant seem to find it",
                 ],
                 [
                     new TalkChoice(3, "Sure, i will go look for it..."),
@@ -45,30 +46,31 @@ export class ProfessorCharacter extends Character {
         }
 
         if (choiceId === 2) {
-            return new TextActionResult(["Get out of here before i call security!!"]);
+            return new TextActionResult(["Professor: Get out of here before i call security!!"]);
         }
 
         if (choiceId === 3) {
             playerSession.wantsToSearchGlassBeaker = true;
-            return new TextActionResult(["Goodluck!"]);
+            return new TextActionResult(["Professor: Goodluck!"]);
         }
 
         if (choiceId === 4) {
             if (playerSession.inventory.includes("GlassBeakerItem")) {
                 playerSession.wantsToSearchIngredients = true;
-                return new TextActionResult(["Perfect! But we still need the ingredients... Find: SulfuricAcid, FocusDrink, Baking Soda"]);
+                playerSession.inventory.splice(playerSession.inventory.indexOf("GlassBeakerItem"), 1);
+                return new TextActionResult(["Professor: Perfect! But we still need the ingredients... Find: SulfuricAcid, FocusDrink, Baking Soda"]);
             }
             else {
-                return new TextActionResult(["Is this a joke... keep looking before i find a new assistant."]);
+                return new TextActionResult(["Professor: Is this a joke... keep looking before i find a new assistant."]);
             }
         }
 
         if (choiceId === 5) {
-            return new TextActionResult(["Have you tried looking in the lab? It might still be laying around here"]);
+            return new TextActionResult(["Professor: Have you tried looking in the lab? It might still be laying around here"]);
         }
 
         if (choiceId === 6) {
-            return new TextActionResult(["Find: SulfuricAcid, FocusDrink, Baking Soda"]);
+            return new TextActionResult(["Professor: Find: SulfuricAcid, FocusDrink, Baking Soda"]);
         }
 
         if (choiceId === 7) {
@@ -81,11 +83,10 @@ export class ProfessorCharacter extends Character {
 
                 playerSession.inventory.push("CorrosiveAcid");
                 playerSession.helpedProfessor = true;
-                return new TextActionResult(["Perfect, here you go +1 CorrosiveAcid"]);
-                audioService.playSoundEffect("unlock");
+                return new TextActionResult(["Professor: Perfect, here you go +1 CorrosiveAcid"]);
             }
             else {
-                return new TextActionResult(["You dont have all items yet, keep searching."]);
+                return new TextActionResult(["Professor: You dont have all items yet, keep searching."]);
             }
         }
 
@@ -95,7 +96,7 @@ export class ProfessorCharacter extends Character {
                 return new TalkActionResult(
                     this,
                     [
-                        "Have you found the ingredients?",
+                        "Professor: Have you found the ingredients?",
                     ],
                     [
                         new TalkChoice(6, "What ingredients do we need again?"),
@@ -107,7 +108,7 @@ export class ProfessorCharacter extends Character {
                 return new TalkActionResult(
                     this,
                     [
-                        "Have you found my Glass Beaker?",
+                        "Professor: Have you found my Glass Beaker?",
                     ],
                     [
                         new TalkChoice(4, "Yeah i found it, here you go!"),
@@ -119,7 +120,7 @@ export class ProfessorCharacter extends Character {
                 return new TalkActionResult(
                     this,
                     [
-                        "Who are you... are you my new assistant or something?",
+                        "Professor: Who are you... are you my new assistant or something?",
                     ],
                     [
                         new TalkChoice(1, "Yeah thats right, i am here to help you!"),
@@ -130,5 +131,11 @@ export class ProfessorCharacter extends Character {
         }
 
         return undefined;
+    }
+
+    public examine(): ActionResult | undefined {
+        return new TextActionResult([
+            "This is a Professor!",
+        ]);
     }
 }

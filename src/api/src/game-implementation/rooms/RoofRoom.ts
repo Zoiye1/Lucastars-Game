@@ -38,9 +38,13 @@ export class RoofRoom extends Room {
 
     // Bepaalt welke afbeeldingen in deze kamer zichtbaar zijn
     public images(): string[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
         // const playerSession: PlayerSession = gameService.getPlayerSession();
         // const inventory: string[] = playerSession.inventory;
         const result: string[] = ["Roof/RoofBackground"];
+
+        if (playerSession.EscapedRoof)
+            result.push("Roof/RoofEscaping");
 
         // // Voeg de hamer toe aan de afbeeldingen als deze nog niet is opgepakt
         // if (!playerSession.pickedUpHammer) {
@@ -70,9 +74,6 @@ export class RoofRoom extends Room {
         if (!inventory.includes("Sticks") && !inventory.includes("10Sticks")) {
             result.push({ name: "Sticks", alias: "Sticks", imageUrl: "Roof/Sticks", type: ["actionableItem"], imageCoords: { x: 25, y: 84 } });
         }
-
-        if (playerSession.EscapedRoof)
-            result.push("Roof/RoofEscaping");
 
         return result;
     }

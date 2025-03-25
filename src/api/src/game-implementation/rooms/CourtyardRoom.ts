@@ -97,7 +97,7 @@ export class CourtyardRoom extends Room {
         ];
 
         if (playerSession.placedEscapeLadder) {
-            result.push({ name: "The End", alias: "courtyard-end", imageRotation: 90, imageCoords: { x: 20, y: 100 } });
+            result.push({ name: "Ladder", alias: "courtyard-end", imageRotation: -90, imageCoords: { x: 12, y: 15 } });
         };
 
         return result;

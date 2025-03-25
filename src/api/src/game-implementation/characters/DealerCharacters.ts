@@ -6,12 +6,13 @@ import { TextActionResult } from "../../game-base/actionResults/TextActionResult
 import { PlayerSession } from "../types";
 import { gameService } from "../../global";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
+import { Examine } from "../../game-base/actions/ExamineAction";
 
 /**
  * Klasse die de dealer NPC representeert.
  * De dealer kan met de speler praten, biedt items te koop aan, en biedt een fetch quest aan.
  */
-export class DealerCharacter extends Character {
+export class DealerCharacter extends Character implements Examine {
     /** Alias voor de dealer NPC. */
     public static readonly Alias: string = "dealer";
 
@@ -51,7 +52,7 @@ export class DealerCharacter extends Character {
         if (_choiceId === 1) {
             return new TalkActionResult(
                 this,
-                ["I have some steroids for sale. You want to buy some?"],
+                ["Dealer: I have some steroids for sale. You want to buy some?"],
                 [
                     new TalkChoice(3, "What do I have to pay for it?"),
                     new TalkChoice(4, "No, I'm not interested."),
@@ -62,7 +63,7 @@ export class DealerCharacter extends Character {
         if (_choiceId === 3) {
             return new TalkActionResult(
                 this,
-                ["You have to give me powdered sugar."],
+                ["Dealer: You have to give me powdered sugar."],
                 [new TalkChoice(5, "Give powdered sugar"), new TalkChoice(6, "I don't have it right now")]
             );
         }
@@ -73,11 +74,11 @@ export class DealerCharacter extends Character {
                 playerSession.helpedDealer = true;
                 playerSession.inventory.push("Steroids");
                 playerSession.inventory.splice(playerSession.inventory.indexOf("SugarItem"), 1);
-                return new TextActionResult(["Amazing! Here you have Steroids."]);
+                return new TextActionResult(["Dealer: Amazing! Here you have Steroids."]);
             }
             else {
                 return new TextActionResult([
-                    "Haha... that's not funny. You don't have powdered sugar on you. Please keep looking...",
+                    "Dealer: Haha... that's not funny. You don't have powdered sugar on you. Please keep looking...",
                 ]);
             }
         }
@@ -85,7 +86,7 @@ export class DealerCharacter extends Character {
         if (_choiceId === 2 || _choiceId === 6 || _choiceId === 9) {
             return new TextActionResult(
                 [
-                    "No stress",
+                    "Dealer: No stress",
                 ]
             );
         }
@@ -93,7 +94,7 @@ export class DealerCharacter extends Character {
         if (_choiceId === 4) {
             return new TalkActionResult(
                 this,
-                ["Wait! I also have a pack of cigs. Do you want to buy it?"],
+                ["Dealer: Wait! I also have a pack of cigs. Do you want to buy it?"],
                 [
                     new TalkChoice(7, "What do I have to pay for it?"),
                     new TalkChoice(8, "No, I'm not interested."),
@@ -104,7 +105,7 @@ export class DealerCharacter extends Character {
         if (_choiceId === 7) {
             return new TalkActionResult(
                 this,
-                ["That will be a nice 10 euro bill for you. Without taxes!"],
+                ["Dealer: That will be a nice 10 euro bill for you. Without taxes!"],
                 [
                     new TalkChoice(8, "Ok, I got the cash on me. Hand me those cigs."),
                     new TalkChoice(9, "No, I'm not interested."),
@@ -118,17 +119,23 @@ export class DealerCharacter extends Character {
                 playerSession.inventory.push("CigarettesItem");
                 playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
 
-                return new TextActionResult(["Amazing! Here you have the pack of cigarettes."]);
+                return new TextActionResult(["Dealer: Amazing! Here you have the pack of cigarettes."]);
             }
             else {
-                return new TextActionResult(["Haha... that's not funny. You don't have any cash on you. Save up some cash and then come back..."]);
+                return new TextActionResult(["Dealer: Haha... that's not funny. You don't have any cash on you. Save up some cash and then come back..."]);
             };
         }
 
         return new TalkActionResult(
             this,
-            ["Hey, I have some stuff for sale. You want to buy something?"],
+            ["Dealer: Hey, I have some stuff for sale. You want to buy something?"],
             [new TalkChoice(1, "What do you have for sale?"), new TalkChoice(2, "No, I'm not interested.")]
         );
+    }
+
+    public examine(): ActionResult | undefined {
+        return new TextActionResult([
+            "This is a Dealer!",
+        ]);
     }
 }
