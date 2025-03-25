@@ -188,6 +188,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpWirecutter: false,
             pickedUpGlue: false,
             EscapedLab: false,
+            HasVisitedStarterRoom: false,
         };
     }
 

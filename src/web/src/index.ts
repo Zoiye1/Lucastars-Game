@@ -8,6 +8,9 @@ import { QuestComponent } from "./components/QuestComponent";
 import { MapComponent } from "./components/MapComponent";
 import { AudioComponent } from "./components/AudioComponent";
 // import { ArrowComponent } from "./components/ArrowComponent";
+import { enableAudioAutoplay } from "./utils/audioUtils";
+
+enableAudioAutoplay();
 
 // Expose the web components to the browser
 window.customElements.define("game-root", RootComponent);
