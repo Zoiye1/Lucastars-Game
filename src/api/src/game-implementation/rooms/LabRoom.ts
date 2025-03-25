@@ -12,7 +12,7 @@ import { SulfuricAcidItem } from "../items/SulfuricAcidItem";
 import { TalkAction } from "../../game-base/actions/TalkAction";
 import { ProfessorCharacter } from "../characters/ProfessorCharacter";
 import { BakingSodaItem } from "../items/BakingSodaItem";
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { UseAction } from "../actions/UseAction";
 import { MetalDoorItem } from "../items/MetalDoorItem";
 import { CorrosiveAcidItem } from "../items/CorrosiveAcidItem";
@@ -38,15 +38,38 @@ export class LabRoom extends Room {
     }
 
     public images(): string[] {
-        const playerSession: PlayerSession = gameService.getPlayerSession();
-        const result: string[] = ["lab/labBackground1", "lab/labProfessor"];
+        // const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: string[] = ["lab/labBackground1"];
 
+        // if (!playerSession.pickedUpSulfuricAcid) {
+        //     result.push("lab/labSulfuricAcid");
+        // }
+
+        // if (!playerSession.pickedUpGlassBeaker) {
+        //     result.push("lab/labGlassBeaker");
+        // }
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+            { name: "Professor", alias: "Professor", imageUrl: "lab/labProfessor", type: ["npc"], imageCoords: { x: 35, y: 34 } },
+        ];
         if (!playerSession.pickedUpSulfuricAcid) {
-            result.push("lab/labSulfuricAcid");
+            result.push({ name: "SulfuricAcid", alias: "SulfuricAcidItem", imageUrl: "lab/labSulfuricAcid", type: ["actionableItem"], imageCoords: { x: 30, y: 24 } });
+        }
+        if (!playerSession.pickedUpGlassBeaker) {
+            result.push({ name: "GlassBeaker", alias: "GlassBeakerItem", imageUrl: "lab/labGlassBeaker", type: ["actionableItem"], imageCoords: { x: 20, y: 85 } });
         }
 
-        if (!playerSession.pickedUpGlassBeaker) {
-            result.push("lab/labGlassBeaker");
+        if (playerSession.EscapedLab) {
+            result.push("lab/LabEnding");
         }
 
         if (playerSession.EscapedLab) {

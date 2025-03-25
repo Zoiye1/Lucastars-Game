@@ -153,6 +153,7 @@ export type ExecuteDeleteItemsRequest = {
  * Player session data for the game
  */
 export type PlayerSession = {
+    playerOpenedElevator: boolean;
     pickedUpGlue: boolean;
     pickedUpWirecutter: boolean;
     pickedUpKeyCard: boolean;
@@ -182,6 +183,7 @@ export type PlayerSession = {
     pickedUpGlassBeaker: boolean;
     pickedUpSulfuricAcid: boolean;
     EscapedLab: boolean;
+    HasVisitedStarterRoom: boolean;
 
     // Voeg de nieuwe activeQuest eigenschap toe
     activeQuest?: {
@@ -210,5 +212,5 @@ export type PlayerSession = {
     helpedCook: boolean;
     pickedUpSheets: boolean;
     pickedUpAirFreshener: boolean;
-    equippedParachute: boolean;
+    EscapedRoof: boolean;
 };

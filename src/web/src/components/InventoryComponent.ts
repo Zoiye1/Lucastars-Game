@@ -5,21 +5,21 @@ import { GameRouteService } from "../services/GameRouteService";
 /** CSS affecting the {@link InventoryComponent} */
 const styles: string = css`
     .container-inventory {
-        position: fixed;
-        left: 0;
-        top: 27%;
-        transform: translateY(-50%);
-        background: rgba(20, 20, 20, 0.95);
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-        width: 250px;
-        max-height: 400px; /* Set a max height */
-        overflow-y: auto; /* Enable scrolling when content exceeds max height */
-        color: white;
-        scrollbar-width: thin; /* For Firefox */
-        scrollbar-color: #4a90e2 #222; /* Custom scrollbar color */
-    }
+    position: fixed;
+    left: 0;
+    top: 27%;
+    transform: translateY(-50%);
+    background: rgba(20, 20, 20, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    width: 270px; 
+    max-height: 300px;
+    overflow-y: auto;
+    color: white;
+    scrollbar-width: thin;
+    scrollbar-color: #4a90e2 #222;
+}
 
     /* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) */
     .container-inventory::-webkit-scrollbar {
@@ -51,8 +51,11 @@ const styles: string = css`
     .inventory-grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: repeat(3, auto);
         gap: 10px;
         margin-top: 10px;
+
+        
     }
 
     .inventory-item {

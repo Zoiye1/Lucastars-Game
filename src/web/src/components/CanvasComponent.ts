@@ -50,6 +50,17 @@ const styles: string = css`
     position: absolute;
     margin: 0;
     width: 100%;
+    height: 100%;
+    
+    }
+    
+    game-click {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    margin: 0;
+    width: 100%;
     height: 100%; 
     }
 
@@ -166,7 +177,9 @@ export class CanvasComponent extends HTMLElement {
         this.addEventListener("state-update", () => {
             void this.refreshGameState();
         });
-
+        this.addEventListener("state-update-click", (event: CustomEvent) => {
+            this.refreshGameStateAction(event.detail as GameState);
+        });
         void this.refreshGameState();
     }
 
@@ -175,7 +188,10 @@ export class CanvasComponent extends HTMLElement {
      */
     private async refreshGameState(): Promise<void> {
         const state: GameState = await this._gameRouteService.getGameState();
+        this.updateGameState(state);
+    }
 
+    private refreshGameStateAction(state: GameState): void {
         this.updateGameState(state);
     }
 
@@ -298,10 +314,11 @@ export class CanvasComponent extends HTMLElement {
                 <div class="header">
                     ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
                     onerror="this.onerror=null;this.src='/assets/img/rooms/${url}.gif';" />`).join("")}
+                    <game-arrow></game-arrow>
+                    <game-click></game-click>
                     <game-crafting></game-crafting>
                     <game-quest></game-quest>
                     <game-map></game-map>
-                    <game-arrow></game-arrow>
                     <game-inventory> </game-inventory>
                 </div>
             `;

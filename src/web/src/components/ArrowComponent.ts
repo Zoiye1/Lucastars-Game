@@ -11,10 +11,24 @@ const styles: string = css`
         height: 100%;
         image-rendering: pixelated;
         position: absolute;
+        z-index: 2;
+        
     }
     
     .arrow:hover {
       filter: hue-rotate(90deg) brightness(1.5);
+    }
+
+    .locationText {
+        z-index: 2;
+        position: absolute;
+        bottom: 5%;
+        color:rgb(81, 255, 81);
+        text-shadow: 
+    -2px -2px 0 #000,  
+     2px -2px 0 #000,  
+    -2px  2px 0 #000,  
+     2px  2px 0 #000;
     }
 
 `;
@@ -68,6 +82,7 @@ export class ArrowComponent extends HTMLElement {
     }
 
     private Connect(state: GameState): void {
+        console.log(state);
         this.dispatchEvent(new CustomEvent("state-update", {
             detail: state,
             bubbles: true, // <-- makes the event travel up DOM so canvas can hear it
@@ -79,11 +94,15 @@ export class ArrowComponent extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
+        const locationText: HTMLParagraphElement = document.createElement("p");
+        locationText.classList.add("locationText");
+        locationText.textContent = "";
         const element: HTMLElement[] = htmlArray`
             <style>
                 ${styles}
             </style>
                 ${this.renderArrow()}
+                ${locationText}
             `;
 
         while (this.shadowRoot.firstChild) {
@@ -95,12 +114,11 @@ export class ArrowComponent extends HTMLElement {
 
     private renderArrow(): HTMLElement[] | undefined {
         const roomArrowImages: Arrowroom[] | undefined = this._currentGameState?.roomArrowImages;
-        console.log(roomArrowImages);
         if (roomArrowImages && roomArrowImages.length > 0) {
             return roomArrowImages.map(arrow => this.createArrowElement(arrow));
         }
 
-        return ``;
+        return htmlArray``;
     }
 
     private createArrowElement(arrow: Arrowroom): HTMLElement {
@@ -116,6 +134,8 @@ export class ArrowComponent extends HTMLElement {
         img.style.position = "absolute";
 
         img.addEventListener("click", () => this.handleClickArrow(arrow));
+        img.addEventListener("mouseover", () => this.handleHoverArrow(arrow));
+        img.addEventListener("mouseleave", () => this.handleNoHoverArrow());
 
         return img;
     }
@@ -125,9 +145,30 @@ export class ArrowComponent extends HTMLElement {
         const roomAlias: string = arrow.alias;
 
         const state: GameState | undefined = await this._gameRouteService.executeRoomAction(roomAlias);
-        console.log(state);
         if (state) {
             this.Connect(state);
+        }
+    }
+
+    private handleHoverArrow(arrow: Arrowroom): void {
+        console.log(`${arrow.alias} hovered!`);
+        // const roomAlias: string = arrow.alias;
+        const locationText: HTMLParagraphElement | null = this.shadowRoot?.querySelector(".locationText") as HTMLParagraphElement | null;
+        if (locationText) {
+            locationText.textContent = `Enter ${arrow.name}`;
+        }
+        else {
+            console.warn("error");
+        }
+    }
+
+    private handleNoHoverArrow(): void {
+        const locationText: HTMLParagraphElement | null = this.shadowRoot?.querySelector(".locationText") as HTMLParagraphElement | null;
+        if (locationText) {
+            locationText.textContent = "";
+        }
+        else {
+            console.warn("error");
         }
     }
 }
