@@ -52,7 +52,7 @@ export class StrangerRoom extends Room {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
             { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 25, y: 25 } },
-            { name: "Ventilation", alias: "ventilation", imageRotation: 0, imageCoords: { x: 65, y: 25 } }, // Recht omhoog
+            { name: "vent", alias: "Vents", imageRotation: 0, imageCoords: { x: 65, y: 25 } }, /// Recht omhoog
 
         ];
 
