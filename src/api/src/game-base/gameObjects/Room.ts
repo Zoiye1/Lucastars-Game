@@ -1,4 +1,4 @@
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { ActionResult } from "../actionResults/ActionResult";
 import { Action } from "../actions/Action";
 import { Examine } from "../actions/ExamineAction";
@@ -32,6 +32,15 @@ export abstract class Room extends GameObject implements Examine, Move {
     }
 
     public ArrowUrl(): Arrowroom[] {
+        return [];
+    }
+
+    /**
+     * Get the images used Click on for actions
+     *
+     *
+     */
+    public ClickItem(): ClickItem[] {
         return [];
     }
 

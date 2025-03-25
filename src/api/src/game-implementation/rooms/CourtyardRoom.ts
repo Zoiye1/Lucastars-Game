@@ -1,4 +1,4 @@
-import { Arrowroom } from "@shared/types";
+import { Arrowroom, ClickItem } from "@shared/types";
 import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { TextActionResult } from "../../game-base/actionResults/TextActionResult";
 import { Action } from "../../game-base/actions/Action";
@@ -56,17 +56,33 @@ export class CourtyardRoom extends Room {
     public images(): string[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const inventory: string[] = playerSession.inventory;
-        const result: string[] = ["courtyard/courtyardBackground", "courtyard/Smoker"];
+        const result: string[] = ["courtyard/courtyardBackground"];
 
         if (inventory.includes("6sticks") || inventory.includes("10Sticks")) {
             result.push("courtyard/courtyardTreeBroken");
         }
 
-        if (!playerSession.pickedUpJumpRope) {
-            result.push("courtyard/JumpRope");
-        }
+        // if (!playerSession.pickedUpJumpRope) {
+        //     result.push("courtyard/JumpRope");
+        // }
         if (playerSession.placedEscapeLadder) {
             result.push("courtyard/EscapeLadder");
+        }
+
+        return result;
+    }
+
+    public ClickItem(): ClickItem[] {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // Always give 4 paramaters for Click objects: The name (will be displayed), alias,
+        // The imageurl and the types
+
+        // result as an array of ClickItem objects
+        const result: ClickItem[] = [
+            { name: "Smoker", alias: "smoker", imageUrl: "courtyard/Smoker", type: ["npc"], imageCoords: { x: 30, y: 62 } },
+        ];
+        if (!playerSession.pickedUpJumpRope) {
+            result.push({ name: "JumpRope", alias: "JumpRopeItem", imageUrl: "courtyard/JumpRope", type: ["actionableItem"], imageCoords: { x: 50, y: 88 } });
         }
 
         return result;

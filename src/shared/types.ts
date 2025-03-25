@@ -18,6 +18,8 @@ export type DefaultGameState = {
     /** Images of the room the player is in */
     roomImages: string[];
     roomArrowImages: Arrowroom[];
+    /* list of items to click on */
+    roomClickImages: ClickItem[];
     /** Lines of text to show to the player */
     text: string[];
     /** Actions that are available to the player */
@@ -43,6 +45,25 @@ export type Arrowroom = {
     name: string;
     alias: string;
     imageRotation: number;
+    imageCoords: {
+        x: number;
+        y: number;
+    };
+};
+
+/**
+ * Represents a game object and displays a clickable Image
+ */
+export type ClickItem = {
+    /** Name of the game object */
+    name: string;
+    /** Alias of the game object */
+    alias: string;
+    /** Image of the item */
+    imageUrl: string;
+    /** Type of the game object (e.g, npc, actionableItem) */
+    type: string[];
+
     imageCoords: {
         x: number;
         y: number;
