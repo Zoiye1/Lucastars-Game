@@ -48,6 +48,7 @@ export class ToiletRoom extends Room {
      */
     public images(): string[] {
         const result: string[] = ["toilet/ToiletBackground"];
+        // const playerSession: PlayerSession = gameService.getPlayerSession();
 
         // Controleert of de speler de emmer nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
         // if (!playerSession.pickedUpBucket) {
@@ -71,11 +72,11 @@ export class ToiletRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "Air Freshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 5, y: 31 } },
+            { name: "AirFreshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 13, y: 16 } },
         ];
 
         if (!playerSession.pickedUpAirFreshener) {
-            result.push({ name: "Dealer", alias: "dealer", imageUrl: "characters/Dealer", type: ["npc"], imageCoords: { x: 60, y: 52 }}
+            result.push({ name: "Dealer", alias: "dealer", imageUrl: "characters/Dealer", type: ["npc"], imageCoords: { x: 60, y: 52 } }
             );
         }
 
@@ -83,7 +84,7 @@ export class ToiletRoom extends Room {
             result.push({ name: "Bucket", alias: "bucket", imageUrl: "toilet/Bucket", type: ["actionableItem"], imageCoords: { x: 45, y: 80 } });
         }
 
-        console.log("ClickItem() output:", result);
+        // console.log("ClickItem() output:", result);
 
         return result;
     }
