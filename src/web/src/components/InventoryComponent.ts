@@ -135,7 +135,7 @@ export class InventoryComponent extends HTMLElement {
             .map(item => {
                 const itemName: string = item.replace("Item", "");
                 const selectedClass: string = item === this.selectedItem ? "selected" : "";
-                return `<div class="inventory-item ${selectedClass}" data-item="${item}" data-item-name="${itemName}"><img class="inventory-icon" src="/public/assets/img/icons/${item}.png"/></div>`;
+                return `<div class="inventory-item ${selectedClass}" data-item-name="${itemName}"><img data-item="${item}" class="inventory-icon" src="/public/assets/img/icons/${item}.png"/></div>`;
             })
             .join("");
 
