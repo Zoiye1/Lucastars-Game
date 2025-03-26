@@ -31,7 +31,33 @@ export class DealerCharacter extends Character implements Examine {
     public talk(_choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        // Speler vraagt wat de dealer verkoopt
+        // Controleer of de items al zijn gekocht
+        const hasSteroids: boolean = playerSession.inventory.includes("Steroids");
+        const hasCigarettes: boolean = playerSession.inventory.includes("CigarettesItem");
+
+        // Als speler dealer aanspreekt, juiste opties en dialoog tonen
+        if (_choiceId === undefined) {
+            const choices: TalkChoice[] = [];
+            let dialogue: string = "Hey, I have some stuff for sale. What are you interested in?";
+
+            if (!hasSteroids) choices.push(new TalkChoice(1, "Tell me about the steroids."));
+            if (!hasCigarettes) choices.push(new TalkChoice(2, "Tell me about the cigarettes."));
+
+            if (hasSteroids && !hasCigarettes) {
+                dialogue = "I only have cigarettes left for sale.";
+            }
+            else if (!hasSteroids && hasCigarettes) {
+                dialogue = "I only have steroids left for sale.";
+            }
+            else if (hasSteroids && hasCigarettes) {
+                return new TextActionResult(["Dealer: I don't have anything left..."]);
+            }
+
+            choices.push(new TalkChoice(10, "No, I'm not interested."));
+
+            return new TalkActionResult(this, [dialogue], choices);
+        }
+
         if (_choiceId === 1) {
             return new TalkActionResult(
                 this,
@@ -90,12 +116,11 @@ export class DealerCharacter extends Character implements Examine {
         if (_choiceId === 8) {
             if (playerSession.inventory.includes("ten euro")) {
                 playerSession.inventory.push("CigarettesItem");
-                playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
-
+                playerSession.inventory.splice(playerSession.inventory.indexOf("ten euro"), 1);
                 return new TextActionResult(["Dealer: Amazing! Here you have the pack of cigarettes."]);
             }
             else {
-                return new TextActionResult(["Haha... that's not funny. You don't have any cash on you. Save up some cash and then come back..."]);
+                return new TextActionResult(["Dealer: Haha... that's not funny. You don't have any cash on you. Save up some cash and then come back..."]);
             }
         }
 
