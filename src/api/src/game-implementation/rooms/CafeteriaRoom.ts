@@ -69,7 +69,7 @@ export class CafeteriaRoom extends Room {
         const result: ClickItem[] = [
         ];
         if (!playerSession.pickedUpFocusDrink) {
-            result.push({ name: "FocusDrink", alias: "FocusDrinkItem", imageUrl: "cafeteria/FocusDrink", type: ["actionableItem"], imageCoords: { x: 30, y: 60 } });
+            result.push({ name: "FocusDrink", alias: "FocusDrinkItem", imageUrl: "cafeteria/FocusDrink", type: ["actionableItem"], imageCoords: { x: 30, y: 65 } });
         }
         if (!playerSession.helpedCleaner) {
             result.push({ name: "Cleaner", alias: "cleaner", imageUrl: "cafeteria/CleanerInTheWay", type: ["npc"], imageCoords: { x: 43, y: 45 } });
