@@ -79,7 +79,7 @@ export class KitchenRoom extends Room {
             result.push({ name: "Sugar", alias: "SugarItem", imageUrl: "kitchen/BagOfSugar", type: ["actionableItem"], imageCoords: { x: 70, y: 19 } });
         }
         if (!playerSession.pickedUpBakingSoda) {
-            result.push({ name: "BakingSoda", alias: "BakingSodaItem", imageUrl: "kitchen/BakingSoda", type: ["actionableItem"], imageCoords: { x: 13, y: 55 } });
+            result.push({ name: "BakingSoda", alias: "BakingSodaItem", imageUrl: "kitchen/BakingSoda", type: ["actionableItem"], imageCoords: { x: 17, y: 55 } });
         }
         return result;
     }
