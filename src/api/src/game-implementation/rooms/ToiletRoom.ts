@@ -76,7 +76,7 @@ export class ToiletRoom extends Room {
         ];
 
         if (!playerSession.pickedUpAirFreshener) {
-            result.push ({ name: "AirFreshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 15, y: 82 } },
+            result.push ({ name: "AirFreshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 15, y: 82 } }
 
             );
         }
