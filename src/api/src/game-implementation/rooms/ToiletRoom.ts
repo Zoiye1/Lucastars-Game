@@ -47,12 +47,17 @@ export class ToiletRoom extends Room {
      * Retourneert een lijst met afbeeldingsbestanden die bij deze kamer horen.
      */
     public images(): string[] {
-        // const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: string[] = ["toilet/ToiletBackground"];
+        // const playerSession: PlayerSession = gameService.getPlayerSession();
 
         // Controleert of de speler de emmer nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
         // if (!playerSession.pickedUpBucket) {
         //     result.push("toilet/Bucket");
+        // }
+
+        // Controleert of de speler de luchtverfrisser nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
+        // if (!playerSession.pickedUpAirFreshener) {
+        //     result.push("toilet/AirFreshener");
         // }
 
         // Voegt de dealer NPC-afbeelding toe.
@@ -69,9 +74,18 @@ export class ToiletRoom extends Room {
         const result: ClickItem[] = [
             { name: "Dealer", alias: "dealer", imageUrl: "characters/Dealer", type: ["npc"], imageCoords: { x: 60, y: 52 } },
         ];
+
+        if (!playerSession.pickedUpAirFreshener) {
+            result.push ({ name: "AirFreshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 15, y: 82 } }
+
+            );
+        }
+
         if (!playerSession.pickedUpBucket) {
             result.push({ name: "Bucket", alias: "bucket", imageUrl: "toilet/Bucket", type: ["actionableItem"], imageCoords: { x: 45, y: 80 } });
         }
+
+        // console.log("ClickItem() output:", result);
 
         return result;
     }
@@ -125,18 +139,6 @@ export class ToiletRoom extends Room {
      * @param alias - De alias van de actie.
      * @returns Het resultaat van de actie.
      */
-    // public simple(alias: string): ActionResult | undefined {
-    //     if (alias === "enter-hallway") {
-    //         const room: Room = new HallwayRoom();
-
-    //         // Wijzigt de huidige kamer van de speler naar de hal
-    //         gameService.getPlayerSession().currentRoom = room.alias;
-
-    //         return room.examine();
-    //     }
-
-    //     return new TextActionResult(["You can't go there."]);
-    // }
 
     /**
      * Retourneert de beschrijving van de kamer wanneer de speler deze onderzoekt.

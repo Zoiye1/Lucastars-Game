@@ -54,6 +54,7 @@ import { RoofEndRoom } from "../rooms/RoofEndRoom";
 import { LadderItem } from "../items/LadderItem";
 import { GlueItem } from "../items/GlueItem";
 import { KeyCardItem } from "../items/KeyCardItem";
+import { WardrobeItem } from "../items/WardrobeItem";
 import { LabEndRoom } from "../rooms/LabEndRoom";
 import { CorrosiveAcidItem } from "../items/CorrosiveAcidItem";
 import { MetalDoorItem } from "../items/MetalDoorItem";
@@ -118,6 +119,8 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(LadderItem);
         this.registerGameObject(GlueItem);
         this.registerGameObject(KeyCardItem);
+        this.registerGameObject(WardrobeItem);
+        this.registerGameObject(SheetsItem);
         this.registerGameObject(CorrosiveAcidItem);
         this.registerGameObject(MetalDoorItem);
         this.registerGameObject(RoofItem);
@@ -191,6 +194,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             pickedUpGlue: false,
             playerOpenedElevator: false,
             EscapedLab: false,
+            wardrobeOpened: false,
             HasVisitedStarterRoom: false,
         };
     }
