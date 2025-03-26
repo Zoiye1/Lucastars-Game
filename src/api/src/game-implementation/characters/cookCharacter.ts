@@ -67,7 +67,7 @@ export class cookCharacter extends Character implements Examine {
             if (choiceId === 3) {
                 if (gameService.getPlayerSession().GaveTheForkToCook) {
                     gameService.getPlayerSession().pickedUpKey = true;
-                    playerSession.inventory.push("Key-Storage");
+                    playerSession.inventory.push("Key");
                     return new TextActionResult(
                         [
                             "Cook: \"Yeah sure, here take this key. It opens the door\"", "The Cook hands you a key",
@@ -129,7 +129,7 @@ export class cookCharacter extends Character implements Examine {
             if (choiceId === 9) {
                 gameService.getPlayerSession().ThreatenedCook = true;
                 gameService.getPlayerSession().pickedUpKey = true;
-                playerSession.inventory.push("Key-Storage");
+                playerSession.inventory.push("Key");
                 return new TextActionResult(
                     [
                         "Cook: \"Fine just dont stab me!\"", "The Cook hands you the Key",

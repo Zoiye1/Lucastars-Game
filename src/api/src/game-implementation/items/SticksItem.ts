@@ -15,7 +15,7 @@ export class SticksItem extends Item implements Examine, PickUp {
     }
 
     public name(): string {
-        return "Sticks";
+        return "4 sticks";
     }
 
     public type(): GameObjectType[] {
