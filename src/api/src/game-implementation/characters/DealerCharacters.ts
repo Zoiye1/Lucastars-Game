@@ -88,7 +88,7 @@ export class DealerCharacter extends Character implements Examine {
         }
 
         if (_choiceId === 8) {
-            if (playerSession.inventory.includes("ten-euro-bill")) {
+            if (playerSession.inventory.includes("ten euro")) {
                 playerSession.inventory.push("CigarettesItem");
                 playerSession.inventory.splice(playerSession.inventory.indexOf("ten-euro-bill"), 1);
 

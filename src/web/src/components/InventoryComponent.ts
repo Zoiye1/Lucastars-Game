@@ -20,6 +20,26 @@ const styles: string = css`
     scrollbar-width: thin;
     scrollbar-color: #4a90e2 #222;
 }
+    .inventory-item::after {
+    content: attr(data-item-name); /*  Tooltip haalt naam uit data-item */
+    position: absolute;
+    bottom: 100%; /*  Boven het item */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none; /*  Zorgt ervoor dat de tooltip de muis niet blokkeert */
+}
+
+.inventory-item:hover::after {
+    opacity: 1; /*  Tooltip wordt zichtbaar bij hover */
+}
 
     /* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) */
     .container-inventory::-webkit-scrollbar {
@@ -113,8 +133,9 @@ export class InventoryComponent extends HTMLElement {
 
         const inventoryItems: string = this.items
             .map(item => {
+                const itemName: string = item.replace("Item", "");
                 const selectedClass: string = item === this.selectedItem ? "selected" : "";
-                return `<div class="inventory-item ${selectedClass}"><img data-item="${item}" class="inventory-icon" src="/public/assets/img/icons/${item}.png"/></div>`;
+                return `<div class="inventory-item ${selectedClass}" data-item="${item}" data-item-name="${itemName}"><img class="inventory-icon" src="/public/assets/img/icons/${item}.png"/></div>`;
             })
             .join("");
 
