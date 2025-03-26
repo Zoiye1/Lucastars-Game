@@ -55,6 +55,7 @@ Een werkend product ontwikkelen dat voldoet aan de gestelde eisen en doelstellin
   - Mappenstructuur per projectonderdeel.
 - **Commit Structuur:**
     - Commits worden gemaakt op basis van een algemeen aanvaard commit structuur.
+    - **scope** - we use also a scope to provide additional contextual information about the commit. The scope can be anything specifying the place of the commit change.
         *   **feat** – a new feature is introduced with the changes
         *   **fix** – a bug fix has occurred
         *   **chore** – changes that do not relate to a fix or feature and don't modify src or test files (for example updating dependencies)
