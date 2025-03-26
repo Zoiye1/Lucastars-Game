@@ -72,11 +72,12 @@ export class ToiletRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "AirFreshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 13, y: 16 } },
+            { name: "Dealer", alias: "dealer", imageUrl: "characters/Dealer", type: ["npc"], imageCoords: { x: 60, y: 52 } },
         ];
 
         if (!playerSession.pickedUpAirFreshener) {
-            result.push({ name: "Dealer", alias: "dealer", imageUrl: "characters/Dealer", type: ["npc"], imageCoords: { x: 60, y: 52 } }
+            result.push ({ name: "AirFreshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 15, y: 82 } },
+
             );
         }
 

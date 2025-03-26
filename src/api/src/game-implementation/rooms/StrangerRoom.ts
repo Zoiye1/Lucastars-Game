@@ -70,7 +70,7 @@ export class StrangerRoom extends Room {
                 alias: "SheetsItem",
                 imageUrl: "strangerroom/Sheets",
                 type: ["actionableItem"],
-                imageCoords: { x: 21, y: 17 },
+                imageCoords: { x: 61, y: 76 },
             });
         }
 
