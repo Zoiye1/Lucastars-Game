@@ -42,7 +42,7 @@ export class GymRoom extends Room implements Simple {
 
         // Verander het personagebeeld op basis van of de speler heeft geholpen
         if (playerSession.helpedGymFreak) {
-            result.push("Gym/GymFreakEnd");
+            result.push("gif/GymFreakEnd");
         }
 
         return result;
