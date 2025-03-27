@@ -39,14 +39,11 @@ export class LabRoom extends Room {
     public images(): string[] {
         // const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: string[] = ["lab/labBackground1"];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        // if (!playerSession.pickedUpSulfuricAcid) {
-        //     result.push("lab/labSulfuricAcid");
-        // }
-
-        // if (!playerSession.pickedUpGlassBeaker) {
-        //     result.push("lab/labGlassBeaker");
-        // }
+        if (playerSession.EscapedLab) {
+            result.push("gif/LabEnding");
+        }
 
         return result;
     }
@@ -65,14 +62,6 @@ export class LabRoom extends Room {
         }
         if (!playerSession.pickedUpGlassBeaker) {
             result.push({ name: "GlassBeaker", alias: "GlassBeakerItem", imageUrl: "lab/labGlassBeaker", type: ["actionableItem"], imageCoords: { x: 20, y: 85 } });
-        }
-
-        if (playerSession.EscapedLab) {
-            result.push("lab/LabEnding");
-        }
-
-        if (playerSession.EscapedLab) {
-            result.push("lab/LabEnding");
         }
 
         return result;
