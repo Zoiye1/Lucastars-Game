@@ -88,6 +88,7 @@ export class AudioService {
         this._roomMusicMap.set("vents", "/assets/audio/hallway.mp3");
         this._roomMusicMap.set("VentsRoom", "/assets/audio/hallway.mp3");
         this._roomMusicMap.set("ventsroom", "/assets/audio/hallway.mp3");
+        this._roomMusicMap.set("RoofEndRoom", "/assets/audio/escaped.mp3");
     }
 
     /**
