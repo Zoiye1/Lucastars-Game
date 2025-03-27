@@ -58,7 +58,7 @@ export class LabRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "Professor", alias: "Professor", imageUrl: "lab/labProfessor", type: ["npc"], imageCoords: { x: 35, y: 34 } },
+            { name: "Professor", alias: "Professor", imageUrl: "gif/ProfessorIdle", type: ["npc"], imageCoords: { x: 30, y: 30 } },
         ];
         if (!playerSession.pickedUpSulfuricAcid) {
             result.push({ name: "SulfuricAcid", alias: "SulfuricAcidItem", imageUrl: "lab/labSulfuricAcid", type: ["actionableItem"], imageCoords: { x: 30, y: 24 } });
