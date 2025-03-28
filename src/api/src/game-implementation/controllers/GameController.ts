@@ -113,7 +113,7 @@ export class GameController {
     private async convertActionResultToGameState(actionResult?: ActionResult): Promise<GameState | undefined> {
         // Handle ShowInventoryActionResult to show inventory items
         if (actionResult instanceof ShowInventoryActionResult) {
-            const inventoryItems = actionResult.inventoryItems;
+            const inventoryItems: GameObject[] = actionResult.inventoryItems;
             const inventoryReferences: GameObjectReference[] = [];
 
             for (const item of inventoryItems) {
@@ -143,10 +143,10 @@ export class GameController {
 
         // Handle ShowTargetsActionResult to show target items in the room
         if (actionResult instanceof ShowTargetsActionResult) {
-            const sourceItem = actionResult.sourceItem;
-            const targetItems = actionResult.targetItems;
+            const sourceItem: GameObject = actionResult.sourceItem;
+            const targetItems: GameObject[] = actionResult.targetItems;
 
-            const sourceRef = await this.convertGameObjectToReference(sourceItem);
+            // const sourceRef: GameObjectReference = await this.convertGameObjectToReference(sourceItem);
             const targetRefs: GameObjectReference[] = [];
 
             for (const item of targetItems) {
@@ -208,7 +208,7 @@ export class GameController {
         let actions: ActionReference[];
 
         if (actionResult instanceof TalkActionResult) {
-            actions = actionResult.choices.map((e) => this.convertTalkChoiceToReference(actionResult, e));
+            actions = actionResult.choices.map(e => this.convertTalkChoiceToReference(actionResult, e));
         }
         else {
             actions = [];
