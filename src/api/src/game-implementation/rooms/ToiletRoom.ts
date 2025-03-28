@@ -12,6 +12,8 @@ import { TalkAction } from "../../game-base/actions/TalkAction";
 import { DealerCharacter } from "../characters/DealerCharacters";
 import { AirFreshenerItem } from "../items/AirFreshenerItem";
 import { Arrowroom, ClickItem } from "@shared/types";
+import { PlaceAction } from "../actions/PlaceAction";
+import { BombItem } from "../items/BombItem";
 
 /**
  * Klasse die de kamer "Toilet" vertegenwoordigt.
@@ -48,20 +50,12 @@ export class ToiletRoom extends Room {
      */
     public images(): string[] {
         const result: string[] = ["toilet/ToiletBackground"];
-        // const playerSession: PlayerSession = gameService.getPlayerSession();
+        const playerSession: PlayerSession = gameService.getPlayerSession();
 
-        // Controleert of de speler de emmer nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
-        // if (!playerSession.pickedUpBucket) {
-        //     result.push("toilet/Bucket");
-        // }
+        if (playerSession.placedBomb) {
+            result.push("gif/ToiletEnding");
+        }
 
-        // Controleert of de speler de luchtverfrisser nog niet heeft opgepakt en voegt deze toe aan de afbeeldingen.
-        // if (!playerSession.pickedUpAirFreshener) {
-        //     result.push("toilet/AirFreshener");
-        // }
-
-        // Voegt de dealer NPC-afbeelding toe.
-        // result.push("characters/Dealer");
         return result;
     }
 
@@ -71,23 +65,43 @@ export class ToiletRoom extends Room {
         // The imageurl and the types
 
         // result as an array of ClickItem objects
-        const result: ClickItem[] = [
-            { name: "Dealer", alias: "dealer", imageUrl: "characters/Dealer", type: ["npc"], imageCoords: { x: 60, y: 52 } },
-        ];
+        const result: ClickItem[] = [];
 
-        if (!playerSession.pickedUpAirFreshener) {
-            result.push ({ name: "AirFreshener", alias: "AirFreshenerItem", imageUrl: "toilet/AirFreshener", type: ["actionableItem"], imageCoords: { x: 15, y: 82 } }
-
-            );
+        if (!playerSession.placedBomb) {
+            result.push({
+                name: "Dealer",
+                alias: "dealer",
+                imageUrl: "characters/Dealer",
+                type: ["npc"],
+                imageCoords: { x: 60, y: 52 },
+            });
         }
 
-        if (!playerSession.pickedUpBucket) {
-            result.push({ name: "Bucket", alias: "bucket", imageUrl: "toilet/Bucket", type: ["actionableItem"], imageCoords: { x: 45, y: 80 } });
+        {
+            if (!playerSession.pickedUpAirFreshener) {
+                result.push({
+                    name: "AirFreshener",
+                    alias: "AirFreshenerItem",
+                    imageUrl: "toilet/AirFreshener",
+                    type: ["actionableItem"],
+                    imageCoords: { x: 15, y: 82 },
+                });
+            }
+
+            if (!playerSession.pickedUpBucket) {
+                result.push({
+                    name: "Bucket",
+                    alias: "bucket",
+                    imageUrl: "toilet/Bucket",
+                    type: ["actionableItem"],
+                    imageCoords: { x: 45, y: 80 },
+                });
+            }
+
+            // console.log("ClickItem() output:", result);
+
+            return result;
         }
-
-        // console.log("ClickItem() output:", result);
-
-        return result;
     }
 
     public ArrowUrl(): Arrowroom[] {
@@ -115,6 +129,14 @@ export class ToiletRoom extends Room {
             result.push(new AirFreshenerItem());
         }
 
+        if (playerSession.inventory.includes("BombItem") && !playerSession.placedBomb) {
+            result.push(new BombItem());
+        }
+
+        // playerSession.placedBomb = true;
+
+        console.log("ToiletRoom - placedBomb check in images:", playerSession.placedBomb);
+
         // Voegt de dealer NPC toe aan de kamer.
         result.push(new DealerCharacter());
         return result;
@@ -124,7 +146,9 @@ export class ToiletRoom extends Room {
      * Retourneert een lijst van beschikbare acties in deze kamer.
      */
     public actions(): Action[] {
-        return [
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
+        const result: Action[] = [
             // Speler kan de kamer onderzoeken
             new ExamineAction(),
             // Speler kan objecten oppakken
@@ -132,6 +156,13 @@ export class ToiletRoom extends Room {
             // Speler kan praten met NPC's
             new TalkAction(),
         ];
+
+        if (playerSession.inventory.includes("BombItem")) {
+            result.push(new PlaceAction());
+            console.log("ToiletRoom - placedBomb status:", playerSession.placedBomb);
+        }
+
+        return result;
     }
 
     /**
@@ -144,9 +175,16 @@ export class ToiletRoom extends Room {
      * Retourneert de beschrijving van de kamer wanneer de speler deze onderzoekt.
      */
     public examine(): ActionResult | undefined {
-        return new TextActionResult(["You step into the bathroom, the stink of dampness hits you right away.",
-            "In the middle of the room stands a shady figure—it's clear they're here for business.",
-            "You wonder if this is someone who can help... or make things worse.",
-        ]);
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.inventory.includes("BombItem")) {
+            return new TextActionResult([]);
+        }
+        else {
+            return new TextActionResult([
+                "You step into the bathroom, the stink of dampness hits you right away.",
+                "In the middle of the room stands a shady figure—it's clear they're here for business.",
+                "You wonder if this is someone who can help... or make things worse.",
+            ]);
+        }
     }
 }
