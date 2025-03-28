@@ -1,3 +1,6 @@
+import { DefaultGameState, GameState } from "@shared/types";
+import { GameRouteService } from "./GameRouteService";
+
 /**
  * Service to handle audio playback in the game
  */
@@ -17,9 +20,9 @@ export class AudioService {
      * Create a new instance of the audio service or return the existing one (Singleton)
      */
     public static getInstance(): AudioService {
-        if (!AudioService._instance) {
+        // if (!AudioService._instance) {
             AudioService._instance = new AudioService();
-        }
+        // }
         return AudioService._instance;
     }
 
@@ -140,7 +143,7 @@ export class AudioService {
                 if (!this._isMuted) {
                     this._backgroundMusic.load();
                     void this._backgroundMusic.play()
-                        .catch(error => {
+                        .catch((error: unknown) => {
                             console.error("Audio playback error:", error);
 
                             // Add special handling for the first play
@@ -168,7 +171,7 @@ export class AudioService {
      * Start polling for room state changes
      * @param gameRouteService The game route service
      */
-    public startRoomStatePolling(gameRouteService: any): void {
+    public startRoomStatePolling(gameRouteService: GameRouteService): void {
         // Clear existing interval if any
         if (this._stateCheckInterval) {
             clearInterval(this._stateCheckInterval);
@@ -177,17 +180,18 @@ export class AudioService {
         // Check room state every second
         this._stateCheckInterval = window.setInterval(async () => {
             try {
-                const state = await gameRouteService.getGameState();
+                const state: GameState = await gameRouteService.getGameState() as DefaultGameState;
 
                 // Check all possible room name fields
-                const roomAlias = state.roomAlias || state.currentRoom;
+                const roomAlias: string = state.roomAlias;
 
-                if (roomAlias && state.type !== "switch-page") {
+                if (roomAlias) {
                     this.playRoomMusic(roomAlias);
                 }
             }
             catch (error) {
                 console.error("Error polling room state");
+                console.error(error);
             }
         }, 1000);
     }

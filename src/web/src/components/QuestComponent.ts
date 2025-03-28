@@ -195,11 +195,9 @@ export class QuestComponent extends HTMLElement {
 
     private async handleGetActiveQuests(): Promise<void> {
         try {
-            const success: QuestArray[] | undefined = await this._gameRouteService.executeGetQuests();
-            if (success) {
+            const success: QuestArray[] | undefined = await this._gameRouteService.executeGetQuests() as QuestArray[];
                 this.activeQuests = success; // activeQuests wordt bijgewerkt met de quests uit de DB
                 this.updateDialog();
-            }
         }
         catch (error) {
             console.error("Error fetching active quests:", error);
