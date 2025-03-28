@@ -1,4 +1,4 @@
-import { GameState } from "@shared/types";
+import { DefaultGameState, GameState } from "@shared/types";
 import { GameRouteService } from "../services/GameRouteService";
 import { css, html } from "../helpers/webComponents";
 import { AudioService } from "../services/AudioService";
@@ -94,12 +94,11 @@ export class AudioComponent extends HTMLElement {
         if (!this._needsFirstRoomTrigger) return;
 
         try {
-            const state: GameState = await this._gameRouteService.getGameState();
+            const state: GameState = await this._gameRouteService.getGameState() as DefaultGameState;
             console.log("Initial room state:", state);
 
             // Check for available room identifiers
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const roomAlias: string | undefined = state.roomAlias || state.currentRoom;
+            const roomAlias: string | undefined = state.roomAlias;
 
             if (roomAlias) {
                 console.log("First room detected:", roomAlias);
@@ -115,6 +114,7 @@ export class AudioComponent extends HTMLElement {
         }
         catch (error) {
             console.error("Error handling first room audio:");
+            console.error(error);
         }
     }
 
@@ -123,7 +123,7 @@ export class AudioComponent extends HTMLElement {
      * This helps overcome browser autoplay restrictions
      */
     private enableAudioOnInteraction(): void {
-        const unlockAudio: unknown = (): void => {
+        const unlockAudio: EventListenerOrEventListenerObject = (): void => {
             // Create a silent audio element for unlocking
             const silentAudio: HTMLAudioElement = new Audio();
             silentAudio.src = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjIwLjEwMAAAAAAAAAAAAAAA//tUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABYADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UgAAABDQAU3AAAAIlAApp4AAACUBoLuUEACrPFgRcRgABoAAAABBEREREREREAAAAAAAAAABERERERERMQAAAAAAAAAARERERERERAAAAAAAAAAAAACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqg==";
@@ -137,7 +137,7 @@ export class AudioComponent extends HTMLElement {
 
                 // Force first room audio check after user interaction
                 void this.handleFirstRoomAudio();
-            }).catch(error => {
+            }).catch((error: unknown) => {
                 console.error("Could not unlock audio:", error);
             });
         };
@@ -165,13 +165,13 @@ export class AudioComponent extends HTMLElement {
      */
     private async refreshRoomState(): Promise<void> {
         try {
-            const state: GameState = await this._gameRouteService.getGameState();
+            const state: GameState = await this._gameRouteService.getGameState() as DefaultGameState;
 
             // Check for both roomAlias and currentRoom fields
-            const roomAlias: string | undefined = state.roomAlias || state.currentRoom;
+            const roomAlias: string | undefined = state.roomAlias;
 
             // Only update if it's a room state
-            if (state.type !== "switch-page" && roomAlias) {
+            if (roomAlias) {
                 console.log("Audio component detected room:", roomAlias);
                 this._audioService.playRoomMusic(roomAlias);
 
