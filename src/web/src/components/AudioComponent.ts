@@ -98,6 +98,7 @@ export class AudioComponent extends HTMLElement {
             console.log("Initial room state:", state);
 
             // Check for available room identifiers
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const roomAlias: string | undefined = state.roomAlias || state.currentRoom;
 
             if (roomAlias) {
@@ -122,7 +123,7 @@ export class AudioComponent extends HTMLElement {
      * This helps overcome browser autoplay restrictions
      */
     private enableAudioOnInteraction(): void {
-        const unlockAudio = (): void => {
+        const unlockAudio: unknown = (): void => {
             // Create a silent audio element for unlocking
             const silentAudio: HTMLAudioElement = new Audio();
             silentAudio.src = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjIwLjEwMAAAAAAAAAAAAAAA//tUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABYADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UgAAABDQAU3AAAAIlAApp4AAACUBoLuUEACrPFgRcRgABoAAAABBEREREREREAAAAAAAAAABERERERERMQAAAAAAAAAARERERERERAAAAAAAAAAAAACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqg==";
@@ -180,6 +181,7 @@ export class AudioComponent extends HTMLElement {
         }
         catch (error) {
             console.error("Error refreshing room state");
+            console.error(error);
         }
     }
 
