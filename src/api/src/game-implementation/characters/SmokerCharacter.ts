@@ -52,7 +52,7 @@ export class SmokerCharacter extends Character implements Examine {
             if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4) {
                 return new TalkActionResult(
                     this,
-                    ["Smoker: Ayo my G, I got a sweet deal for ya. Tryna make this happen?",
+                    ["Smoker: Ayo my G, why do people keep chopping that tree man? Anyways, I got a sweet deal for ya! Tryna make this happen?",
                         "See here's the ting... I'm dry on cigs but holdin' lighters.",
                         "You front me some smokes, I'll bless you with fire. Sounds good my g?"],
                     [

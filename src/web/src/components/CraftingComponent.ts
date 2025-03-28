@@ -245,6 +245,13 @@ const styles: string = css`
     .notification.fadeOut {
         opacity: 0;
     }
+
+    .recipes-title {
+        font-size: 1em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 `;
 
 /**
@@ -262,7 +269,7 @@ interface Recipe {
 const recipes: Recipe[] = [
     {
         title: "Ladder",
-        ingredients: ["10 Sticks", "Super Glue", "Hammer"],
+        ingredients: ["10 Sticks", "Glue", "Hammer"],
         ingredientsAliases: ["10Sticks", "HammerItem", "GlueItem"],
 
     },
@@ -462,6 +469,7 @@ export class CraftingComponent extends HTMLElement {
                             </div>
                         </div>
                     <div class="recipes-list">
+                            <h2 class="recipes-title">Recipes List</h2>
                             ${recipeCardsHTML}
                     </div>    
                 </div>
