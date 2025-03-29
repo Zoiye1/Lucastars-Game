@@ -207,11 +207,13 @@ export class CanvasComponent extends HTMLElement {
         this.addEventListener("state-update", () => {
             void this.refreshGameState();
         });
-        this.addEventListener("state-update-click", (event: CustomEvent) => {
-            this.refreshGameStateAction(event.detail as GameState);
+        this.addEventListener("state-update-click", event => {
+            const customEvent: CustomEvent<GameState> = event as CustomEvent<GameState>;
+            this.refreshGameStateAction(customEvent.detail);
         });
-        this.addEventListener("show-retrieve-notification", (event: CustomEvent) => {
-            const message: string = event.detail.message as string;
+        this.addEventListener("show-retrieve-notification", event => {
+            const customEvent: CustomEvent<{ message: string }> = event as CustomEvent<{ message: string }>;
+            const message: string = customEvent.detail.message;
             void this.refreshGameState();
 
             setTimeout(() => {
@@ -557,7 +559,7 @@ export class CanvasComponent extends HTMLElement {
         const gameObjectsReferences: GameObjectReference[] | undefined = this._currentGameState?.objects;
         const gameActionRefrences: ActionReference[] | undefined = this._currentGameState?.actions;
         let filtratedObjects: GameObjectReference[] = [];
-        let filtratedActions: ActionReference[] = [];
+        let filtratedActions: ActionReference[] | undefined = [];
 
         const selectedButton: ActionReference | undefined = this._selectedActionButton;
 
@@ -592,7 +594,7 @@ export class CanvasComponent extends HTMLElement {
             <div class="footer">
                 <div class="buttons">
                     <div>
-                        ${filtratedActions.map((button: ActionReference) => this.renderActionButton(button))}
+                        ${filtratedActions?.map((button: ActionReference) => this.renderActionButton(button))}
                     </div>
                     <div>
                         ${this._selectedActionButton

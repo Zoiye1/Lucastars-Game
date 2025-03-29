@@ -122,8 +122,8 @@ export class ClickInteractableComponent extends HTMLElement {
     private Connect(state: GameState): void {
         console.log(state);
         this.dispatchEvent(new CustomEvent("state-update-click", {
-            detail: state,
-            bubbles: true, // <-- makes the event travel up DOM so canvas can hear it
+            detail: state, // gamestate has to be send
+            bubbles: true,
             composed: true,
         }));
     }
@@ -164,6 +164,8 @@ export class ClickInteractableComponent extends HTMLElement {
         img.style.left = `${item.imageCoords.x}%`;
         img.style.top = `${item.imageCoords.y}%`;
         img.src = `/assets/img/rooms/${item.imageUrl}.png`;
+        // Makes width and height depended on the amount of pixels and halfs it
+        // This makes sure pixel art is consitent when we use the agreed upon format of 1280 X 640
         img.onload = () => {
             img.style.width = `${img.naturalWidth * 0.5}px`;
             img.style.height = `${img.naturalHeight * 0.5}px`;
@@ -171,7 +173,7 @@ export class ClickInteractableComponent extends HTMLElement {
 
         const Buttons: HTMLDivElement = document.createElement("div");
         Buttons.classList.add("buttons");
-        // added 7 so it doesnt overlap with the img
+        // added so it doesnt overlap with the img
         Buttons.style.left = `${item.imageCoords.x}%`;
         img.onload = () => {
             img.style.width = `${img.naturalWidth * 0.5}px`;
@@ -208,6 +210,7 @@ export class ClickInteractableComponent extends HTMLElement {
     }
 
     private handleClickItem(Buttons: HTMLDivElement, Img: HTMLImageElement): void {
+        // makes the selection effect
         Buttons.classList.toggle("active");
         Img.classList.toggle("active");
     }
