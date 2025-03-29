@@ -105,11 +105,18 @@ export class ToiletRoom extends Room {
     }
 
     public ArrowUrl(): Arrowroom[] {
-        // Initialize result as an array of Arrowroom objects
-        const result: Arrowroom[] = [
-            { name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 78, y: 60 } },
-            { name: "Escape", alias: "toilet-end", imageRotation: -90, imageCoords: { x: 10, y: 60 } },
-        ];
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        const result: Arrowroom[] = [];
+
+        if (!playerSession.placedBomb) {
+            // Hallway-pijl is alleen zichtbaar als de bom nog NIET is geplaatst
+            result.push({ name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 78, y: 60 } });
+        }
+
+        if (playerSession.placedBomb) {
+            // Escape-pijl wordt zichtbaar zodra de bom is geplaatst
+            result.push({ name: "Escape", alias: "toilet-end", imageRotation: -90, imageCoords: { x: 10, y: 60 } });
+        }
 
         return result;
     }
@@ -158,9 +165,9 @@ export class ToiletRoom extends Room {
             new TalkAction(),
         ];
 
-        if (playerSession.inventory.includes("BombItem")) {
+        if (playerSession.inventory.includes("BombItem") && !playerSession.placedBomb) {
             result.push(new PlaceAction());
-            console.log("ToiletRoom - placedBomb status:", playerSession.placedBomb);
+            console.log("ToiletRoom - PlaceAction available:", !playerSession.placedBomb);
         }
 
         return result;

@@ -33,8 +33,8 @@ export class ToiletEndRoom extends Room implements Simple {
         return ["room"]; // Geef het type van de GameObject terug
     }
 
-    public action(): Action | undefined {
-        return new SimpleAction("enter-startuproom", "Play Again"); // Geef de actie terug die beschikbaar is in deze kamer
+    public actions(): Action[] {
+        return [new SimpleAction("enter-startuproom", "Play Again")];
     }
 
     public simple(alias: string): ActionResult | undefined {
