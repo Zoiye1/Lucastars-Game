@@ -138,7 +138,7 @@ export class GameController {
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Inventory Selection",
                 roomImages: [],
-            };
+            } as unknown as GameState;
         }
 
         // Handle ShowTargetsActionResult to show target items in the room
@@ -171,7 +171,7 @@ export class GameController {
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Target Selection",
                 roomImages: [],
-            };
+            } as unknown as GameState;
         }
 
         // If the client application has to switch pages, handle it now.

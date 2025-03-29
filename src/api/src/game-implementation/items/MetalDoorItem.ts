@@ -35,8 +35,8 @@ export class MetalDoorItem extends TargetItem implements Examine {
         if (sourceItem.alias === "CorrosiveAcid") {
             playerSession.EscapedLab = true;
             // Remove the painting from inventory since it's been used
-            const inventory = playerSession.inventory;
-            const index = inventory.indexOf("CorrosiveAcid");
+            const inventory: string[] = playerSession.inventory;
+            const index: number = inventory.indexOf("CorrosiveAcid");
             if (index !== -1) {
                 inventory.splice(index, 1);
             }

@@ -70,16 +70,21 @@ export class UseAction extends Action {
             const roomAlias: string = gameService.getPlayerSession().currentRoom;
             const room: Room | undefined = gameService.getGameObjectByAlias(roomAlias) as Room;
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (!room) {
                 return new TextActionResult(["Room not found."]);
             }
 
             // Get objects in the room that can be targets
+            // eslint-disable-next-line @typescript-eslint/typedef
             const roomObjectsPromise = room.objects();
 
             // Handle async or sync return from room.objects()
+            // eslint-disable-next-line @typescript-eslint/typedef
             const handleRoomObjects = (roomObjects: GameObject[]): ActionResult => {
+                // eslint-disable-next-line @typescript-eslint/typedef
                 const targetObjects = roomObjects.filter((obj: GameObject): boolean => {
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     return obj.instanceOf(TargetOf) ?? false;
                 });
 

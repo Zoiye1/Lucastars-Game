@@ -10,7 +10,7 @@ export type GameState = DefaultGameState | SwitchPageGameState;
  */
 export type DefaultGameState = {
     /** Discriminiator to distinguish between different game state types */
-    type: "default";
+    type: "default" | "inventory-selection" | "target-selection";
     /** Alias of the room the player is in */
     roomAlias: string;
     /** Name of the room the player is in */
