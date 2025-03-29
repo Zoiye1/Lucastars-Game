@@ -7,7 +7,8 @@
  * This helps overcome browser restrictions that require user interaction before audio can play.
  */
 export function enableAudioAutoplay(): void {
-    const unlockAudio: () => void = (): void => {
+    // eslint-disable-next-line @typescript-eslint/typedef
+    const unlockAudio = (): void => {
         // Create a short, silent audio element
         const silentAudio: HTMLAudioElement = new Audio();
         silentAudio.src = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjIwLjEwMAAAAAAAAAAAAAAA//tUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABYADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UgAAABDQAU3AAAAIlAApp4AAACUBoLuUEACrPFgRcRgABoAAAABBEREREREREAAAAAAAAAABERERERERMQAAAAAAAAAARERERERERAAAAAAAAAAAAACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqg==";
@@ -43,9 +44,10 @@ export async function verifyAudioFiles(audioFiles: Map<string, string>): Promise
                 console.warn(`Audio file missing: ${path}`);
             }
         }
-        catch {
+        catch (error: unknown) {
             missingFiles.push(`${room}: ${path}`);
             console.error(`Error checking audio file ${path}:`);
+            console.error(error);
         }
     }
 
