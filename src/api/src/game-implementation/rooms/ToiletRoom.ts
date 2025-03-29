@@ -108,6 +108,7 @@ export class ToiletRoom extends Room {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
             { name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 78, y: 60 } },
+            { name: "Escape", alias: "toilet-end", imageRotation: -90, imageCoords: { x: 10, y: 60 } },
         ];
 
         return result;
