@@ -6,28 +6,61 @@ import { gameService } from "../../global";
 import { GameObject, GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { TargetItem } from "../../game-base/gameObjects/TargetItem";
 
+/**
+ * Type definition for items that can break the window
+ */
 type BreakableItemAlias = "PaintingItem" | "HammerItem";
+
+/**
+ * Record type for storing messages by item type
+ */
 type MessagesByItem = Record<BreakableItemAlias, string[]>;
 
+/**
+ * Represents a window item in the game that can be broken with certain objects
+ */
 export class WindowItem extends TargetItem implements Examine {
-    public static readonly Alias = "WindowItem";
+    /**
+     * The unique alias for window items
+     */
+    public static readonly Alias: string = "WindowItem";
 
+    /**
+     * Creates a new window item
+     */
     public constructor() {
         super(WindowItem.Alias);
     }
 
+    /**
+     * Gets the display name of the window
+     * @returns {string} The name of the window
+     */
     public name(): string {
         return "Window";
     }
 
+    /**
+     * Gets the types associated with this game object
+     * @returns {GameObjectType[]} Array of types
+     */
     public type(): GameObjectType[] {
         return ["actionableItem"];
     }
 
+    /**
+     * Handles examining the window
+     * @returns {ActionResult} The result of examining the window
+     */
     public examine(): ActionResult {
         return new TextActionResult(["A window leading to the hallway. It's locked."]);
     }
 
+    /**
+     * Handles using an item with the window
+     * @param {GameObject} sourceItem - The item being used on the window
+     * @returns {ActionResult | undefined} The result of using the item, or undefined if not applicable
+     */
     public useWith(sourceItem: GameObject): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const windowBreakingItems: BreakableItemAlias[] = ["PaintingItem", "HammerItem"];
@@ -43,9 +76,7 @@ export class WindowItem extends TargetItem implements Examine {
         // Check if using a breaking item on the window
         if (windowBreakingItems.includes(sourceItem.alias as BreakableItemAlias)) {
             playerSession.windowBroken = true;
-            // Remove the item from inventory since it's been used
-            const inventory = playerSession.inventory;
-            const index = inventory.indexOf(sourceItem.alias);
+
             const messages: MessagesByItem = {
                 PaintingItem: [
                     "You throw the painting at the window, shattering it!",
@@ -57,15 +88,10 @@ export class WindowItem extends TargetItem implements Examine {
                 ],
             };
 
-            const itemAlias = sourceItem.alias as BreakableItemAlias;
-            const messageForItem = messages[itemAlias];
+            const itemAlias: BreakableItemAlias = sourceItem.alias as BreakableItemAlias;
+            const messageForItem: string[] = messages[itemAlias];
 
-            return new TextActionResult(
-                messageForItem || [
-                    `You use the ${sourceItem.alias} to break the window!`, // Fixed backticks here
-                    "You can now enter the hallway.",
-                ]
-            );
+            return new TextActionResult(messageForItem);
         }
 
         return undefined;
