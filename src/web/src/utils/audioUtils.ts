@@ -7,6 +7,7 @@
  * This helps overcome browser restrictions that require user interaction before audio can play.
  */
 export function enableAudioAutoplay(): void {
+    // eslint-disable-next-line @typescript-eslint/typedef
     const unlockAudio = (): void => {
         // Create a short, silent audio element
         const silentAudio: HTMLAudioElement = new Audio();
@@ -18,7 +19,7 @@ export function enableAudioAutoplay(): void {
             document.removeEventListener("click", unlockAudio);
             document.removeEventListener("touchstart", unlockAudio);
             console.log("Audio playback unlocked");
-        }).catch(error => {
+        }).catch((error: unknown) => {
             console.error("Could not unlock audio:", error);
         });
     };
@@ -46,6 +47,7 @@ export async function verifyAudioFiles(audioFiles: Map<string, string>): Promise
         catch (error) {
             missingFiles.push(`${room}: ${path}`);
             console.error(`Error checking audio file ${path}:`);
+            console.error(error);
         }
     }
 

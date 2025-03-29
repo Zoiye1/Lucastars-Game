@@ -21,7 +21,7 @@ export class AudioService {
      */
     public static getInstance(): AudioService {
         // if (!AudioService._instance) {
-            AudioService._instance = new AudioService();
+        AudioService._instance = new AudioService();
         // }
         return AudioService._instance;
     }
