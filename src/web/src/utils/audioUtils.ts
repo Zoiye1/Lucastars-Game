@@ -44,7 +44,7 @@ export async function verifyAudioFiles(audioFiles: Map<string, string>): Promise
                 console.warn(`Audio file missing: ${path}`);
             }
         }
-        catch (error) {
+        catch (error: unknown) {
             missingFiles.push(`${room}: ${path}`);
             console.error(`Error checking audio file ${path}:`);
             console.error(error);

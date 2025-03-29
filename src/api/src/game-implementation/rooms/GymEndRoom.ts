@@ -5,8 +5,13 @@ import { Simple, SimpleAction } from "../../game-base/actions/SimpleAction";
 import { Room } from "../../game-base/gameObjects/Room";
 import { StartupRoom } from "./StartupRoom";
 import { gameService } from "../../global";
+import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 
 export class GymTheEndRoom extends Room implements Simple {
+    public type(): GameObjectType[] {
+        return ["room"];
+    }
+
     public static readonly Alias: string = "GymEnd";
 
     public constructor() {
