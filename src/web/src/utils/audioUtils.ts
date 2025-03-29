@@ -7,7 +7,7 @@
  * This helps overcome browser restrictions that require user interaction before audio can play.
  */
 export function enableAudioAutoplay(): void {
-    const unlockAudio = (): void => {
+    const unlockAudio: () => void = (): void => {
         // Create a short, silent audio element
         const silentAudio: HTMLAudioElement = new Audio();
         silentAudio.src = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjIwLjEwMAAAAAAAAAAAAAAA//tUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABYADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UgAAABDQAU3AAAAIlAApp4AAACUBoLuUEACrPFgRcRgABoAAAABBEREREREREAAAAAAAAAABERERERERMQAAAAAAAAAARERERERERAAAAAAAAAAAAACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqg==";
@@ -18,7 +18,7 @@ export function enableAudioAutoplay(): void {
             document.removeEventListener("click", unlockAudio);
             document.removeEventListener("touchstart", unlockAudio);
             console.log("Audio playback unlocked");
-        }).catch(error => {
+        }).catch((error: unknown) => {
             console.error("Could not unlock audio:", error);
         });
     };
@@ -43,7 +43,7 @@ export async function verifyAudioFiles(audioFiles: Map<string, string>): Promise
                 console.warn(`Audio file missing: ${path}`);
             }
         }
-        catch (error) {
+        catch {
             missingFiles.push(`${room}: ${path}`);
             console.error(`Error checking audio file ${path}:`);
         }
