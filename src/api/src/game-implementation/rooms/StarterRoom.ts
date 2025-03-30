@@ -26,6 +26,7 @@ export class StarterRoom extends Room {
     /** De alias voor de startkamer. */
     public static readonly Alias: string = "starterroom";
 
+
     /**
      * Maakt een nieuwe instantie van StarterRoom aan.
      */
@@ -108,7 +109,7 @@ export class StarterRoom extends Room {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
         ];
-
+        console.log("hey AUTO UPDATE");
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.ventUnlocked) {
             result.push(
