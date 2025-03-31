@@ -18,7 +18,7 @@ export class KeypadStorageItem extends Item implements Examine, Open {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.playerOpenedElevator) {
             if (playerSession.inventory.includes("KeyCardItem")) {
-                playerSession.inventory.splice(playerSession.inventory.indexOf("KeyCardItem"));
+                playerSession.inventory.splice(playerSession.inventory.indexOf("KeyCardItem"), 1);
                 playerSession.playerOpenedElevator = true;
                 return new TextActionResult(["You use the keycard to open the door",
                 ]);

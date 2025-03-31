@@ -37,7 +37,7 @@ export class ElevatorStorageItem extends Item implements Examine, Open {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (!playerSession.playerOpenedElevator) {
             if (playerSession.inventory.includes("KeyCardItem")) {
-                playerSession.inventory.splice(playerSession.inventory.indexOf("KeyCardItem"));
+                playerSession.inventory.splice(playerSession.inventory.indexOf("KeyCardItem"), 1);
                 playerSession.playerOpenedElevator = true;
                 return new TextActionResult(["You walk over to the keycard scanner and open the door",
                 ]);
