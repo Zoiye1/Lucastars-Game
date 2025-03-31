@@ -104,8 +104,8 @@ export class KitchenRoom extends Room {
     public actions(): Action[] {
         const result: Action[] = [
             new ExamineAction(),
-            new TalkAction(),
             new OpenAction(),
+            new TalkAction(),
             new PickUpAction(),
         ];
         return result;

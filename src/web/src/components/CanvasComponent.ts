@@ -613,25 +613,26 @@ export class CanvasComponent extends HTMLElement {
      * @returns HTML element of the action button
      */
     private renderActionButton(button: ActionReference): HTMLElement {
-        if (button.alias !== "talk") {
+        if (button.alias === "talk") {
             const element: HTMLElement = html`
+            <a>
+            </a>
+        `;
+            return element;
+        }
+        const element: HTMLElement = html`
             <a class="button ${this._selectedActionButton === button ? "active" : ""}">
                 ${button.name}
             </a>
         `;
-            ;
 
-            element.addEventListener("click", (): void => {
+        element.addEventListener("click", (): void => {
             // Skip typewriter effect when clicking buttons
-                this.skipTypewriter();
-                void this.handleClickAction(button);
-            });
+            this.skipTypewriter();
+            void this.handleClickAction(button);
+        });
 
-            return element;
-        }
-        else {
-            return html``;
-        }
+        return element;
     }
 
     /**
