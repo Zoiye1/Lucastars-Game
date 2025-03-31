@@ -109,7 +109,6 @@ export class StarterRoom extends Room {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
         ];
-        console.log("hey AUTO UPDATE test2");
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.ventUnlocked) {
             result.push(

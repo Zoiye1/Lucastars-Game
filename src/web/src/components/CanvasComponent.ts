@@ -567,7 +567,6 @@ export class CanvasComponent extends HTMLElement {
         filtratedActions = gameActionRefrences?.filter(
             (gameActionRefrences: ActionReference) =>
                 !["examine", "pick-up"].some(action => gameActionRefrences.alias.includes(action)));
-
         // filter gameObjects gebaseerd op action alias
         if (selectedButton && selectedButton.alias === "examine") {
             // geen filter nodig
@@ -594,7 +593,7 @@ export class CanvasComponent extends HTMLElement {
             <div class="footer">
                 <div class="buttons">
                     <div>
-                        ${filtratedActions?.map((button: ActionReference) => this.renderActionButton(button))}
+                       ${filtratedActions?.map((button: ActionReference) => this.renderActionButton(button))} 
                     </div>
                     <div>
                         ${this._selectedActionButton
@@ -614,19 +613,25 @@ export class CanvasComponent extends HTMLElement {
      * @returns HTML element of the action button
      */
     private renderActionButton(button: ActionReference): HTMLElement {
-        const element: HTMLElement = html`
+        if (button.alias !== "talk") {
+            const element: HTMLElement = html`
             <a class="button ${this._selectedActionButton === button ? "active" : ""}">
                 ${button.name}
             </a>
         `;
+            ;
 
-        element.addEventListener("click", (): void => {
+            element.addEventListener("click", (): void => {
             // Skip typewriter effect when clicking buttons
-            this.skipTypewriter();
-            void this.handleClickAction(button);
-        });
+                this.skipTypewriter();
+                void this.handleClickAction(button);
+            });
 
-        return element;
+            return element;
+        }
+        else {
+            return html``;
+        }
     }
 
     /**
