@@ -128,7 +128,7 @@ export class QuestComponent extends HTMLElement {
         const elements: HTMLElement[] = htmlArray`
             <style>${styles}</style>
             <button class="open-quest-btn ui-btn" id="questButton">
-                <img src="public/assets/img/QuestButton.png" alt="Quests">
+                <img src="/assets/img/QuestButton.png" alt="Quests">
             </button>
             <dialog id="questDialog">
                 <div class="quest-list">${questCardsHTML}</div>

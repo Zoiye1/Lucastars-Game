@@ -433,7 +433,7 @@ export class CraftingComponent extends HTMLElement {
                 ${styles}
             </style>
             <button class="open-crafting-btn" id="craftingButton">
-                <img src="public/assets/img/CraftingButton.png" alt="crafting">
+                <img src="/assets/img/CraftingButton.png" alt="crafting">
             </button>
             <dialog id="craftingDialog">
                 <div class="container">

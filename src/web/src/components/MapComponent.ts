@@ -269,7 +269,7 @@ export class MapComponent extends HTMLElement {
                 ${styles}
             </style>
             <button class="map-button" id="mapButton">
-                <img src="public/assets/img/MapButton.png" alt="Map">
+                <img src="/assets/img/MapButton.png" alt="Map">
             </button>
 <dialog id="mapDialog">
     <div class="container">
