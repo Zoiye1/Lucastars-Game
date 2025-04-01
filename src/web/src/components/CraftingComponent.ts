@@ -443,24 +443,24 @@ export class CraftingComponent extends HTMLElement {
                                 <h2 class="crafting-title">Crafting Menu</h2>
                                 <div class="crafting-grid">
                                     <div class="container-slot">
-                                        ${this._slots[0] ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
+                                        ${this._slots[0] && !this._resultSlot ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
                                         <div class="slot">${this._slots[0] !== "" ? `<img data-item="${this._slots[0]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[0]}.png"/>` : ""}</div>
                                     </div>
                                     <span class="symbol">+</span>
                                     <div class="container-slot">
-                                        ${this._slots[1] ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
+                                        ${this._slots[1] && !this._resultSlot ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
                                         <div class="slot">${this._slots[1] !== "" ? `<img data-item="${this._slots[1]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[1]}.png"/>` : ""}</div>
                                     </div>
                                     <span class="symbol">+</span>
                                     <div class="container-slot">
-                                        ${this._slots[2] ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
+                                        ${this._slots[2] && !this._resultSlot ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
                                         <div class="slot">${this._slots[2] !== "" ? `<img data-item="${this._slots[2]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[2]}.png"/>` : ""}</div>
                                     </div>
                                     <span class="symbol">=</span>
                                     <div class="result-slot">${this._resultSlot !== "" ? `<img data-item="${this._resultSlot}" class="slot-icon" src="/public/assets/img/icons/${this._resultSlot}.png"/>` : ""}</div>
                                 </div>
                                 <div class="container-craft-retrieve-buttons">
-                                    <button class="dialog-button" id="addSelectedItemButton">Add selected item</button>
+                                    ${!this._resultSlot ? "<button class=\"dialog-button\" id=\"addSelectedItemButton\">Add selected item</button>" : ""}
                                     ${this._resultSlot
                                         ? "<button class=\"dialog-button\" id=\"retrieveCraftedItem\">Retrieve</button>"
                                         : "<button class=\"dialog-button\" id=\"craftButton\">Craft</button>"
@@ -485,13 +485,13 @@ export class CraftingComponent extends HTMLElement {
         const dialog: HTMLDialogElement = this.shadowRoot.querySelector("#craftingDialog") as HTMLDialogElement;
         const closeBtn: HTMLButtonElement = this.shadowRoot.querySelector("#closeDialog") as HTMLButtonElement;
         const craftBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#craftButton");
-        const addSelectedBtn: HTMLButtonElement = this.shadowRoot.querySelector("#addSelectedItemButton") as HTMLButtonElement;
+        const addSelectedBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#addSelectedItemButton");
         const retrieveBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#retrieveCraftedItem");
 
         button.addEventListener("click", () => dialog.show());
         closeBtn.addEventListener("click", () => dialog.close());
 
-        addSelectedBtn.addEventListener("click", async () => {
+        addSelectedBtn?.addEventListener("click", async () => {
             await this.handleGetSelectedItemInventory();
             this.handleUpdateSlots(this._selectedItemInventory);
             this.updateDialog();
