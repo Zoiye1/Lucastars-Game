@@ -352,7 +352,8 @@ export class CanvasComponent extends HTMLElement {
         const roomImages: string[] | undefined = this._currentGameState?.roomImages;
         const room: string | undefined = this._currentGameState?.roomAlias;
         if (roomImages && roomImages.length > 0) {
-            if (room !== "startup") {
+            // checks if the components should be displayed
+            if (room !== "startup" && room !== "lab-end" && room !== "RoofEndRoom" && room !== "toilet-end" && room !== "courtyard-end" && room !== "GymEnd") {
                 return `
                 <div class="header">
                     ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
