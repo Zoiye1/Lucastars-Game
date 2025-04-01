@@ -184,8 +184,10 @@ export class ToiletRoom extends Room {
      */
     public examine(): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
-        if (!playerSession.inventory.includes("BombItem")) {
-            return new TextActionResult([]);
+        if (playerSession.inventory.includes("BombItem")) {
+            return new TextActionResult([
+                "The bomb you made would probably work here!",
+            ]);
         }
         else {
             return new TextActionResult([
