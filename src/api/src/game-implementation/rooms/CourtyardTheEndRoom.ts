@@ -35,7 +35,7 @@ export class CourtyardTheEndRoom extends Room implements Simple {
      * @returns Een array met afbeeldinglocaties als string
      */
     public images(): string[] {
-        return ["courtyard/courtyardTheEnd"];
+        return ["gif/CourtyardEndRoom"];
     }
 
     public examine(): ActionResult | undefined {
