@@ -80,8 +80,8 @@ const styles: string = css`
 
     .inventory-item {
         padding: 10px;
-        background: linear-gradient(135deg,rgb(110, 130, 153),#af75db);
-        border: 1px solid #af75db;
+        background: #7f6ed7;
+        border: 1px solid #7563ce;
         border-radius: 8px;
         text-align: center;
         font-size: 14px;
@@ -93,15 +93,15 @@ const styles: string = css`
     }
 
     .inventory-item:hover {
-        background: linear-gradient(135deg,#ca58e0, #ca58e0);
+        background: linear-gradient(135deg,#5441b3, #5441b3);
         transform: scale(1.05);
     }
 
     .inventory-item.selected {
-        background: linear-gradient(135deg,#ca58e0, #ca58e0);
+        background: #5a45c2;
         transform: scale(1.05);
-        box-shadow: 0 0 10px #ca58e0, 0 0 20px rgba(202, 88, 224, 0.5);
-        border: 2px solid #ffffff;
+        box-shadow: 0 0 10px #5441b3, 0 0 20px rgba(202, 88, 224, 0.5);
+        border: 2px solid #6e5ace;
     }
 
     .inventory-icon {
