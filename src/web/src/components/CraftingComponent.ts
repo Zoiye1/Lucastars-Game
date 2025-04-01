@@ -7,18 +7,11 @@ import { GameRouteService } from "../services/GameRouteService";
 
 /** CSS affecting the {@link CraftingComponent} */
 const styles: string = css`
-    .ui-btn {
-        font-family: "Onesize", sans-serif;
-        font-size: 18px;
-        font-weight: bold;
-        background-color: #f0f0f0;
-        border: 3px solid #222;
-        color: #222;
-        cursor: pointer;
-        transition: all 0.2s;
+    :host {
+        display: block;
     }
 
-    .open-crafting-btn {
+    .crafting-button {
         position: absolute;
         top: 0%;
         right: 12%;
@@ -29,53 +22,46 @@ const styles: string = css`
         cursor: pointer;
         width: 50px;
         height: 50px;
-}
+    }
 
-    .open-crafting-btn img{
+    .crafting-button img {
         width: 200%;
         height: 200%;
         object-fit: contain;
     }
 
-    .ui-button:hover {
-        background-color: #dfdfdf;
+    dialog {
+        margin: 0;
+        z-index: 3;
+        top: 8%;
+        left: 50%;
+        transform: translateX(-55%); 
+        border: none;
+        background: rgba(20, 20, 20, 0.95);
+        width: 700px;
+        border: 2px solid #332c57;
+        border-radius: 8px;
+        color: white;
     }
 
     #closeDialog {
         font-family: "Onesize", sans-serif;
-        background-color: #fff;
+        background-color: transparent;
         padding: 0 5px;
         position: absolute;
         top: 10px;
         right: 10px;
-        border: 1px solid black;
-        background: transparent;
+        border: 1px solid #7f6ed7;
         border-radius: 5px;
-        font-size: 32px;
+        font-size: 24px;
         cursor: pointer;
-        color: black;
-        transition: all 0.3s ease
+        color: #7f6ed7;
+        transition: all 0.3s ease;
     }
 
     #closeDialog:hover {
-        background-color: black;
-        border: 1px solid black;
+        background-color: #7f6ed7;
         color: white;
-    }
-
-    .container-slot {
-        position: relative;
-    }
-
-    #emptySlot {
-        position: absolute;
-        top: -50%;
-        right: 25%;
-        background: transparent;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
-        color: #333;
     }
 
     .container {
@@ -93,17 +79,9 @@ const styles: string = css`
 
     .crafting-title {
         text-align: center;
-    }
-
-    dialog {
-        margin: 0;
-        z-index: 3;
-        top: 8%;
-        left: 50%;
-        transform: translateX(-55%); 
-        border: none;
-        background: #ffffffea;
-        width: 700px;
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #7f6ed7;
     }
 
     .container-dialog {
@@ -120,44 +98,90 @@ const styles: string = css`
     }
 
     .slot, .result-slot {
-        width: 50px;
-        height: 50px;
-        border: 2px dashed gray;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(127, 110, 215, 0.2);
+        border: 1px solid #332c57;
+        border-radius: 5px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #f0f0f0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .slot:hover, .result-slot:hover {
+        background-color: rgba(127, 110, 215, 0.4);
+    }
+
+    .slot.filled, .result-slot.filled {
+        background-color: rgba(56, 142, 60, 0.2);
     }
 
     .slot-icon {
-        width: 48px;
+        max-width: 80%;
+        max-height: 80%;
         object-fit: contain;
     }
 
     .symbol {
         font-size: 24px;
         font-weight: bold;
+        color: #7f6ed7;
+    }
+
+    .container-slot {
+        position: relative;
+    }
+
+    #emptySlot {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #d32f2f;
+        border: 1px solid #b71c1c;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    #emptySlot:hover {
+        background-color: #b71c1c;
+        transform: scale(1.1);
     }
 
     .recipes-list {
         max-height: 500px;
         overflow-y: auto;
         width: 200px;
-        border-right: 2px dashed gray;
+        border-right: 2px solid #332c57;
         padding: 10px;
     }
 
     .recipe-card {
         padding: 10px;
         margin-bottom: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #332c57;
         border-radius: 5px;
-        background-color: #ffffffa2;
+        background-color: rgba(127, 110, 215, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .recipe-card:hover {
+        background-color: rgba(127, 110, 215, 0.2);
     }
 
     .recipe-title {
         font-weight: bold;
         margin-bottom: 5px;
+        color: #fff;
     }
 
     .recipe-items {
@@ -168,21 +192,20 @@ const styles: string = css`
     }
 
     .recipe-item-icon {
-        width: auto;
-        height: 30px;
-        background-color: #e0e0e0;
-        border: 1px solid #aaa;
+        background-color: rgba(127, 110, 215, 0.2);
+        border: 1px solid #332c57;
         border-radius: 4px;
+        padding: 5px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 12px;
-        color: #555;
+        color: #ccc;
     }
 
     .dashed-divider {
         width: 100%;
-        border-top: 2px dashed gray;
+        border-top: 2px solid #332c57;
     }
 
     .container-craft-retrieve-buttons {
@@ -190,26 +213,42 @@ const styles: string = css`
         justify-content: center;
         align-items: center;
         gap: 10px;
+        margin-top: 20px;
     }
 
     .dialog-button {
         font-family: "Onesize", sans-serif;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
-        background-color: #f0f0f0;
-        border: 3px solid #222;
-        margin-top: 20px;
-        padding: 10px 20px;
-        color: black;
+        background-color: #7f6ed7;
+        border: 2px solid #332c57;
+        padding: 8px 15px;
+        color: white;
         cursor: pointer;
-        display: block;
+        border-radius: 5px;
         text-transform: uppercase;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
     }
 
     .dialog-button:hover {
-        background-color: black;
-        color: white;
+        background-color: #332c57;
+        transform: scale(1.05);
+    }
+
+    #craftButton {
+        background-color: #388e3c;
+    }
+
+    #craftButton:hover {
+        background-color: #2e7d32;
+    }
+
+    #retrieveCraftedItem {
+        background-color: #388e3c;
+    }
+
+    #retrieveCraftedItem:hover {
+        background-color: #2e7d32;
     }
 
     .notification {
@@ -218,8 +257,8 @@ const styles: string = css`
         left: 50%;
         transform: translateX(-50%);
         padding: 15px 25px;
-        background-color: #fff;
-        border: 3px solid #222;
+        background-color: rgba(20, 20, 20, 0.9);
+        border: 2px solid #332c57;
         border-radius: 5px;
         text-align: center;
         z-index: 10;
@@ -228,18 +267,17 @@ const styles: string = css`
         opacity: 1;
         transition: opacity 0.5s ease;
         max-width: 80%;
+        color: white;
     }
 
     .notification.success {
-        background-color: #d4edda;
-        color: #155724;
-        border-color: #155724;
+        border-color: #388e3c;
+        background-color: rgba(56, 142, 60, 0.2);
     }
 
     .notification.error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border-color: #721c24;
+        border-color: #d32f2f;
+        background-color: rgba(211, 47, 47, 0.2);
     }
 
     .notification.fadeOut {
@@ -251,6 +289,7 @@ const styles: string = css`
         font-weight: bold;
         margin-bottom: 10px;
         text-align: center;
+        color: #7f6ed7;
     }
 `;
 
@@ -432,7 +471,7 @@ export class CraftingComponent extends HTMLElement {
             <style>
                 ${styles}
             </style>
-            <button class="open-crafting-btn" id="craftingButton">
+            <button class="crafting-button" id="craftingButton">
                 <img src="/assets/img/CraftingButton.png" alt="crafting">
             </button>
             <dialog id="craftingDialog">
@@ -444,20 +483,20 @@ export class CraftingComponent extends HTMLElement {
                                 <div class="crafting-grid">
                                     <div class="container-slot">
                                         ${this._slots[0] && !this._resultSlot ? "<button id=\"emptySlot\" data-slot=\"0\">✕</button>" : ""}
-                                        <div class="slot">${this._slots[0] !== "" ? `<img data-item="${this._slots[0]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[0]}.png"/>` : ""}</div>
+                                        <div class="slot ${this._slots[0] !== "" ? "filled" : ""}">${this._slots[0] !== "" ? `<img data-item="${this._slots[0]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[0]}.png"/>` : ""}</div>
                                     </div>
                                     <span class="symbol">+</span>
                                     <div class="container-slot">
                                         ${this._slots[1] && !this._resultSlot ? "<button id=\"emptySlot\" data-slot=\"1\">✕</button>" : ""}
-                                        <div class="slot">${this._slots[1] !== "" ? `<img data-item="${this._slots[1]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[1]}.png"/>` : ""}</div>
+                                        <div class="slot ${this._slots[1] !== "" ? "filled" : ""}">${this._slots[1] !== "" ? `<img data-item="${this._slots[1]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[1]}.png"/>` : ""}</div>
                                     </div>
                                     <span class="symbol">+</span>
                                     <div class="container-slot">
                                         ${this._slots[2] && !this._resultSlot ? "<button id=\"emptySlot\" data-slot=\"2\">✕</button>" : ""}
-                                        <div class="slot">${this._slots[2] !== "" ? `<img data-item="${this._slots[2]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[2]}.png"/>` : ""}</div>
+                                        <div class="slot ${this._slots[2] !== "" ? "filled" : ""}">${this._slots[2] !== "" ? `<img data-item="${this._slots[2]}" class="slot-icon" src="/public/assets/img/icons/${this._slots[2]}.png"/>` : ""}</div>
                                     </div>
                                     <span class="symbol">=</span>
-                                    <div class="result-slot">${this._resultSlot !== "" ? `<img data-item="${this._resultSlot}" class="slot-icon" src="/public/assets/img/icons/${this._resultSlot}.png"/>` : ""}</div>
+                                    <div class="result-slot ${this._resultSlot !== "" ? "filled" : ""}">${this._resultSlot !== "" ? `<img data-item="${this._resultSlot}" class="slot-icon" src="/public/assets/img/icons/${this._resultSlot}.png"/>` : ""}</div>
                                 </div>
                                 <div class="container-craft-retrieve-buttons">
                                     ${!this._resultSlot ? "<button class=\"dialog-button\" id=\"addSelectedItemButton\">Add selected item</button>" : ""}
