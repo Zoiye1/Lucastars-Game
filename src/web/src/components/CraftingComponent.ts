@@ -33,7 +33,7 @@ const styles: string = css`
     dialog {
         margin: 0;
         z-index: 3;
-        top: 8%;
+        top: 6%;
         left: 50%;
         transform: translateX(-55%); 
         border: none;
