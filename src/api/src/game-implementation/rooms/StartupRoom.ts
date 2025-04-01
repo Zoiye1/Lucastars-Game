@@ -48,7 +48,7 @@ export class StartupRoom extends Room implements Simple {
      * @inheritdoc
      */
     public images(): string[] {
-        return ["titlescreen"];
+        return ["background", "Escapegiftitle", "Mentalgif"];
     }
 
     // public ArrowUrl(): ArrowRoom[] {

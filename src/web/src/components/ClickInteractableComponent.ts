@@ -209,22 +209,22 @@ export class ClickInteractableComponent extends HTMLElement {
         return container;
     }
 
-    private lastButton: HTMLDivElement | undefined;
-    private lastImg: HTMLImageElement | undefined;
+    // private lastButton: HTMLDivElement | undefined;
+    // private lastImg: HTMLImageElement | undefined;
 
     private handleClickItem(Buttons: HTMLDivElement, Img: HTMLImageElement): void {
         // makes the selection effect
-        if (this.lastButton && this.lastImg) {
-            this.lastButton.classList.remove("active");
-            this.lastImg.classList.remove("active");
-        }
-        if (this.lastButton !== Buttons && this.lastImg !== Img) {
-            Buttons.classList.toggle("active");
-            Img.classList.toggle("active");
+        // if (this.lastButton && this.lastImg) {
+        //     this.lastButton.classList.remove("active");
+        //     this.lastImg.classList.remove("active");
+        // }
+        // if (this.lastButton !== Buttons && this.lastImg !== Img) {
+        Buttons.classList.toggle("active");
+        Img.classList.toggle("active");
 
-            this.lastButton = Buttons;
-            this.lastImg = Img;
-        }
+        // this.lastButton = Buttons;
+        // this.lastImg = Img;
+        // }
     }
 
     private renderActionButton(button: ActionReference, item: ClickItem): HTMLElement {
