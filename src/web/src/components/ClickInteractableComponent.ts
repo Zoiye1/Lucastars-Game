@@ -218,11 +218,13 @@ export class ClickInteractableComponent extends HTMLElement {
             this.lastButton.classList.remove("active");
             this.lastImg.classList.remove("active");
         }
-        Buttons.classList.toggle("active");
-        Img.classList.toggle("active");
+        if (this.lastButton !== Buttons && this.lastImg !== Img) {
+            Buttons.classList.toggle("active");
+            Img.classList.toggle("active");
 
-        this.lastButton = Buttons;
-        this.lastImg = Img;
+            this.lastButton = Buttons;
+            this.lastImg = Img;
+        }
     }
 
     private renderActionButton(button: ActionReference, item: ClickItem): HTMLElement {
