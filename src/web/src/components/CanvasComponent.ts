@@ -350,8 +350,10 @@ export class CanvasComponent extends HTMLElement {
      */
     private renderHeader(): string {
         const roomImages: string[] | undefined = this._currentGameState?.roomImages;
+        const room: string | undefined = this._currentGameState?.roomAlias;
         if (roomImages && roomImages.length > 0) {
-            return `
+            if (room !== "startup") {
+                return `
                 <div class="header">
                     ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
                     onerror="this.onerror=null;this.src='/assets/img/rooms/${url}.gif';" />`).join("")}
@@ -363,6 +365,15 @@ export class CanvasComponent extends HTMLElement {
                     <game-inventory> </game-inventory>
                 </div>
             `;
+            }
+            else {
+                return `
+                <div class="header">
+                    ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
+                    onerror="this.onerror=null;this.src='/assets/img/rooms/${url}.gif';" />`).join("")}
+                </div>
+            `;
+            }
         }
 
         return "";
