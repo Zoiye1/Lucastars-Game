@@ -11,6 +11,7 @@ const styles: string = css`
         height: 100%;
         image-rendering: pixelated;
         position: absolute;
+        scale: 1.3;
         z-index: 2;
         
     }

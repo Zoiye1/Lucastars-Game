@@ -11,8 +11,8 @@ const styles: string = css`
         height: 50%;
         image-rendering: pixelated;
         position: absolute;
-        
     }
+        
     
     .Item:hover {
       filter: brightness(0.4);
@@ -129,6 +129,14 @@ export class ClickInteractableComponent extends HTMLElement {
     }
 
     private render(): void {
+        let resizeTimeout: number;
+
+        window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = window.setTimeout(() => {
+                void this.refreshGameState();
+            }, 600);
+        });
         if (!this.shadowRoot) {
             return;
         }
@@ -166,19 +174,33 @@ export class ClickInteractableComponent extends HTMLElement {
         img.src = `/assets/img/rooms/${item.imageUrl}.png`;
         // Makes width and height depended on the amount of pixels and halfs it
         // This makes sure pixel art is consitent when we use the agreed upon format of 1280 X 640
-        img.onload = () => {
-            img.style.width = `${img.naturalWidth * 0.5}px`;
-            img.style.height = `${img.naturalHeight * 0.5}px`;
-        };
+        // img.onload = () => {
+        //     img.style.width = `${img.naturalWidth * 0.5}px`;
+        //     img.style.height = `${img.naturalHeight * 0.5}px`;
+        // };
 
         const Buttons: HTMLDivElement = document.createElement("div");
         Buttons.classList.add("buttons");
         // added so it doesnt overlap with the img
         Buttons.style.left = `${item.imageCoords.x}%`;
         img.onload = () => {
-            img.style.width = `${img.naturalWidth * 0.5}px`;
-            img.style.height = `${img.naturalHeight * 0.5}px`;
-            Buttons.style.transform = `translateX(${img.naturalWidth * 0.5 + 1}px)`;
+            const componentHeight: number = this.getBoundingClientRect().height;
+            console.log("Component Height:", componentHeight);
+            const screenWidth: number = window.screen.width;
+            const screenHeight: number = window.screen.height;
+            console.log(`Screen Resolution: ${screenWidth}x${screenHeight}`);
+            // const relativeX: number = 710;
+            const relativeY: number = 355;
+            // const timesFactorx: number = screenWidth / relativeX;
+            const timesFactory: number = componentHeight / relativeY;
+            // console.log(timesFactorx);
+            console.log(timesFactory);
+            // const zoomLevel: number = window.devicePixelRatio || 1;
+            const scaledWidth: number = img.naturalWidth * timesFactory * 0.5;
+            const scaledHeight: number = img.naturalHeight * timesFactory * 0.5;
+            img.style.width = `${Math.round(scaledWidth)}px`;
+            img.style.height = `${Math.round(scaledHeight)}px`;
+            Buttons.style.transform = `translateX(${scaledWidth + 1}px)`;
         };
         Buttons.style.top = `${item.imageCoords.y}%`;
 
