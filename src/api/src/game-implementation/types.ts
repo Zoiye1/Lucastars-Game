@@ -202,6 +202,7 @@ export type PlayerSession = {
     wantsToSearchGlassBeaker: boolean;
     wantsToSearchIngredients: boolean;
     wantsToHelpDealer: boolean;
+    wantsToHelpDealer2: boolean;
     wantsToHelpProfessor: boolean;
     wantsToHelpGymFreak: boolean;
     wantsToHelpSmoker: boolean;
@@ -210,6 +211,7 @@ export type PlayerSession = {
     helpedProfessor: boolean;
     questArray: QuestArray[];
     helpedDealer: boolean;
+    helpedDealer2: boolean;
     helpedSmoker: boolean;
     helpedCook: boolean;
     pickedUpSheets: boolean;

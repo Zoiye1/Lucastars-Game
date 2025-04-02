@@ -1,81 +1,120 @@
 import { css, htmlArray } from "../helpers/webComponents";
 import { GameRouteService } from "../services/GameRouteService";
 
-/** CSS affecting the {@link QuestComponent} */
 const styles: string = css`
-    .ui-btn {
-        font-family: "Onesize", sans-serif;
-        font-size: 18px;
-        font-weight: bold;
-        background-color: #f0f0f0;
-        border: 3px solid #222;
-        color: #222;
-        cursor: pointer;
-        transition: all 0.2s;
+   :host {
+        display: block;
     }
 
-    .open-quest-btn {
+    .quest-button {
         position: absolute;
-        top: 47%;
-        right: 12%;
+        top: 45%;
+        right: 13%;
         z-index: 1;
         background: none;
         border: none;
-        padding: 0;
+        padding: 10px 15px
+        font-size: 16px;
         cursor: pointer;
         width: 50px;
         height: 50px;
     }
 
-    .open-quest-btn img{
-        width: 200%;
-        height: 200%;
+    .quest-button img {
+        width: 258%;
+        height: 258%;
         object-fit: contain;
     }
 
-    .quest-list {
-        max-height: 500px;
-        overflow-y: auto;
+    .quest-panel {
+        display: none;
+        position: fixed; /* Veranderd van absolute naar fixed */
+        top: 50px;
+        left: auto; /* Reset left */
+        right: 20px; /* Aanpasbaar */
         width: 300px;
-        border-right: 2px dashed gray;
-        padding: 10px;
+        background-color: rgba(20, 20, 20, 0.95);
+        border: 2px solid #332c57;
+        border-radius: 8px;
+        padding: 15px;
+        color: white;
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 1000; /* Zorgt ervoor dat het paneel boven andere elementen komt */
     }
 
-    .quest-card {
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #ffffffa2;
-        
+
+    .quest-panel.active {
+        display: block;
     }
 
     .quest-title {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #7f6ed7;
+    }
+
+    .quest-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .quest-item {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+
+
+    .quest-item.completed {
+        background-color: rgba(56, 142, 60, 0.2);
+    }
+
+    .quest-item-title {
         font-weight: bold;
-        margin-bottom: 5px;
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .quest-status {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .quest-description {
+        margin-top: 8px;
+        font-size: 14px;
     }
 
     .description-toggle-btn {
         background: none;
         border: none;
-        color: #0066cc;
+        color: #7f6ed7;
         text-decoration: underline;
         cursor: pointer;
-        font-size: 14px;
-        margin: 5px 0;
-        padding: 0;
-    }
-
-    .quest-description {
-        padding: 8px;
-        background-color: #f9f9f9;
-        border-radius: 4px;
-        margin-top: 5px;
         font-size: 14px;
     }
 
     .hidden {
         display: none;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #7f6ed7;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px;
     }
 `;
 
@@ -84,11 +123,13 @@ type QuestArray = {
     startQuest: boolean;
     completed: boolean;
     description: string;
+    reward: string;
 };
 
 export class QuestComponent extends HTMLElement {
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
     private activeQuests: QuestArray[] = [];
+    private _isPanelOpen: boolean = false;
 
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
@@ -96,44 +137,47 @@ export class QuestComponent extends HTMLElement {
     }
 
     private renderQuests(): string {
-        let questCardsHTML: string = "";
+        return this.activeQuests.map(quest => this.createQuestItem(quest)).join("");
+    }
 
-        for (const quest of this.activeQuests) {
-            questCardsHTML += `
-                <div class="quest-card">
-                    <div class="quest-title">${quest.NPC}</div>
-                    <p>${quest.startQuest ? "Start the quest" : "Complete the quest"}</p>
-                    <button class="ui-btn" data-title="${quest.NPC}">
-                        ${quest.completed ? "Completed" : "In Progress"}
-                    </button>
-                    <div class="quest-description-toggle">
-                        <button class="description-toggle-btn">View description</button>
-                        <div class="quest-description hidden">
-                            <p>${quest.description}</p>
-                        </div>
-                    </div>
+    private createQuestItem(quest: QuestArray): string {
+        const statusClass: string = quest.completed ? "completed" : "active";
+        const statusText: string = quest.completed ? "Completed" : "Active";
+        const statusColor: string = quest.completed ? "green" : "purple"; // Kleuren aanpassen
+
+        return `
+            <li class="quest-item ${statusClass}" style="background-color: ${
+            quest.completed ? "rgba(56, 142, 60, 0.2)" : "rgba(127, 110, 215, 0.2)"
+        };">
+                <div class="quest-item-title">
+                    <span class="quest-name">${quest.NPC}</span>
+                    <span class="quest-status" style="background-color: ${statusColor}; color: white; padding: 2px 8px; border-radius: 4px;">
+                        ${statusText}
+                    </span>
                 </div>
-            `;
-        }
+                <p class="quest-description">${quest.description}</p>
+                <p class="quest-description">${quest.reward}</p>
 
-        return questCardsHTML;
+            </li>
+        `;
     }
 
     private render(): void {
-        if (!this.shadowRoot) {
-            return;
-        }
+        if (!this.shadowRoot) return;
 
-        const questCardsHTML: string = this.renderQuests();
+        const questItemsHTML: string = this.renderQuests();
         const elements: HTMLElement[] = htmlArray`
             <style>${styles}</style>
-            <button class="open-quest-btn ui-btn" id="questButton">
+            <button class="quest-button" id="questButton">
                 <img src="/assets/img/QuestButton.png" alt="Quests">
             </button>
-            <dialog id="questDialog">
-                <div class="quest-list">${questCardsHTML}</div>
-                <button class="ui-btn" id="closeQuestDialog">✕</button>
-            </dialog>
+            <div class="quest-panel ${this._isPanelOpen ? "active" : ""}" id="questPanel">
+                <button class="close-button" id="closeQuestPanel">✕</button>
+                <div class="quest-title">Your Quests</div>
+                <ul class="quest-list">
+                    ${questItemsHTML}
+                </ul>
+            </div>
         `;
 
         while (this.shadowRoot.firstChild) {
@@ -145,77 +189,42 @@ export class QuestComponent extends HTMLElement {
     }
 
     private setupEventListeners(): void {
-        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
-            "#questDialog"
-        ) as HTMLDialogElement;
-        const openButton: HTMLButtonElement = this.shadowRoot?.querySelector(
-            "#questButton"
-        ) as HTMLButtonElement;
-        const closeButton: HTMLButtonElement = this.shadowRoot?.querySelector(
-            "#closeQuestDialog"
-        ) as HTMLButtonElement;
-
-        openButton.addEventListener("click", () => this.openQuestDialog());
-        closeButton.addEventListener("click", () => questDialog.close());
-
-        // Voeg event listeners toe voor de beschrijving toggles
-        this.addDescriptionToggleListeners();
-    }
-
-    private addDescriptionToggleListeners(): void {
         if (!this.shadowRoot) return;
 
-        const toggleButtons: NodeListOf<HTMLButtonElement> = this.shadowRoot.querySelectorAll(".description-toggle-btn");
+        const openButton: HTMLButtonElement | null = this.shadowRoot.querySelector("#questButton");
+        const closeButton: HTMLButtonElement | null = this.shadowRoot.querySelector("#closeQuestPanel");
 
-        toggleButtons.forEach(button => {
-            button.addEventListener("click", event => {
-                const target: HTMLButtonElement = event.target as HTMLButtonElement;
-                const descriptionDiv: HTMLElement = target.nextElementSibling as HTMLElement;
+        if (openButton) {
+            openButton.addEventListener("click", () => this.toggleQuestPanel());
+        }
 
-                // Toggle de zichtbaarheid van de beschrijving
-                if (descriptionDiv.classList.contains("hidden")) {
-                    descriptionDiv.classList.remove("hidden");
-                    target.textContent = "Hide description";
-                }
-                else {
-                    descriptionDiv.classList.add("hidden");
-                    target.textContent = "View description";
-                }
-            });
-        });
+        if (closeButton) {
+            closeButton.addEventListener("click", () => this.toggleQuestPanel());
+        }
     }
 
-    private async openQuestDialog(): Promise<void> {
-        await this.handleGetActiveQuests();
-        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
-            "#questDialog"
-        ) as HTMLDialogElement;
-        questDialog.showModal();
+    private async toggleQuestPanel(): Promise<void> {
+        this._isPanelOpen = !this._isPanelOpen;
+
+        if (this._isPanelOpen) {
+            await this.handleGetActiveQuests();
+        }
+
+        this.render();
     }
 
     private async handleGetActiveQuests(): Promise<void> {
         try {
-            const success: QuestArray[] | undefined = await this._gameRouteService.executeGetQuests() as QuestArray[];
-            this.activeQuests = success; // activeQuests wordt bijgewerkt met de quests uit de DB
-            this.updateDialog();
+            const success: QuestArray[] = (await this._gameRouteService.executeGetQuests()) as QuestArray[];
+
+            // Update alleen als de data echt is veranderd
+            if (JSON.stringify(this.activeQuests) !== JSON.stringify(success)) {
+                this.activeQuests = success;
+                this.render();
+            }
         }
         catch (error) {
             console.error("Error fetching active quests:", error);
-        }
-    }
-
-    private updateDialog(): void {
-        const questDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
-            "#questDialog"
-        ) as HTMLDialogElement;
-        const isOpen: boolean = questDialog.open;
-
-        this.render();
-        if (isOpen) {
-            const newQuestDialog: HTMLDialogElement = this.shadowRoot?.querySelector(
-                "#questDialog"
-            ) as HTMLDialogElement;
-            newQuestDialog.showModal();
         }
     }
 }

@@ -24,6 +24,7 @@ type QuestArray = {
     startQuest: boolean;
     completed: boolean;
     description: string;
+    reward: string;
 };
 
 export class GameController {
@@ -299,40 +300,53 @@ export class GameController {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const questArray: QuestArray[] = [
             {
-                NPC: "dealer",
-                startQuest: !!playerSession.wantsToHelpDealer,
-                completed: !!playerSession.helpedDealer,
-                description: "Find the Sugar & talk to the dealer",
-            },
-            {
                 NPC: "cleaner",
                 startQuest: playerSession.wantsToHelpCleaner,
                 completed: playerSession.helpedCleaner,
-                description: "Search the waterbucket and help the cleaner",
+                description: "Search the waterbucket and help the cleaner.",
+                reward: "Reward: Acces to kitchen + 1x 10 euro bill.",
+            },
+            {
+                NPC: "dealer",
+                startQuest: !!playerSession.wantsToHelpDealer2,
+                completed: !!playerSession.helpedDealer2,
+                description: "Give the dealer a 10 euro bill.",
+                reward: "Reward: + 1x pack of cigarettes.",
             },
             {
                 NPC: "cook",
                 startQuest: !!playerSession.wantsToHelpCook,
                 completed: !!playerSession.helpedCook,
-                description: "Find the fork or find another way to get the key from the cook",
+                description: "Find the fork or find another way to get the key from the cook.",
+                reward: "Reward: Acces to the storage.",
             },
             {
                 NPC: "gymfreak",
                 startQuest: !!playerSession.wantsToHelpGymFreak,
                 completed: playerSession.helpedGymFreak,
-                description: "Find a way to give some steriods to the gymfreak",
+                description: "Give the dealer some steroids.",
+                reward: "Reward: Escape the hospital!",
             },
             {
                 NPC: "professor",
                 startQuest: !!playerSession.wantsToHelpProfessor,
                 completed: playerSession.helpedProfessor,
-                description: "Bring the required ingredients to the professor",
+                description: "Bring the required ingredients to the professor.",
+                reward: "Reward: + 1x corrosive acid",
             },
             {
                 NPC: "smoker",
                 startQuest: !!playerSession.wantsToHelpSmoker,
                 completed: !!playerSession.helpedSmoker,
-                description: "Get the sigarettes",
+                description: "Give the dealer a pack of cigarettes",
+                reward: "Reward: + 1x lighter",
+            },
+            {
+                NPC: "dealer",
+                startQuest: !!playerSession.wantsToHelpDealer,
+                completed: !!playerSession.helpedDealer,
+                description: "Find the Sugar & talk to the dealer.",
+                reward: "Reward: + 1x steroids.",
             },
         ];
         res.json(questArray);
