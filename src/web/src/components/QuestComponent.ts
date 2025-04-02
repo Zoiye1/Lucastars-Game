@@ -59,10 +59,11 @@ const styles: string = css`
     }
 
     .quest-item {
+        padding: 15px;
+        border-radius: 8px;
         margin-bottom: 12px;
-        padding: 10px;
-        border-radius: 5px;
     }
+
 
     .quest-item.completed {
         background-color: rgba(56, 142, 60, 0.2);
@@ -70,8 +71,22 @@ const styles: string = css`
 
     .quest-item-title {
         font-weight: bold;
+        font-size: 18px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+    }
+
+    .quest-status {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .quest-description {
+        margin-top: 8px;
+        font-size: 14px;
     }
 
     .description-toggle-btn {
@@ -118,24 +133,25 @@ export class QuestComponent extends HTMLElement {
     }
 
     private renderQuests(): string {
-        return this.activeQuests.map((quest) => this.createQuestItem(quest)).join("");
+        return this.activeQuests.map(quest => this.createQuestItem(quest)).join("");
     }
 
     private createQuestItem(quest: QuestArray): string {
-        const statusClass: string = quest.completed ? "completed" : "";
-        const statusText: string = quest.completed ? "Completed" : "In Progress";
+        const statusClass: string = quest.completed ? "completed" : "active";
+        const statusText: string = quest.completed ? "Completed" : "Active";
+        const statusColor: string = quest.completed ? "green" : "purple"; // Kleuren aanpassen
 
         return `
-            <li class="quest-item ${statusClass}">
+            <li class="quest-item ${statusClass}" style="background-color: ${
+            quest.completed ? "rgba(56, 142, 60, 0.2)" : "rgba(127, 110, 215, 0.2)"
+        };">
                 <div class="quest-item-title">
-                    ${quest.NPC}
-                    <span>${statusText}</span>
+                    <span class="quest-name">${quest.NPC}</span>
+                    <span class="quest-status" style="background-color: ${statusColor}; color: white; padding: 2px 8px; border-radius: 4px;">
+                        ${statusText}
+                    </span>
                 </div>
-                <p>${quest.startQuest ? "Start the quest" : "Complete the quest"}</p>
-                <button class="description-toggle-btn">View description</button>
-                <div class="quest-item-description hidden">
-                    ${quest.description}
-                </div>
+                <p class="quest-description">${quest.description}</p>
             </li>
         `;
     }
@@ -189,16 +205,16 @@ export class QuestComponent extends HTMLElement {
         const toggleButtons: NodeListOf<HTMLButtonElement> =
             this.shadowRoot.querySelectorAll(".description-toggle-btn");
 
-        toggleButtons.forEach((button) => {
-            button.addEventListener("click", (event) => {
+        toggleButtons.forEach(button => {
+            button.addEventListener("click", event => {
                 const target: HTMLButtonElement = event.target as HTMLButtonElement;
                 const descriptionDiv: HTMLElement | null = target.nextElementSibling as HTMLElement;
 
-                if (descriptionDiv && descriptionDiv.classList.contains("hidden")) {
+                if (descriptionDiv.classList.contains("hidden")) {
                     descriptionDiv.classList.remove("hidden");
                     target.textContent = "Hide description";
                 }
-                else if (descriptionDiv) {
+                else {
                     descriptionDiv.classList.add("hidden");
                     target.textContent = "View description";
                 }
