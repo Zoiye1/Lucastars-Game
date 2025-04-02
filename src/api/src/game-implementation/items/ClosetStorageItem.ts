@@ -43,7 +43,7 @@ export class ClosetStorageItem extends Item implements Examine, Open {
         if (result !== undefined) {
             gameService.getPlayerSession().playerOpenedCloset = true;
             return new TextActionResult(["You use the sharp end of the knife to open the closet",
-                "There is a Wirecutter and a Keycard inside",
+                "There is a Keycard inside",
             ]);
         }
         return new TextActionResult(["You cant open it the lock is preventing it", "Maybe you could lockpick it with something sharp",
