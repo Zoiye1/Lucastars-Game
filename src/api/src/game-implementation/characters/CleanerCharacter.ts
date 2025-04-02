@@ -53,6 +53,7 @@ export class CleanerCharacter extends Character implements Examine {
      */
     public talk(choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.talkedToCleaner) playerSession.talkedToCleaner = true;
 
         if (!playerSession.wantsToHelpCleaner) {
             if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4 && choiceId !== 5 && choiceId !== 6) {

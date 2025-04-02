@@ -215,4 +215,10 @@ export type PlayerSession = {
     pickedUpSheets: boolean;
     pickedUpAirFreshener: boolean;
     EscapedRoof: boolean;
+    talkedToCleaner: boolean;
+    talkedToSmoker: boolean;
+    talkedToDealer: boolean;
+    talkedToCook: boolean;
+    talkedToGymFreak: boolean;
+    talkedToProfessor: boolean;
 };

@@ -30,6 +30,7 @@ export class DealerCharacter extends Character implements Examine {
 
     public talk(_choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.talkedToDealer) playerSession.talkedToDealer = true;
 
         // Controleer of de items al zijn gekocht
         const hasSteroids: boolean = playerSession.inventory.includes("Steroids");

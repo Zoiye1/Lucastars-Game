@@ -30,6 +30,7 @@ export class ProfessorCharacter extends Character implements Examine {
 
     public talk(choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.talkedToProfessor) playerSession.talkedToProfessor = true;
 
         // Handle specific choices
         if (choiceId === 1) {

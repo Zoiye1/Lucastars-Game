@@ -32,6 +32,7 @@ export class GymFreakCharacter extends Character implements Examine {
      */
     public talk(choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.talkedToGymFreak) playerSession.talkedToGymFreak = true;
 
         // Speler vraagt om hulp bij ontsnappen
         if (choiceId === 1) {
