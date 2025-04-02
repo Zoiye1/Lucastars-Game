@@ -52,6 +52,7 @@ export class GymFreakCharacter extends Character implements Examine {
         if (choiceId === 3) {
             if (playerSession.inventory.includes("Steroids")) {
                 playerSession.helpedGymFreak = true;
+                playerSession.inventory.splice(playerSession.inventory.indexOf("steroids"), 1);
                 return new TextActionResult([
                     "Thank you for the steroids! Now I'm gonna make you escape this place. Go, escape now!",
                 ]);
