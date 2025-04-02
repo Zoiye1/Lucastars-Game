@@ -98,7 +98,7 @@ export class StarterRoom extends Room {
         }
 
         if (!playerSession.pickedUpPainting) {
-            result.push({ name: "Pain ting", alias: "PaintingItem", imageUrl: "starterroom/StarterRoomPainting", type: ["actionableItem"], imageCoords: { x: 25, y: 42 } });
+            result.push({ name: "Pain ting", alias: "PaintingItem", imageUrl: "starterroom/StarterRoomPainting", type: ["actionableItem"], imageCoords: { x: 20, y: 42 } });
         }
 
         return result;
@@ -111,12 +111,12 @@ export class StarterRoom extends Room {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.ventUnlocked) {
             result.push(
-                { name: "vent", alias: "Vents", imageRotation: 0, imageCoords: { x: 26, y: 16 } }
+                { name: "vent", alias: "Vents", imageRotation: 0, imageCoords: { x: 18, y: 16 } }
             );
         }
         if (playerSession.windowBroken) {
             result.push(
-                { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 50, y: 25 } }
+                { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 52, y: 25 } }
             );
         }
 

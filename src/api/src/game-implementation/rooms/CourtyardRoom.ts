@@ -79,7 +79,7 @@ export class CourtyardRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "Smoker", alias: "smoker", imageUrl: "courtyard/Smoker", type: ["npc"], imageCoords: { x: 30, y: 62 } },
+            { name: "Smoker", alias: "smoker", imageUrl: "courtyard/Smoker", type: ["npc"], imageCoords: { x: 20, y: 62 } },
         ];
         if (!playerSession.pickedUpJumpRope) {
             result.push({ name: "JumpRope", alias: "JumpRopeItem", imageUrl: "courtyard/JumpRope", type: ["actionableItem"], imageCoords: { x: 50, y: 88 } });
@@ -93,11 +93,11 @@ export class CourtyardRoom extends Room {
 
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 75, y: 80 } },
+            { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 85, y: 80 } },
         ];
 
         if (playerSession.placedEscapeLadder) {
-            result.push({ name: "Ladder", alias: "courtyard-end", imageRotation: -90, imageCoords: { x: 12, y: 15 } });
+            result.push({ name: "Ladder", alias: "courtyard-end", imageRotation: -90, imageCoords: { x: 7, y: 15 } });
         };
 
         return result;

@@ -92,24 +92,24 @@ export class StorageRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "Keypad", alias: "KeypadItem", imageUrl: "storage/KeyPad", type: ["actionableItemOpen"], imageCoords: { x: 60, y: 45 } },
-            { name: "Elevator", alias: "elevator", imageUrl: "storage/Elevator", type: ["actionableItemOpen"], imageCoords: { x: 65, y: 25 } },
+            { name: "Keypad", alias: "KeypadItem", imageUrl: "storage/KeyPad", type: ["actionableItemOpen"], imageCoords: { x: 68, y: 45 } },
+            { name: "Elevator", alias: "elevator", imageUrl: "storage/Elevator", type: ["actionableItemOpen"], imageCoords: { x: 75, y: 25 } },
         ];
         if (!playerSession.playerOpenedCloset) {
-            result.push({ name: "closet", alias: "closet", imageUrl: "storage/Closet", type: ["actionableItemOpen"], imageCoords: { x: 15, y: 25 } });
+            result.push({ name: "closet", alias: "closet", imageUrl: "storage/Closet", type: ["actionableItemOpen"], imageCoords: { x: 0, y: 25 } });
         }
         if (!playerSession.playerOpenedSteelbox) {
-            result.push({ name: "steel box", alias: "steel box", imageUrl: "storage/Steelbox", type: ["actionableItemOpen"], imageCoords: { x: 38, y: 40 } });
+            result.push({ name: "steel box", alias: "steel box", imageUrl: "storage/Steelbox", type: ["actionableItemOpen"], imageCoords: { x: 32, y: 40 } });
         }
         if (playerSession.playerOpenedCloset) {
-            result.push({ name: "closet", alias: "closet", imageUrl: "storage/Opencloset", type: ["actionableItemOpen"], imageCoords: { x: 15, y: 25 } });
+            result.push({ name: "closet", alias: "closet", imageUrl: "storage/Opencloset", type: ["actionableItemOpen"], imageCoords: { x: 0, y: 25 } });
         }
         if (playerSession.playerOpenedSteelbox) {
-            result.push({ name: "steel box", alias: "steel box", imageUrl: "storage/Openbox", type: ["actionableItemOpen"], imageCoords: { x: 38, y: 40 } });
+            result.push({ name: "steel box", alias: "steel box", imageUrl: "storage/Openbox", type: ["actionableItemOpen"], imageCoords: { x: 32, y: 40 } });
         }
         if (playerSession.playerOpenedCloset) {
             if (!playerSession.pickedUpKeyCard) {
-                result.push({ name: "KeyCard", alias: "KeyCardItem", imageUrl: "storage/Keycard", type: ["actionableItem"], imageCoords: { x: 23, y: 48 } });
+                result.push({ name: "KeyCard", alias: "KeyCardItem", imageUrl: "storage/Keycard", type: ["actionableItem"], imageCoords: { x: 10, y: 48 } });
             }
         }
         if (playerSession.playerOpenedSteelbox) {
@@ -124,13 +124,13 @@ export class StorageRoom extends Room {
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "Kitchen", alias: "KitchenRoom", imageRotation: -90, imageCoords: { x: 15, y: 65 } },
+            { name: "Kitchen", alias: "KitchenRoom", imageRotation: -90, imageCoords: { x: 3, y: 65 } },
         ];
 
         const playerSession: PlayerSession = gameService.getPlayerSession();
         if (playerSession.playerOpenedElevator) {
             result.push(
-                { name: "Elevator", alias: "labroom", imageRotation: 180, imageCoords: { x: 69, y: 7 } }
+                { name: "Elevator", alias: "labroom", imageRotation: 180, imageCoords: { x: 83, y: 10 } }
             );
         }
 

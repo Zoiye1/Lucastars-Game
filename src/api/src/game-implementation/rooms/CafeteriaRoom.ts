@@ -122,8 +122,8 @@ export class CafeteriaRoom extends Room {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
             { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 26, y: 85 } },
-            { name: "Courtyard", alias: "courtyard", imageRotation: 90, imageCoords: { x: 77, y: 70 } },
-            { name: "Gym", alias: "gym", imageRotation: 90, imageCoords: { x: 77, y: 30 } },
+            { name: "Courtyard", alias: "courtyard", imageRotation: 90, imageCoords: { x: 87, y: 70 } },
+            { name: "Gym", alias: "gym", imageRotation: 90, imageCoords: { x: 87, y: 30 } },
         ];
 
         const playerSession: PlayerSession = gameService.getPlayerSession();

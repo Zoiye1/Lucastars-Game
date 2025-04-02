@@ -50,7 +50,7 @@ export class KitchenRoom extends Room {
 
         // result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 77, y: 60 } },
+            { name: "cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 87, y: 60 } },
         ];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         // Only add the arrow is the player actually opened the door
@@ -76,10 +76,10 @@ export class KitchenRoom extends Room {
             result.push({ name: "Knife", alias: "KnifeItem", imageUrl: "kitchen/KnifeKitchen", type: ["actionableItem"], imageCoords: { x: 25, y: 42 } });
         }
         if (!playerSession.pickedUpSugar) {
-            result.push({ name: "Sugar", alias: "SugarItem", imageUrl: "kitchen/BagOfSugar", type: ["actionableItem"], imageCoords: { x: 70, y: 19 } });
+            result.push({ name: "Sugar", alias: "SugarItem", imageUrl: "kitchen/BagOfSugar", type: ["actionableItem"], imageCoords: { x: 77, y: 19 } });
         }
         if (!playerSession.pickedUpBakingSoda) {
-            result.push({ name: "BakingSoda", alias: "BakingSodaItem", imageUrl: "kitchen/BakingSoda", type: ["actionableItem"], imageCoords: { x: 17, y: 55 } });
+            result.push({ name: "BakingSoda", alias: "BakingSodaItem", imageUrl: "kitchen/BakingSoda", type: ["actionableItem"], imageCoords: { x: 4, y: 55 } });
         }
         return result;
     }

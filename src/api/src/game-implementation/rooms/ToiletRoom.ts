@@ -84,7 +84,7 @@ export class ToiletRoom extends Room {
                     alias: "AirFreshenerItem",
                     imageUrl: "toilet/AirFreshener",
                     type: ["actionableItem"],
-                    imageCoords: { x: 15, y: 82 },
+                    imageCoords: { x: 2, y: 82 },
                 });
             }
 
@@ -94,7 +94,7 @@ export class ToiletRoom extends Room {
                     alias: "bucket",
                     imageUrl: "toilet/Bucket",
                     type: ["actionableItem"],
-                    imageCoords: { x: 45, y: 80 },
+                    imageCoords: { x: 45, y: 78 },
                 });
             }
 
@@ -110,12 +110,12 @@ export class ToiletRoom extends Room {
 
         if (!playerSession.placedBomb) {
             // Hallway-pijl is alleen zichtbaar als de bom nog NIET is geplaatst
-            result.push({ name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 78, y: 60 } });
+            result.push({ name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 90, y: 60 } });
         }
 
         if (playerSession.placedBomb) {
             // Escape-pijl wordt zichtbaar zodra de bom is geplaatst
-            result.push({ name: "Escape", alias: "toilet-end", imageRotation: -90, imageCoords: { x: 10, y: 60 } });
+            result.push({ name: "Escape", alias: "toilet-end", imageRotation: -90, imageCoords: { x: 5, y: 60 } });
         }
 
         return result;

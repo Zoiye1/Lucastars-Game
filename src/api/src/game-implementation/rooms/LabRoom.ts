@@ -58,7 +58,7 @@ export class LabRoom extends Room {
             { name: "Professor", alias: "Professor", imageUrl: "gif/ProfessorIdle", type: ["npc"], imageCoords: { x: 30, y: 30 } },
         ];
         if (!playerSession.pickedUpSulfuricAcid) {
-            result.push({ name: "SulfuricAcid", alias: "SulfuricAcidItem", imageUrl: "lab/labSulfuricAcid", type: ["actionableItem"], imageCoords: { x: 30, y: 24 } });
+            result.push({ name: "SulfuricAcid", alias: "SulfuricAcidItem", imageUrl: "lab/labSulfuricAcid", type: ["actionableItem"], imageCoords: { x: 20, y: 24 } });
         }
         if (!playerSession.pickedUpGlassBeaker) {
             result.push({ name: "GlassBeaker", alias: "GlassBeakerItem", imageUrl: "lab/labGlassBeaker", type: ["actionableItem"], imageCoords: { x: 20, y: 85 } });
@@ -71,10 +71,10 @@ export class LabRoom extends Room {
         // Initialize result as an array of Arrowroom objects
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: Arrowroom[] = [
-            { name: "Storage", alias: "StorageRoom", imageRotation: -90, imageCoords: { x: 15, y: 30 } },
+            { name: "Storage", alias: "StorageRoom", imageRotation: -90, imageCoords: { x: 3, y: 50 } },
         ];
         if (playerSession.EscapedLab) {
-            result.push({ name: "The End", alias: "lab-end", imageRotation: 0, imageCoords: { x: 63, y: 70 } });
+            result.push({ name: "The End", alias: "lab-end", imageRotation: 0, imageCoords: { x: 70, y: 70 } });
         };
 
         return result;

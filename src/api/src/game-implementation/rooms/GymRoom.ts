@@ -57,7 +57,7 @@ export class GymRoom extends Room implements Simple {
         const result: ClickItem[] = [
         ];
         if (!playerSession.helpedGymFreak) {
-            result.push({ name: "GymFreak", alias: "GymFreak", imageUrl: "Gym/GymFreakStart", type: ["npc"], imageCoords: { x: 20, y: 52 } });
+            result.push({ name: "GymFreak", alias: "GymFreak", imageUrl: "Gym/GymFreakStart", type: ["npc"], imageCoords: { x: 7, y: 52 } });
         }
 
         return result;
@@ -66,13 +66,13 @@ export class GymRoom extends Room implements Simple {
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 75, y: 50 } },
+            { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 87, y: 60 } },
         ];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         // Only add the arrow is the player actually opened the door
         if (playerSession.helpedGymFreak) {
             result.push(
-                { name: "Escape", alias: "GymEnd", imageRotation: -90, imageCoords: { x: 10, y: 60 } }
+                { name: "Escape", alias: "GymEnd", imageRotation: -90, imageCoords: { x: 5, y: 60 } }
             );
         }
 

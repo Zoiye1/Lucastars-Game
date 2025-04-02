@@ -52,13 +52,13 @@ export class HallwayRoom extends Room {
         const playersession: PlayerSession = gameService.getPlayerSession();
         const result: Arrowroom[] = [
             { name: "Stranger-room", alias: "strangerroom", imageRotation: -90, imageCoords: { x: 54, y: 20 } },
-            { name: "Cafeteria", alias: "cafeteria", imageRotation: 180, imageCoords: { x: 60, y: 67 } },
-            { name: "Toilet", alias: "toilet", imageRotation: 90, imageCoords: { x: 68, y: 20 } },
+            { name: "Cafeteria", alias: "cafeteria", imageRotation: 180, imageCoords: { x: 60, y: 80 } },
+            { name: "Toilet", alias: "toilet", imageRotation: 90, imageCoords: { x: 78, y: 20 } },
         ];
 
         if (playersession.windowBroken) {
             result.push(
-                { name: "Your-room", alias: "starterroom", imageRotation: 90, imageCoords: { x: 77, y: 30 } }
+                { name: "Your-room", alias: "starterroom", imageRotation: 90, imageCoords: { x: 86, y: 45 } }
             );
         }
 

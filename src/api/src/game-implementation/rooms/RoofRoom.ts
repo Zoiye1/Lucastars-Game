@@ -81,14 +81,14 @@ export class RoofRoom extends Room {
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "vent", alias: "Vents", imageRotation: -90, imageCoords: { x: 20, y: 60 } },
+            { name: "vent", alias: "Vents", imageRotation: -90, imageCoords: { x: 10, y: 60 } },
 
         ];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         // Only add the arrow is the player actually opened the door
         if (playerSession.EscapedRoof) {
             result.push(
-                { name: "Escape", alias: "RoofEndRoom", imageRotation: 90, imageCoords: { x: 77, y: 50 } }
+                { name: "Escape", alias: "RoofEndRoom", imageRotation: 90, imageCoords: { x: 80, y: 50 } }
             );
         }
 

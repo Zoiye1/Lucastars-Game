@@ -51,8 +51,8 @@ export class StrangerRoom extends Room {
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 25, y: 25 } },
-            { name: "vent", alias: "Vents2", imageRotation: 0, imageCoords: { x: 65, y: 25 } }, /// Recht omhoog
+            { name: "Hallway", alias: "hallway", imageRotation: 180, imageCoords: { x: 15, y: 25 } },
+            { name: "vent", alias: "Vents2", imageRotation: 0, imageCoords: { x: 80, y: 18 } }, /// Recht omhoog
 
         ];
 
@@ -70,7 +70,7 @@ export class StrangerRoom extends Room {
                 alias: "SheetsItem",
                 imageUrl: "strangerroom/Sheets",
                 type: ["actionableItem"],
-                imageCoords: { x: 61, y: 76 },
+                imageCoords: { x: 65, y: 76 },
             });
         }
 
