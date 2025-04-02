@@ -56,7 +56,7 @@ export class KitchenRoom extends Room {
         // Only add the arrow is the player actually opened the door
         if (playerSession.playerOpenedDoorToStorage) {
             result.push(
-                { name: "storage", alias: "StorageRoom", imageRotation: 180, imageCoords: { x: 46, y: 18 } }
+                { name: "storage", alias: "StorageRoom", imageRotation: 180, imageCoords: { x: 43, y: 20 } }
             );
         }
 
@@ -72,6 +72,12 @@ export class KitchenRoom extends Room {
         const result: ClickItem[] = [
             { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 52 } },
         ];
+        if (!playerSession.playerOpenedDoorToStorage) {
+            result.push({ name: "Door", alias: "door", imageUrl: "kitchen/DoorClosedStorage", type: ["actionableItemOpen"], imageCoords: { x: 40, y: 36 } });
+        }
+        if (playerSession.playerOpenedDoorToStorage) {
+            result.push({ name: "Door", alias: "door", imageUrl: "kitchen/DoorOpenStorage", type: ["actionableItemOpen"], imageCoords: { x: 40, y: 36 } });
+        }
         if (!playerSession.pickedUpKnife) {
             result.push({ name: "Knife", alias: "KnifeItem", imageUrl: "kitchen/KnifeKitchen", type: ["actionableItem"], imageCoords: { x: 25, y: 42 } });
         }
