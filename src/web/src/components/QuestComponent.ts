@@ -19,6 +19,10 @@ const styles: string = css`
         width: 50px;
         height: 50px;
     }
+    
+    .quest-button:hover {
+        filter: brightness(0.5);
+    }
 
     .quest-button img {
         width: 258%;

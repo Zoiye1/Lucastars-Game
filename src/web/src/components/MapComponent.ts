@@ -74,6 +74,9 @@ body {
     width: 50px;
     height: 50px;
 }
+    .map-button:hover {
+    filter: brightness(0.5);
+}
 
 .map-button img {
     width: 200%;

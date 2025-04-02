@@ -23,6 +23,10 @@ const styles: string = css`
         width: 50px;
         height: 50px;
     }
+       .hint-button:hover {
+       filter: brightness(0.5);
+    }
+         
 
     .hint-button img {
         width: 200%;

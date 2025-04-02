@@ -22,6 +22,10 @@ const styles: string = css`
         cursor: pointer;
         width: 50px;
         height: 50px;
+    } 
+
+    .crafting-button:hover{
+        filter: brightness(0.5);
     }
 
     .crafting-button img {
