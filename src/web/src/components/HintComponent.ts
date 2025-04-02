@@ -3,6 +3,7 @@ import { css, htmlArray } from "../helpers/webComponents";
 import { GameEventService } from "../services/GameEventService";
 import { Page } from "../enums/Page";
 import { GameRouteService } from "../services/GameRouteService";
+import { HintRouteService } from "../services/HintService";
 
 /** CSS affecting the {@link HintComponent} */
 const styles: string = css`
@@ -29,6 +30,13 @@ const styles: string = css`
         color: white;
     }
 `;
+
+type QuestArray = {
+    NPC: string;
+    startQuest: boolean;
+    completed: boolean;
+    description: string;
+};
 
 export type PlayerSession = {
     playerOpenedElevator: boolean;
@@ -95,8 +103,13 @@ export type PlayerSession = {
     EscapedRoof: boolean;
 };
 
-const hints: string[] = [
-    "Use the parachute to escape from a high building",
+type hint = {
+    condition: boolean;
+    hint: string;
+};
+
+const hints: hint[] = [
+    wantsToHelpCook && !helpedCook, "You can help the cook by picking up the bucket in the toilet"
 ];
 
 export class HintComponent extends HTMLElement {
@@ -106,6 +119,8 @@ export class HintComponent extends HTMLElement {
     private readonly _gameEventService: GameEventService = new GameEventService();
     /** Instantie van de game route service */
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
+    /** Instantie van de hint route service */
+    private readonly _hintRouteService: HintRouteService = new HintRouteService();
 
     private _playerSession: PlayerSession | undefined;
     /** Notification timeout ID */
@@ -114,8 +129,8 @@ export class HintComponent extends HTMLElement {
     /**
      * De "constructor" van een Web Component
      */
-    public connectedCallback(): void {
-        this._playerSession = this.handleGetPlayerSession();
+    public async connectedCallback(): Promise<void> {
+        this._playerSession = await this.handleGetPlayerSession();
 
         this.attachShadow({ mode: "open" });
 
@@ -240,5 +255,6 @@ export class HintComponent extends HTMLElement {
         catch (error) {
             console.error(error);
         }
+        return undefined;
     }
 }

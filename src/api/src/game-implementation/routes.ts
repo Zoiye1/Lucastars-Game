@@ -4,6 +4,7 @@ import { GameController } from "./controllers/GameController";
 import { InventoryController } from "./controllers/InventoryController";
 import { MoveController } from "./controllers/MoveController";
 import { CraftingController } from "./controllers/CraftingController";
+import { HintController } from "./controllers/HintController";
 
 // Create a router
 export const router: Router = Router();
@@ -14,6 +15,7 @@ const gameController: GameController = new GameController();
 const inventoryController: InventoryController = new InventoryController();
 const moveController: MoveController = new MoveController();
 const craftingController: CraftingController = new CraftingController();
+const hintController: HintController = new HintController();
 
 // Setup endpoints
 router.get("/", (_, res) => {
@@ -25,6 +27,7 @@ router.use(gameService.createPlayerSessionMiddleware());
 
 router.get("/state", (req, res) => gameController.handleStateRequest(req, res));
 router.post("/action", (req, res) => gameController.handleActionRequest(req, res));
+router.get("/hint", (req, res) => hintController.handlePlayerSessionRequest(req, res));
 // Maak een nieuwe router voor quests
 router.get("/active", (req, res) => gameController.getActiveQuests(req, res));
 router.get("/inventory", (req, res) => inventoryController.handleGetInventoryRequest(req, res));
