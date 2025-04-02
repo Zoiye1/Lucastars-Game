@@ -11,6 +11,25 @@ const styles: string = css`
         display: block;
     }
 
+    .hint-button {
+        position: absolute;
+        top: 75%;
+        right: 12%;
+        z-index: 1;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+    }
+
+    .hint-button img {
+        width: 200%;
+        height: 200%;
+        object-fit: contain;
+    }
+
     .notification {
         position: absolute;
         top: 15%;
@@ -103,14 +122,10 @@ export type PlayerSession = {
     EscapedRoof: boolean;
 };
 
-type hint = {
-    condition: boolean;
-    hint: string;
+type Hint = {
+    condition: (session: PlayerSession) => boolean;
+    text: string;
 };
-
-const hints: hint[] = [
-    wantsToHelpCook && !helpedCook, "You can help the cook by picking up the bucket in the toilet"
-];
 
 export class HintComponent extends HTMLElement {
     /** Verzameling van geselecteerde GameObject knoppen */
@@ -126,12 +141,21 @@ export class HintComponent extends HTMLElement {
     /** Notification timeout ID */
     private _hintTimeoutId: number | null = null;
 
+    private readonly _hints: Hint[] = [
+        {
+            condition: session => session.wantsToHelpCleaner && !session.helpedCleaner && !session.pickedUpBucket,
+            text: "You can help the cleaner by picking up the bucket in the toilet.",
+        },
+        {
+            condition: session => session.inventory.includes("LadderItem"),
+            text: "You can place the ladder nearby a basket to climb out of here!",
+        },
+    ];
+
     /**
      * De "constructor" van een Web Component
      */
-    public async connectedCallback(): Promise<void> {
-        this._playerSession = await this.handleGetPlayerSession();
-
+    public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
         this.addEventListener("state-update", () => {
@@ -148,12 +172,13 @@ export class HintComponent extends HTMLElement {
      */
     private async refreshGameState(): Promise<void> {
         const state: GameState = await this._gameRouteService.getGameState();
+        this._playerSession = await this.handleGetPlayerSession();
 
         this.updateGameState(state);
     }
 
     /**
-     * Update de crafting component naar de nieuwe game state
+     * Update de hint component naar de nieuwe game state
      *
      * @param state Game state om de component mee te updaten
      */
@@ -175,7 +200,7 @@ export class HintComponent extends HTMLElement {
      * Verwijder een bestaande notificatie als deze er is
      */
     private removeExistingNotification(): void {
-        const existingNotification: HTMLElement | null | undefined = this.shadowRoot?.getElementById("crafting-notification");
+        const existingNotification: HTMLElement | null | undefined = this.shadowRoot?.getElementById("hint-notification");
         existingNotification?.remove();
 
         if (this._hintTimeoutId !== null) {
@@ -191,13 +216,16 @@ export class HintComponent extends HTMLElement {
      * @param message De boodschap om te tonen
      * @param duration Tijd in ms dat de notificatie zichtbaar blijft
      */
-    private showHintNotification(message: string, duration: number = 3000): void {
+    private showHintNotification(duration: number = 5000): void {
         this.removeExistingNotification();
+
+        console.log(this._playerSession);
+        const hintMessage: string = this.getRandomHint();
 
         const notificationElement: HTMLElement = document.createElement("div");
         notificationElement.innerHTML = `
             <div id="hint-notification" class="notification">
-                ${message}
+                ${hintMessage}
             </div>
         `;
 
@@ -214,6 +242,25 @@ export class HintComponent extends HTMLElement {
     }
 
     /**
+     * Verkrijg een random hint gebaseerd op playerSession
+     */
+    private getRandomHint(): string {
+        if (!this._playerSession) {
+            return "Hint system is loading. Please try again later.";
+        }
+
+        // Filtreer hints op basis van player session
+        const relevantHints: Hint[] = this._hints.filter(hint => hint.condition(this._playerSession!));
+
+        if (relevantHints.length === 0) {
+            return "You're doing well! Keep exploring and interacting with the environment.";
+        }
+
+        const randomIndex: number = Math.floor(Math.random() * relevantHints.length);
+        return relevantHints[randomIndex].text;
+    }
+
+    /**
      * Render de inhoud van deze component
      */
     private render(): void {
@@ -225,10 +272,9 @@ export class HintComponent extends HTMLElement {
             <style>
                 ${styles}
             </style>
-            <button class="ask-hint-button" id="craftingButton">
+            <button class="hint-button" id="hintButton">
                 <img src="/assets/img/HintButton.png" alt="ask hint">
             </button>
-            <div class="hint-popup">This is a hint</div>
         `;
 
         while (this.shadowRoot.firstChild) {
@@ -236,7 +282,7 @@ export class HintComponent extends HTMLElement {
         }
         this.shadowRoot.append(...elements);
 
-        const askHintButton: HTMLButtonElement = this.shadowRoot.querySelector(".ask-hint-button") as HTMLButtonElement;
+        const askHintButton: HTMLButtonElement = this.shadowRoot.querySelector(".hint-button") as HTMLButtonElement;
 
         askHintButton.addEventListener("click", () => {
             this.showHintNotification();

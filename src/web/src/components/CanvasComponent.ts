@@ -363,6 +363,7 @@ export class CanvasComponent extends HTMLElement {
                     <game-crafting></game-crafting>
                     <game-quest></game-quest>
                     <game-map></game-map>
+                    <game-hint></game-hint>
                     <game-inventory> </game-inventory>
                 </div>
             `;
