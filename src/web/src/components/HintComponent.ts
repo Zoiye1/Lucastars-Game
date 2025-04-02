@@ -210,6 +210,10 @@ export class HintComponent extends HTMLElement {
             text: "The professor is waiting for you in the lab. See if he needs any help.",
         },
         {
+            condition: session => session.windowBroken && (session.helpedCook || session.ThreatenedCook) && !session.inventory.includes("GlueItem"),
+            text: "The glue item might be somewhere in the storage.",
+        },
+        {
             condition: session => session.windowBroken && (session.inventory.includes("HammerItem") || session.inventory.includes("GlueItem")) && !session.choppedTree,
             text: "You can use a hammer to chop trees and obtain sticks.",
         },
