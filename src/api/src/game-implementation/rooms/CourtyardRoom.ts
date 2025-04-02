@@ -79,7 +79,7 @@ export class CourtyardRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "Smoker", alias: "smoker", imageUrl: "courtyard/Smoker", type: ["npc"], imageCoords: { x: 20, y: 62 } },
+            { name: "Smoker", alias: "smoker", imageUrl: "gif/SmokerCharacter", type: ["npc"], imageCoords: { x: 30, y: 62 } },
         ];
         if (!playerSession.pickedUpJumpRope) {
             result.push({ name: "JumpRope", alias: "JumpRopeItem", imageUrl: "courtyard/JumpRope", type: ["actionableItem"], imageCoords: { x: 50, y: 88 } });
