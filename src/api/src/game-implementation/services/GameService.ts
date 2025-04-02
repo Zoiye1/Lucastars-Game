@@ -209,6 +209,7 @@ export class GameService extends BaseGameService<PlayerSession> {
             talkedToCook: false,
             talkedToGymFreak: false,
             talkedToProfessor: false,
+            choppedTree: false,
         };
     }
 

@@ -59,8 +59,11 @@ export class TreeItem extends TargetItem implements Examine {
      * @returns {ActionResult | undefined} Het resultaat van de actie.
      */
     public useWith(sourceItem: GameObject): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+
         if (sourceItem.alias === "HammerItem") {
             return this.obtainSticks();
+            playerSession.choppedTree = true;
         }
         return new TextActionResult(["That doesn't work on the tree."]);
     }

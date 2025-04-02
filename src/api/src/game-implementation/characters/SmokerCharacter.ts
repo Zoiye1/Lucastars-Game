@@ -93,6 +93,7 @@ export class SmokerCharacter extends Character implements Examine {
                 }
             }
             else {
+                playerSession.wantsToHelpSmoker = true;
                 return new TextActionResult(["Smoker: No doubt, no doubt. Clock's tickin though... don't leave me hangin."]);
             }
         }

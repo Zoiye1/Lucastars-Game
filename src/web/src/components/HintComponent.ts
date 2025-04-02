@@ -126,6 +126,7 @@ export type PlayerSession = {
     talkedToCook: boolean;
     talkedToGymFreak: boolean;
     talkedToProfessor: boolean;
+    choppedTree: boolean;
 };
 
 type Hint = {
@@ -167,6 +168,62 @@ export class HintComponent extends HTMLElement {
         {
             condition: session => session.inventory.includes("BombItem"),
             text: "Place the bomb close to the dealer and escape from there!",
+        },
+        {
+            condition: session => session.windowBroken && !session.talkedToDealer,
+            text: "Try talking to the dealer in the toilet and see what he wants",
+        },
+        {
+            condition: session => session.windowBroken && !session.talkedToCleaner,
+            text: "Try talking to the cleaner in the cafeteria, he may need your help",
+        },
+        {
+            condition: session => session.talkedToCleaner && !session.wantsToHelpCleaner,
+            text: "You may want to help the cleaner with his problem.",
+        },
+        {
+            condition: session => session.windowBroken && !session.talkedToGymFreak,
+            text: "Have you tried talking to the gym freak?",
+        },
+        {
+            condition: session => session.windowBroken && session.talkedToGymFreak && !session.talkedToDealer,
+            text: "The gym freak needs steroids. Try talking to the dealer and see what he wants.",
+        },
+        {
+            condition: session => session.windowBroken && session.talkedToGymFreak && session.talkedToDealer && !session.helpedCleaner,
+            text: "The gym freak needs steroids. Try getting in the kitchen and find powderd sugar for the dealer.",
+        },
+        {
+            condition: session => session.windowBroken && !session.talkedToSmoker && session.helpedCleaner,
+            text: "Have you tried talking to the smoker in the courtyard? He might have a deal for you",
+        },
+        {
+            condition: session => session.windowBroken && session.wantsToHelpSmoker && !session.helpedCleaner,
+            text: "The dealer gives cigarettes in exchange for 10 euros. I think we need to help the cleaner first though.",
+        },
+        {
+            condition: session => session.windowBroken && session.helpedCleaner && !session.talkedToCook,
+            text: "You have gained access to the kitchen. Try talking to the cook.",
+        },
+        {
+            condition: session => session.windowBroken && session.helpedCook && !session.talkedToProfessor,
+            text: "The professor is waiting for you in the lab. See if he needs any help.",
+        },
+        {
+            condition: session => session.windowBroken && (session.inventory.includes("HammerItem") || session.inventory.includes("GlueItem")) && !session.choppedTree,
+            text: "You can use a hammer to chop trees and obtain sticks.",
+        },
+        {
+            condition: session => session.inventory.includes("ten euro"),
+            text: "You have received ten euro from the cleaner. I remember that the dealer wants ten euro in exchange for something",
+        },
+        {
+            condition: session => session.inventory.includes("6sticks"),
+            text: "There must be some sticks fallen from branches on the roof!",
+        },
+        {
+            condition: session => session.wantsToHelpSmoker && !session.helpedSmoker && session.helpedCleaner,
+            text: "The smoker wants some cigarettes, I heard that the dealer gives you cigs in exchange for a ten euro bill.",
         },
     ];
 
