@@ -25,6 +25,7 @@ const styles: string = css`
     }
        .hint-button:hover {
        filter: brightness(0.5);
+       scale: 1.1;
     }
          
 

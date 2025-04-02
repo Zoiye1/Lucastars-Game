@@ -26,6 +26,7 @@ const styles: string = css`
 
     .crafting-button:hover{
         filter: brightness(0.5);
+        scale: 1.1;
     }
 
     .crafting-button img {
