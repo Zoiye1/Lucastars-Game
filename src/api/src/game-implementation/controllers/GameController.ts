@@ -303,6 +303,14 @@ export class GameController {
                 completed: !!playerSession.helpedDealer,
                 description: "Find the Sugar & talk to the dealer",
             },
+
+            {
+                NPC: "dealer",
+                startQuest: !!playerSession.wantsToHelpDealer2,
+                completed: !!playerSession.helpedDealer2,
+                description: "Trade the 10 bill and get the cigarettes",
+            },
+
             {
                 NPC: "cleaner",
                 startQuest: playerSession.wantsToHelpCleaner,
