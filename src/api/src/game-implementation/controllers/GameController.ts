@@ -316,7 +316,7 @@ export class GameController {
             {
                 NPC: "cook",
                 startQuest: !!playerSession.wantsToHelpCook,
-                completed: !!playerSession.helpedCook,
+                completed: (!!playerSession.helpedCook || playerSession.ThreatenedCook),
                 description: "Find the fork or find another way to get the key from the cook.",
                 reward: "Reward: Acces to the storage.",
             },
