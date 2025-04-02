@@ -123,6 +123,7 @@ type QuestArray = {
     startQuest: boolean;
     completed: boolean;
     description: string;
+    reward: string;
 };
 
 export class QuestComponent extends HTMLElement {
@@ -155,6 +156,8 @@ export class QuestComponent extends HTMLElement {
                     </span>
                 </div>
                 <p class="quest-description">${quest.description}</p>
+                <p class="quest-description">${quest.reward}</p>
+
             </li>
         `;
     }
@@ -198,31 +201,6 @@ export class QuestComponent extends HTMLElement {
         if (closeButton) {
             closeButton.addEventListener("click", () => this.toggleQuestPanel());
         }
-
-        this.addDescriptionToggleListeners();
-    }
-
-    private addDescriptionToggleListeners(): void {
-        if (!this.shadowRoot) return;
-
-        const toggleButtons: NodeListOf<HTMLButtonElement> =
-            this.shadowRoot.querySelectorAll(".description-toggle-btn");
-
-        toggleButtons.forEach(button => {
-            button.addEventListener("click", event => {
-                const target: HTMLButtonElement = event.target as HTMLButtonElement;
-                const descriptionDiv: HTMLElement | null = target.nextElementSibling as HTMLElement;
-
-                if (descriptionDiv.classList.contains("hidden")) {
-                    descriptionDiv.classList.remove("hidden");
-                    target.textContent = "Hide description";
-                }
-                else {
-                    descriptionDiv.classList.add("hidden");
-                    target.textContent = "View description";
-                }
-            });
-        });
     }
 
     private async toggleQuestPanel(): Promise<void> {
