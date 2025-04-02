@@ -28,9 +28,10 @@ const styles: string = css`
 
     .quest-panel {
         display: none;
-        position: absolute;
+        position: fixed; /* Veranderd van absolute naar fixed */
         top: 50px;
-        right: 100;
+        left: auto; /* Reset left */
+        right: 20px; /* Aanpasbaar */
         width: 300px;
         background-color: rgba(20, 20, 20, 0.95);
         border: 2px solid #332c57;
@@ -39,7 +40,9 @@ const styles: string = css`
         color: white;
         max-height: 400px;
         overflow-y: auto;
+        z-index: 1000; /* Zorgt ervoor dat het paneel boven andere elementen komt */
     }
+
 
     .quest-panel.active {
         display: block;
