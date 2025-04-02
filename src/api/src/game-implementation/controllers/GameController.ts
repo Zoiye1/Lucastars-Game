@@ -13,6 +13,7 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { PlayerSession } from "../types";
 import { ShowInventoryActionResult, ShowTargetsActionResult } from "../actionResults/InventoryActionResult";
 import { UseAction } from "../actions/UseAction";
+import { Character } from "../../game-base/gameObjects/Character";
 
 /**
  * Controller to handle all game related requests
@@ -269,7 +270,7 @@ export class GameController {
      */
     private convertTalkChoiceToReference(talkResult: TalkActionResult, choice: TalkChoice): ActionReference {
         // Get the character from the talkResult
-        const character = talkResult.character;
+        const character: Character = talkResult.character;
 
         return {
             alias: choice.toAlias(character),
