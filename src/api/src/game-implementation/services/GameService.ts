@@ -210,6 +210,8 @@ export class GameService extends BaseGameService<PlayerSession> {
             talkedToGymFreak: false,
             talkedToProfessor: false,
             choppedTree: false,
+            wantsToHelpDealer2: false,
+            helpedDealer2: false,
         };
     }
 
