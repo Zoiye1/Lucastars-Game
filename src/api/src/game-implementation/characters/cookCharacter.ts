@@ -38,6 +38,8 @@ export class cookCharacter extends Character implements Examine {
 
     public talk(choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.talkedToCook) playerSession.talkedToCook = true;
+
         if (!playerSession.pickedUpKey) {
             if (choiceId === 1) {
                 const inventory: GameObject[] = gameService.getGameObjectsFromInventory();

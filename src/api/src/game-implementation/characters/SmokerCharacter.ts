@@ -47,6 +47,7 @@ export class SmokerCharacter extends Character implements Examine {
 
     public talk(choiceId?: number): ActionResult | undefined {
         const playerSession: PlayerSession = gameService.getPlayerSession();
+        if (!playerSession.talkedToSmoker) playerSession.talkedToSmoker = true;
 
         if (!playerSession.tradedWithSmoker) {
             if (choiceId !== 1 && choiceId !== 2 && choiceId !== 3 && choiceId !== 4) {
@@ -92,6 +93,7 @@ export class SmokerCharacter extends Character implements Examine {
                 }
             }
             else {
+                playerSession.wantsToHelpSmoker = true;
                 return new TextActionResult(["Smoker: No doubt, no doubt. Clock's tickin though... don't leave me hangin."]);
             }
         }

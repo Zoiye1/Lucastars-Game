@@ -203,6 +203,15 @@ export class GameService extends BaseGameService<PlayerSession> {
             wardrobeOpened: false,
             HasVisitedStarterRoom: false,
             placedBomb: false,
+            talkedToCleaner: false,
+            talkedToSmoker: false,
+            talkedToDealer: false,
+            talkedToCook: false,
+            talkedToGymFreak: false,
+            talkedToProfessor: false,
+            choppedTree: false,
+            wantsToHelpDealer2: false,
+            helpedDealer2: false,
         };
     }
 
