@@ -80,7 +80,6 @@ export class CleanerCharacter extends Character implements Examine {
                 );
             }
             else if (choiceId === 3) {
-                playerSession.wantsToHelpCleaner = true;
                 return new TalkActionResult(
                     this,
                     ["Cleaner: Thank you! I just need my water bucket, but someone took it. If you can help me find it, I would really appreciate it, and I might have something for you in return."],
@@ -94,6 +93,7 @@ export class CleanerCharacter extends Character implements Examine {
                 return new TextActionResult(["Cleaner: Don't talk to me like that... I am already exhausted!"]);
             }
             else if (choiceId === 5) {
+                playerSession.wantsToHelpCleaner = true;
                 return new TextActionResult(["Cleaner: Thank you for trying to help. Goodluck :)"]);
             }
             else {
@@ -105,6 +105,7 @@ export class CleanerCharacter extends Character implements Examine {
                     return new TextActionResult(["Cleaner: Amazing! Thank you for helping me. Now I can finally make my boss happy! I promised you a reward and here you go, a €10 bill. Go ahead and treat yourself with a gift :)"]);
                 }
                 else {
+                    playerSession.wantsToHelpCleaner = true;
                     return new TextActionResult(["Cleaner: Haha.. that's not funny. You do not have a bucket on you. Please keep looking..."]);
                 };
             }
