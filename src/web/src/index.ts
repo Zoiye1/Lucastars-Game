@@ -10,6 +10,7 @@ import { ClickInteractableComponent } from "./components/ClickInteractableCompon
 import { AudioComponent } from "./components/AudioComponent";
 // import { ArrowComponent } from "./components/ArrowComponent";
 import { enableAudioAutoplay } from "./utils/audioUtils";
+import { HintComponent } from "./components/HintComponent";
 
 enableAudioAutoplay();
 
@@ -25,3 +26,4 @@ window.customElements.define("game-crafting", CraftingComponent);
 window.customElements.define("game-quest", QuestComponent);
 window.customElements.define("game-map", MapComponent);
 window.customElements.define("game-audio", AudioComponent);
+window.customElements.define("game-hint", HintComponent);
