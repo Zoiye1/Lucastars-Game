@@ -143,12 +143,24 @@ export class HintComponent extends HTMLElement {
 
     private readonly _hints: Hint[] = [
         {
+            condition: session => !session.ventUnlocked,
+            text: "Can we use a fork to unscrew the vents?",
+        },
+        {
+            condition: session => !session.windowBroken,
+            text: "Throw something at the window to break it or smash it with an hammer!",
+        },
+        {
             condition: session => session.wantsToHelpCleaner && !session.helpedCleaner && !session.pickedUpBucket,
             text: "You can help the cleaner by picking up the bucket in the toilet.",
         },
         {
             condition: session => session.inventory.includes("LadderItem"),
             text: "You can place the ladder nearby a basket to climb out of here!",
+        },
+        {
+            condition: session => session.inventory.includes("BombItem"),
+            text: "Place the bomb close to the dealer and escape from there!",
         },
     ];
 

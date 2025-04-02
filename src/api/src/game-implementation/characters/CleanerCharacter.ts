@@ -125,7 +125,7 @@ export class CleanerCharacter extends Character implements Examine {
                 // choiceId == 8
                 if (playerSession.inventory.includes("bucket")) {
                     playerSession.helpedCleaner = true;
-                    playerSession.inventory.push("ten-euro-bill");
+                    playerSession.inventory.push("ten euro");
                     playerSession.inventory.splice(playerSession.inventory.indexOf("bucket"), 1);
                     return new TextActionResult(["Cleaner: Amazing! Thank you for helping me. Now I can finally make my boss happy! I promised you a reward and here you go, a €10 bill. Go ahead and treat yourself with a gift :)"]);
                 }
