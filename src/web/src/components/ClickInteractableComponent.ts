@@ -135,7 +135,7 @@ export class ClickInteractableComponent extends HTMLElement {
             clearTimeout(resizeTimeout);
             resizeTimeout = window.setTimeout(() => {
                 void this.refreshGameState();
-            }, 600);
+            }, 700);
         });
         if (!this.shadowRoot) {
             return;
