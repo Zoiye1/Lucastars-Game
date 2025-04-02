@@ -7,9 +7,9 @@ const styles: string = css`
         font-family: "Onesize", sans-serif;
         font-size: 18px;
         font-weight: bold;
-        background-color: #f0f0f0;
-        border: 3px solid #222;
-        color: #222;
+        background-color: #7f6ed7;
+        border: 2px solid #332c57;
+        color: white;
         cursor: pointer;
         transition: all 0.2s;
     }
@@ -51,8 +51,10 @@ const styles: string = css`
     }
 
     .quest-title {
-        font-weight: bold;
-        margin-bottom: 5px;
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #7f6ed7;
     }
 
     .description-toggle-btn {
@@ -130,6 +132,7 @@ export class QuestComponent extends HTMLElement {
             <button class="open-quest-btn ui-btn" id="questButton">
                 <img src="/assets/img/QuestButton.png" alt="Quests">
             </button>
+            
             <dialog id="questDialog">
                 <div class="quest-list">${questCardsHTML}</div>
                 <button class="ui-btn" id="closeQuestDialog">✕</button>

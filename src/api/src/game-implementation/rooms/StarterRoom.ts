@@ -26,7 +26,6 @@ export class StarterRoom extends Room {
     /** De alias voor de startkamer. */
     public static readonly Alias: string = "starterroom";
 
-
     /**
      * Maakt een nieuwe instantie van StarterRoom aan.
      */
