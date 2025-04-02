@@ -30,7 +30,7 @@ const styles: string = css`
         display: none;
         position: absolute;
         top: 50px;
-        right: 0;
+        right: 100;
         width: 300px;
         background-color: rgba(20, 20, 20, 0.95);
         border: 2px solid #332c57;
