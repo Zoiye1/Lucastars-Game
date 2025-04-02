@@ -116,6 +116,7 @@ export class DealerCharacter extends Character implements Examine {
 
         if (_choiceId === 8) {
             if (playerSession.inventory.includes("ten euro")) {
+                playerSession.helpedDealer2 = true;
                 playerSession.inventory.push("CigarettesItem");
                 playerSession.inventory.splice(playerSession.inventory.indexOf("ten euro"), 1);
                 return new TextActionResult(["Dealer: Amazing! Here you have the pack of cigarettes."]);
