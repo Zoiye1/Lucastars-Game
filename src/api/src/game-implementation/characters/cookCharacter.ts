@@ -121,10 +121,13 @@ export class cookCharacter extends Character implements Examine {
                 gameService.getPlayerSession().GaveTheForkToCook = true;
                 playerSession.helpedCook = true;
                 playerSession.inventory.splice(playerSession.inventory.indexOf("ForkItem"), 1);
-                return new TextActionResult(
-                    [
+                return new TalkActionResult(
+                    this, [
                         "You hand the Cook the Fork",
                         "Cook: \"Oh thank you! You're a life saver!\"", "If theres anything I can do for you just ask me!",
+                    ],
+                    [
+                        new TalkChoice (3, "\"Could you open that door for me?\""),
                     ]
                 );
             }
