@@ -33,17 +33,17 @@ export class StrangerRoom extends Room {
     }
 
     public images(): string[] {
-        const playerSession: PlayerSession = gameService.getPlayerSession();
+        // const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: string[] = ["strangerroom/StrangerRoomBackground"];
 
-        if (playerSession.wardrobeOpened) {
-            result.push("strangerroom/Strangeroom-opend");
+        // if (playerSession.wardrobeOpened) {
+        //     result.push("strangerroom/Strangeroom-opend");
 
-            // Sheets alleen toevoegen als ze nog niet zijn opgepakt
-            // if (!playerSession.pickedUpSheets) {
-            //     result.push("strangerroom/Sheets");
-            // }
-        }
+        //     // Sheets alleen toevoegen als ze nog niet zijn opgepakt
+        //     // if (!playerSession.pickedUpSheets) {
+        //     //     result.push("strangerroom/Sheets");
+        //     // }
+        // }
 
         return result;
     }
@@ -64,6 +64,26 @@ export class StrangerRoom extends Room {
         const result: ClickItem[] = [];
 
         // Voeg de sheets alleen toe als ze nog niet zijn opgepakt
+        if (playerSession.wardrobeOpened) {
+            result.push({
+                name: "Closet",
+                alias: "wardrobe",
+                imageUrl: "strangerroom/ClosetOpen",
+                type: ["actionableItemOpen"],
+                imageCoords: { x: 53, y: 46 },
+            });
+        }
+        if (!playerSession.wardrobeOpened) {
+            {
+                result.push({
+                    name: "Closet",
+                    alias: "wardrobe",
+                    imageUrl: "strangerroom/ClosetClosed",
+                    type: ["actionableItemOpen"],
+                    imageCoords: { x: 53, y: 46 },
+                });
+            }
+        }
         if (playerSession.wardrobeOpened && !playerSession.pickedUpSheets) {
             result.push({
                 name: "Sheets",
