@@ -111,6 +111,20 @@ export class GameController {
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
     private async convertActionResultToGameState(actionResult?: ActionResult): Promise<GameState | undefined> {
+        // Get the current room first, as we'll need it for backgrounds in all cases
+        const currentRoom: Room | undefined = gameService.getGameObjectByAlias(
+            gameService.getPlayerSession().currentRoom
+        ) as Room | undefined;
+
+        // If no current room is found, this request is invalid.
+        if (!currentRoom) {
+            console.error("[error][GameController::convertActionResultToGameState] No current room found!");
+            return undefined;
+        }
+
+        // Get the room's background images for use in all game states
+        const roomImages: string[] = await currentRoom.images();
+
         // Handle ShowInventoryActionResult to show inventory items
         if (actionResult instanceof ShowInventoryActionResult) {
             const inventoryItems: GameObject[] = actionResult.inventoryItems;
@@ -137,7 +151,9 @@ export class GameController {
                 actions: actions,
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Inventory Selection",
-                roomImages: [],
+                roomImages: roomImages, // Use the current room's images
+                roomArrowImages: currentRoom.ArrowUrl(),
+                roomClickImages: currentRoom.ClickItem(),
             } as unknown as GameState;
         }
 
@@ -146,7 +162,6 @@ export class GameController {
             const sourceItem: GameObject = actionResult.sourceItem;
             const targetItems: GameObject[] = actionResult.targetItems;
 
-            // const sourceRef: GameObjectReference = await this.convertGameObjectToReference(sourceItem);
             const targetRefs: GameObjectReference[] = [];
 
             for (const item of targetItems) {
@@ -170,7 +185,9 @@ export class GameController {
                 actions: actions,
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Target Selection",
-                roomImages: [],
+                roomImages: roomImages, // Use the current room's images
+                roomArrowImages: currentRoom.ArrowUrl(),
+                roomClickImages: currentRoom.ClickItem(),
             } as unknown as GameState;
         }
 
@@ -180,18 +197,6 @@ export class GameController {
                 type: "switch-page",
                 page: actionResult.page,
             };
-        }
-
-        // The room can have changed after executing an action, so we have to retrieve the player session again!
-        const room: Room | undefined = gameService.getGameObjectByAlias(
-            gameService.getPlayerSession().currentRoom
-        ) as Room | undefined;
-
-        // If no current room is found, this request is invalid.
-        if (!room) {
-            console.error("[error][GameController::convertActionResultToGameState] No current room found!");
-
-            return undefined;
         }
 
         // Determine the text to show to the player
@@ -213,7 +218,7 @@ export class GameController {
         else {
             actions = [];
 
-            for (const action of await room.actions()) {
+            for (const action of await currentRoom.actions()) {
                 actions.push(await this.convertActionToReference(action));
             }
         }
@@ -221,37 +226,21 @@ export class GameController {
         // Determine the game objects to show to the player
         const objects: GameObjectReference[] = [];
 
-        for (const object of await room.objects()) {
+        for (const object of await currentRoom.objects()) {
             objects.push(await this.convertGameObjectToReference(object));
         }
 
         // Combine all data into a game state
         return {
             type: "default",
-            roomAlias: room.alias,
-            roomName: await room.name(),
-            roomImages: await room.images(),
-            roomArrowImages: room.ArrowUrl(),
-            roomClickImages: room.ClickItem(),
+            roomAlias: currentRoom.alias,
+            roomName: await currentRoom.name(),
+            roomImages: roomImages,
+            roomArrowImages: currentRoom.ArrowUrl(),
+            roomClickImages: currentRoom.ClickItem(),
             text: text,
             actions: actions,
             objects: objects,
-        };
-    }
-
-    /**
-     * Convert a talk choice into an action reference for the client application
-     *
-     * @param action Action instance to convert
-     * @param choice Choice instance to convert
-     *
-     * @returns Action reference for the client application
-     */
-    private convertTalkChoiceToReference(action: TalkActionResult, choice: TalkChoice): ActionReference {
-        return {
-            alias: choice.toAlias(action.character),
-            name: choice.text,
-            needsObject: false,
         };
     }
 
@@ -267,6 +256,25 @@ export class GameController {
             alias: action.alias,
             name: await action.name(),
             needsObject: action.needsObject,
+        };
+    }
+
+    /**
+     * Convert a talk choice into an action reference for the client application
+     *
+     * @param talkResult The talk action result containing the conversation context
+     * @param choice Talk choice to convert
+     *
+     * @returns Action reference for the client application
+     */
+    private convertTalkChoiceToReference(talkResult: TalkActionResult, choice: TalkChoice): ActionReference {
+        // Get the character from the talkResult
+        const character = talkResult.character;
+
+        return {
+            alias: choice.toAlias(character),
+            name: choice.text,
+            needsObject: false,
         };
     }
 

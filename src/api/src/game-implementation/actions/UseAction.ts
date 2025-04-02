@@ -52,7 +52,7 @@ export class UseAction extends Action {
         if (alias === UseAction.Alias) {
             const inventoryItems: GameObject[] = gameService.getGameObjectsFromInventory();
             if (inventoryItems.length === 0) {
-                return new TextActionResult(["You don't have anything to use."]);
+                return new TextActionResult(["You don't have anything to use, try looking around the room..."]);
             }
             return new ShowInventoryActionResult(inventoryItems);
         }

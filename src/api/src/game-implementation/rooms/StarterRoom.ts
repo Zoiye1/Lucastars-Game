@@ -38,7 +38,7 @@ export class StarterRoom extends Room {
      * @returns {string} De naam van de startkamer.
      */
     public name(): string {
-        return "Starterroom";
+        return "Your Room";
     }
 
     /**

@@ -61,6 +61,7 @@ import { MetalDoorItem } from "../items/MetalDoorItem";
 import { RoofItem } from "../items/RoofItem";
 import { BombItem } from "../items/BombItem";
 import { ToiletEndRoom } from "../rooms/ToiletEndRoom";
+import { VentsRoom2 } from "../rooms/VentsRoom2";
 
 /**
  * Implementation of the game service used to operate the game engine
@@ -91,6 +92,7 @@ export class GameService extends BaseGameService<PlayerSession> {
         this.registerGameObject(RoofEndRoom);
         this.registerGameObject(LabEndRoom);
         this.registerGameObject(ToiletEndRoom);
+        this.registerGameObject(VentsRoom2);
 
         // Items
         this.registerGameObject(BakingSodaItem);
