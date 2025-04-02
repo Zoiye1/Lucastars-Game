@@ -57,7 +57,7 @@ export class GymRoom extends Room implements Simple {
         const result: ClickItem[] = [
         ];
         if (!playerSession.helpedGymFreak) {
-            result.push({ name: "GymFreak", alias: "GymFreak", imageUrl: "Gym/GymFreakStart", type: ["npc"], imageCoords: { x: 7, y: 52 } });
+            result.push({ name: "GymFreak", alias: "GymFreak", imageUrl: "gif/GymFreakCharacter", type: ["npc"], imageCoords: { x: 20, y: 52 } });
         }
 
         return result;
