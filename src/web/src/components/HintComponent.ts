@@ -155,7 +155,7 @@ export class HintComponent extends HTMLElement {
 
     private readonly _hints: Hint[] = [
         {
-            condition: session => !session.ventUnlocked,
+            condition: session => !session.ventUnlocked && !session.pickedUpHammer,
             text: "Can we use a fork to unscrew the vents?",
         },
         {
@@ -183,43 +183,43 @@ export class HintComponent extends HTMLElement {
             text: "Try talking to the cleaner in the cafeteria, he may need your help",
         },
         {
-            condition: session => session.talkedToCleaner && !session.wantsToHelpCleaner,
-            text: "You may want to help the cleaner with his problem.",
-        },
-        {
             condition: session => session.windowBroken && !session.talkedToGymFreak,
             text: "Have you tried talking to the gym freak?",
         },
         {
-            condition: session => session.windowBroken && session.talkedToGymFreak && !session.talkedToDealer,
+            condition: session => session.talkedToCleaner && !session.wantsToHelpCleaner,
+            text: "You may want to help the cleaner with his problem.",
+        },
+        {
+            condition: session => session.talkedToGymFreak && !session.talkedToDealer,
             text: "The gym freak needs steroids. Try talking to the dealer and see what he wants.",
         },
         {
-            condition: session => session.windowBroken && session.talkedToGymFreak && session.talkedToDealer && !session.helpedCleaner,
-            text: "The gym freak needs steroids. Try getting in the kitchen and find powderd sugar for the dealer.",
+            condition: session => session.talkedToGymFreak && session.talkedToDealer && !session.helpedCleaner,
+            text: "The gym freak still needs steroids. Try getting in the kitchen and find powderd sugar for the dealer.",
         },
         {
-            condition: session => session.windowBroken && !session.talkedToSmoker && session.helpedCleaner,
+            condition: session => !session.talkedToSmoker && session.helpedCleaner,
             text: "Have you tried talking to the smoker in the courtyard? He might have a deal for you",
         },
         {
-            condition: session => session.windowBroken && session.wantsToHelpSmoker && !session.helpedCleaner,
+            condition: session => session.wantsToHelpSmoker && !session.helpedCleaner,
             text: "The dealer gives cigarettes in exchange for 10 euros. I think we need to help the cleaner first though.",
         },
         {
-            condition: session => session.windowBroken && session.helpedCleaner && !session.talkedToCook,
+            condition: session => session.helpedCleaner && !session.talkedToCook,
             text: "You have gained access to the kitchen. Try talking to the cook.",
         },
         {
-            condition: session => session.windowBroken && session.helpedCook && !session.talkedToProfessor,
+            condition: session => session.helpedCook && !session.talkedToProfessor,
             text: "The professor is waiting for you in the lab. See if he needs any help.",
         },
         {
-            condition: session => session.windowBroken && (session.helpedCook || session.ThreatenedCook) && !session.inventory.includes("GlueItem"),
+            condition: session => (session.helpedCook || session.ThreatenedCook) && !session.inventory.includes("GlueItem"),
             text: "The glue item might be somewhere in the storage.",
         },
         {
-            condition: session => session.windowBroken && (session.inventory.includes("HammerItem") || session.inventory.includes("GlueItem")) && !session.choppedTree,
+            condition: session => (session.inventory.includes("HammerItem") || session.inventory.includes("GlueItem")) && !session.choppedTree,
             text: "You can use a hammer to chop trees and obtain sticks.",
         },
         {
@@ -229,6 +229,10 @@ export class HintComponent extends HTMLElement {
         {
             condition: session => session.wantsToHelpSmoker && !session.helpedSmoker && session.helpedCleaner,
             text: "The smoker wants some cigs, I heard that the dealer gives you cigs in exchange for a ten euro bill.",
+        },
+        {
+            condition: session => session.playerOpenedSteelbox || session.helpedSmoker || session.helpedProfessor,
+            text: "To escape, you can try to craft escape items: a ladder, a parachute or a bomb. You can also escape via the lab or the gym.",
         },
     ];
 
