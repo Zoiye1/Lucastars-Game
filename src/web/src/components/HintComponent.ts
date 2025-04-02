@@ -32,7 +32,7 @@ const styles: string = css`
 
     .notification {
         position: absolute;
-        top: 15%;
+        top: 2%;
         left: 50%;
         transform: translateX(-50%);
         padding: 15px 25px;
@@ -214,16 +214,12 @@ export class HintComponent extends HTMLElement {
             text: "You can use a hammer to chop trees and obtain sticks.",
         },
         {
-            condition: session => session.inventory.includes("ten euro"),
-            text: "You have received ten euro from the cleaner. I remember that the dealer wants ten euro in exchange for something",
-        },
-        {
             condition: session => session.inventory.includes("6sticks"),
             text: "There must be some sticks fallen from branches on the roof!",
         },
         {
             condition: session => session.wantsToHelpSmoker && !session.helpedSmoker && session.helpedCleaner,
-            text: "The smoker wants some cigarettes, I heard that the dealer gives you cigs in exchange for a ten euro bill.",
+            text: "The smoker wants some cigs, I heard that the dealer gives you cigs in exchange for a ten euro bill.",
         },
     ];
 
@@ -291,7 +287,7 @@ export class HintComponent extends HTMLElement {
      * @param message De boodschap om te tonen
      * @param duration Tijd in ms dat de notificatie zichtbaar blijft
      */
-    private showHintNotification(duration: number = 5000): void {
+    private showHintNotification(duration: number = 7000): void {
         this.removeExistingNotification();
 
         console.log(this._playerSession);
