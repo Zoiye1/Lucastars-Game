@@ -118,7 +118,7 @@ export class QuestComponent extends HTMLElement {
     }
 
     private renderQuests(): string {
-        return this.activeQuests.map(quest => this.createQuestItem(quest)).join("");
+        return this.activeQuests.map((quest) => this.createQuestItem(quest)).join("");
     }
 
     private createQuestItem(quest: QuestArray): string {
@@ -173,11 +173,11 @@ export class QuestComponent extends HTMLElement {
         const closeButton: HTMLButtonElement | null = this.shadowRoot.querySelector("#closeQuestPanel");
 
         if (openButton) {
-            openButton.addEventListener("click", () => this.openQuestPanel());
+            openButton.addEventListener("click", () => this.toggleQuestPanel());
         }
 
         if (closeButton) {
-            closeButton.addEventListener("click", () => this.closeQuestPanel());
+            closeButton.addEventListener("click", () => this.toggleQuestPanel());
         }
 
         this.addDescriptionToggleListeners();
@@ -186,17 +186,19 @@ export class QuestComponent extends HTMLElement {
     private addDescriptionToggleListeners(): void {
         if (!this.shadowRoot) return;
 
-        const toggleButtons: NodeListOf<HTMLButtonElement> = this.shadowRoot.querySelectorAll(".description-toggle-btn");
+        const toggleButtons: NodeListOf<HTMLButtonElement> =
+            this.shadowRoot.querySelectorAll(".description-toggle-btn");
 
-        toggleButtons.forEach(button => {
-            button.addEventListener("click", event => {
+        toggleButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
                 const target: HTMLButtonElement = event.target as HTMLButtonElement;
                 const descriptionDiv: HTMLElement | null = target.nextElementSibling as HTMLElement;
 
                 if (descriptionDiv && descriptionDiv.classList.contains("hidden")) {
                     descriptionDiv.classList.remove("hidden");
                     target.textContent = "Hide description";
-                } else if (descriptionDiv) {
+                }
+                else if (descriptionDiv) {
                     descriptionDiv.classList.add("hidden");
                     target.textContent = "View description";
                 }
@@ -204,23 +206,27 @@ export class QuestComponent extends HTMLElement {
         });
     }
 
-    private async openQuestPanel(): Promise<void> {
-        await this.handleGetActiveQuests();
-        this._isPanelOpen = true;
-        this.render();
-    }
+    private async toggleQuestPanel(): Promise<void> {
+        this._isPanelOpen = !this._isPanelOpen;
 
-    private closeQuestPanel(): void {
-        this._isPanelOpen = false;
+        if (this._isPanelOpen) {
+            await this.handleGetActiveQuests();
+        }
+
         this.render();
     }
 
     private async handleGetActiveQuests(): Promise<void> {
         try {
-            const success: QuestArray[] = await this._gameRouteService.executeGetQuests() as QuestArray[];
-            this.activeQuests = success;
-            this.render();
-        } catch (error) {
+            const success: QuestArray[] = (await this._gameRouteService.executeGetQuests()) as QuestArray[];
+
+            // Update alleen als de data echt is veranderd
+            if (JSON.stringify(this.activeQuests) !== JSON.stringify(success)) {
+                this.activeQuests = success;
+                this.render();
+            }
+        }
+        catch (error) {
             console.error("Error fetching active quests:", error);
         }
     }
