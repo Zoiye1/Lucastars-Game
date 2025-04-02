@@ -13,6 +13,7 @@ import { TalkChoice } from "../../game-base/actions/TalkAction";
 import { PlayerSession } from "../types";
 import { ShowInventoryActionResult, ShowTargetsActionResult } from "../actionResults/InventoryActionResult";
 import { UseAction } from "../actions/UseAction";
+import { Character } from "../../game-base/gameObjects/Character";
 
 /**
  * Controller to handle all game related requests
@@ -23,6 +24,7 @@ type QuestArray = {
     startQuest: boolean;
     completed: boolean;
     description: string;
+    reward: string;
 };
 
 export class GameController {
@@ -111,6 +113,20 @@ export class GameController {
      * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
      */
     private async convertActionResultToGameState(actionResult?: ActionResult): Promise<GameState | undefined> {
+        // Get the current room first, as we'll need it for backgrounds in all cases
+        const currentRoom: Room | undefined = gameService.getGameObjectByAlias(
+            gameService.getPlayerSession().currentRoom
+        ) as Room | undefined;
+
+        // If no current room is found, this request is invalid.
+        if (!currentRoom) {
+            console.error("[error][GameController::convertActionResultToGameState] No current room found!");
+            return undefined;
+        }
+
+        // Get the room's background images for use in all game states
+        const roomImages: string[] = await currentRoom.images();
+
         // Handle ShowInventoryActionResult to show inventory items
         if (actionResult instanceof ShowInventoryActionResult) {
             const inventoryItems: GameObject[] = actionResult.inventoryItems;
@@ -137,7 +153,9 @@ export class GameController {
                 actions: actions,
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Inventory Selection",
-                roomImages: [],
+                roomImages: roomImages, // Use the current room's images
+                roomArrowImages: currentRoom.ArrowUrl(),
+                roomClickImages: currentRoom.ClickItem(),
             } as unknown as GameState;
         }
 
@@ -146,7 +164,6 @@ export class GameController {
             const sourceItem: GameObject = actionResult.sourceItem;
             const targetItems: GameObject[] = actionResult.targetItems;
 
-            // const sourceRef: GameObjectReference = await this.convertGameObjectToReference(sourceItem);
             const targetRefs: GameObjectReference[] = [];
 
             for (const item of targetItems) {
@@ -170,7 +187,9 @@ export class GameController {
                 actions: actions,
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Target Selection",
-                roomImages: [],
+                roomImages: roomImages, // Use the current room's images
+                roomArrowImages: currentRoom.ArrowUrl(),
+                roomClickImages: currentRoom.ClickItem(),
             } as unknown as GameState;
         }
 
@@ -180,18 +199,6 @@ export class GameController {
                 type: "switch-page",
                 page: actionResult.page,
             };
-        }
-
-        // The room can have changed after executing an action, so we have to retrieve the player session again!
-        const room: Room | undefined = gameService.getGameObjectByAlias(
-            gameService.getPlayerSession().currentRoom
-        ) as Room | undefined;
-
-        // If no current room is found, this request is invalid.
-        if (!room) {
-            console.error("[error][GameController::convertActionResultToGameState] No current room found!");
-
-            return undefined;
         }
 
         // Determine the text to show to the player
@@ -213,7 +220,7 @@ export class GameController {
         else {
             actions = [];
 
-            for (const action of await room.actions()) {
+            for (const action of await currentRoom.actions()) {
                 actions.push(await this.convertActionToReference(action));
             }
         }
@@ -221,37 +228,21 @@ export class GameController {
         // Determine the game objects to show to the player
         const objects: GameObjectReference[] = [];
 
-        for (const object of await room.objects()) {
+        for (const object of await currentRoom.objects()) {
             objects.push(await this.convertGameObjectToReference(object));
         }
 
         // Combine all data into a game state
         return {
             type: "default",
-            roomAlias: room.alias,
-            roomName: await room.name(),
-            roomImages: await room.images(),
-            roomArrowImages: room.ArrowUrl(),
-            roomClickImages: room.ClickItem(),
+            roomAlias: currentRoom.alias,
+            roomName: await currentRoom.name(),
+            roomImages: roomImages,
+            roomArrowImages: currentRoom.ArrowUrl(),
+            roomClickImages: currentRoom.ClickItem(),
             text: text,
             actions: actions,
             objects: objects,
-        };
-    }
-
-    /**
-     * Convert a talk choice into an action reference for the client application
-     *
-     * @param action Action instance to convert
-     * @param choice Choice instance to convert
-     *
-     * @returns Action reference for the client application
-     */
-    private convertTalkChoiceToReference(action: TalkActionResult, choice: TalkChoice): ActionReference {
-        return {
-            alias: choice.toAlias(action.character),
-            name: choice.text,
-            needsObject: false,
         };
     }
 
@@ -267,6 +258,25 @@ export class GameController {
             alias: action.alias,
             name: await action.name(),
             needsObject: action.needsObject,
+        };
+    }
+
+    /**
+     * Convert a talk choice into an action reference for the client application
+     *
+     * @param talkResult The talk action result containing the conversation context
+     * @param choice Talk choice to convert
+     *
+     * @returns Action reference for the client application
+     */
+    private convertTalkChoiceToReference(talkResult: TalkActionResult, choice: TalkChoice): ActionReference {
+        // Get the character from the talkResult
+        const character: Character = talkResult.character;
+
+        return {
+            alias: choice.toAlias(character),
+            name: choice.text,
+            needsObject: false,
         };
     }
 
@@ -290,40 +300,53 @@ export class GameController {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const questArray: QuestArray[] = [
             {
-                NPC: "dealer",
-                startQuest: !!playerSession.wantsToHelpDealer,
-                completed: !!playerSession.helpedDealer,
-                description: "Find the Sugar & talk to the dealer",
-            },
-            {
                 NPC: "cleaner",
                 startQuest: playerSession.wantsToHelpCleaner,
                 completed: playerSession.helpedCleaner,
-                description: "Search the waterbucket and help the cleaner",
+                description: "Search the waterbucket and help the cleaner.",
+                reward: "Reward: Acces to kitchen + 1x 10 euro bill.",
+            },
+            {
+                NPC: "dealer",
+                startQuest: !!playerSession.wantsToHelpDealer2,
+                completed: !!playerSession.helpedDealer2,
+                description: "Give the dealer a 10 euro bill.",
+                reward: "Reward: + 1x pack of cigarettes.",
             },
             {
                 NPC: "cook",
                 startQuest: !!playerSession.wantsToHelpCook,
-                completed: !!playerSession.helpedCook,
-                description: "Find the fork or find another way to get the key from the cook",
+                completed: (!!playerSession.helpedCook || playerSession.ThreatenedCook),
+                description: "Find the fork or find another way to get the key from the cook.",
+                reward: "Reward: Acces to the storage.",
             },
             {
                 NPC: "gymfreak",
                 startQuest: !!playerSession.wantsToHelpGymFreak,
                 completed: playerSession.helpedGymFreak,
-                description: "Find a way to give some steriods to the gymfreak",
+                description: "Give the dealer some steroids.",
+                reward: "Reward: Escape the hospital!",
             },
             {
                 NPC: "professor",
                 startQuest: !!playerSession.wantsToHelpProfessor,
                 completed: playerSession.helpedProfessor,
-                description: "Bring the required ingredients to the professor",
+                description: "Bring the required ingredients to the professor.",
+                reward: "Reward: + 1x corrosive acid",
             },
             {
                 NPC: "smoker",
                 startQuest: !!playerSession.wantsToHelpSmoker,
                 completed: !!playerSession.helpedSmoker,
-                description: "Get the sigarettes",
+                description: "Give the dealer a pack of cigarettes",
+                reward: "Reward: + 1x lighter",
+            },
+            {
+                NPC: "dealer",
+                startQuest: !!playerSession.wantsToHelpDealer,
+                completed: !!playerSession.helpedDealer,
+                description: "Find the Sugar & talk to the dealer.",
+                reward: "Reward: + 1x steroids.",
             },
         ];
         res.json(questArray);

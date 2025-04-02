@@ -18,6 +18,7 @@ const styles: string = css`
         grid-row-gap: 0px;
         position: relative;
     }
+        
 
     .title {
         text-align: center;
@@ -49,8 +50,8 @@ const styles: string = css`
     align-items: center;
     position: absolute;
     margin: 0;
-    width: 100%;
-    height: 100%;
+    height: 100%;                       
+    aspect-ratio: 2 / 1; 
     
     }
     
@@ -60,8 +61,8 @@ const styles: string = css`
     align-items: center;
     position: absolute;
     margin: 0;
-    width: 100%;
-    height: 100%; 
+    height: 100%;                       
+    aspect-ratio: 2 / 1; 
     }
 
 
@@ -357,6 +358,7 @@ export class CanvasComponent extends HTMLElement {
                 return `
                 <div class="header">
                     ${roomImages.map((url: string) => `<img src="/assets/img/rooms/${url}.png" 
+                    id="room-image"
                     onerror="this.onerror=null;this.src='/assets/img/rooms/${url}.gif';" />`).join("")}
                     <game-arrow></game-arrow>
                     <game-click></game-click>

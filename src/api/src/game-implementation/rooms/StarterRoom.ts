@@ -26,7 +26,6 @@ export class StarterRoom extends Room {
     /** De alias voor de startkamer. */
     public static readonly Alias: string = "starterroom";
 
-
     /**
      * Maakt een nieuwe instantie van StarterRoom aan.
      */
@@ -39,7 +38,7 @@ export class StarterRoom extends Room {
      * @returns {string} De naam van de startkamer.
      */
     public name(): string {
-        return "Starterroom";
+        return "Your Room";
     }
 
     /**
