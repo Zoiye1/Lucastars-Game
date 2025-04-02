@@ -18,6 +18,7 @@ const styles: string = css`
     
     .arrow:hover {
       filter: hue-rotate(90deg) brightness(1.5);
+      scale: 1.5;
     }
 
     .locationText {
