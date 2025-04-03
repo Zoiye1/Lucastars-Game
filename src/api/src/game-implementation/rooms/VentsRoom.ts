@@ -34,13 +34,13 @@ export class VentsRoom extends Room {
 
     public ArrowUrl(): Arrowroom[] {
         // Initialize result as an array of Arrowroom objects
-        const playersession: PlayerSession = gameService.getPlayerSession();
+        const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: Arrowroom[] = [
             { name: "Vent", alias: "Vents2", imageRotation: -90, imageCoords: { x: 17, y: 60 } },
             { name: "roof", alias: "roof", imageRotation: 90, imageCoords: { x: 77, y: 60 } },
         ];
 
-        if (playersession.ventUnlocked) {
+        if (playerSession.ventUnlocked) {
             result.push(
                 { name: "Your Room", alias: "starterroom", imageRotation: 180, imageCoords: { x: 45, y: 75 } }
             );
@@ -50,6 +50,8 @@ export class VentsRoom extends Room {
     }
 
     public examine(): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        playerSession.enteredVents = true;
         return new TextActionResult(["You are now in the Vents, choose where you want to go..."]);
     }
 

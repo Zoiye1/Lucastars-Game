@@ -224,4 +224,5 @@ export type PlayerSession = {
     talkedToGymFreak: boolean;
     talkedToProfessor: boolean;
     choppedTree: boolean;
+    enteredVents: boolean;
 };

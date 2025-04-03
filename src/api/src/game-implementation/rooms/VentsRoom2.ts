@@ -5,6 +5,8 @@ import { ExamineAction } from "../../game-base/actions/ExamineAction";
 import { Room } from "../../game-base/gameObjects/Room";
 import { GameObjectType } from "../../game-base/gameObjects/GameObject";
 import { Arrowroom } from "@shared/types";
+import { PlayerSession } from "../types";
+import { gameService } from "../../global";
 
 export class VentsRoom2 extends Room {
     public static readonly Alias: string = "Vents2";
@@ -41,6 +43,8 @@ export class VentsRoom2 extends Room {
     }
 
     public examine(): ActionResult | undefined {
+        const playerSession: PlayerSession = gameService.getPlayerSession();
+        playerSession.enteredVents = true;
         return new TextActionResult(["You are in the Vents... you have 2 options"]);
     }
 
