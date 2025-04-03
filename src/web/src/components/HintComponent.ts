@@ -42,7 +42,7 @@ const styles: string = css`
         transform: translateX(-50%);
         padding: 15px 25px;
         background-color: rgba(20, 20, 20, 0.9);
-        border: 2px solid #332c57;
+        border: 2px solid #9f3f16;
         border-radius: 5px;
         text-align: center;
         z-index: 10;
@@ -132,6 +132,7 @@ export type PlayerSession = {
     talkedToGymFreak: boolean;
     talkedToProfessor: boolean;
     choppedTree: boolean;
+    enteredVents: boolean;
 };
 
 type Hint = {
@@ -155,7 +156,7 @@ export class HintComponent extends HTMLElement {
 
     private readonly _hints: Hint[] = [
         {
-            condition: session => !session.ventUnlocked && !session.pickedUpHammer,
+            condition: session => !session.ventUnlocked && !session.enteredVents,
             text: "Can we use a fork to unscrew the vents?",
         },
         {

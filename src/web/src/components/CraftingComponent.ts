@@ -44,7 +44,7 @@ const styles: string = css`
         border: none;
         background: rgba(20, 20, 20, 0.95);
         width: 700px;
-        border: 2px solid #332c57;
+        border: 2px solid #9f3f16;
         border-radius: 8px;
         color: white;
     }
@@ -56,16 +56,16 @@ const styles: string = css`
         position: absolute;
         top: 10px;
         right: 10px;
-        border: 1px solid #7f6ed7;
+        border: 1px solid #9f3f16;
         border-radius: 5px;
         font-size: 24px;
         cursor: pointer;
-        color: #7f6ed7;
+        color: #9f3f16;
         transition: all 0.3s ease;
     }
 
     #closeDialog:hover {
-        background-color: #7f6ed7;
+        background-color: #9f3f16;
         color: white;
     }
 
@@ -86,7 +86,7 @@ const styles: string = css`
         text-align: center;
         font-size: 20px;
         margin-bottom: 15px;
-        color: #7f6ed7;
+        color: #9f3f16;
     }
 
     .container-dialog {
@@ -105,8 +105,8 @@ const styles: string = css`
     .slot, .result-slot {
         width: 60px;
         height: 60px;
-        background-color: rgba(127, 110, 215, 0.2);
-        border: 1px solid #332c57;
+        background-color: rgba(159, 63, 22, 0.2);
+        border: 1px solid #9f3f16;
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -116,7 +116,7 @@ const styles: string = css`
     }
 
     .slot:hover, .result-slot:hover {
-        background-color: rgba(127, 110, 215, 0.4);
+        background-color: rgba(198, 149, 42, 0.2);
     }
 
     .slot.filled, .result-slot.filled {
@@ -132,7 +132,7 @@ const styles: string = css`
     .symbol {
         font-size: 24px;
         font-weight: bold;
-        color: #7f6ed7;
+        color: #ffffff;
     }
 
     .container-slot {
@@ -166,21 +166,21 @@ const styles: string = css`
         max-height: 500px;
         overflow-y: auto;
         width: 200px;
-        border-right: 2px solid #332c57;
+        border-right: 2px solid #9f3f16;
         padding: 10px;
     }
 
     .recipe-card {
         padding: 10px;
         margin-bottom: 10px;
-        border: 1px solid #332c57;
+        border: 1px solid #9f3f16;
         border-radius: 5px;
-        background-color: rgba(127, 110, 215, 0.1);
+        background-color: rgba(159, 63, 22, 0.1);
         transition: all 0.3s ease;
     }
 
     .recipe-card:hover {
-        background-color: rgba(127, 110, 215, 0.2);
+        background-color: rgba(198, 149, 42, 0.2);
     }
 
     .recipe-title {
@@ -197,20 +197,20 @@ const styles: string = css`
     }
 
     .recipe-item-icon {
-        background-color: rgba(127, 110, 215, 0.2);
-        border: 1px solid #332c57;
+        background-color: 198, 149, 42, 0.2;
+        border: 1px solid #9f3f16;
         border-radius: 4px;
         padding: 5px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 12px;
-        color: #ccc;
+        color: #ffffff;
     }
 
     .dashed-divider {
         width: 100%;
-        border-top: 2px solid #332c57;
+        border-top: 2px solid #9f3f16;
     }
 
     .container-craft-retrieve-buttons {
@@ -225,8 +225,8 @@ const styles: string = css`
         font-family: "Onesize", sans-serif;
         font-size: 16px;
         font-weight: bold;
-        background-color: #7f6ed7;
-        border: 2px solid #332c57;
+        background-color: #c6882a;
+        border: 2px solid #000000;
         padding: 8px 15px;
         color: white;
         cursor: pointer;
@@ -236,7 +236,7 @@ const styles: string = css`
     }
 
     .dialog-button:hover {
-        background-color: #332c57;
+        background-color: ##C6952;
         transform: scale(1.05);
     }
 
@@ -294,7 +294,7 @@ const styles: string = css`
         font-weight: bold;
         margin-bottom: 10px;
         text-align: center;
-        color: #7f6ed7;
+        color: #9f3f16;
     }
 `;
 

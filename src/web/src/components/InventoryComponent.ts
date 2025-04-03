@@ -52,7 +52,7 @@ const styles: string = css`
     }
 
     .container-inventory::-webkit-scrollbar-thumb {
-        background: #4a90e2;
+        background: #c6882a;
         border-radius: 10px;
     }
 
@@ -80,8 +80,8 @@ const styles: string = css`
 
     .inventory-item {
         padding: 10px;
-        background: #7f6ed7;
-        border: 1px solid #7563ce;
+        background: #c6882a;
+        border: 1px solid #9f3f16;
         border-radius: 8px;
         text-align: center;
         font-size: 14px;
@@ -93,15 +93,15 @@ const styles: string = css`
     }
 
     .inventory-item:hover {
-        background: linear-gradient(135deg,#5441b3, #5441b3);
+        background: linear-gradient(135deg,#c6882a, #9f3f16);
         transform: scale(1.05);
     }
 
     .inventory-item.selected {
-        background: #5a45c2;
+        background: linear-gradient(135deg,#c6882a, #9f3f16);
         transform: scale(1.05);
-        box-shadow: 0 0 10px #5441b3, 0 0 20px rgba(202, 88, 224, 0.5);
-        border: 2px solid #6e5ace;
+        box-shadow: 0 0 10px #9f3f16, 0 0 20px rgba(202, 88, 224, 0.5);
+        border: 2px solid #9f3f16;
     }
 
     .inventory-icon {

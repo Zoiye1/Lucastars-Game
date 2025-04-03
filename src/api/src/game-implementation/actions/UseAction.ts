@@ -17,12 +17,12 @@ export class UseAction extends Action {
     public static readonly Alias: string = "use";
 
     /**
-     * Prefix for the alias when selecting an inventory item
+     * Prefix voor de alias wanneer je een item selecteerd.
      */
     public static readonly SelectInventoryPrefix: string = "use:inventory:";
 
     /**
-     * Prefix for the alias when using an inventory item on a target
+     * Prefix voor de alias wanneer je een item gebruikt op een target.
      */
     public static readonly UseWithPrefix: string = "use:with:";
 
@@ -48,7 +48,7 @@ export class UseAction extends Action {
      * @returns {ActionResult | undefined} Het resultaat van de actie.
      */
     public execute(alias: string, _gameObjects: GameObject[]): ActionResult | undefined {
-        // Case 1: Initial "Use" action selected (show inventory)
+        // Case 1: Use action geselecteerd, laat inventory zien.
         if (alias === UseAction.Alias) {
             const inventoryItems: GameObject[] = gameService.getGameObjectsFromInventory();
             if (inventoryItems.length === 0) {
@@ -57,7 +57,7 @@ export class UseAction extends Action {
             return new ShowInventoryActionResult(inventoryItems);
         }
 
-        // Case 2: Player selected an inventory item (show targets)
+        // Case 2: Speler heeft een item geselecteerd, laat targetitems zien.
         if (alias.startsWith(UseAction.SelectInventoryPrefix)) {
             const inventoryItemAlias: string = alias.substring(UseAction.SelectInventoryPrefix.length);
             const inventoryItem: GameObject | undefined = gameService.getGameObjectByAlias(inventoryItemAlias);
@@ -66,7 +66,7 @@ export class UseAction extends Action {
                 return new TextActionResult(["Item not found."]);
             }
 
-            // Get the current room
+            // Verkrijg de huidige kamer.
             const roomAlias: string = gameService.getPlayerSession().currentRoom;
             const room: Room | undefined = gameService.getGameObjectByAlias(roomAlias) as Room;
 
@@ -75,11 +75,10 @@ export class UseAction extends Action {
                 return new TextActionResult(["Room not found."]);
             }
 
-            // Get objects in the room that can be targets
+            // Verkrijg target items in room
             // eslint-disable-next-line @typescript-eslint/typedef
             const roomObjectsPromise = room.objects();
 
-            // Handle async or sync return from room.objects()
             // eslint-disable-next-line @typescript-eslint/typedef
             const handleRoomObjects = (roomObjects: GameObject[]): ActionResult => {
                 // eslint-disable-next-line @typescript-eslint/typedef
@@ -95,11 +94,7 @@ export class UseAction extends Action {
                 return new ShowTargetsActionResult(inventoryItem, targetObjects);
             };
 
-            // Check if we have a promise or direct array
             if (roomObjectsPromise instanceof Promise) {
-                // We'll need to handle this asynchronously - returning a promise
-                // This might require changes in the ActionResult system to handle promises
-                // For now, let's assume we need to handle this synchronously
                 return new TextActionResult(["Unable to get room objects."]);
             }
             else {
@@ -107,7 +102,6 @@ export class UseAction extends Action {
             }
         }
 
-        // Case 3: Player selected a target for the inventory item
         if (alias.startsWith(UseAction.UseWithPrefix)) {
             const parts: string[] = alias.substring(UseAction.UseWithPrefix.length).split(":");
             const sourceAlias: string = parts[0];

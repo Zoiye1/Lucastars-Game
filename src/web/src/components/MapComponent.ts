@@ -5,7 +5,7 @@ import { Page } from "../enums/Page";
 import { GameEventService } from "../services/GameEventService";
 
 /**
- * CSS stijlen voor de vereenvoudigde kaart component
+ * CSS styles for the simplified map component
  */
 const styles: string = css`
     :host {
@@ -121,7 +121,7 @@ const styles: string = css`
         box-shadow: 0 0 10px rgba(255, 82, 82, 0.8);
     }
 
-    /* Pijl stijlen */
+    /* Arrow styles */
     .arrow {
         position: absolute;
         background-color: #666;
@@ -205,7 +205,7 @@ const styles: string = css`
         border: 1px solid white;
     }
 
-    /* Kamer positionering */
+    /* Room positioning */
     #startRoom {
         top: 40px;
         left: 60px;
@@ -294,80 +294,54 @@ const styles: string = css`
 `;
 
 /**
- * Interface voor kaart locaties
- */
-interface MapLocation {
-    id: string;
-    name: string;
-}
-
-/**
- * Vereenvoudigde Kaart Component die alleen de huidige kamer bijhoudt
+ * Simplified Map Component that only tracks current room
  */
 export class MapComponent extends HTMLElement {
-    /** Instantie van de game event service */
+    /** Instance of the game event service */
     private readonly _gameEventService: GameEventService = new GameEventService();
     /**
-     * De game route service
+     * The game route service
      */
     private readonly _gameRouteService: GameRouteService = new GameRouteService();
 
     /**
-     * Of het kaartpaneel open is
+     * Whether the map panel is open
      */
     private _isPanelOpen: boolean = false;
 
     /**
-     * Huidige kamer alias
+     * Current room alias
      */
     private _currentRoom: string = "";
 
     /**
-     * Kaart locaties met kamer informatie
-     */
-    private _locations: MapLocation[] = [
-        { id: "starterRoom", name: "starterRoom" },
-        { id: "vents", name: "Vent" },
-        { id: "roof", name: "Roof" },
-        { id: "hallway", name: "Hallway" },
-        { id: "toilet", name: "Toilet" },
-        { id: "strangerRoom", name: "StrangerRoom" },
-        { id: "cafeteria", name: "Cafeteria" },
-        { id: "courtyard", name: "Courtyard" },
-        { id: "kitchen", name: "Kitchen" },
-        { id: "gym", name: "Gym" },
-        { id: "lab", name: "Lab" },
-        { id: "storage", name: "Storage" },
-    ];
-
-    /**
-     * Callback voor wanneer de webcomponent is verbonden met de DOM
+     * Callback for when the web component is connected to the DOM
      */
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
-        // Luister naar state updates van de speler sessie
+        // Listen for state updates from player session
         this.addEventListener("state-update", () => {
             void this.refreshGameState();
         });
 
-        // Initialiseer kaart met huidige game state
+        // Initialize map with current game state
         void this.refreshGameState();
         this.render();
     }
 
     /**
-     * Callback voor wanneer de webcomponent is losgekoppeld van de DOM
+     * Callback for when the web component is disconnected from the DOM
      */
     public disconnectedCallback(): void {
-        // Verwijder event listener om geheugenlekken te voorkomen
+        // Remove event listener to prevent memory leaks
         this.removeEventListener("state-update", () => {
             void this.refreshGameState();
         });
     }
 
     /**
-     * Ververs de huidige game state
+     * Refresh the current game state
      */
     private async refreshGameState(): Promise<void> {
         try {
@@ -375,52 +349,52 @@ export class MapComponent extends HTMLElement {
             this.updateGameState(state);
         }
         catch (error) {
-            console.error("Fout bij het ophalen van game state:", error);
+            console.error("Error getting game state:", error);
         }
     }
 
     /**
-     * Update de game state in de component
+     * Update the game state in the component
      *
-     * @param state Game state om de component mee te updaten
+     * @param state Game state to update the component with
      */
     private updateGameState(state: GameState): void {
-        // Afhandelen van pagina wisseling, indien gevraagd.
+        // Handle switching pages, if requested.
         if (state.type === "switch-page") {
             this._gameEventService.switchPage(state.page as Page);
             return;
         }
 
         if (state.roomAlias) {
-            // Update huidige kamer
+            // Update current room
             this._currentRoom = state.roomAlias;
 
-            // Log de huidige kamer voor debugging
-            console.log("Huidige kamer uit game state:", state.roomAlias);
+            // Log the current room to debug
+            console.log("Current room from game state:", state.roomAlias);
 
-            // Render opnieuw om state wijzigingen weer te geven
+            // Re-render to reflect state changes
             this.render();
         }
     }
 
     /**
-     * Verkrijg locatie status klasse
+     * Get location status class
      */
     private getLocationClass(locationId: string): string {
         let classes: string = "room";
 
-        // Controleer eerst op exacte overeenkomst
+        // Check for exact match first
         if (locationId === this._currentRoom) {
             classes += " current-room";
         }
-        // Controleer ook op niet-hoofdlettergevoelige overeenkomst (bijv. "startroom" vs "startRoom")
+        // Also check for case insensitive matching (e.g., "startroom" vs "startRoom")
         else if (locationId.toLowerCase() === this._currentRoom.toLowerCase()) {
             classes += " current-room";
         }
-        // Controleer of kamer alias de ID bevat (bijv. "start_room" kan "start" bevatten)
+        // Check if room alias contains the ID (e.g., "start_room" might contain "start")
         else if (this._currentRoom.toLowerCase().includes(locationId.toLowerCase()) ||
           locationId.toLowerCase().includes(this._currentRoom.toLowerCase())) {
-            console.log(`Gedeeltelijke overeenkomst: Kamer ID ${locationId} komt overeen met huidige kamer ${this._currentRoom}`);
+            console.log(`Partial match: Room ID ${locationId} matched with current room ${this._currentRoom}`);
             classes += " current-room";
         }
 
@@ -428,7 +402,7 @@ export class MapComponent extends HTMLElement {
     }
 
     /**
-     * Render de component
+     * Render the component
      */
     private render(): void {
         if (!this.shadowRoot) {
@@ -446,8 +420,8 @@ export class MapComponent extends HTMLElement {
                     <h2 class="map-title">Hospital Map</h2>
                     <div class="map-container">
                         <div class="map-inner">
-                            <!-- Kamers met dynamische klassen gebaseerd op game state -->
-                            <div class="${this.getLocationClass("startRoom")}" id="startRoom" title="Start Room">Start Room</div>
+                            <!-- Rooms with dynamic classes based on game state -->
+                            <div class="${this.getLocationClass("starterroom")}" id="startRoom" title="Start Room">Start Room</div>
                             <div class="${this.getLocationClass("vent")}" id="vent" title="Vent">Vent</div>
                             <div class="${this.getLocationClass("roof")}" id="roof" title="Roof">Roof</div>
                             <div class="${this.getLocationClass("hallway")}" id="hallway" title="Hallway">Hallway</div>
@@ -460,47 +434,47 @@ export class MapComponent extends HTMLElement {
                             <div class="${this.getLocationClass("lab")}" id="lab" title="Lab">Lab</div>
                             <div class="${this.getLocationClass("storage")}" id="storage" title="Storage">Storage</div>
                             
-                            <!-- Start Kamer naar Ventilatie -->
+                            <!-- Start Room to Vent -->
                             <div class="arrow arrow-horizontal" style="top: 55px; left: 160px; width: 60px;"></div>
                             <div class="arrow-head arrow-head-right" style="left: 220px; top: 55px;"></div>
                             
-                            <!-- Ventilatie naar Dak -->
+                            <!-- Vent to Roof -->
                             <div class="arrow arrow-horizontal" style="top: 55px; left: 280px; width: 40px;"></div>
                             <div class="arrow-head arrow-head-right" style="left: 320px; top: 55px;"></div>
                             
-                            <!-- Start Kamer naar Gang -->
+                            <!-- Start Room to Hallway -->
                             <div class="arrow arrow-vertical" style="top: 90px; left: 100px; height: 30px;"></div>
                             <div class="arrow-head arrow-head-down" style="left: 100px; top: 120px;"></div>
                             
-                            <!-- Gang naar Toilet -->
+                            <!-- Hallway to Toilet -->
                             <div class="arrow arrow-horizontal" style="top: 160px; left: 120px; width: 100px;"></div>
                             <div class="arrow-head arrow-head-right" style="left: 220px; top: 160px;"></div>
                             
-                            <!-- Gang naar Vreemde Kamer -->
+                            <!-- Hallway to Stranger Room -->
                             <div class="arrow arrow-vertical" style="top: 240px; left: 100px; height: 30px;"></div>
                             <div class="arrow-head arrow-head-down" style="left: 100px; top: 270px;"></div>
                             
-                            <!-- Gang naar Kantine -->
+                            <!-- Hallway to Cafeteria -->
                             <div class="arrow arrow-diagonal" style="top: 180px; left: 120px; width: 100px; transform: rotate(35deg);"></div>
                             <div class="arrow-head arrow-head-diagonal" style="left: 202px; top: 235px; transform: rotate(35deg);"></div>
                             
-                            <!-- Kantine naar Keuken -->
+                            <!-- Cafeteria to Kitchen -->
                             <div class="arrow arrow-horizontal" style="top: 295px; left: 320px; width: 60px;"></div>
                             <div class="arrow-head arrow-head-right" style="left: 380px; top: 295px;"></div>
                             
-                            <!-- Kantine naar Binnenplaats -->
+                            <!-- Cafeteria to Courtyard -->
                             <div class="arrow arrow-vertical" style="top: 320px; left: 270px; height: 20px;"></div>
                             <div class="arrow-head arrow-head-down" style="left: 270px; top: 340px;"></div>
                             
-                            <!-- Keuken naar Gymzaal -->
+                            <!-- Kitchen to Gym -->
                             <div class="arrow arrow-vertical" style="top: 320px; left: 430px; height: 20px;"></div>
                             <div class="arrow-head arrow-head-down" style="left: 430px; top: 340px;"></div>
                             
-                            <!-- Opslag naar Laboratorium -->
+                            <!-- Storage to Lab -->
                             <div class="arrow arrow-vertical" style="top: 90px; left: 530px; height: 50px;"></div>
                             <div class="arrow-head arrow-head-up" style="left: 530px; top: 90px;"></div>
                             
-                            <!-- Keuken naar Opslag -->
+                            <!-- Kitchen to Storage -->
                             <div class="arrow arrow-vertical" style="top: 140px; left: 530px; height: 130px;"></div>
                             <div class="arrow-head arrow-head-up" style="left: 530px; top: 140px;"></div>
                         </div>
@@ -509,22 +483,22 @@ export class MapComponent extends HTMLElement {
                     <div class="map-legend">
                         <div class="legend-item">
                             <div class="legend-marker current"></div>
-                            <span>Huidige Locatie</span>
+                            <span>Current Location</span>
                         </div>
                     </div>
                 </div>
             </div>
         `;
 
-        // Maak de shadow root leeg
+        // Clear the shadow root
         while (this.shadowRoot.firstChild) {
             this.shadowRoot.firstChild.remove();
         }
 
-        // Voeg de nieuwe elementen toe
+        // Add the new elements
         this.shadowRoot.append(...elements);
 
-        // Voeg event listener toe voor de kaart knop
+        // Add event listener for the map button
         const mapButton: HTMLElement | null = this.shadowRoot.querySelector(".map-button");
         if (mapButton) {
             mapButton.addEventListener("click", () => {

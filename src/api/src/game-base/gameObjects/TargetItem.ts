@@ -3,37 +3,37 @@ import { Item } from "../../game-base/gameObjects/Item";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 
 /**
- * Interface for objects that can be targets of inventory items
+ * Interface voor objecten die doelen kunnen zijn van inventarisobjecten
  */
 @Interface
 export abstract class TargetOf {
     /**
-     * Execute the action of using another item on this target
+     * Voer de actie uit van het gebruiken van een ander object op dit doel
      *
-     * @param sourceItem The item being used on this target
-     * @returns Result of the action or undefined if not handled
+     * @param sourceItem Het object dat op dit doel wordt gebruikt
+     * @returns Resultaat van de actie of undefined als het niet wordt afgehandeld
      */
     public abstract useWith(sourceItem: GameObject): ActionResult | undefined;
 }
 
 /**
- * Base class for items that can be targets of other items
+ * Basisklasse voor objecten die doelen kunnen zijn van andere objecten
  */
 export abstract class TargetItem extends Item implements TargetOf {
     /**
-     * Create a new instance of this target item
+     * Maak een nieuwe instantie van dit doelobject aan
      *
-     * @param alias Alias of this target item
+     * @param alias Alias van dit doelobject
      */
     protected constructor(alias: string) {
         super(alias);
     }
 
     /**
-     * Handle using an inventory item on this target
+     * Verwerk het gebruik van een inventarisobject op dit doelobject
      *
-     * @param sourceItem The item being used on this target
-     * @returns Result of the action or undefined if not handled
+     * @param sourceItem Het object dat op dit doel wordt gebruikt
+     * @returns Resultaat van de actie of undefined als het niet wordt afgehandeld
      */
     public abstract useWith(sourceItem: GameObject): ActionResult | undefined;
 }

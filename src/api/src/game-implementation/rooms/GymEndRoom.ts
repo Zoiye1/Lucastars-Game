@@ -23,7 +23,7 @@ export class GymTheEndRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["Gym/GymTheEnd"];
+        return ["gif/GymEndRoom"];
     }
 
     public examine(): ActionResult | undefined {

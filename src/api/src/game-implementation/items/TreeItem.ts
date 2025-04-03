@@ -62,8 +62,8 @@ export class TreeItem extends TargetItem implements Examine {
         const playerSession: PlayerSession = gameService.getPlayerSession();
 
         if (sourceItem.alias === "HammerItem") {
-            return this.obtainSticks();
             playerSession.choppedTree = true;
+            return this.obtainSticks();
         }
         return new TextActionResult(["That doesn't work on the tree."]);
     }

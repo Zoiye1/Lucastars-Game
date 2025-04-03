@@ -16,7 +16,7 @@ import { UseAction } from "../actions/UseAction";
 import { Character } from "../../game-base/gameObjects/Character";
 
 /**
- * Controller to handle all game related requests
+ * Controller om alle spelgerelateerde verzoeken af te handelen
  */
 
 type QuestArray = {
@@ -29,12 +29,12 @@ type QuestArray = {
 
 export class GameController {
     /**
-     * Handle the request to retrieve the game state for the current player
+     * Verwerk het verzoek om de spelstatus voor de huidige speler op te halen
      *
-     * @remarks Response is a 200 with a `GameState` on success, otherwise a 500.
+     * @remarks Response is een 200 met een `GameState` bij succes, anders een 500.
      */
     public async handleStateRequest(_: Request, res: Response): Promise<void> {
-        // Execute the Examine action on the current room
+        // Voer de Examine-actie uit op de huidige kamer
         const gameState: GameState | undefined = await this.executeAction(ExamineAction.Alias);
 
         if (gameState) {
@@ -46,15 +46,15 @@ export class GameController {
     }
 
     /**
-     * Handle the request to execute an action for the current player
+     * Verwerk het verzoek om een actie uit te voeren voor de huidige speler
      *
-     * @remarks Response is a 200 with a `GameState` on success, otherwise a 500.
+     * @remarks Response is een 200 met een `GameState` bij succes, anders een 500.
      */
     public async handleActionRequest(req: Request, res: Response): Promise<void> {
-        // Extract the data from the request body
+        // Haal de gegevens uit het verzoek op
         const executeActionRequest: ExecuteActionRequest = req.body as ExecuteActionRequest;
 
-        // Execute the requested action on the requested game objects
+        // Voer de gevraagde actie uit op de opgegeven spelobjecten
         const gameState: GameState | undefined = await this.executeAction(
             executeActionRequest.action,
             executeActionRequest.objects
@@ -69,15 +69,15 @@ export class GameController {
     }
 
     /**
-     * Execute the requested action and convert the result to a type of `GameState`.
+     * Voer de gevraagde actie uit en zet het resultaat om in een type `GameState`.
      *
-     * @param actionAlias Alias of action to execute
-     * @param gameObjectAliases Optional list of game object aliases to execute the action on
+     * @param actionAlias Alias van de uit te voeren actie
+     * @param gameObjectAliases Optionele lijst met aliassen van spelobjecten waarop de actie moet worden uitgevoerd
      *
-     * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
+     * @returns Een type `GameState` dat het resultaat van de actie vertegenwoordigt of `undefined` als er iets fout ging.
      */
     protected async executeAction(actionAlias: string, gameObjectAliases?: string[]): Promise<GameState | undefined> {
-        // If no game object aliases are defined, use the current room instead.
+        // Als er geen object-aliassen zijn opgegeven, gebruik dan de huidige kamer
         console.log(actionAlias);
         if (!gameObjectAliases || gameObjectAliases.length === 0) {
             gameObjectAliases = [gameService.getPlayerSession().currentRoom];
@@ -85,49 +85,49 @@ export class GameController {
 
         console.log(gameObjectAliases);
 
-        // Get the game objects for the aliases
+        // Haal de spelobjecten op via de aliassen
         const gameObjects: GameObject[] = gameService.getGameObjectsByAliases(gameObjectAliases);
 
-        // If no game objects are found, this request is invalid.
+        // Als er geen objecten gevonden zijn, is het verzoek ongeldig
         if (gameObjects.length === 0) {
-            console.error("[error][GameController::executeAction] No game objects found!");
+            console.error("[error][GameController::executeAction] Geen spelobjecten gevonden!");
 
             return undefined;
         }
 
-        // Let the game engine execute the action. It's important to use "await" here, since some actions might be asynchronous!
+        // Laat de game engine de actie uitvoeren. Het is belangrijk om hier "await" te gebruiken, omdat sommige acties asynchroon kunnen zijn!
         const actionResult: ActionResult | undefined = await gameService.executeAction(
             actionAlias,
             gameObjects
         );
 
-        // Convert the result of the action to the new game state
+        // Zet het resultaat van de actie om naar een nieuwe spelstatus
         return this.convertActionResultToGameState(actionResult);
     }
 
     /**
-     * Convert the result of an action to a type of `GameState`.
+     * Zet het resultaat van een actie om naar een type `GameState`.
      *
-     * @param actionResult Result of an action, can be `undefined`.
+     * @param actionResult Resultaat van een actie, kan `undefined` zijn.
      *
-     * @returns A type of `GameState` representing the result of the action or `undefined` when something went wrong.
+     * @returns Een type `GameState` dat het resultaat van de actie vertegenwoordigt of `undefined` als er iets fout ging.
      */
     private async convertActionResultToGameState(actionResult?: ActionResult): Promise<GameState | undefined> {
-        // Get the current room first, as we'll need it for backgrounds in all cases
+        // Haal de huidige kamer op, nodig voor de achtergronden in alle gevallen
         const currentRoom: Room | undefined = gameService.getGameObjectByAlias(
             gameService.getPlayerSession().currentRoom
         ) as Room | undefined;
 
-        // If no current room is found, this request is invalid.
+        // Als er geen huidige kamer is gevonden, is het verzoek ongeldig
         if (!currentRoom) {
-            console.error("[error][GameController::convertActionResultToGameState] No current room found!");
+            console.error("[error][GameController::convertActionResultToGameState] Geen huidige kamer gevonden!");
             return undefined;
         }
 
-        // Get the room's background images for use in all game states
+        // Haal de achtergrondafbeeldingen van de kamer op voor gebruik in alle spelstaten
         const roomImages: string[] = await currentRoom.images();
 
-        // Handle ShowInventoryActionResult to show inventory items
+        // Verwerk ShowInventoryActionResult om inventarisobjecten te tonen
         if (actionResult instanceof ShowInventoryActionResult) {
             const inventoryItems: GameObject[] = actionResult.inventoryItems;
             const inventoryReferences: GameObjectReference[] = [];
@@ -136,7 +136,7 @@ export class GameController {
                 inventoryReferences.push(await this.convertGameObjectToReference(item));
             }
 
-            // Create actions for each inventory item
+            // Maak acties aan voor elk inventarisobject
             const actions: ActionReference[] = [];
             for (const itemRef of inventoryReferences) {
                 actions.push({
@@ -153,13 +153,13 @@ export class GameController {
                 actions: actions,
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Inventory Selection",
-                roomImages: roomImages, // Use the current room's images
+                roomImages: roomImages, // Gebruik de afbeeldingen van de huidige kamer
                 roomArrowImages: currentRoom.ArrowUrl(),
                 roomClickImages: currentRoom.ClickItem(),
             } as unknown as GameState;
         }
 
-        // Handle ShowTargetsActionResult to show target items in the room
+        // Verwerk ShowTargetsActionResult om doelobjecten in de kamer te tonen
         if (actionResult instanceof ShowTargetsActionResult) {
             const sourceItem: GameObject = actionResult.sourceItem;
             const targetItems: GameObject[] = actionResult.targetItems;
@@ -170,7 +170,7 @@ export class GameController {
                 targetRefs.push(await this.convertGameObjectToReference(item));
             }
 
-            // Create actions for each target item
+            // Maak acties aan voor elk doelobject
             const actions: ActionReference[] = [];
             for (const targetRef of targetRefs) {
                 actions.push({
@@ -187,13 +187,13 @@ export class GameController {
                 actions: actions,
                 roomAlias: gameService.getPlayerSession().currentRoom,
                 roomName: "Target Selection",
-                roomImages: roomImages, // Use the current room's images
+                roomImages: roomImages, // Gebruik de afbeeldingen van de huidige kamer
                 roomArrowImages: currentRoom.ArrowUrl(),
                 roomClickImages: currentRoom.ClickItem(),
             } as unknown as GameState;
         }
 
-        // If the client application has to switch pages, handle it now.
+        // Verwerk SwitchPageActionResult als de client-applicatie van pagina moet wisselen
         if (actionResult instanceof SwitchPageActionResult) {
             return {
                 type: "switch-page",
@@ -201,17 +201,17 @@ export class GameController {
             };
         }
 
-        // Determine the text to show to the player
+        // Bepaal de tekst die aan de speler getoond moet worden
         let text: string[];
 
         if (actionResult instanceof TextActionResult) {
             text = actionResult.text;
         }
         else {
-            text = ["That doesn't make any sense."];
+            text = ["Dat slaat nergens op."];
         }
 
-        // Determine the actions to show to the player
+        // Bepaal de acties die aan de speler getoond moeten worden
         let actions: ActionReference[];
 
         if (actionResult instanceof TalkActionResult) {
@@ -225,14 +225,14 @@ export class GameController {
             }
         }
 
-        // Determine the game objects to show to the player
+        // Bepaal de spelobjecten die aan de speler getoond moeten worden
         const objects: GameObjectReference[] = [];
 
         for (const object of await currentRoom.objects()) {
             objects.push(await this.convertGameObjectToReference(object));
         }
 
-        // Combine all data into a game state
+        // Combineer alle data in een spelstatus
         return {
             type: "default",
             roomAlias: currentRoom.alias,
@@ -247,11 +247,11 @@ export class GameController {
     }
 
     /**
-     * Convert an action instance into an action reference for the client application
+     * Zet een actie-instantie om in een actie-referentie voor de client-applicatie
      *
-     * @param action Action instance to convert
+     * @param action Actie-instantie om te converteren
      *
-     * @returns Action reference for the client application
+     * @returns Actie-referentie voor de client-applicatie
      */
     private async convertActionToReference(action: Action): Promise<ActionReference> {
         return {
@@ -262,15 +262,15 @@ export class GameController {
     }
 
     /**
-     * Convert a talk choice into an action reference for the client application
+     * Zet een gespreksoptie om in een actie-referentie voor de client-applicatie
      *
-     * @param talkResult The talk action result containing the conversation context
-     * @param choice Talk choice to convert
+     * @param talkResult Het gespreksresultaat met de gesprekscontext
+     * @param choice Gespreksoptie om te converteren
      *
-     * @returns Action reference for the client application
+     * @returns Actie-referentie voor de client-applicatie
      */
     private convertTalkChoiceToReference(talkResult: TalkActionResult, choice: TalkChoice): ActionReference {
-        // Get the character from the talkResult
+        // Haal het personage op uit het gespreksresultaat
         const character: Character = talkResult.character;
 
         return {
@@ -281,11 +281,11 @@ export class GameController {
     }
 
     /**
-     * Convert a game object instance into a game object reference for the client application
+     * Zet een spelobject-instantie om in een spelobject-referentie voor de client-applicatie
      *
-     * @param gameObject Game object instance to convert
+     * @param gameObject Spelobject-instantie om te converteren
      *
-     * @returns Game object reference for the client application
+     * @returns Spelobject-referentie voor de client-applicatie
      */
     private async convertGameObjectToReference(gameObject: GameObject): Promise<GameObjectReference> {
         return {
@@ -303,50 +303,50 @@ export class GameController {
                 NPC: "cleaner",
                 startQuest: playerSession.wantsToHelpCleaner,
                 completed: playerSession.helpedCleaner,
-                description: "Search the waterbucket and help the cleaner.",
-                reward: "Reward: Acces to kitchen + 1x 10 euro bill.",
+                description: "Zoek de emmer met water en help de schoonmaker.",
+                reward: "Beloning: Toegang tot keuken + 1x 10 euro biljet.",
             },
             {
                 NPC: "dealer",
                 startQuest: !!playerSession.wantsToHelpDealer2,
                 completed: !!playerSession.helpedDealer2,
-                description: "Give the dealer a 10 euro bill.",
-                reward: "Reward: + 1x pack of cigarettes.",
+                description: "Geef de dealer een biljet van 10 euro.",
+                reward: "Beloning: + 1x pakje sigaretten.",
             },
             {
                 NPC: "cook",
                 startQuest: !!playerSession.wantsToHelpCook,
                 completed: (!!playerSession.helpedCook || playerSession.ThreatenedCook),
-                description: "Find the fork or find another way to get the key from the cook.",
-                reward: "Reward: Acces to the storage.",
+                description: "Vind de vork of vind een andere manier om de sleutel van de kok te krijgen.",
+                reward: "Beloning: Toegang tot de opslagruimte.",
             },
             {
                 NPC: "gymfreak",
                 startQuest: !!playerSession.wantsToHelpGymFreak,
                 completed: playerSession.helpedGymFreak,
-                description: "Give the dealer some steroids.",
-                reward: "Reward: Escape the hospital!",
+                description: "Geef de dealer wat steroïden.",
+                reward: "Beloning: Ontsnap uit het ziekenhuis!",
             },
             {
                 NPC: "professor",
                 startQuest: !!playerSession.wantsToHelpProfessor,
                 completed: playerSession.helpedProfessor,
-                description: "Bring the required ingredients to the professor.",
-                reward: "Reward: + 1x corrosive acid",
+                description: "Breng de benodigde ingrediënten naar de professor.",
+                reward: "Beloning: + 1x bijtend zuur",
             },
             {
                 NPC: "smoker",
                 startQuest: !!playerSession.wantsToHelpSmoker,
                 completed: !!playerSession.helpedSmoker,
-                description: "Give the dealer a pack of cigarettes",
-                reward: "Reward: + 1x lighter",
+                description: "Geef de dealer een pakje sigaretten.",
+                reward: "Beloning: + 1x aansteker",
             },
             {
                 NPC: "dealer",
                 startQuest: !!playerSession.wantsToHelpDealer,
                 completed: !!playerSession.helpedDealer,
-                description: "Find the Sugar & talk to the dealer.",
-                reward: "Reward: + 1x steroids.",
+                description: "Vind de suiker en praat met de dealer.",
+                reward: "Beloning: + 1x steroïden.",
             },
         ];
         res.json(questArray);

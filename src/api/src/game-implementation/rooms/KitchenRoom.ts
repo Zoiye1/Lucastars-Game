@@ -50,7 +50,7 @@ export class KitchenRoom extends Room {
 
         // result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 87, y: 60 } },
+            { name: "cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 80, y: 83 } },
         ];
         const playerSession: PlayerSession = gameService.getPlayerSession();
         // Only add the arrow is the player actually opened the door

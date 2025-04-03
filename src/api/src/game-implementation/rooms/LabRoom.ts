@@ -71,7 +71,7 @@ export class LabRoom extends Room {
         // Initialize result as an array of Arrowroom objects
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const result: Arrowroom[] = [
-            { name: "Storage", alias: "StorageRoom", imageRotation: -90, imageCoords: { x: 3, y: 50 } },
+            { name: "Storage", alias: "StorageRoom", imageRotation: -90, imageCoords: { x: 3, y: 83 } },
         ];
         if (playerSession.EscapedLab) {
             result.push({ name: "The End", alias: "lab-end", imageRotation: 0, imageCoords: { x: 70, y: 70 } });

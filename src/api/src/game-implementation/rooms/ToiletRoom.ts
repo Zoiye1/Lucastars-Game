@@ -110,7 +110,7 @@ export class ToiletRoom extends Room {
 
         if (!playerSession.placedBomb) {
             // Hallway-pijl is alleen zichtbaar als de bom nog NIET is geplaatst
-            result.push({ name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 90, y: 60 } });
+            result.push({ name: "Hallway", alias: "hallway", imageRotation: 90, imageCoords: { x: 82, y: 83 } });
         }
 
         if (playerSession.placedBomb) {

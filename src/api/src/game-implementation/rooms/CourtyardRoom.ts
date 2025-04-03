@@ -93,7 +93,7 @@ export class CourtyardRoom extends Room {
 
         // Initialize result as an array of Arrowroom objects
         const result: Arrowroom[] = [
-            { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 85, y: 80 } },
+            { name: "Cafeteria", alias: "cafeteria", imageRotation: 90, imageCoords: { x: 80, y: 83 } },
         ];
 
         if (playerSession.placedEscapeLadder) {
