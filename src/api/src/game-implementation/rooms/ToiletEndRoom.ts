@@ -19,7 +19,7 @@ export class ToiletEndRoom extends Room implements Simple {
     }
 
     public images(): string[] {
-        return ["toilet/ToiletEnding"]; // Geef de afbeelding van de kamer terug
+        return ["gif/ToiletEndRoom"]; // Geef de afbeelding van de kamer terug
     }
 
     public examine(): ActionResult | undefined {
