@@ -13,7 +13,7 @@ const styles: string = css`
     padding: 20px;
     border-radius: 12px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    width: 270px; 
+    width: 300px; 
     max-height: 300px;
     overflow-y: auto;
     color: white;
