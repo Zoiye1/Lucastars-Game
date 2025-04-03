@@ -38,7 +38,7 @@ const styles: string = css`
         right: 20px; /* Aanpasbaar */
         width: 300px;
         background-color: rgba(20, 20, 20, 0.95);
-        border: 2px solid #332c57;
+        border: 2px solid #9f3f16;
         border-radius: 8px;
         padding: 15px;
         color: white;
@@ -56,7 +56,7 @@ const styles: string = css`
         text-align: center;
         font-size: 20px;
         margin-bottom: 15px;
-        color: #7f6ed7;
+        color: #963a13;
     }
 
     .quest-list {
@@ -96,15 +96,6 @@ const styles: string = css`
         font-size: 14px;
     }
 
-    .description-toggle-btn {
-        background: none;
-        border: none;
-        color: #7f6ed7;
-        text-decoration: underline;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
     .hidden {
         display: none;
     }
@@ -115,7 +106,7 @@ const styles: string = css`
         right: 10px;
         background: none;
         border: none;
-        color: #7f6ed7;
+        color: #9f3f16;
         font-size: 16px;
         cursor: pointer;
         padding: 5px;
@@ -147,11 +138,11 @@ export class QuestComponent extends HTMLElement {
     private createQuestItem(quest: QuestArray): string {
         const statusClass: string = quest.completed ? "completed" : "active";
         const statusText: string = quest.completed ? "Completed" : "Active";
-        const statusColor: string = quest.completed ? "green" : "purple"; // Kleuren aanpassen
+        const statusColor: string = quest.completed ? "green" : "#9f3f16"; // Kleuren aanpassen
 
         return `
             <li class="quest-item ${statusClass}" style="background-color: ${
-            quest.completed ? "rgba(56, 142, 60, 0.2)" : "rgba(127, 110, 215, 0.2)"
+            quest.completed ? "rgba(56, 142, 60, 0.2)" : "rgba(198, 149, 42, 0.2)"
         };">
                 <div class="quest-item-title">
                     <span class="quest-name">${quest.NPC}</span>

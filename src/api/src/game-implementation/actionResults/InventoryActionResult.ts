@@ -2,16 +2,16 @@ import { ActionResult } from "../../game-base/actionResults/ActionResult";
 import { GameObject } from "../../game-base/gameObjects/GameObject";
 
 /**
- * Action result that shows inventory items to select from
+ * Actieresultaat dat inventarisobjecten toont om uit te kiezen
  */
 export class ShowInventoryActionResult extends ActionResult {
-    /** List of inventory items to display */
+    /** Lijst van inventarisobjecten om weer te geven */
     private _inventoryItems: GameObject[];
 
     /**
-     * Create a new instance of this action result
+     * Maak een nieuwe instantie van dit actieresultaat aan
      *
-     * @param inventoryItems List of inventory items to display
+     * @param inventoryItems Lijst van inventarisobjecten om weer te geven
      */
     public constructor(inventoryItems: GameObject[]) {
         super();
@@ -19,7 +19,7 @@ export class ShowInventoryActionResult extends ActionResult {
     }
 
     /**
-     * Get the inventory items to display
+     * Haal de inventarisobjecten op die weergegeven moeten worden
      */
     public get inventoryItems(): GameObject[] {
         return this._inventoryItems;
@@ -27,20 +27,20 @@ export class ShowInventoryActionResult extends ActionResult {
 }
 
 /**
- * Action result that shows potential target items for a selected inventory item
+ * Actieresultaat dat mogelijke doelobjecten toont voor een geselecteerd inventarisobject
  */
 export class ShowTargetsActionResult extends ActionResult {
-    /** The inventory item that was selected */
+    /** Het geselecteerde inventarisobject */
     private _sourceItem: GameObject;
 
-    /** List of potential target items in the room */
+    /** Lijst van mogelijke doelobjecten in de kamer */
     private _targetItems: GameObject[];
 
     /**
-     * Create a new instance of this action result
+     * Maak een nieuwe instantie van dit actieresultaat aan
      *
-     * @param sourceItem The inventory item that was selected
-     * @param targetItems List of potential target items in the room
+     * @param sourceItem Het geselecteerde inventarisobject
+     * @param targetItems Lijst van mogelijke doelobjecten in de kamer
      */
     public constructor(sourceItem: GameObject, targetItems: GameObject[]) {
         super();
@@ -49,14 +49,14 @@ export class ShowTargetsActionResult extends ActionResult {
     }
 
     /**
-     * Get the inventory item that was selected
+     * Haal het geselecteerde inventarisobject op
      */
     public get sourceItem(): GameObject {
         return this._sourceItem;
     }
 
     /**
-     * Get the potential target items in the room
+     * Haal de mogelijke doelobjecten in de kamer op
      */
     public get targetItems(): GameObject[] {
         return this._targetItems;

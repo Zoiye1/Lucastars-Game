@@ -104,8 +104,8 @@ const styles: string = css`
 
     .footer {
         border-radius: 10px 10px 0 0;
-        background-color: #52478b;
-        border: 1px solid #332c57;
+        background-color: #c6882a;
+        border: 1px solid #9f3f16;
         margin-top: 10px;
         display: flex;
         height: 105px;
@@ -119,8 +119,8 @@ const styles: string = css`
     }
 
     .footer .button {
-        background-color: #7f6ed7;
-        border: 1px solid #332c57;
+        background-color: #c6882a;
+        border: 6px solid #9f3f16;
         padding: 5px 10px;
         margin: 0 0 10px 10px;
         text-transform: uppercase;
@@ -131,7 +131,7 @@ const styles: string = css`
 
     .footer .button.active,
     .footer .button:hover {
-        background-color: #332c57;
+        background-color: #9f3f16;
         scale: 1.03;
     }
     
