@@ -14,7 +14,7 @@ const styles: string = css`
     .crafting-button {
         position: absolute;
         top: 0%;
-        right: 12%;
+        right: 0%;
         z-index: 1;
         background: none;
         border: none;
