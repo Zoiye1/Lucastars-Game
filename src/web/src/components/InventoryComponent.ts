@@ -13,7 +13,7 @@ const styles: string = css`
     padding: 20px;
     border-radius: 12px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    width: 270px; 
+    width: 300px; 
     max-height: 300px;
     overflow-y: auto;
     color: white;
@@ -131,6 +131,9 @@ export class InventoryComponent extends HTMLElement {
     private render(): void {
         if (!this.shadowRoot) return;
 
+        const containerElement: HTMLElement | null = this.shadowRoot.querySelector(".container-inventory");
+        const previousScrollTop: number = containerElement ? containerElement.scrollTop : 0;
+
         const inventoryItems: string = this.items
             .map(item => {
                 const itemName: string = item.replace("Item", "");
@@ -155,6 +158,12 @@ export class InventoryComponent extends HTMLElement {
         }
 
         this.shadowRoot.append(...elements);
+
+        const newContainerElement: HTMLElement | null = this.shadowRoot.querySelector(".container-inventory");
+        if (newContainerElement) {
+            newContainerElement.scrollTop = previousScrollTop;
+        }
+
         this.addSelectItemListeners();
     }
 

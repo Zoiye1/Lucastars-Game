@@ -8,13 +8,12 @@ const styles: string = css`
 
     .quest-button {
         position: absolute;
-        top: 45%;
-        right: 13%;
+        top: 50%;
+        right: 12%;
         z-index: 1;
         background: none;
         border: none;
-        padding: 10px 15px
-        font-size: 16px;
+        padding: 0px;
         cursor: pointer;
         width: 50px;
         height: 50px;
@@ -26,8 +25,8 @@ const styles: string = css`
     }
 
     .quest-button img {
-        width: 258%;
-        height: 258%;
+        width: 200%;
+        height: 200%;
         object-fit: contain;
     }
 

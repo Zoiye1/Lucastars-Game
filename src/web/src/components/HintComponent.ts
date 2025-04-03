@@ -132,6 +132,7 @@ export type PlayerSession = {
     talkedToGymFreak: boolean;
     talkedToProfessor: boolean;
     choppedTree: boolean;
+    enteredVents: boolean;
 };
 
 type Hint = {
@@ -155,7 +156,7 @@ export class HintComponent extends HTMLElement {
 
     private readonly _hints: Hint[] = [
         {
-            condition: session => !session.ventUnlocked && !session.pickedUpHammer,
+            condition: session => !session.ventUnlocked && !session.enteredVents,
             text: "Can we use a fork to unscrew the vents?",
         },
         {

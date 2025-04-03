@@ -18,7 +18,7 @@ const styles: string = css`
         z-index: 1;
         background: none;
         border: none;
-        padding: 0;
+        padding: 0px;
         cursor: pointer;
         width: 50px;
         height: 50px;
