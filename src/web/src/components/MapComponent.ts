@@ -294,14 +294,6 @@ const styles: string = css`
 `;
 
 /**
- * Interface for map locations
- */
-interface MapLocation {
-    id: string;
-    name: string;
-}
-
-/**
  * Simplified Map Component that only tracks current room
  */
 export class MapComponent extends HTMLElement {
@@ -321,24 +313,6 @@ export class MapComponent extends HTMLElement {
      * Current room alias
      */
     private _currentRoom: string = "";
-
-    /**
-     * Map locations with room information
-     */
-    private _locations: MapLocation[] = [
-        { id: "starterRoom", name: "starterRoom" },
-        { id: "vents", name: "Vent" },
-        { id: "roof", name: "Roof" },
-        { id: "hallway", name: "Hallway" },
-        { id: "toilet", name: "Toilet" },
-        { id: "strangerRoom", name: "StrangerRoom" },
-        { id: "cafeteria", name: "Cafeteria" },
-        { id: "courtyard", name: "Courtyard" },
-        { id: "kitchen", name: "Kitchen" },
-        { id: "gym", name: "Gym" },
-        { id: "lab", name: "Lab" },
-        { id: "storage", name: "Storage" },
-    ];
 
     /**
      * Callback for when the web component is connected to the DOM
@@ -447,7 +421,7 @@ export class MapComponent extends HTMLElement {
                     <div class="map-container">
                         <div class="map-inner">
                             <!-- Rooms with dynamic classes based on game state -->
-                            <div class="${this.getLocationClass("startRoom")}" id="startRoom" title="Start Room">Start Room</div>
+                            <div class="${this.getLocationClass("starterroom")}" id="startRoom" title="Start Room">Start Room</div>
                             <div class="${this.getLocationClass("vent")}" id="vent" title="Vent">Vent</div>
                             <div class="${this.getLocationClass("roof")}" id="roof" title="Roof">Roof</div>
                             <div class="${this.getLocationClass("hallway")}" id="hallway" title="Hallway">Hallway</div>
