@@ -207,22 +207,22 @@ const styles: string = css`
 
     /* Room positioning */
     #startRoom {
-        top: 40px;
-        left: 60px;
+        top: 120px;
+        left: 220px;
         width: 100px;
         height: 50px;
     }
 
     #vent {
         top: 40px;
-        left: 220px;
+        left: 240px;
         width: 60px;
         height: 30px;
     }
 
     #roof {
         top: 40px;
-        left: 320px;
+        left: 370px;
         width: 100px;
         height: 50px;
     }
@@ -237,14 +237,14 @@ const styles: string = css`
     }
 
     #toilet {
-        top: 140px;
+        top: 200px;
         left: 220px;
         width: 90px;
-        height: 40px;
+        height: 30px;
     }
 
     #strangerRoom {
-        top: 270px;
+        top: 30px;
         left: 60px;
         width: 100px;
         height: 50px;
@@ -259,14 +259,14 @@ const styles: string = css`
 
     #courtyard {
         top: 340px;
-        left: 220px;
+        left: 60px;
         width: 100px;
         height: 40px;
     }
 
     #kitchen {
         top: 270px;
-        left: 380px;
+        left: 520px;
         width: 100px;
         height: 50px;
     }
@@ -280,14 +280,14 @@ const styles: string = css`
 
     #lab {
         top: 40px;
-        left: 480px;
+        left: 520px;
         width: 100px;
         height: 50px;
     }
 
     #storage {
         top: 140px;
-        left: 480px;
+        left: 520px;
         width: 100px;
         height: 40px;
     }
@@ -434,49 +434,54 @@ export class MapComponent extends HTMLElement {
                             <div class="${this.getLocationClass("lab")}" id="lab" title="Lab">Lab</div>
                             <div class="${this.getLocationClass("storage")}" id="storage" title="Storage">Storage</div>
                             
-                            <!-- Start Room to Vent -->
+                            <!-- Stramger Room to Vent -->
                             <div class="arrow arrow-horizontal" style="top: 55px; left: 160px; width: 60px;"></div>
                             <div class="arrow-head arrow-head-right" style="left: 220px; top: 55px;"></div>
                             
                             <!-- Vent to Roof -->
-                            <div class="arrow arrow-horizontal" style="top: 55px; left: 280px; width: 40px;"></div>
-                            <div class="arrow-head arrow-head-right" style="left: 320px; top: 55px;"></div>
+                            <div class="arrow arrow-horizontal" style="top: 55px; left: 320px; width: 40px;"></div>
+                            <div class="arrow-head arrow-head-right" style="left: 360px; top: 55px;"></div>
                             
-                            <!-- Start Room to Hallway -->
+                            <!-- Strangerroom to Hallway -->
                             <div class="arrow arrow-vertical" style="top: 90px; left: 100px; height: 30px;"></div>
                             <div class="arrow-head arrow-head-down" style="left: 100px; top: 120px;"></div>
+
+                            <!-- Vent to Startroom -->
+                            <div class="arrow arrow-vertical" style="top: 90px; left: 270px; height: 30px;"></div>
+                            <div class="arrow-head arrow-head-down" style="left: 270px; top: 120px;"></div>
                             
+                            <!-- Hallway to StarterRoom -->
+                            <div class="arrow arrow-horizontal" style="top: 160px; left: 140px; width: 70px;"></div>
+                            <div class="arrow-head arrow-head-right" style="left: 210px; top: 160px;"></div>
+
                             <!-- Hallway to Toilet -->
-                            <div class="arrow arrow-horizontal" style="top: 160px; left: 120px; width: 100px;"></div>
-                            <div class="arrow-head arrow-head-right" style="left: 220px; top: 160px;"></div>
+                            <div class="arrow arrow-horizontal" style="top: 220px; left: 140px; width: 70px;"></div>
+                            <div class="arrow-head arrow-head-right" style="left: 210px; top: 220px;"></div>
                             
-                            <!-- Hallway to Stranger Room -->
-                            <div class="arrow arrow-vertical" style="top: 240px; left: 100px; height: 30px;"></div>
-                            <div class="arrow-head arrow-head-down" style="left: 100px; top: 270px;"></div>
                             
                             <!-- Hallway to Cafeteria -->
-                            <div class="arrow arrow-diagonal" style="top: 180px; left: 120px; width: 100px; transform: rotate(35deg);"></div>
-                            <div class="arrow-head arrow-head-diagonal" style="left: 202px; top: 235px; transform: rotate(35deg);"></div>
+                            <div class="arrow arrow-diagonal" style="top: 260px; left: 140px; width: 80px; transform: rotate(35deg);"></div>
+                            <div class="arrow-head arrow-head-diagonal" style="left: 202px; top: 300px; transform: rotate(35deg);"></div>
+
+                            <!-- Cafeteria to gym -->
+                            <div class="arrow arrow-diagonal" style="top: 340px; left: 350px; width: 20px; transform: rotate(35deg);"></div>
+                            <div class="arrow-head arrow-head-diagonal" style="left: 370px; top: 350px; transform: rotate(35deg);"></div>
+
+                            <!-- Cafeteria to Courtyard -->
+                            <div class="arrow arrow-diagonal" style="top: 340px; left: 210px; width: 20px; transform: rotate(135deg);"></div>
+                            <div class="arrow-head arrow-head-diagonal" style="left: 195px; top: 350px; transform: rotate(135deg);"></div>
                             
                             <!-- Cafeteria to Kitchen -->
-                            <div class="arrow arrow-horizontal" style="top: 295px; left: 320px; width: 60px;"></div>
-                            <div class="arrow-head arrow-head-right" style="left: 380px; top: 295px;"></div>
-                            
-                            <!-- Cafeteria to Courtyard -->
-                            <div class="arrow arrow-vertical" style="top: 320px; left: 270px; height: 20px;"></div>
-                            <div class="arrow-head arrow-head-down" style="left: 270px; top: 340px;"></div>
-                            
-                            <!-- Kitchen to Gym -->
-                            <div class="arrow arrow-vertical" style="top: 320px; left: 430px; height: 20px;"></div>
-                            <div class="arrow-head arrow-head-down" style="left: 430px; top: 340px;"></div>
+                            <div class="arrow arrow-horizontal" style="top: 295px; left: 350px; width: 140px;"></div>
+                            <div class="arrow-head arrow-head-right" style="left: 490px; top: 295px;"></div>
                             
                             <!-- Storage to Lab -->
-                            <div class="arrow arrow-vertical" style="top: 90px; left: 530px; height: 50px;"></div>
-                            <div class="arrow-head arrow-head-up" style="left: 530px; top: 90px;"></div>
+                            <div class="arrow arrow-vertical" style="top: 90px; left: 570px; height: 50px;"></div>
+                            <div class="arrow-head arrow-head-up" style="left: 570px; top: 90px;"></div>
                             
                             <!-- Kitchen to Storage -->
-                            <div class="arrow arrow-vertical" style="top: 140px; left: 530px; height: 130px;"></div>
-                            <div class="arrow-head arrow-head-up" style="left: 530px; top: 140px;"></div>
+                            <div class="arrow arrow-vertical" style="top: 200px; left: 570px; height: 70px;"></div>
+                            <div class="arrow-head arrow-head-up" style="left: 570px; top: 200px;"></div>
                         </div>
                     </div>
                     
