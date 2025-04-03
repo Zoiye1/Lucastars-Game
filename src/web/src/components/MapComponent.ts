@@ -15,7 +15,7 @@ const styles: string = css`
     .map-button {
         position: absolute;
         top: 25%;
-        right: 12%;
+        right: 0%;
         z-index: 1;
         background: none;
         border: none;

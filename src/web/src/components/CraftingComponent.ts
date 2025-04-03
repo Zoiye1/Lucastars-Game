@@ -14,7 +14,7 @@ const styles: string = css`
     .crafting-button {
         position: absolute;
         top: 0%;
-        right: 12%;
+        right: 0%;
         z-index: 1;
         background: none;
         border: none;
@@ -463,6 +463,22 @@ export class CraftingComponent extends HTMLElement {
     }
 
     /**
+ * Toggle de crafting dialoog
+ */
+    private toggleDialog(): void {
+        const dialog: HTMLDialogElement | null | undefined = this.shadowRoot?.querySelector("dialog");
+
+        if (!dialog) return;
+
+        if (dialog.hasAttribute("open")) {
+            dialog.close();
+        }
+        else {
+            dialog.show();
+        }
+    }
+
+    /**
      * Render de inhoud van deze component
      */
     private render(): void {
@@ -532,7 +548,7 @@ export class CraftingComponent extends HTMLElement {
         const addSelectedBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#addSelectedItemButton");
         const retrieveBtn: HTMLButtonElement | null = this.shadowRoot.querySelector("#retrieveCraftedItem");
 
-        button.addEventListener("click", () => dialog.show());
+        button.addEventListener("click", () => this.toggleDialog());
         closeBtn.addEventListener("click", () => dialog.close());
 
         addSelectedBtn?.addEventListener("click", async () => {

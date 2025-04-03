@@ -14,7 +14,7 @@ const styles: string = css`
     .hint-button {
         position: absolute;
         top: 75%;
-        right: 12%;
+        right: 0%;
         z-index: 1;
         background: none;
         border: none;
