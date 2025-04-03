@@ -15,7 +15,7 @@ const styles: string = css`
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: #52478b;
+        background-color: #c6882a;
         color: white;
         border: none;
         cursor: pointer;
@@ -27,7 +27,7 @@ const styles: string = css`
     }
    
     .mute-button:hover {
-        background-color: #332c57;
+        background-color: #9f3f16;
     }
 `;
 

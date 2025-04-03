@@ -88,9 +88,7 @@ export class AudioService {
         this._roomMusicMap.set("startup", "/assets/audio/titlescreen.mp3");
         this._roomMusicMap.set("startuproom", "/assets/audio/titlescreen.mp3");
         this._roomMusicMap.set("Vents", "/assets/audio/hallway.mp3");
-        this._roomMusicMap.set("vents", "/assets/audio/hallway.mp3");
-        this._roomMusicMap.set("VentsRoom", "/assets/audio/hallway.mp3");
-        this._roomMusicMap.set("ventsroom", "/assets/audio/hallway.mp3");
+        this._roomMusicMap.set("Vents2", "/assets/audio/hallway.mp3");
         this._roomMusicMap.set("RoofEndRoom", "/assets/audio/escaped.mp3");
     }
 

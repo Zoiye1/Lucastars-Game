@@ -14,7 +14,7 @@ const styles: string = css`
     .hint-button {
         position: absolute;
         top: 75%;
-        right: 12%;
+        right: 0%;
         z-index: 1;
         background: none;
         border: none;
@@ -42,7 +42,7 @@ const styles: string = css`
         transform: translateX(-50%);
         padding: 15px 25px;
         background-color: rgba(20, 20, 20, 0.9);
-        border: 2px solid #332c57;
+        border: 2px solid #9f3f16;
         border-radius: 5px;
         text-align: center;
         z-index: 10;
