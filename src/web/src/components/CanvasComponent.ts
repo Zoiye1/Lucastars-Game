@@ -3,6 +3,7 @@ import { css, html, htmlArray } from "../helpers/webComponents";
 import { GameEventService } from "../services/GameEventService";
 import { GameRouteService } from "../services/GameRouteService";
 import { Page } from "../enums/Page";
+import { PlayerService } from "../services/PlayerService";
 
 /** CSS affecting the {@link CanvasComponent} */
 const styles: string = css`
@@ -175,6 +176,191 @@ const styles: string = css`
         opacity: 0;
     }
 `;
+const styles2: string = css`
+    :host {
+        font-family: "Onesize";
+        width: 100%;
+        max-width: 1024px;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 5vh 50vh 30vh 15vh;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        position: relative;
+    }
+        
+
+    .title {
+        text-align: center;
+        margin-top: 10px;
+        overflow: auto;
+        height: 3rem;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .header img {
+        width: 90%;
+        position: fixed;
+        height: auto;
+        image-rendering: pixelated;
+    }
+
+    .header img:nth-child(n + 2) {
+        position: fixed;
+    }
+
+    game-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    margin: 0;
+    height: 100%;                       
+    aspect-ratio: 2 / 1; 
+    
+    }
+    
+    game-click {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    margin: 0;
+    height: 100%;                       
+    aspect-ratio: 2 / 1; 
+    }
+
+
+    .content {
+        flex-grow: 1;
+        overflow: auto;
+        margin-top: 10px;
+        padding: 0 10px;
+    }
+
+    .content p {
+        margin: 0 0 10px 0;
+    }
+
+    .content p:last-of-type {
+        margin: 0;
+    }
+
+    /* Typewriter effect styles */
+    .typewriter {
+        // display: inline-block;
+        white-space: pre-wrap;
+        overflow: hidden;
+        border-right: 0.15em solid orange; /* Cursor effect */
+        animation: blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: orange; }
+    }
+
+    /* Item name highlighting */
+    .item-name {
+        color: #ff5252; /* Red color for item names */
+        font-weight: bold;
+    }
+
+    .footer {
+    position: fixed;
+    // bottom: 10%;
+        border-radius: 10px 10px 0 0;
+        // background-color: #52478b;
+        // border: 1px solid #332c57;
+        margin-top: 10px;
+        display:absolute;
+        height: auto;
+        z-index: 2;
+    }
+
+    .footer .buttons {
+        display: flex;
+        justify-content: center; /* Align horizontally */
+        align-items: center; 
+        height: 100vh;
+        overflow: auto;
+        padding: 10px 10px 0 10px;
+    }
+
+    .footer .button {
+        position: fixed;
+        bottom: 6%;
+        width: 25vw;
+        height: 7vh;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color:rgb(183, 2, 2);
+        border: 10px solid rgb(137, 2, 2);
+        padding: 10px 10px;
+        margin: 0 0 10px 10px;
+        text-transform: uppercase;
+        cursor: pointer;
+        // display: inline-block;
+        user-select: none;
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .footer .button.active,
+    .footer .button:hover {
+        background-color:rgb(111, 0, 0);
+        // scale: 1.1;
+    }
+    
+    
+    /* Add responsive design for better mobile experience */
+    @media (max-width: 768px) {
+        :host {
+            grid-template-rows: auto 45vh auto auto;
+        }
+        
+        .footer {
+            height: auto;
+            min-height: 105px;
+        }
+    }
+
+    .notification {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 25px;
+        background-color: #fff;
+        border: 3px solid #222;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 10;
+        font-size: 18px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 1;
+        transition: opacity 0.5s ease;
+        max-width: 80%;
+    }
+
+    .notification.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #155724;
+    }
+
+    .notification.fadeOut {
+        opacity: 0;
+    }
+`;
 
 /**
  * Represents the Canvas page
@@ -267,8 +453,9 @@ export class CanvasComponent extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
-
-        const elements: HTMLElement[] = htmlArray`
+        const room: string | undefined = this._currentGameState?.roomAlias;
+        if (room !== "startup") {
+            const elements: HTMLElement[] = htmlArray`
             <style>
                 ${styles}
             </style>
@@ -279,22 +466,51 @@ export class CanvasComponent extends HTMLElement {
             ${this.renderFooter()}
         `;
 
-        while (this.shadowRoot.firstChild) {
-            this.shadowRoot.firstChild.remove();
-        }
+            while (this.shadowRoot.firstChild) {
+                this.shadowRoot.firstChild.remove();
+            }
 
-        this.shadowRoot.append(...elements);
+            this.shadowRoot.append(...elements);
 
-        // Apply typewriter effect to the content if text has changed
-        const newText: string = this._currentGameState?.text.join(" ") || "";
-        if (newText !== this._previousText) {
-            this.typeWriterEffect(newText, "typewriter");
-            this._previousText = newText;
+            // Apply typewriter effect to the content if text has changed
+            const newText: string = this._currentGameState?.text.join(" ") || "";
+            if (newText !== this._previousText) {
+                this.typeWriterEffect(newText, "typewriter");
+                this._previousText = newText;
+            }
+            else {
+                const typewriterElement: HTMLElement | null = this.shadowRoot.querySelector("#typewriter");
+                if (typewriterElement) {
+                    typewriterElement.innerHTML = this.highlightItemNamesInText(newText);
+                }
+            }
         }
         else {
-            const typewriterElement: HTMLElement | null = this.shadowRoot.querySelector("#typewriter");
-            if (typewriterElement) {
-                typewriterElement.innerHTML = this.highlightItemNamesInText(newText);
+            const elements: HTMLElement[] = htmlArray`
+            <style>
+                ${styles2}
+            </style>
+            ${this.renderHeader()}
+            ${this.renderFooter()}
+        `;
+
+            while (this.shadowRoot.firstChild) {
+                this.shadowRoot.firstChild.remove();
+            }
+
+            this.shadowRoot.append(...elements);
+
+            // Apply typewriter effect to the content if text has changed
+            const newText: string = this._currentGameState?.text.join(" ") || "";
+            if (newText !== this._previousText) {
+                this.typeWriterEffect(newText, "typewriter");
+                this._previousText = newText;
+            }
+            else {
+                const typewriterElement: HTMLElement | null = this.shadowRoot.querySelector("#typewriter");
+                if (typewriterElement) {
+                    typewriterElement.innerHTML = this.highlightItemNamesInText(newText);
+                }
             }
         }
     }
