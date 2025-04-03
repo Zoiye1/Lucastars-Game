@@ -236,8 +236,8 @@ const styles: string = css`
     }
 
     .dialog-button:hover {
-        background-color: ##C6952;
-        transform: scale(1.05);
+        filter: brightness(0.5);
+        scale: 1.1;
     }
 
     #craftButton {
