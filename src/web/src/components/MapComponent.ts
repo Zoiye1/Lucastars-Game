@@ -46,6 +46,11 @@ const styles: string = css`
         color: white;
         max-height: 550px;
         overflow-y: auto;
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translateX(-55%);
+        z-index: 3;
     }
 
     .map-panel.active {
@@ -402,7 +407,7 @@ export class MapComponent extends HTMLElement {
      * Get location status class
      */
     private getLocationClass(locationId: string): string {
-        let classes = "room";
+        let classes: string = "room";
 
         // Check for exact match first
         if (locationId === this._currentRoom) {
@@ -520,7 +525,7 @@ export class MapComponent extends HTMLElement {
         this.shadowRoot.append(...elements);
 
         // Add event listener for the map button
-        const mapButton = this.shadowRoot.querySelector(".map-button");
+        const mapButton: HTMLElement | null = this.shadowRoot.querySelector(".map-button");
         if (mapButton) {
             mapButton.addEventListener("click", () => {
                 this._isPanelOpen = !this._isPanelOpen;
