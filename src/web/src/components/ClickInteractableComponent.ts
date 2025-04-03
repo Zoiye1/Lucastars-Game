@@ -32,7 +32,7 @@ const styles: string = css`
         flex-direction: column;
         overflow: auto;
         padding: 5px 5px 5px 5px;
-        background:rgb(66, 51, 142);
+        background: #9f3f16;
         position: absolute;
         visibility: hidden;
     }
@@ -43,15 +43,15 @@ const styles: string = css`
         flex-direction: column;
         overflow: auto;
         padding: 5px 5px 5px 5px;
-        background:rgb(66, 51, 142);
+        background: #9f3f16;
         position: absolute;
         visibility: visible;
     }
 
     .button {
         z-index: 3;
-        background-color: #7f6ed7;
-        border: 1px solid #332c57;
+        background-color: #c6882a;
+        border: 1px solid #9f3f16;
         padding: 3px 0px;
         margin: 0 0 0px 0px;
         text-transform: uppercase;
@@ -62,7 +62,7 @@ const styles: string = css`
 
     .button.active,
     .button:hover {
-        background-color: #332c57;
+        background-color: #9f3f16;
     }
     .TitleItem {
     position: absolute;
