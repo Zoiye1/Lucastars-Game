@@ -40,7 +40,7 @@ const styles: string = css`
     .map-panel {
         display: none;
         background-color: rgba(20, 20, 20, 0.95);
-        border: 2px solid #332c57;
+        border: 2px solid #9f3f16;
         border-radius: 8px;
         padding: 15px;
         color: white;
@@ -68,12 +68,12 @@ const styles: string = css`
     }
 
     .dashed-divider {
-        border-top: 2px dashed #7f6ed7;
+        border-top: 2px dashed #9f3f16;
         margin: 10px 0;
     }
 
     .map-title {
-        color: #7f6ed7;
+        color: #9f3f16;
         text-align: center;
         margin-bottom: 15px;
         font-size: 20px;
@@ -85,7 +85,7 @@ const styles: string = css`
         width: 100%;
         height: 400px;
         background-color: rgba(0, 0, 0, 0.3);
-        border: 2px solid #332c57;
+        border: 2px solid #9f3f16;
         border-radius: 8px;
         overflow: auto;
     }
@@ -99,7 +99,7 @@ const styles: string = css`
 
     .room {
         position: absolute;
-        background-color: #7f6ed7;
+        background-color: #9f3f16;
         color: white;
         padding: 8px;
         border-radius: 5px;
