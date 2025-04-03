@@ -236,7 +236,7 @@ const styles: string = css`
     }
 
     .dialog-button:hover {
-        background-color: ##C6952;
+        background-color: #9f3f16;
         transform: scale(1.05);
     }
 
