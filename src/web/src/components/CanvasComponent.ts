@@ -83,7 +83,7 @@ const styles: string = css`
 
     /* Typewriter effect styles */
     .typewriter {
-        display: inline-block;
+        // display: inline-block;
         white-space: pre-wrap;
         overflow: hidden;
         border-right: 0.15em solid orange; /* Cursor effect */
