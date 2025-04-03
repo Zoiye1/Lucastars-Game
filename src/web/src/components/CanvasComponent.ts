@@ -131,6 +131,7 @@ const styles: string = css`
     .footer .button.active,
     .footer .button:hover {
         background-color: #332c57;
+        scale: 1.03;
     }
     
     
