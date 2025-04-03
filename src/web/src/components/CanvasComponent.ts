@@ -3,7 +3,7 @@ import { css, html, htmlArray } from "../helpers/webComponents";
 import { GameEventService } from "../services/GameEventService";
 import { GameRouteService } from "../services/GameRouteService";
 import { Page } from "../enums/Page";
-import { PlayerService } from "../services/PlayerService";
+// import { PlayerService } from "../services/PlayerService";
 
 /** CSS affecting the {@link CanvasComponent} */
 const styles: string = css`
