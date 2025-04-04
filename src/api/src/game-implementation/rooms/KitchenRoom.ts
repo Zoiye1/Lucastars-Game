@@ -70,7 +70,7 @@ export class KitchenRoom extends Room {
 
         // result as an array of ClickItem objects
         const result: ClickItem[] = [
-            { name: "Cook", alias: "cook", imageUrl: "kitchen/Cook1", type: ["npc"], imageCoords: { x: 60, y: 52 } },
+            { name: "Cook", alias: "cook", imageUrl: "gif/Cook", type: ["npc"], imageCoords: { x: 10, y: 20 } },
         ];
         if (!playerSession.playerOpenedDoorToStorage) {
             result.push({ name: "Door", alias: "door", imageUrl: "kitchen/DoorClosedStorage", type: ["actionableItemOpen"], imageCoords: { x: 40, y: 36 } });
