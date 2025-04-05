@@ -381,7 +381,7 @@ export class GameController {
                 startQuest: !!playerSession.wantsToHelpProfessor,
                 completed: playerSession.helpedProfessor,
                 description: "Bring the necessary ingredients to the professor.",
-                reward: "Reward: + 1x biting acid.",
+                reward: "Reward: + 1x corrosive acid.",
             },
             {
                 NPC: "smoker",

@@ -72,6 +72,26 @@ const styles: string = css`
         margin: 10px 0;
     }
 
+    #closeMap {
+        font-family: "Onesize", sans-serif;
+        background-color: transparent;
+        padding: 0 5px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border: 1px solid #9f3f16;
+        border-radius: 5px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #9f3f16;
+        transition: all 0.3s ease;
+    }
+
+    #closeMap:hover {
+        background-color: #9f3f16;
+        color: white;
+    }
+
     .map-title {
         color: #9f3f16;
         text-align: center;
@@ -416,6 +436,7 @@ export class MapComponent extends HTMLElement {
             </button>
             <div class="map-panel ${this._isPanelOpen ? "active" : ""}">
                 <div class="container-map">
+                    <button id="closeMap">X</button>
                     <div class="dashed-divider"></div>
                     <h2 class="map-title">Hospital Map</h2>
                     <div class="map-container">
@@ -511,5 +532,12 @@ export class MapComponent extends HTMLElement {
                 this.render();
             });
         }
+
+        const closeBtn: HTMLButtonElement = this.shadowRoot.querySelector("#closeMap") as HTMLButtonElement;
+
+        closeBtn.addEventListener("click", () => {
+            this._isPanelOpen = !this._isPanelOpen;
+            this.render();
+        });
     }
 }

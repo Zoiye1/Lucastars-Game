@@ -71,9 +71,9 @@ export class ToiletRoom extends Room {
             result.push({
                 name: "Dealer",
                 alias: "dealer",
-                imageUrl: "gif/Dealergif",
+                imageUrl: "gif/Dealer",
                 type: ["npc"],
-                imageCoords: { x: 40, y: 30 },
+                imageCoords: { x: 20, y: 40 },
             });
         }
 
