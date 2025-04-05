@@ -103,10 +103,10 @@ const styles: string = css`
     }
 
     .footer {
-        border-radius: 10px 10px 0 0;
+        // border-radius: 10px 10px 0 0;
         background-color: #c6882a;
-        border: 1px solid #9f3f16;
-        margin-top: 10px;
+        border: 4px solid rgb(118, 78, 17);
+        // margin-top: 10px;
         display: flex;
         height: 105px;
     }
@@ -119,20 +119,35 @@ const styles: string = css`
     }
 
     .footer .button {
-        background-color: #c6882a;
-        border: 6px solid #9f3f16;
-        padding: 5px 10px;
-        margin: 0 0 10px 10px;
+         background-color:rgb(155, 104, 28);
+        // border: 4px solid #9f3f16;
+        padding: 3px 0px;
+        margin: 0 0 5px 10px;
         text-transform: uppercase;
+        text-shadow: 0 2px 0 #000;
+        box-shadow:
+        2px 2px 0 rgb(118, 78, 17),
+        4px 4px 0  rgb(67, 43, 7);
         cursor: pointer;
         display: inline-block;
         user-select: none;
+        // margin-bottom: 4px;
+        // margin-right: 2px;
     }
+         @keyframes pixel-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-2px); }
+    }
+
 
     .footer .button.active,
     .footer .button:hover {
-        background-color: #9f3f16;
-        scale: 1.03;
+         outline: 4px solid rgb(255, 255, 255);
+  z-index: 4;
+//   background-color: #d97706; /* slightly lighter shade */
+  cursor: pointer;
+  animation: pixel-bounce 0.3s ease-in-out;
+  scale: 1.02;
     }
     
     

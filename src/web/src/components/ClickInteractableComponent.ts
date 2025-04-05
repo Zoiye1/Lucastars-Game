@@ -32,7 +32,7 @@ const styles: string = css`
         flex-direction: column;
         overflow: auto;
         padding: 5px 5px 5px 5px;
-        background: #9f3f16;
+        // background: #9f3f16;
         position: absolute;
         visibility: hidden;
     }
@@ -43,7 +43,7 @@ const styles: string = css`
         flex-direction: column;
         overflow: auto;
         padding: 5px 5px 5px 5px;
-        background: #9f3f16;
+        background:rgb(123, 80, 16);
         position: absolute;
         visibility: visible;
     }
@@ -51,18 +51,36 @@ const styles: string = css`
     .button {
         z-index: 3;
         background-color: #c6882a;
-        border: 1px solid #9f3f16;
+        // border: 1px solid #9f3f16;
         padding: 3px 0px;
         margin: 0 0 0px 0px;
         text-transform: uppercase;
+        text-shadow: 0 2px 0 #000;
+        box-shadow:
+        2px 2px 0 rgb(118, 78, 17),
+        4px 4px 0  rgb(67, 43, 7);
         cursor: pointer;
         display: inline-block;
         user-select: none;
+        // margin-bottom: 4px;
+        // margin-right: 2px;
+    }
+    @keyframes pixel-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-2px); }
     }
 
-    .button.active,
-    .button:hover {
+
+    .button.active{
         background-color: #9f3f16;
+    }
+    .button:hover {
+  outline: 4px solid rgb(255, 255, 255);
+  z-index: 4;
+//   background-color: #d97706; /* slightly lighter shade */
+  cursor: pointer;
+  animation: pixel-bounce 0.3s ease-in-out;
+  scale: 1.02;
     }
     .TitleItem {
     position: absolute;

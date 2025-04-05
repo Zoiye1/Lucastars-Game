@@ -90,7 +90,7 @@ export class GameController {
 
         // Als er geen objecten gevonden zijn, is het verzoek ongeldig
         if (gameObjects.length === 0) {
-            console.error("[error][GameController::executeAction] Geen spelobjecten gevonden!");
+            console.error("[error][GameController::executeAction] No game objects found!");
 
             return undefined;
         }
@@ -120,7 +120,7 @@ export class GameController {
 
         // Als er geen huidige kamer is gevonden, is het verzoek ongeldig
         if (!currentRoom) {
-            console.error("[error][GameController::convertActionResultToGameState] Geen huidige kamer gevonden!");
+            console.error("[error][GameController::convertActionResultToGameState] No room found!");
             return undefined;
         }
 
@@ -208,7 +208,7 @@ export class GameController {
             text = actionResult.text;
         }
         else {
-            text = ["Dat slaat nergens op."];
+            text = ["That makes no sense"];
         }
 
         // Bepaal de acties die aan de speler getoond moeten worden
@@ -299,54 +299,103 @@ export class GameController {
     public getActiveQuests(_: Request, res: Response): QuestArray[] {
         const playerSession: PlayerSession = gameService.getPlayerSession();
         const questArray: QuestArray[] = [
+            // {
+            //     NPC: "cleaner",
+            //     startQuest: playerSession.wantsToHelpCleaner,
+            //     completed: playerSession.helpedCleaner,
+            //     description: "Zoek de emmer met water en help de schoonmaker.",
+            //     reward: "Beloning: Toegang tot keuken + 1x 10 euro biljet.",
+            // },
+            // {
+            //     NPC: "dealer",
+            //     startQuest: !!playerSession.wantsToHelpDealer2,
+            //     completed: !!playerSession.helpedDealer2,
+            //     description: "Geef de dealer een biljet van 10 euro.",
+            //     reward: "Beloning: + 1x pakje sigaretten.",
+            // },
+            // {
+            //     NPC: "cook",
+            //     startQuest: !!playerSession.wantsToHelpCook,
+            //     completed: (!!playerSession.helpedCook || playerSession.ThreatenedCook),
+            //     description: "Vind de vork of vind een andere manier om de sleutel van de kok te krijgen.",
+            //     reward: "Beloning: Toegang tot de opslagruimte.",
+            // },
+            // {
+            //     NPC: "gymfreak",
+            //     startQuest: !!playerSession.wantsToHelpGymFreak,
+            //     completed: playerSession.helpedGymFreak,
+            //     description: "Geef de dealer wat steroïden.",
+            //     reward: "Beloning: Ontsnap uit het ziekenhuis!",
+            // },
+            // {
+            //     NPC: "professor",
+            //     startQuest: !!playerSession.wantsToHelpProfessor,
+            //     completed: playerSession.helpedProfessor,
+            //     description: "Breng de benodigde ingrediënten naar de professor.",
+            //     reward: "Beloning: + 1x bijtend zuur",
+            // },
+            // {
+            //     NPC: "smoker",
+            //     startQuest: !!playerSession.wantsToHelpSmoker,
+            //     completed: !!playerSession.helpedSmoker,
+            //     description: "Geef de dealer een pakje sigaretten.",
+            //     reward: "Beloning: + 1x aansteker",
+            // },
+            // {
+            //     NPC: "dealer",
+            //     startQuest: !!playerSession.wantsToHelpDealer,
+            //     completed: !!playerSession.helpedDealer,
+            //     description: "Vind de suiker en praat met de dealer.",
+            //     reward: "Beloning: + 1x steroïden.",
+            // },
             {
                 NPC: "cleaner",
                 startQuest: playerSession.wantsToHelpCleaner,
                 completed: playerSession.helpedCleaner,
-                description: "Zoek de emmer met water en help de schoonmaker.",
-                reward: "Beloning: Toegang tot keuken + 1x 10 euro biljet.",
+                description: "Find the bucket of water and help the cleaner.",
+                reward: "Reward: Access to the kitchen + 1x 10 euro bill.",
             },
             {
                 NPC: "dealer",
                 startQuest: !!playerSession.wantsToHelpDealer2,
                 completed: !!playerSession.helpedDealer2,
-                description: "Geef de dealer een biljet van 10 euro.",
-                reward: "Beloning: + 1x pakje sigaretten.",
+                description: "Give the dealer a 10 euro bill.",
+                reward: "Reward: + 1x pack of cigarettes.",
             },
             {
                 NPC: "cook",
                 startQuest: !!playerSession.wantsToHelpCook,
                 completed: (!!playerSession.helpedCook || playerSession.ThreatenedCook),
-                description: "Vind de vork of vind een andere manier om de sleutel van de kok te krijgen.",
-                reward: "Beloning: Toegang tot de opslagruimte.",
+                description: "Find the fork or find another way to get the cook's key.",
+                reward: "Reward: Access to the storage room.",
             },
             {
                 NPC: "gymfreak",
                 startQuest: !!playerSession.wantsToHelpGymFreak,
                 completed: playerSession.helpedGymFreak,
-                description: "Geef de dealer wat steroïden.",
-                reward: "Beloning: Ontsnap uit het ziekenhuis!",
+                description: "Give the Gymfreak some steroids.",
+                reward: "Reward: Escape from the hospital!",
             },
             {
                 NPC: "professor",
                 startQuest: !!playerSession.wantsToHelpProfessor,
                 completed: playerSession.helpedProfessor,
-                description: "Breng de benodigde ingrediënten naar de professor.",
-                reward: "Beloning: + 1x bijtend zuur",
+                description: "Bring the necessary ingredients to the professor.",
+                reward: "Reward: + 1x biting acid.",
             },
             {
                 NPC: "smoker",
                 startQuest: !!playerSession.wantsToHelpSmoker,
                 completed: !!playerSession.helpedSmoker,
-                description: "Geef de dealer een pakje sigaretten.",
-                reward: "Beloning: + 1x aansteker",
+                description: "Give the smoker a pack of cigarettes.",
+                reward: "Reward: + 1x lighter.",
             },
             {
                 NPC: "dealer",
                 startQuest: !!playerSession.wantsToHelpDealer,
                 completed: !!playerSession.helpedDealer,
-                description: "Vind de suiker en praat met de dealer.",
-                reward: "Beloning: + 1x steroïden.",
+                description: "Find the sugar and talk to the dealer.",
+                reward: "Reward: + 1x steroids.",
             },
         ];
         res.json(questArray);
