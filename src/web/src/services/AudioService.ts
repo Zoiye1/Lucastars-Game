@@ -90,6 +90,7 @@ export class AudioService {
         this._roomMusicMap.set("Vents", "/assets/audio/hallway.mp3");
         this._roomMusicMap.set("Vents2", "/assets/audio/hallway.mp3");
         this._roomMusicMap.set("RoofEndRoom", "/assets/audio/escaped.mp3");
+        this._roomMusicMap.set("toilet-end", "/assets/audio/escaped.mp3");
     }
 
     /**
