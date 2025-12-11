@@ -15,12 +15,10 @@ config({ path: ".env.local", override: true });
 
 // Enable CORS headers
 app.use(cors({
-    origin: [
-        "https://lucastars-game-web.vercel.app",
-        "http://localhost:5173",
-        "http://localhost:3000",
-    ],
     credentials: true,
+    origin(requestOrigin, callback) {
+        callback(null, requestOrigin);
+    },
 }));
 
 // Enable JSON-body support for requests
