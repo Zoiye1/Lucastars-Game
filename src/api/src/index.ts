@@ -16,7 +16,7 @@ config({ path: ".env.local", override: true });
 // Enable CORS headers
 app.use(cors({
     origin: [
-        "https://lucastars-game-o9ahkfnkq-zoiyes-projects.vercel.app",
+        "https://lucastars-game-a3s4rnwrp-zoiyes-projects.vercel.app",
         "http://localhost:5173",
         "http://localhost:3000",
     ],
