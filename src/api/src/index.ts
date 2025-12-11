@@ -14,7 +14,14 @@ config();
 config({ path: ".env.local", override: true });
 
 // Enable CORS headers
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://lucastars-game-o9ahkfnkq-zoiyes-projects.vercel.app',
+        'http://localhost:5173',
+        'http://localhost:3000'
+    ],
+    credentials: true
+}));
 
 // Enable JSON-body support for requests
 app.use(express.json());
@@ -24,7 +31,6 @@ app.use("/", router);
 
 // Start the Express application by listening for connections on the configured port
 const port: number = (process.env.PORT || 8080) as number;
-
 app.listen(port, () => {
     console.log(`API is running on http://localhost:${port}`);
 });
