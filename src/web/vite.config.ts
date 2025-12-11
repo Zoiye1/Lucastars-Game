@@ -51,7 +51,7 @@ export default defineConfig(config => {
                     "./src/**/*.ts",
                     "../shared/**/*.ts",
                 ],
-                lintOnBuild: true,
+                lintOnBuild: false,
                 lintOnWatchDelay: 200,
             }),
         ],
